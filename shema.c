@@ -189,7 +189,7 @@ void Sxema(double *G, double *V1, double *V2, int *st, double *X,
               tmp = thxp_05;                                              // +
               Q_SetEntry (&A, mm, 3, mmgL0, -tmp);                        // +
               Q_SetEntry (&A, mm, 4, mmgR0, tmp);                         // +
-              tmp = -thx_05 * (v100 + fabs (v100)) + MU43x;               // +
+              tmp = -thx_05 * (v100 + fabs (v100)) - MU43x;               // +
               Q_SetEntry (&A, mm, 5, mmv1L0, tmp);                        // +
               tmp = -thy_05 * (v200 + fabs (v200)) - MUy;                 // +
               Q_SetEntry(&A, mm, 6, mmv10L, tmp);                         // +

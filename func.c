@@ -177,8 +177,8 @@ inline double gg (double t, double x, double y)
 }
 
 #define d_gg_dt 0.
-#define d_gg_dx (-M_PI) * sin (M_PI * x) / (cos (M_PI * x) + 1.5)
-#define d_gg_dy (+M_PI) * cos (M_PI * y) / (sin (M_PI * y) + 1.5)
+#define d_gg_dx ((-M_PI) * sin (M_PI * x) / (cos (M_PI * x) + 1.5))
+#define d_gg_dy ((+M_PI) * cos (M_PI * y) / (sin (M_PI * y) + 1.5))
 
 inline double p (double t, double x, double y, double p_ro)
 {
@@ -198,10 +198,9 @@ inline double u1 (double t, double x, double y)
 }
 
 #define d_u1_dt 0.
-#define d_u1_dx M_PI * cos (M_PI * x)
+#define d_u1_dx (M_PI * cos (M_PI * x))
 #define d_u1_dy 0.
-#define d_u1_dxdx -M_PI * M_PI * sin (M_PI * x)
-#define d_u1_dydy 0.
+#define d_u1_dxdx (-M_PI * M_PI * sin (M_PI * x))
 #define d_u1_dxdy 0.
 
 inline double u2 (double t, double x, double y)

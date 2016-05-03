@@ -3,10 +3,10 @@
 
 #define cave 0
 #define square 1
-#define light_funcs 1
-#define light_g 1
-#define light_u1 1
-#define light_u2 1
+#define light_funcs 0
+#define light_g 0
+#define light_u1 0
+#define light_u2 0
 
 void param_dif(P_dif *p_d)
 {

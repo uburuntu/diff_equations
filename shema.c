@@ -206,19 +206,20 @@ void Sxema(double *G, double *V1, double *V2, int *st, double *X,
               Q_SetLen (&A, mm, 7);
               tmp = 1. + thy * fabs (v200) + thx * fabs (v100) + MUv2;
               Q_SetEntry (&A, mm, 0, mm, tmp);
-              tmp = thy_05 * (v200 - fabs (v200)) - MU43y;
-              Q_SetEntry (&A, mm, 1, mmv2R0, tmp);
               tmp = thx_05 * (v100 - fabs (v100)) - MUx;
+              Q_SetEntry (&A, mm, 1, mmv2R0, tmp);
+              tmp = thy_05 * (v200 - fabs (v200)) - MU43y;
               Q_SetEntry (&A, mm, 2, mmv20R, tmp);
               tmp = thyp_05;
               Q_SetEntry (&A, mm, 3, mmg0L, -tmp);
               Q_SetEntry (&A, mm, 4, mmg0R, tmp);
-              tmp = -thy_05 * (v200 + fabs (v200)) + MU43y;
-              Q_SetEntry (&A, mm, 5, mmv2L0,tmp );
               tmp = -thx_05 * (v100 + fabs (v100)) - MUx;
+              Q_SetEntry (&A, mm, 5, mmv2L0,tmp );
+              tmp = -thy_05 * (v200 + fabs (v200)) - MU43y;
               Q_SetEntry (&A, mm, 6, mmv20L, tmp );
+              tmp1 = mu * exp(-g00);
               tmp = v200 + (tmp1 - MUM)
-                  * (thyy_4_3 * (v2R0 - 2. * v200 + v2L0) + thxx * (v20R - 2. * v200 + v20L))
+                  * (thyy_4_3 * (v20R - 2. * v200 + v20L) + thxx * (v2R0 - 2. * v200 + v2L0))
                   + tmp1 * thxy_1_12 * (v1RR - v1RL - v1LR + v1LL) + tau * Func_v2 (tt, xx, yy, p_ro, mu);
               V_SetCmp (&B, mm, tmp);
               mm++;
@@ -227,7 +228,7 @@ void Sxema(double *G, double *V1, double *V2, int *st, double *X,
 
             case 1:
               g00 = G[m];
-              mmv1R0 = (3 * M0R[m] + 1) + 1;
+              mmv1R0 = mm + 4;
               // g(mx,my)--------------------------------------------
               Q_SetLen (&A, mm, 3);
               Q_SetEntry (&A, mm, 0, mm, 1.);
@@ -252,7 +253,7 @@ void Sxema(double *G, double *V1, double *V2, int *st, double *X,
               // *******************************************
             case 2:
               g00 = G[m];
-              mmv1L0 = (3 * M0L[m] + 1) + 1;
+              mmv1L0 = mm - 2;
               // g(mx,my)--------------------------------------------
               Q_SetLen (&A, mm, 3);
               Q_SetEntry (&A, mm, 0, mm, 1.);
@@ -413,7 +414,8 @@ void Sxema(double *G, double *V1, double *V2, int *st, double *X,
         }
 
       // BiCGIter(&A, &D, &B, 2000, SSORPrecond, 1.);
-      BiCGIter(&A, &D, &B, 2000, JacobiPrecond, 1.);
+       BiCGIter(&A, &D, &B, 2000, JacobiPrecond, 1.);
+      // BiCGIter(&A, &D, &B, 2000, NULL, 1.);
 
       mm = 1;
       // Copy solutiong to G, V1, V2 arrays

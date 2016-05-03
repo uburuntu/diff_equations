@@ -162,6 +162,8 @@ double Func_v2(double t, double x, double y, double p_ro, double mu)
 #else
 inline double ro (double t, double x, double y)
 {
+  FIX_UNUSED (t);
+
 #if light_g
   return (double) ((cos (M_PI * x) + 1.5) * (sin (M_PI * y) + 1.5));
 #else
@@ -185,6 +187,9 @@ inline double p (double t, double x, double y, double p_ro)
 
 inline double u1 (double t, double x, double y)
 {
+  FIX_UNUSED (t);
+  FIX_UNUSED (y);
+
 #if light_u1
   return (double) (sin (M_PI * x));
 #else
@@ -201,6 +206,10 @@ inline double u1 (double t, double x, double y)
 
 inline double u2 (double t, double x, double y)
 {
+  FIX_UNUSED (t);
+  FIX_UNUSED (x);
+  FIX_UNUSED (y);
+
 #if light_u2
   return 0.;
 #else
@@ -231,6 +240,8 @@ inline double Func_g(double t, double x, double y)
 
 inline double Func_v1(double t, double x, double y, double p_ro, double mu)
 {
+  FIX_UNUSED (mu);
+
 #if light_funcs
   return (double) (d_u1_dt + u1 (t, x, y) * d_u1_dx + u2 (t, x, y) * d_u1_dy + p_ro * d_gg_dx
                    - mu * exp (-gg (t, x, y)) * ((4. / 3) * d_u1_dxdx));
@@ -248,6 +259,8 @@ inline double Func_v1(double t, double x, double y, double p_ro, double mu)
 
 inline double Func_v2(double t, double x, double y, double p_ro, double mu)
 {
+  FIX_UNUSED (mu);
+
 #if light_funcs
   return (double) (d_u2_dt + u1 (t, x, y) * d_u2_dx + u2 (t, x, y) * d_u2_dy + p_ro * d_gg_dy);
 #else

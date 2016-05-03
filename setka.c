@@ -50,6 +50,8 @@
 
 void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif *p_d)
 {
+  FIX_UNUSED (p_d);
+
 #if square
     int M1,M2;
     double hx,hy;

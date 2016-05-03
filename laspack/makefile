@@ -81,10 +81,10 @@ LIBS		=
 COMPFLAGS	=  
 
 # compiler options passed throuth enviroment variables
-#CFLAGS		=
+CFLAGS		=-Ofast
 #PFLAGS		=
 #FFLAGS		=
-#CXXFLAGS	=
+CXXFLAGS	=-Ofast
 
 LIBLOCAL	= /usr/local/lib
 INCLOCAL	= /usr/local/include

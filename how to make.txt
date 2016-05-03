@@ -1,2 +1,2 @@
-1. Run make in laspack folder (once)
-2. Run make in main folder
+1. Run 'make' in laspack folder (once)
+2. Run 'make' in main folder

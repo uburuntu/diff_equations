@@ -95,11 +95,7 @@ int main()
           free (Y);
           free (M0L);
           free (M0R);
-          // debug
-          break;
         }
-      // debug
-      //break;
     }
 
   tabtex_nc_g (it_t_max, it_sp_max, nc_g, tauit, p_d.p_ro, p_d.mu);

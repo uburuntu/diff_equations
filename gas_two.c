@@ -23,12 +23,17 @@ int main ()
 
   double *nc_g, *nl2_g, *nc_v1, *nc_v2, *nl2_v1, *nl2_v2;
   double *time, *tauit;
-  nc_g = (double*) malloc ((n_ver) * sizeof(double));
-  nc_v1 = (double*) malloc ((n_ver) * sizeof(double));
-  nc_v2 = (double*) malloc ((n_ver) * sizeof(double));
-  nl2_g = (double*) malloc ((n_ver) * sizeof(double));
-  nl2_v1 = (double*) malloc ((n_ver) * sizeof(double));
-  nl2_v2 = (double*) malloc ((n_ver) * sizeof(double));
+
+  if (!NEW_INIT)
+    {
+      nc_g = (double*) malloc ((n_ver) * sizeof(double));
+      nc_v1 = (double*) malloc ((n_ver) * sizeof(double));
+      nc_v2 = (double*) malloc ((n_ver) * sizeof(double));
+      nl2_g = (double*) malloc ((n_ver) * sizeof(double));
+      nl2_v1 = (double*) malloc ((n_ver) * sizeof(double));
+      nl2_v2 = (double*) malloc ((n_ver) * sizeof(double));
+    }
+
   time = (double*) malloc ((n_ver) * sizeof(double));
   tauit = (double*) malloc ((it_t_max + 1) * sizeof(double));
 

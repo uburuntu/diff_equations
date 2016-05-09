@@ -449,9 +449,38 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
             }
         }
 
-      // BiCGIter(&A, &D, &B, 2000, SSORPrecond, 1.);
-      BiCGIter(&A, &D, &B, 2000, JacobiPrecond, 1.);
-      // BiCGIter(&A, &D, &B, 2000, NULL, 1.);
+      // Solver
+      switch (1)
+        {
+          static const int max_iters = 2000;
+          static const double precond_omega = 1.;
+
+          case 1:
+            {
+              BiCGIter (&A, &D, &B, max_iters, ILUPrecond, precond_omega);
+              break;
+            }
+          case 2:
+            {
+              BiCGIter (&A, &D, &B, max_iters, JacobiPrecond, precond_omega);
+              break;
+            }
+          case 3:
+            {
+              BiCGIter (&A, &D, &B, max_iters, SSORPrecond, precond_omega);
+              break;
+            }
+          case 4:
+            {
+              BiCGIter (&A, &D, &B, max_iters, NULL, precond_omega);
+              break;
+            }
+          default:
+            {
+              BiCGIter (&A, &D, &B, max_iters, NULL, precond_omega);
+              break;
+            }
+        }
 
       mm = 1;
       // Copy solutiong to G, V1, V2 arrays

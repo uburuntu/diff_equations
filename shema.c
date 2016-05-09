@@ -40,8 +40,6 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
   char texname [50];
   int nameiter = 1;
 
-
-  // local variable /////////////////////////////////////////////////////////////////////////////////
   double tt, xx, yy;
   double tmp, tmp1;
   double g00;
@@ -482,8 +480,8 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
             }
         }
 
-      mm = 1;
       // Copy solutiong to G, V1, V2 arrays
+      mm = 1;
       for (m = 0; m < Dim; m++)
         {
           xx = X[m];
@@ -503,12 +501,13 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
 
           //printf ("%lf %lf %lf \n", tt, xx, yy);
         }
+
       if (nn == nameiter || nn == N)
         {
-            nameiter += N / DIVISOR;
-            printf("%d, %d \n", nn, N);
-            print_plot(plot_name(plotname, tau, hx, hy, nn), X, Y, G, V1, V2, Dim, tt);
-            make_graph(tex_name(texname, tau, hx, hy, nn), plotname, hx, hy, tau, tt);
+          nameiter += N / DIVISOR;
+          printf("%d, %d \n", nn, N);
+          print_plot(plot_name(plotname, tau, hx, hy, nn), X, Y, G, V1, V2, Dim, tt);
+          make_graph(tex_name(texname, tau, hx, hy, nn), plotname, hx, hy, tau, tt);
         }
     }
 

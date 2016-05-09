@@ -231,7 +231,9 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
 
             case 1:
               {
-                g00 = G[m];
+                // On boundary where the velocity vector is directed inside
+                // the value of g is known according to your test conditions.
+                g00 = (SQUARE ? RHO_G : G[m]);
                 mmv1R0 = mm + 4;
 
                 // g(mx,my)--------------------------------------------
@@ -248,7 +250,7 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
                 V_SetCmp (&B, mm, u1 (tt, xx, yy));
                 mm++;
 
-                // v2(mx,my)------------------------------------------------------
+                // v2(mx,my)------------------------------------------
                 Q_SetLen (&A, mm, 1);
                 Q_SetEntry (&A, mm, 0, mm, 1.);
                 V_SetCmp (&B, mm, u2 (tt, xx, yy));
@@ -260,6 +262,7 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
             case 2:
               {
                 g00 = G[m];
+                v100 = (SQUARE ? V1[m - 1] : u1 (tt, xx, yy));
                 mmv1L0 = mm - 2;
 
                 // g(mx,my)--------------------------------------------
@@ -273,7 +276,7 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
                 // v1(mx,my)-----------------------------------------
                 Q_SetLen (&A, mm, 1);
                 Q_SetEntry (&A, mm, 0, mm, 1.);
-                V_SetCmp (&B, mm, u1 (tt, xx, yy));
+                V_SetCmp (&B, mm, v100);
                 mm++;
 
                 // v2(mx,my)------------------------------------------------------

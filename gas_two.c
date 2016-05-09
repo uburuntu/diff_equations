@@ -140,6 +140,19 @@ int main ()
       tabtex_time (it_t_max, it_sp_max, time, tauit, p_d.p_ro, p_d.mu);
     }
 
+  if (!NEW_INIT)
+    {
+      free (nc_g);
+      free (nc_v1);
+      free (nc_v2);
+      free (nl2_g);
+      free (nl2_v1);
+      free (nl2_v2);
+    }
+
+  free (tauit);
+  free (time);
+
   return 0;
 }
 

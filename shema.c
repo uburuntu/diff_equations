@@ -14,35 +14,23 @@
 
 void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif *p_d)
 {
-  // local variables ///////////////////////////////////////////////////////////////////////////////
-  int M1, M2, N, Dim;
-  FIX_UNUSED (M1); FIX_UNUSED (M2);
-
+  // Arguments
+  int N, Dim;
   double hx, hy, tau, mu, p_ro;
-  M1 = p_s->M_x;
-  M2 = p_s->M_y;
-  N = p_s->N;
+
+  N   = p_s->N;
   Dim = p_s->Dim;
-  hx = p_s->h_x;
-  hy = p_s->h_y;
+  hx  = p_s->h_x;
+  hy  = p_s->h_y;
   tau = p_s->tau;
-  mu = p_d->mu;
+
+  mu   = p_d->mu;
   p_ro = p_d->p_ro;
 
-  int nn, m, mm, mx, my;
-  FIX_UNUSED (mx); FIX_UNUSED (my);
-
+  // Local variables
+  int nn, m, mm;
   int mmg0R, mmgL0, mmv1L0, mmv2L0, mmgR0, mmv1R0, mmv2R0, mmg0L, mmv10L, mmv20L;
   int mmv10R, mmv20R;
-
-  double tt, xx, yy;
-  double tmp, tmp1;
-
-  double gL0, g00, gR0, g0L, g0R;
-  FIX_UNUSED (gL0); FIX_UNUSED (gR0); FIX_UNUSED (g0L); FIX_UNUSED (g0R);
-
-  double v1L0, v100, v1R0, v10L, v10R, v1LL, v1LR, v1RL, v1RR;
-  double v2L0, v200, v2R0, v20L, v20R, v2LL, v2LR, v2RL, v2RR;
 
   char char_A[2] = "A";
   char char_B[2] = "B";
@@ -50,42 +38,32 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
 
   char plotname [50];
   char texname [50];
-
   int nameiter = 1;
 
 
   // local variable /////////////////////////////////////////////////////////////////////////////////
+  double tt, xx, yy;
+  double tmp, tmp1;
+  double g00;
+  double v1L0, v100, v1R0, v10L, v10R, v1LL, v1LR, v1RL, v1RR;
+  double v2L0, v200, v2R0, v20L, v20R, v2LL, v2LR, v2RL, v2RR;
+  double MUM, MU43x, MU43y, MUx, MUy, MUv1, MUv2;
 
-  double thx, thy, thx_05, thy_05, thx_2, thy_2, thx_4, thy_4, tau_2, tau_4, tau_6, thx_3_2, thy_3_2;
-  double thxx_6, thxx_8, thyy_6, thyy_8, thxy_1_12, thxp_05, thyp_05;
+  double thx, thy, thx_05, thy_05;
+  double thxy_1_12, thxp_05, thyp_05;
   double thxx_4_3, thyy_4_3, thxx, thyy;
 
-  thx = tau / hx;
-  thy = tau / hy;
-  thx_05 = 0.5 * thx;
-  thy_05 = 0.5 * thy;
-  thx_2 = 2 * thx; FIX_UNUSED (thx_2);
-  thy_2 = 2 * thy; FIX_UNUSED (thy_2);
-  thx_4 = 4 * thx; FIX_UNUSED (thx_4);
-  thy_4 = 4 * thy; FIX_UNUSED (thy_4);
-  thx_3_2 = 1.5 * thx; FIX_UNUSED (thx_3_2);
-  thy_3_2 = 1.5 * thy; FIX_UNUSED (thy_3_2);
-  tau_2 = 2 * tau; FIX_UNUSED (tau_2);
-  tau_4 = 4 * tau; FIX_UNUSED (tau_4);
-  tau_6 = 6 * tau; FIX_UNUSED (tau_6);
-  thxx_8 = tau * 8. / (hx * hx); FIX_UNUSED (thxx_8);
-  thxx_6 = 6 * tau / (hx * hx); FIX_UNUSED (thxx_6);
-  thyy_8 = tau * 8. / (hy * hy); FIX_UNUSED (thyy_8);
-  thyy_6 = 6 * tau / (hy * hy); FIX_UNUSED (thyy_6);
+  thx       = tau / hx;
+  thy       = tau / hy;
+  thx_05    = 0.5 * thx;
+  thy_05    = 0.5 * thy;
   thxy_1_12 = tau / (12 * hx * hy);
-  thxp_05 = 0.5 * tau * p_ro / (hx);
-  thyp_05 = 0.5 * tau * p_ro / (hy);
-  thxx_4_3 = 4. * tau / (3. * hx * hx);
-  thyy_4_3 = 4. * tau / (3. * hy * hy);
-  thxx  = tau / (hx * hx);
-  thyy  = tau / (hy * hy);
-  //------------------------------------------------------------
-  double MUM, MU43x, MU43y, MUx, MUy, MUv1, MUv2;
+  thxp_05   = 0.5 * tau * p_ro / (hx);
+  thyp_05   = 0.5 * tau * p_ro / (hy);
+  thxx_4_3  = 4. * tau / (3. * hx * hx);
+  thyy_4_3  = 4. * tau / (3. * hy * hy);
+  thxx      = tau / (hx * hx);
+  thyy      = tau / (hy * hy);
 
   // A -- sparse matrix of the system, D -- solution vector, B -- rhs vector
   QMatrix A;
@@ -95,7 +73,7 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
   V_Constr (&D, char_D, 3 * Dim, Normal, True);
   SetRTCAccuracy (1e-9);
 
-  // initial values
+  // Initial values
   tt = 0.;
   mm = 1;
   for (m = 0; m < Dim; m++)
@@ -123,17 +101,18 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
   for (nn = 1; nn <= N; nn++)
     {
       tt = nn * tau;
-      //-///////////////// MUM ///////////////////////////////
+
+      //-///////////////// MUM //////////////////////////////////
       MUM = 0.0;
-      for(m = 0; m < Dim; m++)
-      {
-        if (st[m] == 0)
-          {
-            tmp = exp(-G[m]);
-            if (MUM < tmp)
-              MUM = tmp;
-          }
-      }
+      for (m = 0; m < Dim; m++)
+        {
+          if (st[m] == 0)
+            {
+              tmp = exp(-G[m]);
+              if (MUM < tmp)
+                MUM = tmp;
+            }
+        }
       MUM *= mu;
       MU43x = MUM * tau * 4. / (3. * hx * hx);
       MUx   = MUM * tau / (hx * hx);
@@ -141,7 +120,8 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
       MUy   = MUM * tau / (hy * hy);
       MUv1  = (8. / (3. * hx * hx) + 2. / (hy * hy)) * MUM * tau;
       MUv2  = (8. / (3. * hy * hy) + 2. / (hx * hx)) * MUM * tau;
-      //-/////////////////////////////////////////////////////////
+      //-////////////////////////////////////////////////////////
+
       mm = 1;
       for (m = 0; m < Dim; m++)
         {
@@ -475,7 +455,7 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
 
       mm = 1;
       // Copy solutiong to G, V1, V2 arrays
-      for(m = 0; m < Dim; m++)
+      for (m = 0; m < Dim; m++)
         {
           xx = X[m];
           yy = Y[m];
@@ -493,7 +473,6 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
           //printf ("%lf, ", fabs (V2[m] - u2 (tt, xx, yy)));
 
           //printf ("%lf %lf %lf \n", tt, xx, yy);
-          //scanf ("%lf \n", &xx);
         }
       if (nn == nameiter || nn == N)
         {

@@ -22,3 +22,9 @@ gnuplot.o: gnuplot.h
 func.o: func.h
 
 tabtex.o: tabtex.h
+
+pdf: 
+		pdflatex -shell-escape theplot.tex
+
+run:
+		./a.out

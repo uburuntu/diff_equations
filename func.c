@@ -280,52 +280,73 @@ inline double u2 (double t, double x, double y)
 
 inline double Func_g(double t, double x, double y)
 {
+  if (NEW_INIT)
+    {
+      return 0.;
+    }
+  else
+    {
 #if light_funcs
-  return (double) (d_gg_dt + u1 (t, x, y) * d_gg_dx + u2 (t, x, y) * d_gg_dy + d_u1_dx + d_u2_dy);
+      return (double) (d_gg_dt + u1 (t, x, y) * d_gg_dx + u2 (t, x, y) * d_gg_dy + d_u1_dx + d_u2_dy);
 
 #else
-  return (double) (1
-                   + u1 (t, x, y) * (-1 * M_PI * sin (M_PI * x)) / (cos (M_PI * x) + 1.5)
-                   + u2 (t, x, y) * (+1 * M_PI * cos (M_PI * y)) / (sin (M_PI * y) + 1.5)
-                   + M_PI * cos (M_PI * x) * sin (M_PI * y) * exp (t)
-                   + M_PI * cos (M_PI * y) * sin (M_PI * x) * exp (-t));
+      return (double) (1
+                       + u1 (t, x, y) * (-1 * M_PI * sin (M_PI * x)) / (cos (M_PI * x) + 1.5)
+                       + u2 (t, x, y) * (+1 * M_PI * cos (M_PI * y)) / (sin (M_PI * y) + 1.5)
+                       + M_PI * cos (M_PI * x) * sin (M_PI * y) * exp (t)
+                       + M_PI * cos (M_PI * y) * sin (M_PI * x) * exp (-t));
 #endif
+    }
 }
 
 inline double Func_v1(double t, double x, double y, double p_ro, double mu)
 {
   FIX_UNUSED (mu);
 
+  if (NEW_INIT)
+    {
+      return 0.;
+    }
+  else
+    {
 #if light_funcs
-  return (double) (d_u1_dt + u1 (t, x, y) * d_u1_dx + u2 (t, x, y) * d_u1_dy + p_ro * d_gg_dx
-                   - mu * exp (-gg (t, x, y)) * ((4. / 3) * d_u1_dxdx));
+      return (double) (d_u1_dt + u1 (t, x, y) * d_u1_dx + u2 (t, x, y) * d_u1_dy + p_ro * d_gg_dx
+                       - mu * exp (-gg (t, x, y)) * ((4. / 3) * d_u1_dxdx));
 #else
-  return (double) (u1 (t, x, y)
-                   + u1 (t, x, y) * (M_PI * cos (M_PI * x) * sin (M_PI * y) * exp (t))
-                   + u2 (t, x, y) * (M_PI * sin (M_PI * x) * cos (M_PI * y) * exp (t))
-                   + p_ro * (-1 * M_PI * sin (M_PI * x)) / (cos (M_PI*  x) + 1.5)
-                   - mu * exp (-gg (t, x, y))
-                   * ((4. / 3.) * (-1) * M_PI * M_PI * sin (M_PI * x) * sin (M_PI * y) * exp (t)
-                      + (-1) * M_PI * M_PI * sin (M_PI * x) * sin (M_PI * y) * exp (t)
-                      + (1. / 3.) * M_PI * M_PI * cos (M_PI * x) * cos (M_PI * y) * exp (-t)));
+      return (double) (u1 (t, x, y)
+                       + u1 (t, x, y) * (M_PI * cos (M_PI * x) * sin (M_PI * y) * exp (t))
+                       + u2 (t, x, y) * (M_PI * sin (M_PI * x) * cos (M_PI * y) * exp (t))
+                       + p_ro * (-1 * M_PI * sin (M_PI * x)) / (cos (M_PI*  x) + 1.5)
+                       - mu * exp (-gg (t, x, y))
+                       * ((4. / 3.) * (-1) * M_PI * M_PI * sin (M_PI * x) * sin (M_PI * y) * exp (t)
+                          + (-1) * M_PI * M_PI * sin (M_PI * x) * sin (M_PI * y) * exp (t)
+                          + (1. / 3.) * M_PI * M_PI * cos (M_PI * x) * cos (M_PI * y) * exp (-t)));
 #endif
+    }
 }
 
 inline double Func_v2(double t, double x, double y, double p_ro, double mu)
 {
   FIX_UNUSED (mu);
 
+  if (NEW_INIT)
+    {
+      return 0.;
+    }
+  else
+    {
 #if light_funcs
-  return (double) (d_u2_dt + u1 (t, x, y) * d_u2_dx + u2 (t, x, y) * d_u2_dy + p_ro * d_gg_dy);
+      return (double) (d_u2_dt + u1 (t, x, y) * d_u2_dx + u2 (t, x, y) * d_u2_dy + p_ro * d_gg_dy);
 #else
-  return (double) ((-1) * u2 (t, x, y)
-                   + u2 (t, x, y) * (M_PI * cos (M_PI * y) * sin (M_PI * x) * exp (-t))
-                   + u1 (t, x, y) * (M_PI * sin (M_PI * y) * cos (M_PI * x) * exp (-t))
-                   + p_ro * ((M_PI * cos (M_PI * y)) / (sin (M_PI * y) + 1.5))
-                   - mu * exp (-gg (t, x, y))
-                   * ((4. / 3.) * (-1) * M_PI * M_PI * sin (M_PI * x) * sin (M_PI * y) * exp (-t)
-                      + (-1) * M_PI * M_PI * sin (M_PI * x) * sin (M_PI * y) * exp (-t)
-                      + (1. / 3.) * M_PI * M_PI * cos (M_PI * y) * cos (M_PI * x) * exp (t)));
+      return (double) ((-1) * u2 (t, x, y)
+                       + u2 (t, x, y) * (M_PI * cos (M_PI * y) * sin (M_PI * x) * exp (-t))
+                       + u1 (t, x, y) * (M_PI * sin (M_PI * y) * cos (M_PI * x) * exp (-t))
+                       + p_ro * ((M_PI * cos (M_PI * y)) / (sin (M_PI * y) + 1.5))
+                       - mu * exp (-gg (t, x, y))
+                       * ((4. / 3.) * (-1) * M_PI * M_PI * sin (M_PI * x) * sin (M_PI * y) * exp (-t)
+                          + (-1) * M_PI * M_PI * sin (M_PI * x) * sin (M_PI * y) * exp (-t)
+                          + (1. / 3.) * M_PI * M_PI * cos (M_PI * y) * cos (M_PI * x) * exp (t)));
 #endif
+    }
 }
 #endif

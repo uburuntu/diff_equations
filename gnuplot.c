@@ -61,7 +61,7 @@ int make_graph (char* texname, char* plotname, double h1, double h2, double tau,
             "set xlabel \"X\" font ',18'\n"
             "set ylabel \"Y\" offset 1,0 font ',18'\n"
             "unset key\n"
-            "plot '%s' every 4:4:4:4:60:60 using 2:1:($4*2):($3*2) with vectors title ' '\n"
+            "plot '%s' every 4:4:4:4:60:60 using 2:1:($4/4):($3/4) with vectors title ' '\n"
             "\\end{gnuplot}\n"
             "\\caption{Скорость}\n"
             "\\end{figure}\n"

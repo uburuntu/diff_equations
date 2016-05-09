@@ -69,15 +69,18 @@ int main ()
           EndClock = clock();
           time[it] = (double)(EndClock - BegClock) / CLOCKS_PER_SEC;
 
-          nc_g[it] = Norm_c (G, p_s.Dim, X, Y, p_d.Segm_T, gg);
-          nl2_g[it] = Norm_l2 (G, p_s.Dim, X, Y, p_d.Segm_T, gg);
-          nc_v1[it] = Norm_c (V1, p_s.Dim, X, Y, p_d.Segm_T, u1);
-          nl2_v1[it] = Norm_l2 (V1, p_s.Dim, X, Y, p_d.Segm_T, u1);
-          nc_v2[it] = Norm_c (V2, p_s.Dim, X, Y, p_d.Segm_T, u2);
-          nl2_v2[it] = Norm_l2 (V2, p_s.Dim, X, Y, p_d.Segm_T, u2);
+          if (!NEW_INIT)
+            {
+              nc_g[it] = Norm_c (G, p_s.Dim, X, Y, p_d.Segm_T, gg);
+              nl2_g[it] = Norm_l2 (G, p_s.Dim, X, Y, p_d.Segm_T, gg);
+              nc_v1[it] = Norm_c (V1, p_s.Dim, X, Y, p_d.Segm_T, u1);
+              nl2_v1[it] = Norm_l2 (V1, p_s.Dim, X, Y, p_d.Segm_T, u1);
+              nc_v2[it] = Norm_c (V2, p_s.Dim, X, Y, p_d.Segm_T, u2);
+              nl2_v2[it] = Norm_l2 (V2, p_s.Dim, X, Y, p_d.Segm_T, u2);
 
-          // debug
-          printf (" %lf %lf %lf \n", nl2_g[it], nl2_v1[it], nl2_v2[it]);
+              // debug
+              printf (" %lf %lf %lf \n", nl2_g[it], nl2_v1[it], nl2_v2[it]);
+            }
 
           it++;
 
@@ -92,13 +95,17 @@ int main ()
         }
     }
 
-  tabtex_nc_g (it_t_max, it_sp_max, nc_g, tauit, p_d.p_ro, p_d.mu);
-  tabtex_nc_v1 (it_t_max, it_sp_max, nc_v1, tauit, p_d.p_ro, p_d.mu);
-  tabtex_nc_v2 (it_t_max, it_sp_max, nc_v2, tauit, p_d.p_ro, p_d.mu);
-  tabtex_nl2_g (it_t_max, it_sp_max, nl2_g, tauit, p_d.p_ro, p_d.mu);
-  tabtex_nl2_v1 (it_t_max, it_sp_max, nl2_v1, tauit, p_d.p_ro, p_d.mu);
-  tabtex_nl2_v2 (it_t_max, it_sp_max, nl2_v2, tauit, p_d.p_ro, p_d.mu);
-  tabtex_time (it_t_max, it_sp_max, time, tauit, p_d.p_ro, p_d.mu);
+  if (!NEW_INIT)
+    {
+      tabtex_nc_g (it_t_max, it_sp_max, nc_g, tauit, p_d.p_ro, p_d.mu);
+      tabtex_nc_v1 (it_t_max, it_sp_max, nc_v1, tauit, p_d.p_ro, p_d.mu);
+      tabtex_nc_v2 (it_t_max, it_sp_max, nc_v2, tauit, p_d.p_ro, p_d.mu);
+      tabtex_nl2_g (it_t_max, it_sp_max, nl2_g, tauit, p_d.p_ro, p_d.mu);
+      tabtex_nl2_v1 (it_t_max, it_sp_max, nl2_v1, tauit, p_d.p_ro, p_d.mu);
+      tabtex_nl2_v2 (it_t_max, it_sp_max, nl2_v2, tauit, p_d.p_ro, p_d.mu);
+      tabtex_time (it_t_max, it_sp_max, time, tauit, p_d.p_ro, p_d.mu);
+    }
+
   return 0;
 }
 

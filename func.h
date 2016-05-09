@@ -1,5 +1,13 @@
 #define FIX_UNUSED(X) (void)(X)
 
+#define MINIMAL_FOR_COMPARE 1.e-16
+
+#define NEW_INIT 1
+
+#define RHO_0 0.5
+#define RHO_G 0.3
+#define W     0.1
+
 #define square 1
 
 // Working area is a rectangle which is located in a first quadrant.
@@ -49,3 +57,4 @@ double Func_v1 (double t, double x, double y, double p_ro, double mu);
 double Func_v2 (double t, double x, double y, double p_ro, double mu);
 void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif *p_d);
 void Sxema(double *G, double *V1, double *V2, int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif *p_d);
+inline int is_equal (double x1, double x2);

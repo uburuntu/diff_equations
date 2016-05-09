@@ -7,6 +7,11 @@
 #define light_u1 0
 #define light_u2 0
 
+inline int is_equal (double x1, double x2)
+{
+  return fabs (x1 - x2) < MINIMAL_FOR_COMPARE;
+}
+
 void param_dif(P_dif *p_d)
 {
   p_d->Segm_T = 1.;
@@ -175,7 +180,26 @@ inline double ro (double t, double x, double y)
 
 inline double gg (double t, double x, double y)
 {
-  return log (ro (t, x, y));
+  if (NEW_INIT)
+    {
+      // Left boundary
+      if (is_equal (x, 0.))
+        {
+          return RHO_G;
+        }
+
+      // First step
+      if (is_equal (t, 0.))
+        {
+          return RHO_0;
+        }
+
+      return log (ro (t, x, y));
+    }
+  else
+    {
+      return log (ro (t, x, y));
+    }
 }
 
 #define d_gg_dt 0.
@@ -189,14 +213,29 @@ inline double p (double t, double x, double y, double p_ro)
 
 inline double u1 (double t, double x, double y)
 {
-  FIX_UNUSED (t);
-  FIX_UNUSED (y);
+  if (NEW_INIT)
+    {
+      // Left boundary
+      if (is_equal (x, 0.))
+        {
+          return W;
+        }
 
-#if light_u1
-  return (double) (sin (M_PI * x));
-#else
-  return (double) (sin (M_PI * x) * sin (M_PI * y) * exp (t));
-#endif
+      // First step
+      if (is_equal (t, 0.))
+        {
+          return 0.;
+        }
+
+      return (double) (sin (M_PI * x) * sin (M_PI * y) * exp (t));
+    }
+  else
+    {
+      if (light_u1)
+        return (double) (sin (M_PI * x));
+      else
+        return (double) (sin (M_PI * x) * sin (M_PI * y) * exp (t));
+    }
 }
 
 #define d_u1_dt 0.
@@ -207,15 +246,29 @@ inline double u1 (double t, double x, double y)
 
 inline double u2 (double t, double x, double y)
 {
-  FIX_UNUSED (t);
-  FIX_UNUSED (x);
-  FIX_UNUSED (y);
+  if (NEW_INIT)
+    {
+      // Left boundary
+      if (is_equal (x, 0.))
+        {
+          return 0.;
+        }
 
-#if light_u2
-  return 0.;
-#else
-  return (double) (sin (M_PI * x) * sin (M_PI * y) * exp (-t));
-#endif
+      // First step
+      if (is_equal (t, 0.))
+        {
+          return 0.;
+        }
+
+      return (double) (sin (M_PI * x) * sin (M_PI * y) * exp (-t));
+    }
+  else
+    {
+      if (light_u2)
+        return 0.;
+      else
+        return (double) (sin (M_PI * x) * sin (M_PI * y) * exp (-t));
+    }
 }
 
 #define d_u2_dt 0.

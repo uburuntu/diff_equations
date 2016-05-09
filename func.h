@@ -1,14 +1,18 @@
 #define FIX_UNUSED(X) (void)(X)
 
-#define MINIMAL_FOR_COMPARE 1.e-16
+#define MINIMAL_FOR_COMPARE   1.e-16
 
-#define NEW_INIT 1
+#define RHO_0   0.5
+#define RHO_G   0.3
+#define W       0.1
 
-#define RHO_0 0.5
-#define RHO_G 0.3
-#define W     0.1
+#define NEW_INIT   1
+#define SQUARE     1
 
-#define square 1
+#define LIGHT_FUNCS   0
+#define LIGHT_G       0
+#define LIGHT_U1      0
+#define LIGHT_U2      0
 
 // Working area is a rectangle which is located in a first quadrant.
 // Its sides are parallel to axes OXY and one vertex is located in (0, 0).

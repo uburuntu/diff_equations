@@ -1,6 +1,5 @@
-#include "func.h"
-#include <math.h>
 #include <stdio.h>
+#include <math.h>
 #include "laspack/getopts.h"
 #include "laspack/vector.h"
 #include "laspack/errhandl.h"
@@ -10,9 +9,9 @@
 #include "laspack/operats.h"
 #include "laspack/version.h"
 #include "laspack/copyrght.h"
+#include "func.h"
 
-void Sxema(double *G, double *V1, double *V2, int *st, double *X,
-           double *Y, int *M0L, int *M0R, P_she *p_s, P_dif *p_d)
+void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif *p_d)
 {
   // local variables ///////////////////////////////////////////////////////////////////////////////
   int M1, M2, N, Dim;
@@ -142,295 +141,329 @@ void Sxema(double *G, double *V1, double *V2, int *st, double *X,
           // setting A and B elements for every node
           xx = X[m];
           yy = Y[m];
+
           switch (st[m])
             {
             case 0:
-              mmgL0  = mm - 3;
-              mmv1L0 = mm - 2;
-              mmv2L0 = mm - 1;
-              mmgR0  = mm + 3;
-              mmv1R0 = mm + 4;
-              mmv2R0 = mm + 5;
-              mmg0L  = 3 * M0L[m] + 1;
-              mmv10L = mmg0L + 1;
-              mmv20L = mmv10L + 1;
-              mmg0R  = 3 * M0R[m] + 1;
-              mmv10R = mmg0R + 1;
-              mmv20R = mmv10R + 1;
-              g00  = G[m];
-              v100 = V1[m];
-              v1L0 = V1[m - 1];
-              v1R0 = V1[m + 1];
-              v10L = V1[M0L[m]];
-              v10R = V1[M0R[m]];
-              v1LL = V1[M0L[m] - 1];
-              v1RL = V1[M0L[m] + 1];
-              v1LR = V1[M0R[m] - 1];
-              v1RR = V1[M0R[m] + 1];
-              v200 = V2[m];
-              v2L0 = V2[m - 1];
-              v2R0 = V2[m + 1];
-              v20L = V2[M0L[m]];
-              v20R = V2[M0R[m]];
-              v2LL = V2[M0L[m] - 1];
-              v2RL = V2[M0L[m] + 1];
-              v2LR = V2[M0R[m] - 1];
-              v2RR = V2[M0R[m] + 1];
-              // g(mx, my)--------------------------------------------
-              Q_SetLen (&A, mm, 9);
-              tmp = 1. + thx * fabs (v100) + thy * fabs (v200);   // +
-              Q_SetEntry (&A, mm, 0, mm, tmp);                    // +
-              tmp = thx_05 * (v100 - fabs (v100));                // +
-              Q_SetEntry (&A, mm, 1, mmgR0, tmp);                 // +
-              tmp = -thx_05 * (v100 + fabs (v100));               // +
-              Q_SetEntry (&A, mm, 2, mmgL0, tmp);                 // +
-              tmp = thy_05 * (v200 - fabs (v200));                // +
-              Q_SetEntry (&A, mm, 3, mmg0R, tmp);                 // +
-              tmp = -thy_05 * (v200 + fabs (v200));               // +
-              Q_SetEntry (&A, mm, 4, mmg0L, tmp);                 // +
-              Q_SetEntry (&A, mm, 5, mmv1R0, thx_05);             // +
-              Q_SetEntry (&A, mm, 6, mmv20R, thy_05);             // +
-              Q_SetEntry (&A, mm, 7, mmv1L0, -thx_05);            // +
-              Q_SetEntry (&A, mm, 8, mmv20L, -thy_05);            // +
-              V_SetCmp(&B, mm, g00 + tau * Func_g (tt, xx, yy));  // +
-              mm++;
-              // v1(mx, my)-----------------------------------------
-              Q_SetLen (&A, mm, 7);
-              tmp = 1. + thx * fabs (v100) + thy * fabs (v200) + MUv1;    // +
-              Q_SetEntry (&A, mm, 0, mm, tmp);                            // +
-              tmp = thx_05 * (v100 - fabs (v100)) - MU43x;                // +
-              Q_SetEntry (&A, mm, 1, mmv1R0, tmp);                        // +
-              tmp = thy_05 * (v200 - fabs (v200)) - MUy;                  // +
-              Q_SetEntry (&A, mm, 2, mmv10R, tmp);                        // +
-              tmp = thxp_05;                                              // +
-              Q_SetEntry (&A, mm, 3, mmgL0, -tmp);                        // +
-              Q_SetEntry (&A, mm, 4, mmgR0, tmp);                         // +
-              tmp = -thx_05 * (v100 + fabs (v100)) - MU43x;               // +
-              Q_SetEntry (&A, mm, 5, mmv1L0, tmp);                        // +
-              tmp = -thy_05 * (v200 + fabs (v200)) - MUy;                 // +
-              Q_SetEntry(&A, mm, 6, mmv10L, tmp);                         // +
-              tmp1 = mu * exp(-g00);
-              tmp = v100 + (tmp1 - MUM)
-                  * (thxx_4_3 * (v1R0 - 2. * v100 + v1L0) + thyy * (v10R - 2. * v100 + v10L))
-                  + tmp1 * thxy_1_12 * (v2RR - v2RL - v2LR + v2LL) + tau * Func_v1 (tt, xx, yy, p_ro, mu);
-              V_SetCmp (&B, mm, tmp);
-              // v100 * (6. + thy32 * (v20R - v20L)) - (MUM - tmp1) *
-              // (thxx8 * (v1R0 - 2 * v100 + v1L0) + thyy6 * (v10R - 2 * v100 + v10L)) +
-              // thxy * (v2RR + v2LL - v2RL - v2LR) * tmp1 + tau6 * Func_v1 (tt, xx, yy, p_ro, mu);
-              mm++;
-              // v2(mx,my)------------------------------------------------------
-              Q_SetLen (&A, mm, 7);
-              tmp = 1. + thy * fabs (v200) + thx * fabs (v100) + MUv2;
-              Q_SetEntry (&A, mm, 0, mm, tmp);
-              tmp = thx_05 * (v100 - fabs (v100)) - MUx;
-              Q_SetEntry (&A, mm, 1, mmv2R0, tmp);
-              tmp = thy_05 * (v200 - fabs (v200)) - MU43y;
-              Q_SetEntry (&A, mm, 2, mmv20R, tmp);
-              tmp = thyp_05;
-              Q_SetEntry (&A, mm, 3, mmg0L, -tmp);
-              Q_SetEntry (&A, mm, 4, mmg0R, tmp);
-              tmp = -thx_05 * (v100 + fabs (v100)) - MUx;
-              Q_SetEntry (&A, mm, 5, mmv2L0,tmp );
-              tmp = -thy_05 * (v200 + fabs (v200)) - MU43y;
-              Q_SetEntry (&A, mm, 6, mmv20L, tmp );
-              tmp1 = mu * exp(-g00);
-              tmp = v200 + (tmp1 - MUM)
-                  * (thyy_4_3 * (v20R - 2. * v200 + v20L) + thxx * (v2R0 - 2. * v200 + v2L0))
-                  + tmp1 * thxy_1_12 * (v1RR - v1RL - v1LR + v1LL) + tau * Func_v2 (tt, xx, yy, p_ro, mu);
-              V_SetCmp (&B, mm, tmp);
-              mm++;
-              break;
-              // *******************************************
+              {
+                mmgL0  = mm - 3;
+                mmv1L0 = mm - 2;
+                mmv2L0 = mm - 1;
+                mmgR0  = mm + 3;
+                mmv1R0 = mm + 4;
+                mmv2R0 = mm + 5;
+                mmg0L  = 3 * M0L[m] + 1;
+                mmv10L = mmg0L + 1;
+                mmv20L = mmv10L + 1;
+                mmg0R  = 3 * M0R[m] + 1;
+                mmv10R = mmg0R + 1;
+                mmv20R = mmv10R + 1;
+                g00  = G[m];
+                v100 = V1[m];
+                v1L0 = V1[m - 1];
+                v1R0 = V1[m + 1];
+                v10L = V1[M0L[m]];
+                v10R = V1[M0R[m]];
+                v1LL = V1[M0L[m] - 1];
+                v1RL = V1[M0L[m] + 1];
+                v1LR = V1[M0R[m] - 1];
+                v1RR = V1[M0R[m] + 1];
+                v200 = V2[m];
+                v2L0 = V2[m - 1];
+                v2R0 = V2[m + 1];
+                v20L = V2[M0L[m]];
+                v20R = V2[M0R[m]];
+                v2LL = V2[M0L[m] - 1];
+                v2RL = V2[M0L[m] + 1];
+                v2LR = V2[M0R[m] - 1];
+                v2RR = V2[M0R[m] + 1];
+
+                // g(mx, my)--------------------------------------------
+                Q_SetLen (&A, mm, 9);
+                tmp = 1. + thx * fabs (v100) + thy * fabs (v200);   // +
+                Q_SetEntry (&A, mm, 0, mm, tmp);                    // +
+                tmp = thx_05 * (v100 - fabs (v100));                // +
+                Q_SetEntry (&A, mm, 1, mmgR0, tmp);                 // +
+                tmp = -thx_05 * (v100 + fabs (v100));               // +
+                Q_SetEntry (&A, mm, 2, mmgL0, tmp);                 // +
+                tmp = thy_05 * (v200 - fabs (v200));                // +
+                Q_SetEntry (&A, mm, 3, mmg0R, tmp);                 // +
+                tmp = -thy_05 * (v200 + fabs (v200));               // +
+                Q_SetEntry (&A, mm, 4, mmg0L, tmp);                 // +
+                Q_SetEntry (&A, mm, 5, mmv1R0, thx_05);             // +
+                Q_SetEntry (&A, mm, 6, mmv20R, thy_05);             // +
+                Q_SetEntry (&A, mm, 7, mmv1L0, -thx_05);            // +
+                Q_SetEntry (&A, mm, 8, mmv20L, -thy_05);            // +
+                V_SetCmp(&B, mm, g00 + tau * Func_g (tt, xx, yy));  // +
+                mm++;
+
+                // v1(mx, my)-----------------------------------------
+                Q_SetLen (&A, mm, 7);
+                tmp = 1. + thx * fabs (v100) + thy * fabs (v200) + MUv1;    // +
+                Q_SetEntry (&A, mm, 0, mm, tmp);                            // +
+                tmp = thx_05 * (v100 - fabs (v100)) - MU43x;                // +
+                Q_SetEntry (&A, mm, 1, mmv1R0, tmp);                        // +
+                tmp = thy_05 * (v200 - fabs (v200)) - MUy;                  // +
+                Q_SetEntry (&A, mm, 2, mmv10R, tmp);                        // +
+                tmp = thxp_05;                                              // +
+                Q_SetEntry (&A, mm, 3, mmgL0, -tmp);                        // +
+                Q_SetEntry (&A, mm, 4, mmgR0, tmp);                         // +
+                tmp = -thx_05 * (v100 + fabs (v100)) - MU43x;               // +
+                Q_SetEntry (&A, mm, 5, mmv1L0, tmp);                        // +
+                tmp = -thy_05 * (v200 + fabs (v200)) - MUy;                 // +
+                Q_SetEntry(&A, mm, 6, mmv10L, tmp);                         // +
+                tmp1 = mu * exp(-g00);
+                tmp = v100 + (tmp1 - MUM)
+                      * (thxx_4_3 * (v1R0 - 2. * v100 + v1L0) + thyy * (v10R - 2. * v100 + v10L))
+                      + tmp1 * thxy_1_12 * (v2RR - v2RL - v2LR + v2LL) + tau * Func_v1 (tt, xx, yy, p_ro, mu);
+                V_SetCmp (&B, mm, tmp);
+                mm++;
+
+                // v2(mx,my)------------------------------------------------------
+                Q_SetLen (&A, mm, 7);
+                tmp = 1. + thy * fabs (v200) + thx * fabs (v100) + MUv2;
+                Q_SetEntry (&A, mm, 0, mm, tmp);
+                tmp = thx_05 * (v100 - fabs (v100)) - MUx;
+                Q_SetEntry (&A, mm, 1, mmv2R0, tmp);
+                tmp = thy_05 * (v200 - fabs (v200)) - MU43y;
+                Q_SetEntry (&A, mm, 2, mmv20R, tmp);
+                tmp = thyp_05;
+                Q_SetEntry (&A, mm, 3, mmg0L, -tmp);
+                Q_SetEntry (&A, mm, 4, mmg0R, tmp);
+                tmp = -thx_05 * (v100 + fabs (v100)) - MUx;
+                Q_SetEntry (&A, mm, 5, mmv2L0,tmp );
+                tmp = -thy_05 * (v200 + fabs (v200)) - MU43y;
+                Q_SetEntry (&A, mm, 6, mmv20L, tmp );
+                tmp1 = mu * exp(-g00);
+                tmp = v200 + (tmp1 - MUM)
+                      * (thyy_4_3 * (v20R - 2. * v200 + v20L) + thxx * (v2R0 - 2. * v200 + v2L0))
+                      + tmp1 * thxy_1_12 * (v1RR - v1RL - v1LR + v1LL) + tau * Func_v2 (tt, xx, yy, p_ro, mu);
+                V_SetCmp (&B, mm, tmp);
+                mm++;
+
+                break;
+              }
 
             case 1:
-              g00 = G[m];
-              mmv1R0 = mm + 4;
-              // g(mx,my)--------------------------------------------
-              Q_SetLen (&A, mm, 3);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              Q_SetEntry (&A, mm, 1, mm + 1, -thx);
-              Q_SetEntry (&A, mm, 2, mmv1R0, thx);
-              V_SetCmp (&B, mm, g00 + tau * Func_g (tt, xx, yy));
-              // tmp = g00 * (4. + thx_2 * v1R0) + tau4 * Func_g (tt, xx, yy)
-              //     + thx * (-2. * v1R0 * gR0 + V1[m + 2] * G[m + 2]
-              //     + (2. - g00) * (-2. * v1R0 + V1[m+2]));
-              mm++;
-              // v1(mx,my)-----------------------------------------
-              Q_SetLen (&A, mm, 1);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              V_SetCmp (&B, mm, u1 (tt, xx, yy));
-              mm++;
-              // v2(mx,my)------------------------------------------------------
-              Q_SetLen (&A, mm, 1);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              V_SetCmp (&B, mm, u2 (tt, xx, yy));
-              mm++;
-              break;
-              // *******************************************
+              {
+                g00 = G[m];
+                mmv1R0 = mm + 4;
+
+                // g(mx,my)--------------------------------------------
+                Q_SetLen (&A, mm, 3);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                Q_SetEntry (&A, mm, 1, mm + 1, -thx);
+                Q_SetEntry (&A, mm, 2, mmv1R0, thx);
+                V_SetCmp (&B, mm, g00 + tau * Func_g (tt, xx, yy));
+                mm++;
+
+                // v1(mx,my)-----------------------------------------
+                Q_SetLen (&A, mm, 1);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                V_SetCmp (&B, mm, u1 (tt, xx, yy));
+                mm++;
+
+                // v2(mx,my)------------------------------------------------------
+                Q_SetLen (&A, mm, 1);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                V_SetCmp (&B, mm, u2 (tt, xx, yy));
+                mm++;
+
+                break;
+              }
+
             case 2:
-              g00 = G[m];
-              mmv1L0 = mm - 2;
-              // g(mx,my)--------------------------------------------
-              Q_SetLen (&A, mm, 3);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              Q_SetEntry (&A, mm, 1, mm + 1, thx);
-              Q_SetEntry (&A, mm, 2, mmv1L0, -thx);
-              V_SetCmp (&B, mm, g00 + tau * Func_g (tt, xx, yy));
-              // tmp = g00 * (4. - thx2 * v1L0) + tau4 * Func_g (tt,xx,yy)
-              //    - thx * (-2. * v1L0 * gL0 + V1[m - 2] * G[m - 2]
-              //    + (2. - g00) * (-2. * v1L0 + V1[m - 2]));
-              mm++;
-              // v1(mx,my)-----------------------------------------
-              Q_SetLen (&A, mm, 1);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              V_SetCmp (&B, mm, u1 (tt, xx, yy));
-              mm++;
-              // v2(mx,my)------------------------------------------------------
-              Q_SetLen (&A, mm, 1);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              V_SetCmp (&B, mm, u2 (tt, xx, yy));
-              mm++;
-              break;
-              // *******************************************
+              {
+                g00 = G[m];
+                mmv1L0 = mm - 2;
+
+                // g(mx,my)--------------------------------------------
+                Q_SetLen (&A, mm, 3);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                Q_SetEntry (&A, mm, 1, mm + 1, thx);
+                Q_SetEntry (&A, mm, 2, mmv1L0, -thx);
+                V_SetCmp (&B, mm, g00 + tau * Func_g (tt, xx, yy));
+                mm++;
+
+                // v1(mx,my)-----------------------------------------
+                Q_SetLen (&A, mm, 1);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                V_SetCmp (&B, mm, u1 (tt, xx, yy));
+                mm++;
+
+                // v2(mx,my)------------------------------------------------------
+                Q_SetLen (&A, mm, 1);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                V_SetCmp (&B, mm, u2 (tt, xx, yy));
+                mm++;
+
+                break;
+              }
 
             case 3:
-              g00 = G[m];
-              mmv20R = (3 * M0R[m] + 1) + 2;
-              // g(mx,my)--------------------------------------------
-              Q_SetLen (&A, mm, 3);
-              Q_SetEntry (&A, mm, 0, mm, 1);
-              Q_SetEntry (&A, mm, 1, mm + 2, -thy);
-              Q_SetEntry (&A, mm, 2, mmv20R, thy);
-              V_SetCmp (&B, mm, g00 + tau * Func_g (tt, xx, yy));
-              // tmp = g00 * (4. + thy2 * v20R) + tau4 * Func_g (tt, xx, yy)
-              //     + thy * (-2. * v20R * g0R + V2[m + 2 * (M1 + 1)] * G[m + 2 * (M1 + 1)]
-              //     + (2. - g00) * (-2. * v20R + V2[m + 2 * (M1 + 1)]));
-              mm++;
-              // v1(mx,my)-----------------------------------------
-              Q_SetLen (&A, mm, 1);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              V_SetCmp (&B, mm, u1 (tt, xx, yy));
-              mm++;
-              // v2(mx,my)------------------------------------------------------
-              Q_SetLen (&A, mm, 1);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              V_SetCmp (&B, mm, u2 (tt, xx, yy));
-              mm++;
-              break;
-              // *******************************************
+              {
+                g00 = G[m];
+                mmv20R = (3 * M0R[m] + 1) + 2;
+
+                // g(mx,my)--------------------------------------------
+                Q_SetLen (&A, mm, 3);
+                Q_SetEntry (&A, mm, 0, mm, 1);
+                Q_SetEntry (&A, mm, 1, mm + 2, -thy);
+                Q_SetEntry (&A, mm, 2, mmv20R, thy);
+                V_SetCmp (&B, mm, g00 + tau * Func_g (tt, xx, yy));
+                mm++;
+
+                // v1(mx,my)-----------------------------------------
+                Q_SetLen (&A, mm, 1);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                V_SetCmp (&B, mm, u1 (tt, xx, yy));
+                mm++;
+
+                // v2(mx,my)------------------------------------------------------
+                Q_SetLen (&A, mm, 1);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                V_SetCmp (&B, mm, u2 (tt, xx, yy));
+                mm++;
+
+                break;
+              }
 
             case 4:
-              g00 = G[m];
-              mmv20L  = (3 * M0L[m] + 1) + 2;
-              // g(mx,my)--------------------------------------------
-              Q_SetLen (&A, mm, 3);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              Q_SetEntry (&A, mm, 1, mm + 2, thy);
-              Q_SetEntry (&A, mm, 2, mmv20L, -thy);
-              V_SetCmp (&B, mm, g00 + tau * Func_g (tt, xx, yy));
-              // tmp = g00 * (4. - thy2 * v20L) + tau4 * Func_g (tt, xx, yy)
-              //     - thy * (-2. * v20L * g0L + V2[m - 2 * (M1 + 1)] * G[m - 2 * (M1 + 1)]
-              //     + (2. - g00) * (-2. * v20L + V2[m - 2 * (M1 + 1)]));
-              mm++;
-              // v1(mx,my)-----------------------------------------
-              Q_SetLen (&A, mm, 1);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              V_SetCmp (&B, mm, u1 (tt, xx, yy));
-              mm++;
-              // v2(mx,my)------------------------------------------------------
-              Q_SetLen (&A, mm, 1);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              V_SetCmp (&B, mm, u2 (tt, xx, yy));
-              mm++;
-              break;
-              // *******************************************
+              {
+                g00 = G[m];
+                mmv20L  = (3 * M0L[m] + 1) + 2;
+
+                // g(mx,my)--------------------------------------------
+                Q_SetLen (&A, mm, 3);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                Q_SetEntry (&A, mm, 1, mm + 2, thy);
+                Q_SetEntry (&A, mm, 2, mmv20L, -thy);
+                V_SetCmp (&B, mm, g00 + tau * Func_g (tt, xx, yy));
+                mm++;
+
+                // v1(mx,my)-----------------------------------------
+                Q_SetLen (&A, mm, 1);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                V_SetCmp (&B, mm, u1 (tt, xx, yy));
+                mm++;
+
+                // v2(mx,my)------------------------------------------------------
+                Q_SetLen (&A, mm, 1);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                V_SetCmp (&B, mm, u2 (tt, xx, yy));
+                mm++;
+
+                break;
+              }
 
             case 5:         //   (x,y) in (0,0)
-              g00 = G[m];
-              // g(mx,my)--------------------------------------------
-              Q_SetLen (&A, mm, 1);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              V_SetCmp (&B, mm, g00 + tau * Func_g (tt, xx, yy));
-              mm++;
-              // v1(mx,my)-----------------------------------------
-              Q_SetLen (&A, mm, 1);
-              Q_SetEntry (&A, mm, 0, mm,1.);
-              V_SetCmp (&B, mm, u1 (tt, xx, yy));
-              mm++;
-              // v2(mx,my)------------------------------------------------------
-              Q_SetLen (&A, mm, 1);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              V_SetCmp (&B, mm, u2 (tt, xx, yy));
-              mm++;
-              break;
-              // *******************************************
+              {
+                g00 = G[m];
+
+                // g(mx,my)--------------------------------------------
+                Q_SetLen (&A, mm, 1);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                V_SetCmp (&B, mm, g00 + tau * Func_g (tt, xx, yy));
+                mm++;
+
+                // v1(mx,my)-----------------------------------------
+                Q_SetLen (&A, mm, 1);
+                Q_SetEntry (&A, mm, 0, mm,1.);
+                V_SetCmp (&B, mm, u1 (tt, xx, yy));
+                mm++;
+
+                // v2(mx,my)------------------------------------------------------
+                Q_SetLen (&A, mm, 1);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                V_SetCmp (&B, mm, u2 (tt, xx, yy));
+                mm++;
+
+                break;
+              }
 
             case 6:         //   (x,y) in (X,0)
-              g00 = G[m];
-              // g(mx,my)--------------------------------------------
-              Q_SetLen (&A, mm, 1);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              V_SetCmp (&B, mm, g00 + tau * Func_g (tt, xx, yy));
-              mm++;
-              // v1(mx,my)-----------------------------------------
-              Q_SetLen (&A, mm, 1);
-              Q_SetEntry (&A, mm, 0, mm,1.);
-              V_SetCmp (&B, mm, u1 (tt, xx, yy));
-              mm++;
-              // v2(mx,my)------------------------------------------------------
-              Q_SetLen (&A, mm, 1);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              V_SetCmp (&B, mm, u2 (tt, xx, yy));
-              mm++;
-              break;
-              // *******************************************
+              {
+                g00 = G[m];
+
+                // g(mx,my)--------------------------------------------
+                Q_SetLen (&A, mm, 1);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                V_SetCmp (&B, mm, g00 + tau * Func_g (tt, xx, yy));
+                mm++;
+
+                // v1(mx,my)-----------------------------------------
+                Q_SetLen (&A, mm, 1);
+                Q_SetEntry (&A, mm, 0, mm,1.);
+                V_SetCmp (&B, mm, u1 (tt, xx, yy));
+                mm++;
+
+                // v2(mx,my)------------------------------------------------------
+                Q_SetLen (&A, mm, 1);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                V_SetCmp (&B, mm, u2 (tt, xx, yy));
+                mm++;
+
+                break;
+              }
 
             case 7:         //   (x,y) in (0,Y)
-              g00 = G[m];
-              // g(mx,my)--------------------------------------------
-              Q_SetLen (&A, mm, 1);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              V_SetCmp(&B, mm, g00 + tau * Func_g (tt, xx, yy));
-              mm++;
-              // v1(mx,my)-----------------------------------------
-              Q_SetLen (&A, mm, 1);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              V_SetCmp (&B, mm, u1 (tt, xx, yy));
-              mm++;
-              // v2(mx,my)------------------------------------------------------
-              Q_SetLen (&A, mm, 1);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              V_SetCmp (&B, mm, u2 (tt, xx, yy));
-              mm++;
-              break;
-              // *******************************************
+              {
+                g00 = G[m];
+
+                // g(mx,my)--------------------------------------------
+                Q_SetLen (&A, mm, 1);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                V_SetCmp(&B, mm, g00 + tau * Func_g (tt, xx, yy));
+                mm++;
+
+                // v1(mx,my)-----------------------------------------
+                Q_SetLen (&A, mm, 1);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                V_SetCmp (&B, mm, u1 (tt, xx, yy));
+                mm++;
+
+                // v2(mx,my)------------------------------------------------------
+                Q_SetLen (&A, mm, 1);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                V_SetCmp (&B, mm, u2 (tt, xx, yy));
+                mm++;
+
+                break;
+              }
 
             case 8:      //   (x,y) in (X,Y)
-              g00 = G[m];
-              // g(mx,my)--------------------------------------------
-              Q_SetLen (&A, mm, 1);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              V_SetCmp (&B, mm, g00 + tau * Func_g (tt, xx, yy));
-              mm++;
-              // v1(mx,my)-----------------------------------------
-              Q_SetLen (&A, mm, 1);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              V_SetCmp (&B, mm, u1 (tt, xx, yy));
-              mm++;
-              // v2(mx,my)------------------------------------------------------
-              Q_SetLen (&A, mm, 1);
-              Q_SetEntry (&A, mm, 0, mm, 1.);
-              V_SetCmp (&B, mm, u2 (tt, xx, yy));
-              mm++;
-              break;
-              // *******************************************
+              {
+                g00 = G[m];
+
+                // g(mx,my)--------------------------------------------
+                Q_SetLen (&A, mm, 1);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                V_SetCmp (&B, mm, g00 + tau * Func_g (tt, xx, yy));
+                mm++;
+
+                // v1(mx,my)-----------------------------------------
+                Q_SetLen (&A, mm, 1);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                V_SetCmp (&B, mm, u1 (tt, xx, yy));
+                mm++;
+
+                // v2(mx,my)------------------------------------------------------
+                Q_SetLen (&A, mm, 1);
+                Q_SetEntry (&A, mm, 0, mm, 1.);
+                V_SetCmp (&B, mm, u2 (tt, xx, yy));
+                mm++;
+
+                break;
+              }
             default:
-              printf ("default case section... %d \n", m);
+              {
+                printf ("default case section... %d \n", m);
+              }
             }
         }
 
       // BiCGIter(&A, &D, &B, 2000, SSORPrecond, 1.);
-       BiCGIter(&A, &D, &B, 2000, JacobiPrecond, 1.);
+      BiCGIter(&A, &D, &B, 2000, JacobiPrecond, 1.);
       // BiCGIter(&A, &D, &B, 2000, NULL, 1.);
 
       mm = 1;
@@ -439,19 +472,24 @@ void Sxema(double *G, double *V1, double *V2, int *st, double *X,
         {
           xx = X[m];
           yy = Y[m];
+
           G[m] = V_GetCmp (&D, mm);
+          mm++;
           //printf ("%lf ", fabs (G[m] - gg (tt, xx, yy)));
-          mm++;
+
           V1[m] = V_GetCmp (&D, mm);
+          mm++;
           //printf ("%lf ", fabs (V1[m] - u1 (tt, xx, yy)));
-          mm++;
+
           V2[m] = V_GetCmp (&D, mm);
-          //printf ("%lf, ", fabs (V2[m] - u2 (tt, xx, yy)));
           mm++;
+          //printf ("%lf, ", fabs (V2[m] - u2 (tt, xx, yy)));
+
           //printf ("%lf %lf %lf \n", tt, xx, yy);
           //scanf ("%lf \n", &xx);
         }
     }
+
   Q_Destr (&A);
   V_Destr (&D);
   V_Destr (&B);

@@ -1,6 +1,5 @@
-#include "func.h"
-#include "assert.h"
 #include <stdio.h>
+#include "func.h"
 
 /*
  *
@@ -22,7 +21,7 @@
  *                          |          |
  *                          |__________|
  *
- *     <-------------------> <--------->
+ *     <-------------------><---------->
  *               c               a
  *     <------------------------------->
  *                     b
@@ -41,7 +40,6 @@
  *
  */
 
-
 #define a 1.
 #define c 2.
 #define b 3.
@@ -50,7 +48,7 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
 {
   FIX_UNUSED (p_d);
 
-#if square
+#if SQUARE
     int M1,M2;
     double hx,hy;
     M1 = p_s->M_x;

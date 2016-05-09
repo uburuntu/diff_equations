@@ -46,8 +46,6 @@
 #define c 2.
 #define b 3.
 
-#define square 1
-
 void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif *p_d)
 {
   FIX_UNUSED (p_d);
@@ -60,6 +58,7 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
     hx = p_s->h_x;
     hy = p_s->h_y;
     int j, j1, j2;
+
     st[0] = 5;
     M0L[0] = -1;
     M0R[0] = M1 + 1;
@@ -90,6 +89,7 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
         X[j] = 0.;
         Y[j] = j2 * hy;
         j++;
+
         for(j1 = 1; j1 < M1; j1++)
           {
             st[j] = 0;
@@ -99,6 +99,7 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
             Y[j] = j2 * hy;
             j++;
           }
+
         st[j] = 2;
         M0L[j] = j - M1 - 1;
         M0R[j] = j + M1 + 1;
@@ -106,6 +107,7 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
         Y[j] = j2 * hy;
         j++;
       }
+
     st[j] = 7;
     M0L[j] = j - M1 - 1;
     M0R[j] = -1;
@@ -122,6 +124,7 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
         Y[j] = M2 * hy;
         j++;
       }
+
     st[j] = 8;
     M0L[j] = j - M1 - 1;
     M0R[j] = -1;

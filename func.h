@@ -1,5 +1,7 @@
 #define FIX_UNUSED(X) (void)(X)
 
+#define square 1
+
 // Working area is a rectangle which is located in a first quadrant.
 // Its sides are parallel to axes OXY and one vertex is located in (0, 0).
 // Also it has a cut -- rectangle which sides are parallel to sides of the main one.

@@ -2,7 +2,6 @@
 #include "func.h"
 
 #define cave 0
-#define square 1
 #define light_funcs 0
 #define light_g 0
 #define light_u1 0
@@ -19,7 +18,7 @@ void param_dif(P_dif *p_d)
   p_d->mu = 0.1;
 }
 
-void param_she_step(P_she *p_s, P_dif *p_d, int it_t, int it_sp)
+void param_she_step (P_she *p_s, P_dif *p_d, int it_t, int it_sp)
 {
   // main rectangle
   p_s->M_x = 60;
@@ -39,11 +38,13 @@ void param_she_step(P_she *p_s, P_dif *p_d, int it_t, int it_sp)
       for (i = 1; i <= it_sp; i++)
         k_sp *= 2;
     }
+
   if (it_t > 0)
     {
       for (i = 1; i <= it_t; i++)
         k_t *= 2;
     }
+
   p_s->M_x *= k_sp;
   p_s->M_y *= k_sp;
   p_s->N   *= k_t;
@@ -56,6 +57,7 @@ void param_she_step(P_she *p_s, P_dif *p_d, int it_t, int it_sp)
 #else
   p_s->Dim = (p_s->M_x + 1) * (p_s->M_y + 1) - (p_s->M_x_0 + 0) * (p_s->M_y_0 + 0);
 #endif
+
   p_s->h_x = p_d->Segm_X / p_s->M_x;
   p_s->h_y = p_d->Segm_Y / p_s->M_y;
   p_s->tau = p_d->Segm_T / p_s->N;

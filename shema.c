@@ -96,14 +96,17 @@ void Sxema(double *G, double *V1, double *V2, int *st, double *X,
     {
       xx = X[m];
       yy = Y[m];
+
       tmp = gg (tt, xx, yy);
       V_SetCmp (&D, mm, tmp);
       G[m] = tmp;
       mm++;
+
       tmp = u1 (tt, xx, yy);
       V_SetCmp (&D, mm, tmp);
       V1[m] = tmp;
       mm++;
+
       tmp = u2 (tt, xx, yy);
       V_SetCmp (&D, mm, tmp);
       V2[m] = tmp;
@@ -111,7 +114,7 @@ void Sxema(double *G, double *V1, double *V2, int *st, double *X,
     }
 
 
-  for(nn = 1; nn <= N; nn++)
+  for (nn = 1; nn <= N; nn++)
     {
       tt = nn * tau;
       //-///////////////// MUM ///////////////////////////////

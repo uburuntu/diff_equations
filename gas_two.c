@@ -7,13 +7,7 @@
 #include "tabtex.h"
 #include "func.h"
 
-void Setka (int *st, double *X, double *Y, int *M0L,
-            int *M0R, P_she *p_s, P_dif *p_d);
-
-void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y,
-            int *M0L, int *M0R, P_she *p_s, P_dif *p_d);
-
-int main()
+int main ()
 {
   P_dif p_d;
   param_dif (&p_d);
@@ -45,12 +39,12 @@ int main()
   clock_t BegClock, EndClock;
 
   it = 0;
-  for(it_t = 0; it_t <= it_t_max; it_t++)
+  for (it_t = 0; it_t <= it_t_max; it_t++)
     {
-
-      for(it_sp = 0; it_sp <= it_sp_max; it_sp++)
+      for (it_sp = 0; it_sp <= it_sp_max; it_sp++)
         {
           BegClock = clock ();
+
           // define area params
           param_she_step (&p_s, &p_d, it_t, it_sp);
           printf ("N = %d, M1 = %d, M2 = %d, Dim = %d\n", p_s.N, p_s.M_x, p_s.M_y, p_s.Dim);
@@ -87,12 +81,12 @@ int main()
 
           it++;
 
+          free (X);
+          free (Y);
           free (G);
           free (V1);
           free (V2);
           free (st);
-          free (X);
-          free (Y);
           free (M0L);
           free (M0R);
         }

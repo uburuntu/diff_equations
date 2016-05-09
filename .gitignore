@@ -8,6 +8,14 @@
 *.gch
 *.pch
 
+# Report files
+*.tex
+*.eps
+*.log
+*.gnuplot
+*.pdf
+*.aux
+
 # Libraries
 *.lib
 *.a

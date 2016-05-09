@@ -60,9 +60,10 @@ int main ()
         {
           BegClock = clock ();
 
-          // define area params
+          // Define area params
           param_she_step (&p_s, &p_d, it_t, it_sp);
-          printf ("N = %d, M1 = %d, M2 = %d, Dim = %d\n", p_s.N, p_s.M_x, p_s.M_y, p_s.Dim);
+          printf ("N = %3.d, M1 = %3.d, M2 = %3.d, Dim = %6.d", p_s.N, p_s.M_x, p_s.M_y, p_s.Dim);
+          fflush (stdout);
 
           if (it_sp == 0)
             tauit[it_t] = p_s.tau;
@@ -76,13 +77,14 @@ int main ()
           M0L = (int*) malloc ((p_s.Dim) * sizeof(int));
           M0R = (int*) malloc ((p_s.Dim) * sizeof(int));
 
-          // define properties of nodes
+          // Define properties of nodes
           Setka (st, X, Y, M0L, M0R, &p_s, &p_d);
-
+          // Run calculations
           Sxema (G, V1, V2, st, X, Y, M0L, M0R, &p_s, &p_d);
 
           EndClock = clock();
           time[it] = (double)(EndClock - BegClock) / CLOCKS_PER_SEC;
+          printf (", Elapsed time: %.2f sec.\n", time[it]);
 
           if (!NEW_INIT)
             {

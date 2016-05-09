@@ -98,18 +98,6 @@ double Norm_l2 (double *a, int Dim, double *X, double *Y, double t, double (*f) 
 
 inline double ro (double t, double x, double y)
 {
-  if (LIGHT_G)
-    {
-      return (double) ((cos (M_PI * x) + 1.5) * (sin (M_PI * y) + 1.5));
-    }
-  else
-    {
-      return (double) ((cos (M_PI * x) + 1.5) * (sin (M_PI * y) + 1.5) * exp (t));
-    }
-}
-
-inline double gg (double t, double x, double y)
-{
   if (NEW_INIT)
     {
       // Left boundary
@@ -124,12 +112,24 @@ inline double gg (double t, double x, double y)
           return RHO_0;
         }
 
-      return log (ro (t, x, y));
+      return (double) ((cos (M_PI * x) + 1.5) * (sin (M_PI * y) + 1.5) * exp (t));
     }
   else
     {
-      return log (ro (t, x, y));
+      if (LIGHT_G)
+        {
+          return (double) ((cos (M_PI * x) + 1.5) * (sin (M_PI * y) + 1.5));
+        }
+      else
+        {
+          return (double) ((cos (M_PI * x) + 1.5) * (sin (M_PI * y) + 1.5) * exp (t));
+        }
     }
+}
+
+inline double gg (double t, double x, double y)
+{
+  return log (ro (t, x, y));
 }
 
 #define d_gg_dt 0.

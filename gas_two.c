@@ -14,8 +14,8 @@ int main ()
   param_dif (&p_d);
 
   int it_t, it_t_max, it_sp, it_sp_max, n_ver, it;
-  it_t_max = 3;
-  it_sp_max = 3;
+  it_t_max = 1;
+  it_sp_max = 1;
   it_t = 0;
   it_sp = 0;
 

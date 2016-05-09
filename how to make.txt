@@ -2,5 +2,7 @@
 2. Run 'make' in main folder
 
 Options:
-make clean - delete all trash
-make pdf   - build pdf report file
+make cleanall - delete all trash
+make clean    - delete all build trash
+make cleanpdf - delete all report trash
+make pdf      - run program and build pdf report file

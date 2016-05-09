@@ -15,7 +15,7 @@ $(EXECUTABLE): $(OBJECTS)
 		gcc $(CFLAGS) $<
 
 clean:
-		rm -rf *.o a.out leak.out output.txt *.tex *.log theplot*.*
+		rm -rf *.o a.out leak.out output.txt
 
 gnuplot.o: gnuplot.h
 
@@ -24,7 +24,11 @@ func.o: func.h
 tabtex.o: tabtex.h
 
 pdf: 
+		./a.out
 		pdflatex -shell-escape theplot.tex
 
-run:
-		./a.out
+cleanall:
+		rm -rf *.o a.out leak.out output.txt *.tex *.log theplot*.*
+
+cleanpdf:
+		rm -rf *.tex *.log theplot*.*

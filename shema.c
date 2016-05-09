@@ -448,29 +448,29 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
         }
 
       // Solver
-      switch (2)
+      switch (4)
         {
           static const int max_iters = 2000;
           static const double precond_omega = 1.;
 
           case 1:
             {
-              BiCGIter (&A, &D, &B, max_iters, ILUPrecond, precond_omega);
+              BiCGIter (&A, &D, &B, max_iters, JacobiPrecond, precond_omega);
               break;
             }
           case 2:
             {
-              BiCGIter (&A, &D, &B, max_iters, JacobiPrecond, precond_omega);
+              BiCGIter (&A, &D, &B, max_iters, SSORPrecond, precond_omega);
               break;
             }
           case 3:
             {
-              BiCGIter (&A, &D, &B, max_iters, SSORPrecond, precond_omega);
+              BiCGIter (&A, &D, &B, max_iters, NULL, precond_omega);
               break;
             }
           case 4:
             {
-              BiCGIter (&A, &D, &B, max_iters, NULL, precond_omega);
+              BiCGSTABIter (&A, &D, &B, max_iters, NULL, precond_omega);
               break;
             }
           default:
@@ -505,7 +505,7 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
       if (nn == nameiter || nn == N)
         {
           nameiter += N / DIVISOR;
-          printf("%d, %d \n", nn, N);
+          //printf("%d, %d \n", nn, N);
           print_plot(plot_name(plotname, tau, hx, hy, nn), X, Y, G, V1, V2, Dim, tt);
           make_graph(tex_name(texname, tau, hx, hy, nn), plotname, hx, hy, tau, tt);
         }

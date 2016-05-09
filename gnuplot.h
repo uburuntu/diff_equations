@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 
-#define DIVISOR     5
+#define DIVISOR     9
 #define OUTPUT      "results.txt"
 #define OUTTEX      "theplot.tex"
 

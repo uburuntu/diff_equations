@@ -6,6 +6,7 @@
 
 #include "tabtex.h"
 #include "func.h"
+#include "gnuplot.h"
 
 int main ()
 {
@@ -13,8 +14,8 @@ int main ()
   param_dif (&p_d);
 
   int it_t, it_t_max, it_sp, it_sp_max, n_ver, it;
-  it_t_max = 3;
-  it_sp_max = 3;
+  it_t_max = 1;
+  it_sp_max = 1;
   it_t = 0;
   it_sp = 0;
 
@@ -37,6 +38,20 @@ int main ()
   double *X, *Y, *G, *V1, *V2;
 
   clock_t BegClock, EndClock;
+  //-------------------------------------------------
+    FILE *fout;
+
+      if ((fout = fopen(OUTTEX, "w")))
+        {
+          printhead(fout);
+        }
+      else {
+          printf("Can't open file %s\n", OUTTEX);
+          return -1;
+        }
+      fclose(fout);
+
+      //-------------------------------------------------
 
   it = 0;
   for (it_t = 0; it_t <= it_t_max; it_t++)
@@ -94,6 +109,19 @@ int main ()
           free (M0R);
         }
     }
+
+  //-------------------------------------------------
+    if ((fout = fopen(OUTTEX, "a+")))
+    {
+        printtail(fout);
+    }
+    else
+    {
+        printf("Can't open file %s\n", OUTTEX);
+        return -1;
+    }
+    fclose(fout);
+   //-------------------------------------------------
 
   if (!NEW_INIT)
     {

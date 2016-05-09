@@ -70,7 +70,7 @@ int make_graph (char* texname, char* plotname, double h1, double h2, double tau,
             "\\begin{minipage}{0.49\\linewidth}\n"
             "\\begin{figure}[H]\n"
             "\\begin{gnuplot}\n"
-            "set terminal epslatex color size 9cm,9cm\n"
+            "set terminal epslatex color size 10cm,10cm\n"
             "set size ratio 1\n"
             "set xlabel \"Y\" font ',18'\n"
             "set ylabel \"X\" offset 1,0 font ',18'\n"

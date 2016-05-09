@@ -1,4 +1,5 @@
 #include "func.h"
+#include "gnuplot.h"
 #include <math.h>
 #include <stdio.h>
 #include "laspack/getopts.h"
@@ -47,6 +48,11 @@ void Sxema(double *G, double *V1, double *V2, int *st, double *X,
   char char_A[2] = "A";
   char char_B[2] = "B";
   char char_D[2] = "D";
+
+  char plotname [50];
+  char texname [50];
+
+  int nameiter = 1;
 
   // local variable /////////////////////////////////////////////////////////////////////////////////
 
@@ -450,6 +456,13 @@ void Sxema(double *G, double *V1, double *V2, int *st, double *X,
           mm++;
           //printf ("%lf %lf %lf \n", tt, xx, yy);
           //scanf ("%lf \n", &xx);
+        }
+      if (nn == nameiter || nn == N)
+        {
+            nameiter += N / DIVISOR;
+            printf("%d, %d \n", nn, N);
+            print_plot(plot_name(plotname, tau, hx, hy, nn), X, Y, G, V1, V2, Dim, tt);
+            make_graph(tex_name(texname, tau, hx, hy, nn), plotname, hx, hy, tau, tt);
         }
     }
   Q_Destr (&A);

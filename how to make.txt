@@ -1,2 +1,6 @@
 1. Run 'make' in laspack folder (once)
 2. Run 'make' in main folder
+
+Options:
+make clean - delete all trash
+make pdf   - build pdf report file

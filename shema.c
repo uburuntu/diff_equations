@@ -233,7 +233,7 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
               {
                 // On boundary where the velocity vector is directed inside
                 // the value of g is known according to your test conditions.
-                g00 = (SQUARE ? RHO_G : G[m]);
+                g00 = (NEW_INIT && is_equal (xx, 0.0) ? RHO_G : G[m]);
                 mmv1R0 = mm + 4;
 
                 // g(mx,my)--------------------------------------------
@@ -262,7 +262,8 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
             case 2:
               {
                 g00 = G[m];
-                v100 = (SQUARE ? V1[m - 1] : u1 (tt, xx, yy));
+                v100 = u1 (tt, xx, yy);
+                v200 = u2 (tt, xx, yy);
                 mmv1L0 = mm - 2;
 
                 // g(mx,my)--------------------------------------------
@@ -291,6 +292,8 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
             case 3:
               {
                 g00 = G[m];
+                v100 = u1 (tt, xx, yy);
+                v200 = (NEW_INIT && is_equal(yy, 0.) ? V2[M0R[m]] : u2 (tt, xx, yy));
                 mmv20R = (3 * M0R[m] + 1) + 2;
 
                 // g(mx,my)--------------------------------------------
@@ -304,13 +307,13 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
                 // v1(mx,my)-----------------------------------------
                 Q_SetLen (&A, mm, 1);
                 Q_SetEntry (&A, mm, 0, mm, 1.);
-                V_SetCmp (&B, mm, u1 (tt, xx, yy));
+                V_SetCmp (&B, mm, v100);
                 mm++;
 
                 // v2(mx,my)------------------------------------------------------
                 Q_SetLen (&A, mm, 1);
                 Q_SetEntry (&A, mm, 0, mm, 1.);
-                V_SetCmp (&B, mm, u2 (tt, xx, yy));
+                V_SetCmp (&B, mm, v200);
                 mm++;
 
                 break;
@@ -451,7 +454,7 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
         }
 
       // Solver
-      switch (4)
+      switch (1)
         {
           static const int max_iters = 2000;
           static const double precond_omega = 1.;

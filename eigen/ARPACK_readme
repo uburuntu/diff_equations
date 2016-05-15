@@ -1,0 +1,20 @@
+http://www.caam.rice.edu/software/ARPACK/
+
+tar -xvf arpack96.tar.gz
+tar -xvf ppatch.tar.gz
+
+Проверяем, что в ARmake.inc - Конфигурация SUN4, (иначе, копируем из  ARMAKES)
+указать свою директория размещения ARPACK (строка 28 в ARmake.inc)
+make указать /usr/bin/make (строка  116)
+Компилляция gfortran  (строка  105)
+Убрать ключ -cg89
+В файле UTIL/second.f заменить 
+      REAL               ETIME
+      EXTERNAL           ETIME
+на 
+
+       EXTERNAL REAL      ETIME
+
+Далее 
+make lib
+сборка -lgfortran -larpack_sun4

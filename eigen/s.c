@@ -25,9 +25,9 @@ void initparam_UserDataCurr_struct (
   udc->Hy = udc->Ly/(udc->Ny-1);
 
 
-  udc->mu=1.;
+  udc->mu = 1.;
 
-  udc->diag = make_vector_double(udc->N, __FILE__, __FUNCTION__);
+  udc->diag = make_vector_double (udc->N, __FILE__, __FUNCTION__);
 
   for(i=0;i<udc->Nx;i++)
     {
@@ -42,10 +42,10 @@ void initparam_UserDataCurr_struct (
 
 
 
-int  L_op(double * Lapl, const double *u, const UserDataCurr_struct * udc)
+int L_op(double * Lapl, const double *u, const UserDataCurr_struct * udc)
 {
   //
-  //  Lapl[i+j*Nx]= mu*  \delta u[i+j*Nx] + diag[i+j*Nx]*u[i+j*Nx] + u_x u[i+j*Nx]
+  //  Lapl[i+j*Nx]= mu *  \delta u[i+j*Nx] + diag[i+j*Nx]*u[i+j*Nx] + u_x u[i+j*Nx]
   //
 
   int i,j;
@@ -59,9 +59,16 @@ int  L_op(double * Lapl, const double *u, const UserDataCurr_struct * udc)
   double mu=udc->mu;
   const double * diag=udc->diag;
 
-  for(i=1;i<Nx-1;i++)
-    for(j=1;j<Ny-1;j++)
-      Lapl[i+j*Nx]=
+  /*
+   * TODO -- now this loop is for laplacian equation:
+   * mu * (u_{x \bar{x}} + u_{y \bar{y}}) + du + 10 * u_x + 7 * u_y = lambda * u
+   * We should rewrite it for our linearized scheme equation (23.5 - 23.6)
+   * on page 48-49.
+  */
+
+  for (i = 1; i < Nx - 1; i++)
+    for(j = 1; j < Ny - 1; j++)
+      Lapl[i + j * Nx] =
           - mu*(2.*u[i+j*Nx] -u[(i+1)+j*Nx] - u[(i-1)+j*Nx])/Hx/Hx
           - mu*(2.*u[i+j*Nx] -u[i+(j+1)*Nx] - u[i+(j-1)*Nx])/Hy/Hy
           + diag[i+j*Nx]*u[i+j*Nx] + 10.*(u[i+(j+1)*Nx] - u[i+(j-1)*Nx])/Hy
@@ -154,14 +161,26 @@ void A_op (double *Aau, const double *au, int n, void * ud)
   UserDataCurr_struct * udc = (UserDataCurr_struct *)ud;
 
   u  = make_vector_double(udc->N, __FILE__, __FUNCTION__);
+  /*
+   *  TODO -- rename Lu, L_op, Lapl names, because
+   *  they suppose Laplace operator case, which was initial
+   *  for this propgram.
+  */
   Lu = make_vector_double(udc->N, __FILE__, __FUNCTION__);
 
 
-  convert_au_to_u(u,au,udc);
+  /*
+   *  TODO -- in our case it`s easier not to use convert function,
+   *  because we have unknown functions on boudary. We should modify only
+   *  L_op method. However, main eigen code uses convert function, so this
+   *  solution propbably could not work, even though Popov said it should...
+  */
+  convert_au_to_u (u,au,udc);
 
-  L_op(Lu,u,udc);
+  L_op (Lu, u, udc);
 
-  convert_u_to_au(Aau, Lu, udc);
+  // TODO -- simular to previus TODO case.
+  convert_u_to_au (Aau, Lu, udc);
 
   free(u);
   free(Lu);

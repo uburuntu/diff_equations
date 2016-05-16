@@ -9,13 +9,13 @@ EXECUTABLE=a.out
 all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-		gcc $(OBJECTS) ./laspack/liblaspack.a -o $@ $(LDFLAGS)
+	gcc $(OBJECTS) ./laspack/liblaspack.a -o $@ $(LDFLAGS)
 
 .cpp.o:
-		gcc $(CFLAGS) $<
+	gcc $(CFLAGS) $<
 
 clean:
-		rm -rf *.o a.out leak.out output.txt
+	rm -rf *.o a.out leak.out output.txt
 
 gnuplot.o: gnuplot.h
 
@@ -23,12 +23,13 @@ func.o: func.h
 
 tabtex.o: tabtex.h
 
-pdf: 
-		./a.out
-		pdflatex -shell-escape theplot.tex
+pdf:
+	./a.out
+	pdflatex -shell-escape theplot.tex
+	cp ./theplot.pdf ./report/ --force
 
 cleanall:
-		rm -rf *.o a.out leak.out output.txt *.tex *.log theplot*.*
+	rm -rf *.o a.out leak.out output.txt *.tex *.log theplot*.*
 
 cleanpdf:
-		rm -rf *.tex *.log theplot*.*
+	rm -rf *.tex *.log theplot*.*

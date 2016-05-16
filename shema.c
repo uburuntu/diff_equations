@@ -454,7 +454,7 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
         }
 
       // Solver
-      switch (1)
+      switch (4)
         {
           static const int max_iters = 2000;
           static const double precond_omega = 1.;

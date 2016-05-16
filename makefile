@@ -5,6 +5,7 @@ LDFLAGS=-W -Wall -Wunused -Wcast-align -Werror -fstack-protector-all -Wfloat-equ
 SOURCES=func.c gas_two.c setka.c gnuplot.c shema.c tabtex.c
 OBJECTS=$(SOURCES:.c=.o)
 EXECUTABLE=a.out
+REPORT_FILENAME=theplot.pdf
 
 all: $(SOURCES) $(EXECUTABLE)
 
@@ -26,7 +27,9 @@ tabtex.o: tabtex.h
 pdf:
 	./a.out
 	pdflatex -shell-escape theplot.tex
-	cp ./theplot.pdf ./report/ --force
+	cp ./$(REPORT_FILENAME) ./report/ --force
+	mv -t ./report/report_files *.tex *.eps *.log *.gnuplot *.pdf *.aux
+	cp ./report/$(REPORT_FILENAME) ./
 
 cleanall:
 	rm -rf *.o a.out leak.out output.txt *.tex *.log theplot*.*

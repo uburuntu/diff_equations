@@ -100,7 +100,7 @@ void print_2dfun_double(FILE* f, const char * name, const double  * u,
 
 int convert_u_to_au(double * au, const double  * u,
                     const UserDataCurr_struct * udc)
-{	
+{
 
   int i,j;
 
@@ -119,7 +119,7 @@ int convert_u_to_au(double * au, const double  * u,
 
 int convert_au_to_u(double *u, const double  * au,
                     const UserDataCurr_struct * udc)
-{	
+{
 
   int i,j;
   int Nx,Ny;
@@ -159,6 +159,8 @@ void A_op (double *Aau, const double *au, int n, void * ud)
   double *u=NULL;
   double *Lu=NULL;
   UserDataCurr_struct * udc = (UserDataCurr_struct *)ud;
+
+  FIX_UNUSED (n);
 
   u  = make_vector_double(udc->N, __FILE__, __FUNCTION__);
   /*

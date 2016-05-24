@@ -35,6 +35,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define FIX_UNUSED(X) (void)(X)
 
 typedef struct
 {

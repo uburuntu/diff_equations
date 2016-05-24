@@ -9,7 +9,7 @@
 
 
 
-int main()
+int main (void)
 {
 
   UserDataCurr_struct  udc;

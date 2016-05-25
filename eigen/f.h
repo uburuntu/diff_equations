@@ -43,7 +43,7 @@ typedef struct
 {
   int Nx;
   int Ny;
-  int Nx_0
+  int Nx_0;
   int Ny_0;
   int N;
   int NA;
@@ -67,6 +67,9 @@ typedef struct
 void initparam_UserDataCurr_struct (UserDataCurr_struct * udc);
 
 int  L_op (double * Lapl, const double *u, const UserDataCurr_struct * udc);
+
+void calc_mesh_params (int *st, double *X, double *Y, int *M0L, 
+                       int *M0R, const UserDataCurr_struct * udc);
 
 void print_2dfun_double (FILE* f, const char * name, const double  * u,
                         const int nx, const int ny);

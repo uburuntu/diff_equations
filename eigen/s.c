@@ -2,10 +2,15 @@
 
  Copyright (c)  2016 Kornev Andrey A.
                      Ozeritsky  Alexey V.
+                     and
+                     Afanasieva A.
+                     Bekbulatov R.
+                     Nazarov V.
+                     Halikov P.
 */
 
-
 #include "f.h"
+
 
 void initparam_UserDataCurr_struct (
     UserDataCurr_struct * udc)
@@ -40,9 +45,9 @@ void initparam_UserDataCurr_struct (
     {
       for(j = 0; j < udc->Ny; j++)
         {
-          udc->diag[i + j * udc->Nx] = 1. * i * udc->Hx 
-                                       * sin(PI * i * udc->Hx / udc->Lx)
-                                       * sin(PI * j * udc->Hy / udc->Ly);
+          // TODO: change these for our problem
+          udc->diag[i + j * udc->Nx] = 1.;
+          // * i * udc->Hx * sin(PI * i * udc->Hx / udc->Lx) * sin(PI * j * udc->Hy / udc->Ly);
         }
     }
   return ;

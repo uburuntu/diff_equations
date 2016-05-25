@@ -62,7 +62,7 @@ arpacklib:
 		$(MAKE) $(PRECISIONS); \
 		$(CD) ..; \
 	done );
-	$(RANLIB) $(ARPACKLIB)
+	ar $(ARFLAGS) $(ARPACKLIB_MAIN).a */*.o
 
 cleantest:
 

@@ -57,7 +57,8 @@ DIRS        = $(BLASdir) $(LAPACKdir) $(UTILdir) $(SRCdir)
 # | The name of the libraries to be created/linked to |
 # %---------------------------------------------------%
 #
-ARPACKLIB  = ../libarpack_$(PLAT).a
+ARPACKLIB       = ../libarpack_$(PLAT).a
+ARPACKLIB_MAIN  = ./libarpack_$(PLAT).a
 LAPACKLIB = 
 BLASLIB = 
 #
@@ -112,7 +113,7 @@ ECHO    = echo
 LN      = ln
 LNFLAGS = -s
 
-MAKE    = /bin/make
+MAKE    = make
 
 RM      = rm
 RMFLAGS = -f
@@ -125,14 +126,6 @@ SHELL   = /bin/sh
 #  | ranlib, set RANLIB = touch.                                    |
 #  %----------------------------------------------------------------%
 #
-AR = ar 
+AR = echo
 ARFLAGS = rv
-RANLIB  = touch
-#RANLIB   = ranlib
-#
-# %----------------------------------%
-# | This is the general help target. |
-# %----------------------------------%
-#
-help:
-	@$(ECHO) "usage: make ?"
+RANLIB  = echo

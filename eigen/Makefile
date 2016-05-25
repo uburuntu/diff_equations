@@ -1,6 +1,6 @@
 CC	= gcc
 HFILES	= ./f.h  
-OBJS	= ./objs/main.o ./objs/numsds_spectral.o ./objs/s.o
+OBJS	= ./objs/main.o ./objs/numsds_spectral.o ./objs/s.o ./objs/calc_mesh.o
 LIBS    = -lgfortran
 G	= -O  -g -Wall 
 
@@ -14,6 +14,8 @@ G	= -O  -g -Wall
 	$(CC) $(G)$ -c ./numsds_spectral.c -o ./objs/numsds_spectral.o
 ./objs/s.o:	./s.c $(HFILES)
 	$(CC) $(G)$ -c ./s.c -o ./objs/s.o
+./objs/calc_mesh.o:	./s.c $(HFILES)
+	$(CC) $(G)$ -c ./calc_mesh.c -o ./objs/calc_mesh.o
 
 clean:
 	rm -f ./m.e ./objs/*.o ./numres/* ./*.dat

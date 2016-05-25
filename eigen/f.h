@@ -37,15 +37,21 @@
 
 #define FIX_UNUSED(X) (void)(X)
 
+#define SQUARE 1
+
 typedef struct
 {
   int Nx;
   int Ny;
+  int Nx_0
+  int Ny_0;
   int N;
   int NA;
 
   double Lx;
   double Ly;
+  double Lx_0;
+  double Ly_0;
 
   double Hx;
   double Hy;

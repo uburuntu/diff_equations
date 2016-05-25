@@ -10,31 +10,39 @@
 void initparam_UserDataCurr_struct (
     UserDataCurr_struct * udc)
 {
-
-  double PI=3.14159265358979323846;
   int i,j;
 
-  udc->Nx    =  51;
-  udc->Ny    =  51;
-  udc->N=udc->Nx*udc->Ny;
-  udc->NA=(udc->Nx-2)*(udc->Ny-2);
+  udc->Nx    =  61;
+  udc->Ny    =  61;
+  udc->Nx_0  =  41;
+  udc->Ny_0  =  21;
 
-  udc->Lx =PI;
-  udc->Ly =PI;
-  udc->Hx = udc->Lx/(udc->Nx-1);
-  udc->Hy = udc->Ly/(udc->Ny-1);
+  // NA is not used in our method, because we don`t cut area
 
+#if SQUARE
+  udc->N = udc->Nx * udc->Ny;
+  udc->NA=(udc->Nx - 2) * (udc->Ny - 2);
+#else
+  udc->N = udc->Nx * udc->Ny - (udc->Nx_0 - 1) * (udc->Ny_0 - 1);
+  udc->NA=(udc->Nx - 2) * (udc->Ny - 2) - (udc->Nx_0 - 1) * (udc->Ny_0 - 1);
+#endif
+
+  udc->Lx = 3.;
+  udc->Ly = 3.;
+  udc->Hx = udc->Lx / (udc->Nx - 1);
+  udc->Hy = udc->Ly / (udc->Ny - 1);
 
   udc->mu = 1.;
 
   udc->diag = make_vector_double (udc->N, __FILE__, __FUNCTION__);
 
-  for(i=0;i<udc->Nx;i++)
+  for(i = 0; i < udc->Nx; i++)
     {
-      for(j=0;j<udc->Ny;j++)
+      for(j = 0; j < udc->Ny; j++)
         {
-          udc->diag[i+j*udc->Nx] = 1.*i*udc->Hx* sin(PI*i*udc->Hx/udc->Lx)
-              * sin(PI*j*udc->Hy/udc->Ly);
+          udc->diag[i + j * udc->Nx] = 1. * i * udc->Hx 
+                                       * sin(PI * i * udc->Hx / udc->Lx)
+                                       * sin(PI * j * udc->Hy / udc->Ly);
         }
     }
   return ;

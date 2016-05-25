@@ -2,6 +2,11 @@
 
  Copyright (c)  2016 Kornev Andrey A.
                      Ozeritsky  Alexey V.
+                     and
+                     Afanasieva A.
+                     Bekbulatov R.
+                     Nazarov V.
+                     Halikov P.
 */
 
 

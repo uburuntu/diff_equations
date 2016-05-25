@@ -3,6 +3,7 @@ LDFLAGS=-W -Wall -Wunused -Wcast-align -Werror -fstack-protector-all -Wfloat-equ
 # You can add -Ofast flag for optimization, but che-to ne to schitaet
 
 SOURCES=func.c gas_two.c setka.c gnuplot.c shema.c tabtex.c
+CLEANTEX=$(filter-out ./report/report_files/images, $(wildcard ./report/report_files/*))
 OBJECTS=$(SOURCES:.c=.o)
 EXECUTABLE=a.out
 REPORT_FILENAME=theplot.pdf
@@ -20,19 +21,29 @@ clean:
 
 gnuplot.o: gnuplot.h
 
-func.o: func.h
-
 tabtex.o: tabtex.h
 
-pdf:
-	./a.out
-	pdflatex -shell-escape theplot.tex
-	cp ./$(REPORT_FILENAME) ./report/ --force
+*.o: func.h
+
+
+tex_smooth:
+	pdflatex -shell-escape plot_smooth.tex
+	pdflatex table_smooth.tex
 	mv -t ./report/report_files *.tex *.eps *.log *.gnuplot *.pdf *.aux
-	cp ./report/$(REPORT_FILENAME) ./
+
+tex_abrupt:
+	pdflatex -shell-escape plot_abrupt.tex
+	mv -t ./report/report_files *.tex *.eps *.log *.gnuplot *.pdf *.aux
+
+pdf:
+	pdflatex ./report/results.tex
+	mv -t ./report/report_files *.log  *.aux
+	mv  ./results.pdf ./report/
+
 
 cleanall:
-	rm -rf *.o a.out leak.out output.txt *.tex *.log theplot*.*
+	rm -rf *.o a.out leak.out output.txt *.log theplot*.*  *.eps *.gnuplot *.pdf  $(CLEANTEX)
+
 
 cleanpdf:
-	rm -rf *.tex *.log theplot*.*
+	rm -rf $(CLEANTEX)

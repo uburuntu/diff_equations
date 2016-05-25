@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include "gnuplot.h"
+#include "func.h"
 
 char *plot_name (char *name, double tau, double h1, double h2, int t)
 {
@@ -98,16 +99,21 @@ int make_graph (char* texname, char* plotname, double h1, double h2, double tau,
   else {
       printf("Can't open file %s\n", texname);
       return -1;
-    }
+  }
+
   fclose(fout);
 
-  if ((fout = fopen(OUTTEX, "a+")))
+  if(!NEW_INIT)
+      fout = fopen(OUTTEX_SMOOTH, "a+");
+  else
+      fout = fopen(OUTTEX_ABRUPT, "a+");
+  if (fout != NULL)
     {
       fprintf(fout, "\\input{%s} \n", texname);
-
     }
-  else {
-      printf("Can't open file %s\n", OUTTEX);
+  else
+    {
+      printf("Can't open OUTTEX file\n");
       return -1;
     }
 
@@ -130,15 +136,10 @@ void printhead(FILE *fout)
   fprintf(fout, "\\usepackage{graphicx,xcolor} \n");
   fprintf(fout, "\\usepackage{gnuplottex} \n");
 
-
   fprintf(fout, "\\begin{document} \n");
-
-  fprintf(fout, "\\begin{center}\n");
 
 }
 void printtail(FILE *fout)
 {
-  fprintf(fout, "\\end{center}\n");
-
   fprintf(fout, "\\end{document} \n");
 }

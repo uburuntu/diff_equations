@@ -2,7 +2,22 @@
 2. Run 'make' in main folder
 
 Options:
-make cleanall - delete all trash
-make clean    - delete all build trash
-make cleanpdf - delete all report trash
-make pdf      - run program and build pdf report file
+make cleanall   - delete all trash
+make clean      - delete all build trash
+make cleanpdf   - delete all report trash
+./a.out         - run the program (should set NEW_INIT before running)
+make tex_smooth - build all pdf staff for smooth solution
+make tex_abrupt - build all pdf staff for abrupt solution
+make pdf        - build final pdf report file
+
+sequence of actions:
+1) set NEW_INIT = 0
+2) make
+3) ./a.out
+4) make tex_smooth
+5) set NEW_INIT = 1
+6) make
+7) ./a.out
+8) make tex_abrupt
+9) make pdf
+

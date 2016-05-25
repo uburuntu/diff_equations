@@ -44,17 +44,24 @@ int main ()
 
   clock_t BegClock, EndClock;
   //-------------------------------------------------
-    FILE *fout;
+  FILE *fout;
 
-      if ((fout = fopen(OUTTEX, "w")))
-        {
-          printhead(fout);
-        }
-      else {
-          printf("Can't open file %s\n", OUTTEX);
-          return -1;
-        }
+  if(!NEW_INIT)
+      fout = fopen(OUTTEX_SMOOTH, "w");
+  else
+      fout = fopen(OUTTEX_ABRUPT, "w");
+
+  if (fout)
+    {
+      printhead(fout);
+      fprintf(fout, "\\section* {Графики:}  \n");
       fclose(fout);
+    }
+  else
+    {
+      printf("Can't open OUTTEX file\n");
+      return -1;
+    }
 
   //-------------------------------------------------
 
@@ -117,16 +124,20 @@ int main ()
         }
     }
   //-------------------------------------------------
-    if ((fout = fopen(OUTTEX, "a+")))
+  if(!NEW_INIT)
+      fout = fopen(OUTTEX_SMOOTH, "a+");
+  else
+      fout = fopen(OUTTEX_ABRUPT, "a+");
+  if (fout)
     {
-        printtail(fout);
+      printtail(fout);
     }
-    else
+  else
     {
-        printf("Can't open file %s\n", OUTTEX);
-        return -1;
+      printf("Can't open file OUTTEX\n");
+      return -1;
     }
-    fclose(fout);
+  fclose(fout);
    //-------------------------------------------------
 
   if (!NEW_INIT)
@@ -138,6 +149,8 @@ int main ()
       tabtex_nl2_v1 (it_t_max, it_sp_max, nl2_v1, tauit, p_d.p_ro, p_d.mu);
       tabtex_nl2_v2 (it_t_max, it_sp_max, nl2_v2, tauit, p_d.p_ro, p_d.mu);
       tabtex_time (it_t_max, it_sp_max, time, tauit, p_d.p_ro, p_d.mu);
+
+      make_tabletex();
     }
 
   if (!NEW_INIT)

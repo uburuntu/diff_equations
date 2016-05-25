@@ -47,6 +47,7 @@ int main (void)
   eigen_values = make_vector_double (2 * eigenvalues_number,
                                      __FILE__, __FUNCTION__);
 
+  // TODO: now we don`t use NA, because we calc for full area
   eigen_functions_A_op = make_vector_double (eigenvalues_number * udc.NA,
                                              __FILE__, __FUNCTION__);
 
@@ -54,11 +55,13 @@ int main (void)
                                         __FILE__, __FUNCTION__);
 
 
+  // TODO: now we don`t use NA, because we calc for full area
   eignum = numsds_spectral_problem (eigen_values, eigen_functions_A_op,
                                     udc.NA, eigenvalues_number,
                                     max_iterations, tolerance,
                                     spectralSubSet, A_op, (void *) (&udc));
-
+  
+  // TODO: now we don`t use NA, because we calc for full area
   for (i = 0; i < eignum; i++)
     {
       convert_au_to_u (&eigen_functions[i * udc.N],

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
-#include "func.h"
+#include "f.h"
 
 /*
  *
@@ -45,17 +45,18 @@
 #define c 2.
 #define b 3.
 
-void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif *p_d)
+void calc_mesh_params (int *st, double *X, double *Y, int *M0L, 
+                       int *M0R, const UserDataCurr_struct * udc);
 {
-  FIX_UNUSED (p_d);
 
 #if SQUARE
-    int M1,M2;
+    int M1, M2;
     double hx,hy;
-    M1 = p_s->M_x;
-    M2 = p_s->M_y;
-    hx = p_s->h_x;
-    hy = p_s->h_y;
+    // Minus 1 because its number of line-segments
+    M1 = udc->Nx - 1;
+    M2 = udc->Ny - 1;
+    hx = udc->Hx;
+    hy = udc->Hy;
     int j, j1, j2;
 
     st[0] = 5;
@@ -132,12 +133,12 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
 #else
   int M1, M2, M1_0, M2_0;
   double hx, hy;
-  M1 = p_s->M_x;
-  M2 = p_s->M_y;
-  M1_0 = M1 - p_s->M_x_0;
-  M2_0 = p_s->M_y_0;
-  hx = p_s->h_x;
-  hy = p_s->h_y;
+  M1 = (udc->Nx - 1);
+  M2 = (udc->Ny - 1);
+  M1_0 = M1 - (udc->Nx_0 - 1);
+  M2_0 = (udc->Ny_0 - 1);
+  hx = udc->Hx;
+  hy = udc->Hy;
   int j, j1, j2;
 
   // (x, y) = (c, 0)
@@ -230,7 +231,7 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
   j++;
 
   // (X, Y) = {X = (0, c) & Y = {a}}
-  for(j1 = 1; j1 < p_s->M_x_0; j1++)
+  for(j1 = 1; j1 < (udc->Nx_0 - 1); j1++)
     {
       st[j] = 3;
       M0L[j] = -1;
@@ -317,7 +318,7 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
   Y[j] = M2 * hy;
   j++;
   assert (j == (M1_0 + 1) * (M2_0) + (M1 + 1) * (M2 + 1 - M2_0));
-  assert (j == p_s->Dim);
+  assert (j == udc->N);
 #endif
 }
 #undef a

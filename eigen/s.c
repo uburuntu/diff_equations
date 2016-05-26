@@ -32,6 +32,8 @@ void initparam_UserDataCurr_struct (
   udc->NA=(udc->Nx - 2) * (udc->Ny - 2) - (udc->Nx_0 - 1) * (udc->Ny_0 - 1);
 #endif
 
+  udc->matrix_dim = 3 * udc->N;
+
   udc->Lx = 3.;
   udc->Ly = 3.;
   udc->Hx = udc->Lx / (udc->Nx - 1);
@@ -62,15 +64,17 @@ int L_op(double * Lapl, const double *u, const UserDataCurr_struct * udc)
   //
 
   int i,j;
+  int m;
+  int N = udc->N;
 
-  int Nx=udc->Nx;
-  int Ny=udc->Ny;
+  int Nx = udc->Nx;
+  int Ny = udc->Ny;
 
-  double Hx=udc->Hx;
-  double Hy=udc->Hy;
+  double Hx = udc->Hx;
+  double Hy = udc->Hy;
 
-  double mu=udc->mu;
-  const double * diag=udc->diag;
+  double mu = udc->mu;
+  const double * diag = udc->diag;
 
   /*
    * TODO -- now this loop is for laplacian equation:
@@ -79,6 +83,8 @@ int L_op(double * Lapl, const double *u, const UserDataCurr_struct * udc)
    * on page 48-49.
   */
 
+  /*
+
   for (i = 1; i < Nx - 1; i++)
     for(j = 1; j < Ny - 1; j++)
       Lapl[i + j * Nx] =
@@ -86,9 +92,132 @@ int L_op(double * Lapl, const double *u, const UserDataCurr_struct * udc)
           - mu*(2.*u[i+j*Nx] -u[i+(j+1)*Nx] - u[i+(j-1)*Nx])/Hy/Hy
           + diag[i+j*Nx]*u[i+j*Nx] + 10.*(u[i+(j+1)*Nx] - u[i+(j-1)*Nx])/Hy
           + 7.*(u[(i+1)+(j)*Nx] - u[(i-1)+(j)*Nx])/Hx;
+  */
+
+
+  // Нужно обратное отображение для выбора i и j по номеру узла m,
+  // чтобы заполнить матрицу
+
+  double mmgL0, mmv1L0, mmv2L0, mmgR0, mmv1R0, mmv2R0;
+  double mmg0L, mmv10L, mmv20L, mmg0R, mmv10R, mmv20R;
+  double g00, gL0, gR0, g0L, g0R, gLL, gRL, gLR, gRR;
+  double v100, v1L0, v1R0, v10L, v10R, v1LL, v1RL, v1LR, v1RR;
+  double v200, v2L0, v2R0, v20L, v20R, v2LL, v2RL, v2LR, v2RR;
+
+  double J_0L, W1_0L, W2_0L;
+  double J_L0, W1_L0, W2_L0;
+  double J_00, W1_00, W2_00;
+  double J_R0, W1_R0, W2_R0;
+  double J_0R, W1_0R, W2_0R;
+
+  double Hx2 = (1. / (2 * Hx));
+  double Hy2 = (1. / (2 * Hy));
+
+  int mm = 1;
+  for (m = 0; m < N; m++)
+    {
+      mmgL0  = mm - 3;
+      mmv1L0 = mm - 2;
+      mmv2L0 = mm - 1;
+      mmgR0  = mm + 3;
+      mmv1R0 = mm + 4;
+      mmv2R0 = mm + 5;
+      mmg0L  = 3 * M0L[m] + 1;
+      mmv10L = mmg0L + 1;
+      mmv20L = mmv10L + 1;
+      mmg0R  = 3 * M0R[m] + 1;
+      mmv10R = mmg0R + 1;
+      mmv20R = mmv10R + 1;
+      g00  = G[m];
+      gL0 = G[m - 1];
+      gR0 = G[m + 1];
+      g0L = G[M0L[m]];
+      g0R = G[M0R[m]];
+      gLL = G[M0L[m] - 1];
+      gRL = G[M0L[m] + 1];
+      gLR = G[M0R[m] - 1];
+      gRR = G[M0R[m] + 1];
+      v100 = V1[m];
+      v1L0 = V1[m - 1];
+      v1R0 = V1[m + 1];
+      v10L = V1[M0L[m]];
+      v10R = V1[M0R[m]];
+      v1LL = V1[M0L[m] - 1];
+      v1RL = V1[M0L[m] + 1];
+      v1LR = V1[M0R[m] - 1];
+      v1RR = V1[M0R[m] + 1];
+      v200 = V2[m];
+      v2L0 = V2[m - 1];
+      v2R0 = V2[m + 1];
+      v20L = V2[M0L[m]];
+      v20R = V2[M0R[m]];
+      v2LL = V2[M0L[m] - 1];
+      v2RL = V2[M0L[m] + 1];
+      v2LR = V2[M0R[m] - 1];
+      v2RR = V2[M0R[m] + 1];
+      switch (st[m])
+        {
+        case 0:
+          {
+            // first equation
+            J_0L  = -(v200 + fabs (v200)) * Hy2;
+            W1_0L = 0.;
+            W2_0L = -Hy2;
+            J_L0  = -(v100 + fabs (v100)) * Hx2;
+            W1_L0 = 0.;
+            W2_L0 = -Hx2;
+            J_00  = fabs (v100) / Hx + fabs (v200) / Hy;
+            W1_00 = (v100 > 0. ? (g00 - gL0) / Hx : (g0R - g00) / Hx);
+            W2_00 = (v200 > 0. ? (g00 - g0L) / Hy : (g0R - g00) / Hy);
+            J_R0  = (v100 - fabs (v100)) * Hx2;
+            W1_R0 = Hx2;
+            W2_R0 = 0.;
+            J_0R  = (v200 - fabs (v200)) * Hy2;
+            W1_0R = 0.;
+            W2_0R = Hy2;
+
+            // second equation
+
+            // third equation
+          }
+        case 1:
+          {
+            ;
+          }
+        case 2:
+          {
+            ;
+          }
+        case 3:
+          {
+            ;
+          }
+        case 4:
+          {
+            ;
+          }
+        case 5:
+          {
+            ;
+          }
+        case 6:
+          {
+            ;
+          }
+        case 7:
+          {
+            ;
+          }
+        case 8:
+          {
+            ;
+          }
+        default:
+          break;
+        }
+    }
 
   return 0;
-
 }
 
 

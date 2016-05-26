@@ -48,6 +48,8 @@ typedef struct
   int N;
   int NA;
 
+  int matrix_dim;
+
   double Lx;
   double Ly;
   double Lx_0;

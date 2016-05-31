@@ -16,7 +16,6 @@
 
 int main (void)
 {
-
   UserDataCurr_struct  udc;
 
   double *eigen_values;
@@ -38,7 +37,22 @@ int main (void)
   char fn[1024];
   int i,len;
 
-  FILE*out;
+  FILE *out;
+
+  // TODO: read G, V1, V2 from file stat_sol.txt,
+  // which has following syntax:
+  // N -- number of vector elements
+  // {N elements of G}
+  // {N elements of V1}
+  // {N elements of V2}
+  // Make a check that N == udc->N
+  // and you read all 3 * N elements
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  FILE *input_stationary_solution;
+  double *G;
+  double *V1;
+  double *V2;
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   initparam_UserDataCurr_struct (&udc);
 
@@ -46,11 +60,15 @@ int main (void)
   st  = make_vector_int (udc.N, __FILE__, __FUNCTION__);
   MOL = make_vector_int (udc.N, __FILE__, __FUNCTION__);
   MOR = make_vector_int (udc.N, __FILE__, __FUNCTION__);
+  X  = make_vector_double (udc.N, __FILE__, __FUNCTION__);
+  Y  = make_vector_double (udc.N, __FILE__, __FUNCTION__);
+  G  = make_vector_double (udc.N, __FILE__, __FUNCTION__);
+  V1 = make_vector_double (udc.N, __FILE__, __FUNCTION__);
+  V2 = make_vector_double (udc.N, __FILE__, __FUNCTION__);
 
-  X = make_vector_double (udc.N, __FILE__, __FUNCTION__);
-  Y = make_vector_double (udc.N, __FILE__, __FUNCTION__);
+  FIX_UNUSED (input_stationary_solution);
 
-  // TODO: change eigenvalues_number
+  // TODO: change eigenvalues_number to correct one
   eigenvalues_number = 6;
 
   /* 'LM' -> eigenvalues of largest magnitude. */
@@ -65,24 +83,26 @@ int main (void)
   tolerance = 1.e-12;
 
 
+  // TODO: change amount of memory to correct value
   eigen_values = make_vector_double (2 * eigenvalues_number,
                                      __FILE__, __FUNCTION__);
 
-  // TODO: now we don`t use NA, because we calc for full area
+  // TODO: change amount of memory to correct value
   eigen_functions_A_op = make_vector_double (eigenvalues_number * udc.NA,
                                              __FILE__, __FUNCTION__);
 
+  // TODO: change amount of memory to correct value
   eigen_functions = make_vector_double (eigenvalues_number * udc.N,
                                         __FILE__, __FUNCTION__);
 
 
-  // TODO: now we don`t use NA, because we calc for full area
+  // TODO: look through this function to check correctness
   eignum = numsds_spectral_problem (eigen_values, eigen_functions_A_op,
                                     udc.NA, eigenvalues_number,
                                     max_iterations, tolerance,
                                     spectralSubSet, A_op, (void *) (&udc));
   
-  // TODO: now we don`t use NA, because we calc for full area
+  // TODO: change to correct values of []
   for (i = 0; i < eignum; i++)
     {
       convert_au_to_u (&eigen_functions[i * udc.N],
@@ -91,6 +111,7 @@ int main (void)
     }
 
 
+  // TODO: change to correct values of []
   for(i = 0; i < eignum; i++)
     {
       len = snprintf (fn, sizeof(fn)-1, "./Numres/eigenfun_%02d", i);

@@ -57,7 +57,7 @@ void initparam_UserDataCurr_struct (
 
 
 
-int L_op(double * Lapl, const double *u, const UserDataCurr_struct * udc)
+int L_op (double * Lapl, const double *u, const UserDataCurr_struct * udc)
 {
   //
   //  Lapl[i+j*Nx]= mu *  \delta u[i+j*Nx] + diag[i+j*Nx]*u[i+j*Nx] + u_x u[i+j*Nx]
@@ -74,7 +74,6 @@ int L_op(double * Lapl, const double *u, const UserDataCurr_struct * udc)
   double Hy = udc->Hy;
 
   double mu = udc->mu;
-  const double * diag = udc->diag;
   double p_ro, p_2ro;
 
   /*
@@ -167,15 +166,19 @@ int L_op(double * Lapl, const double *u, const UserDataCurr_struct * udc)
             J_0L  = -(v200 + fabs (v200)) * Hy2;
             W1_0L = 0.;
             W2_0L = -Hy2;
+
             J_L0  = -(v100 + fabs (v100)) * Hx2;
             W1_L0 = -Hx2;
             W2_L0 = 0.;
+
             J_00  = fabs (v100) / Hx + fabs (v200) / Hy;
             W1_00 = (v100 > 0. ? (g00 - gL0) / Hx : (gR0 - g00) / Hx);
             W2_00 = (v200 > 0. ? (g00 - g0L) / Hy : (g0R - g00) / Hy);
+
             J_R0  = (v100 - fabs (v100)) * Hx2;
             W1_R0 = Hx2;
             W2_R0 = 0.;
+
             J_0R  = (v200 - fabs (v200)) * Hy2;
             W1_0R = 0.;
             W2_0R = Hy2;
@@ -194,9 +197,11 @@ int L_op(double * Lapl, const double *u, const UserDataCurr_struct * udc)
             J_0L  = 0.;
             W1_0L = -(v200 + fabs (v200)) * Hy2 - mu * exp (-g00) * Hy * Hy;
             W2_0L = 0.;
+
             J_L0  = - p_ro * Hx2; // p_ro = p_ro(g00)
             W1_L0 = -(v100 + fabs (v100)) * Hx2 - mu * exp (-g00) * (4. / 3.) * Hx * Hx;
             W2_L0 = 0.;
+
             J_00  = p_2ro * (gR0 - gL0) * Hx2 + mu * exp (-g00) * (
                         (4. / 3.) * (v1R0 - 2. * v100 + v1L0) * Hx * Hx +
                         (v10R - 2. * v100 + v10L) * Hy * Hy +
@@ -205,9 +210,11 @@ int L_op(double * Lapl, const double *u, const UserDataCurr_struct * udc)
                     (v100 > 0. ? (v100 - v1L0) / Hx : (v1R0 - v100) / Hx) +
                     mu * exp (-g00) * 2. * ((4. / 3.) * Hx * Hx + Hy * Hy);
             W2_00 = (v200 > 0. ? (v100 - v10L) / Hy : (v10R - v100) / Hy);
+
             J_R0  = p_ro * Hx2;
             W1_R0 = (v100 - fabs (v100)) * Hx2 - mu * exp (-g00) * (4. / 3.) * Hx * Hx;
             W2_R0 = 0.;
+
             J_0R  = 0.;
             W1_0R = (v200 - fabs (v200)) * Hy2 - mu * exp (-g00) * Hy * Hy;
             W2_0R = 0.;
@@ -227,9 +234,11 @@ int L_op(double * Lapl, const double *u, const UserDataCurr_struct * udc)
             J_0L  = - p_ro * Hy2;
             W1_0L = 0.;
             W2_0L = -(v200 + fabs (v200)) * Hy2 - mu * exp (-g00) * (4. / 3.) * Hy * Hy;
+
             J_L0  = 0.;
             W1_L0 = 0.;
             W2_L0 = -(v100 + fabs (v100)) * Hx2 - mu * exp (-g00) * Hx * Hx;
+
             J_00  = p_2ro * (g0R - g0L) * Hx2 + mu * exp (-g00) * (
                         (4. / 3.) * (v20R - 2. * v200 + v20L) * Hy * Hy +
                         (v2R0 - 2. * v200 + v2L0) * Hx * Hx +
@@ -238,9 +247,11 @@ int L_op(double * Lapl, const double *u, const UserDataCurr_struct * udc)
             W2_00 = fabs (v100) * Hx + fabs (v200) * Hy +
                     (v200 > 0. ? (v200 - v20L) / Hy : (v20R - v200) / Hy) +
                     mu * exp (-g00) * 2. * ((4. / 3.) * Hy * Hy + Hx * Hx);
+
             J_R0  = 0.;
             W1_R0 = 0.;
             W2_R0 = (v100 - fabs (v100)) * Hx2 - mu * exp (-g00) * Hx * Hx;
+
             J_0R  = p_ro * Hy2;
             W1_0R = 0.;
             W2_0R = (v200 - fabs (v200)) * Hy2 - mu * exp (-g00) * (4. / 3.) * Hy * Hy;;
@@ -373,32 +384,28 @@ int convert_au_to_u(double *u, const double  * au,
 
 void A_op (double *Aau, const double *au, int n, void * ud)
 {
-  double *u=NULL;
-  double *Lu=NULL;
+  double *u = NULL;
+  double *Lu = NULL;
   UserDataCurr_struct * udc = (UserDataCurr_struct *)ud;
 
   FIX_UNUSED (n);
 
-  u  = make_vector_double(udc->N, __FILE__, __FUNCTION__);
+  u  = make_vector_double (3 * udc->N, __FILE__, __FUNCTION__);
   /*
    *  TODO -- rename Lu, L_op, Lapl names, because
    *  they suppose Laplace operator case, which was initial
    *  for this propgram.
   */
-  Lu = make_vector_double(udc->N, __FILE__, __FUNCTION__);
+  Lu = make_vector_double (3 * udc->N, __FILE__, __FUNCTION__);
 
 
-  /*
-   *  TODO -- in our case it`s easier not to use convert function,
-   *  because we have unknown functions on boudary. We should modify only
-   *  L_op method. However, main eigen code uses convert function, so this
-   *  solution propbably could not work, even though Popov said it should...
-  */
-  convert_au_to_u (u,au,udc);
+  // convert solution vector au (dim = NA < 3 * N) into solution vector u
+  convert_au_to_u (u, au, udc);
 
+  // multiplication L * u (dim(L) = (3 * N) ^ 2, dim(u) = 3 * N
   L_op (Lu, u, udc);
 
-  // TODO -- simular to previus TODO case.
+  // convert solution vector Lu (dim = 3 * N) into solution vector Aau
   convert_u_to_au (Aau, Lu, udc);
 
   free(u);

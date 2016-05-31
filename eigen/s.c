@@ -880,8 +880,6 @@ int convert_au_to_u (double *u, const double  *au,
   int NA = udc->NA;
   int m1 = 0; // u-index
   int m2 = 0; // au-index
-  // TODO: hehe, you know what to do :D with this double TODO:
-  double TODO;
   for (m = 0; m < N; m++)
     {
       switch (st[m])
@@ -902,13 +900,13 @@ int convert_au_to_u (double *u, const double  *au,
           {
             // 0 non-trivial equations
             // first equation
-            u[m1] = TODO;
+            u[m1] =  0.;
             m1++;
             // second equation
-            u[m1] = TODO;
+            u[m1] =  0.;
             m1++;
             // third equation
-            u[m1] = TODO;
+            u[m1] =  0.;
             m1++;
           }
         case 2: // right boundary
@@ -921,7 +919,7 @@ int convert_au_to_u (double *u, const double  *au,
             u[m1] = au[m2];
             m1++; m2++;
             // third equation
-            u[m1] = TODO;
+            u[m1] =  0.;
             m1++;
           }
         case 3: // down boundary
@@ -931,10 +929,10 @@ int convert_au_to_u (double *u, const double  *au,
             u[m1] = au[m2];
             m1++; m2++;
             // second equation
-            u[m1] = TODO;
+            u[m1] =  0.;
             m1++;
             // third equation
-            u[m1] = TODO;
+            u[m1] =  0.;
             m1++;
           }
         case 4: // top boundary
@@ -944,49 +942,49 @@ int convert_au_to_u (double *u, const double  *au,
             u[m1] = au[m2];
             m1++; m2++;
             // second equation
-            u[m1] = TODO;
+            u[m1] =  0.;
             m1++;
             // third equation
-            u[m1] = TODO;
+            u[m1] =  0.;
             m1++;
           }
         case 5:
           {
             // 0 non-trivial equations
             // first equation
-            u[m1] = TODO;
+            u[m1] =  0.;
             m1++;
             // second equation
-            u[m1] = TODO;
+            u[m1] =  0.;
             m1++;
             // third equation
-            u[m1] = TODO;
+            u[m1] =  0.;
             m1++;
           }
         case 6:
           {
             // 0 non-trivial equations
             // first equation
-            u[m1] = TODO;
+            u[m1] =  0.;
             m1++;
             // second equation
-            u[m1] = TODO;
+            u[m1] =  0.;
             m1++;
             // third equation
-            u[m1] = TODO;
+            u[m1] =  0.;
             m1++;
           }
         case 7:
           {
             // 0 non-trivial equations
             // first equation
-            u[m1] = TODO;
+            u[m1] =  0.;
             m1++;
             // second equation
-            u[m1] = TODO;
+            u[m1] =  0.;
             m1++;
             // third equation
-            u[m1] = TODO;
+            u[m1] =  0.;
             m1++;
           }
         default:

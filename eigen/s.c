@@ -11,7 +11,6 @@
 
 #include "f.h"
 
-
 #define recreate() recreate_coefficients (      \
   &a_J_0L,  &a_W1_0L, &a_W2_0L, &a_J_L0,        \
   &a_W1_L0, &a_W2_L0, &a_J_00,  &a_W1_00,       \
@@ -752,25 +751,6 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
   return 0;
 }
 
-
-
-void print_2dfun_double(FILE* f, const char * name, const double  * u,
-                        const int nx, const int ny)
-{
-  int i;
-  int j;
-
-  fprintf(f,"#%s\n",name);
-
-  for(j=ny-1;j>=0;j--){
-      for(i=0;i<nx;i++){
-          fprintf(f,"%9.2e ",u[i+j*nx]);
-        }
-      fprintf(f,"\n");
-    }
-  return ;
-}
-
 int convert_u_to_au (double *au, const double  *u,
                      const UserDataCurr_struct *udc,
                      const int *st)
@@ -1034,44 +1014,6 @@ void A_op (double *Aau, const double *au, int n, void * ud,
   free(Lu);
 
   return;
-}
-
-double *make_vector_double (int n, const char *info_1, const char *info_2)
-{
-  double *u;
-  int i;
-
-  u = (double *) malloc (sizeof(double) * n);
-  if (u == NULL)
-    {
-      printf ("Error in %s %s: Fail to allocate %lu bytes\n",
-              info_1, info_2, sizeof(double) * n);
-      exit(1);
-    }
-
-  for(i = 0; i < n; i++)
-    u[i] = 0.;
-
-  return u;
-}
-
-int *make_vector_int (int n, const char *info_1, const char *info_2)
-{
-  int *u;
-  int i;
-
-  u = (int *) malloc (sizeof(int) * n);
-  if (u == NULL)
-    {
-      printf ("Error in %s %s: Fail to allocate %lu bytes\n",
-              info_1, info_2, sizeof(int) * n);
-      exit(1);
-    }
-
-  for (i = 0; i < n; i++)
-    u[i] = 0.;
-
-  return u;
 }
 
 void fill_node_phys_prop (int m, // number of mesh node

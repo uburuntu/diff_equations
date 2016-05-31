@@ -36,6 +36,7 @@
 #include <assert.h>
 
 #define FIX_UNUSED(X) (void)(X)
+#define FREE_ARRAY(X) if ((X)) free ((X))
 
 #define SQUARE 1
 
@@ -99,6 +100,8 @@ double *sp_alloc_d_vector (int n, const char *info_1, const char *info_2);
 
 void sp_free_d_vector (double *);
 
+int read_stationary_solution (const char *fname, int N, double *G, double *V1, double *V2);
+
 void dnaupd_(
     int *ido, char *bmat, int *n, char *which, int*nev, double *tol,
     double *resid, int *ncv, double *v, int *ldv, int *iparam,
@@ -115,14 +118,13 @@ int nummsds_check_dnaupd_status (int info);
 
 int nummsds_check_dneupd_status (int info);
 
-int numsds_spectral_problem (
-    double *eigen_values,
+int numsds_spectral_problem (double *eigen_values,
     double *eigen_functions,
     int dim,
     int eigenvalues_number,
     int max_iterations,
     double tolerance,
-    const char *spectralSubSet,
+    const char spectralSubSet[],
     void (*)(double *, const double *, int, void *),
     void * user_data
     );

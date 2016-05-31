@@ -6,56 +6,6 @@
 
 #include "f.h"
 
-int *sp_alloc_i_vector (
-    int n,
-    const char *info_1,
-    const char *info_2)
-{
-  int *tmp = (int *)malloc(n * sizeof(int ));
-
-  if (tmp == NULL)
-    {
-      printf("Error in %s %s : Fail to allocate %lu bytes\n",
-             info_1, info_2, n * sizeof(int));
-      exit(1);
-    }
-
-  memset (tmp, 0, n * sizeof(int));
-
-  return tmp;
-}
-
-void sp_free_i_vector (int * d)
-{
-  if (d)
-    free(d);
-}
-
-double *sp_alloc_d_vector (
-    int n,
-    const char *info_1,
-    const char *info_2)
-{
-  double *tmp = (double *)malloc(n * sizeof(double));
-
-  if (tmp == NULL)
-    {
-      printf ("Error in %s %s : Fail to allocate %lu bytes\n",
-              info_1, info_2, n * sizeof(double));
-      exit (1);
-    }
-
-  memset (tmp, 0, n * sizeof(double));
-
-  return tmp;
-}
-
-void sp_free_d_vector (double * d)
-{
-  if (d)
-    free(d);
-}
-
 int numsds_spectral_problem (
     double *eigen_values,
     double *eigen_functions,
@@ -63,7 +13,7 @@ int numsds_spectral_problem (
     int eigenvalues_number,
     int max_iterations,
     double tolerance,
-    const char *spectralSubSet,
+    const char spectralSubSet[3],
     void (*A_op)(double *, const double *, int, void *),
     void * user_data
     )

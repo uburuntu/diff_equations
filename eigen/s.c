@@ -15,24 +15,32 @@
 void initparam_UserDataCurr_struct (
     UserDataCurr_struct * udc)
 {
-  int i,j;
-
+  // Number of mesh nodes
   udc->Nx    =  61;
   udc->Ny    =  61;
   udc->Nx_0  =  41;
   udc->Ny_0  =  21;
 
-  // NA is not used in our method, because we don`t cut area
-
 #if SQUARE
-  udc->N = udc->Nx * udc->Ny;
-  udc->NA=(udc->Nx - 2) * (udc->Ny - 2);
+  udc->N  = udc->Nx * udc->Ny;
+  udc->NA = 3 * (udc->Nx - 2) * (udc->Ny - 2) + // inner nodes
+            2 * (udc->Ny - 2) +                 // right boundary
+            1 * (udc->Nx - 2) +                 // down boundary
+            1 * (udc->Nx - 2) +                 // top boundary
+            0 * (udc->Ny - 2) +                 // left boundary
+            0 * 4;                              // vertices of square
 #else
   udc->N = udc->Nx * udc->Ny - (udc->Nx_0 - 1) * (udc->Ny_0 - 1);
-  udc->NA=(udc->Nx - 2) * (udc->Ny - 2) - (udc->Nx_0 - 1) * (udc->Ny_0 - 1);
+  udc->NA = (udc->Nx - 2) * (udc->Ny - 2) - (udc->Nx_0 - 1) * (udc->Ny_0 - 1);
+  udc->NA = 3 * ((udc->Nx - 2) * (udc->Ny - 2) - (udc->Nx_0 - 1) * (udc->Ny_0 - 1) + 1) +
+            2 * (udc->Nx - udc->Nx_0 - 1) +     // II-part of down boundary
+            1 * (udc->Ny_0 - 2) +               // I-part of left boundary
+            1 * (udc->Ny - 2) +                 // right boundary
+            1 * (udc->Nx - 2) +                 // top boundary
+            1 * (udc->Nx_0 - 2) +               // I-part of down boundary
+            0 * (udc->Ny - udc->Ny_0 - 1) +     // II-part of left boundary
+            0 * 5;                              // vertices
 #endif
-
-  udc->matrix_dim = 3 * udc->N;
 
   udc->Lx = 3.;
   udc->Ly = 3.;
@@ -40,19 +48,7 @@ void initparam_UserDataCurr_struct (
   udc->Hy = udc->Ly / (udc->Ny - 1);
 
   udc->mu = 1.;
-
-  udc->diag = make_vector_double (udc->N, __FILE__, __FUNCTION__);
-
-  for(i = 0; i < udc->Nx; i++)
-    {
-      for(j = 0; j < udc->Ny; j++)
-        {
-          // TODO: change these for our problem
-          udc->diag[i + j * udc->Nx] = 1.;
-          // * i * udc->Hx * sin(PI * i * udc->Hx / udc->Lx) * sin(PI * j * udc->Hy / udc->Ly);
-        }
-    }
-  return ;
+  return;
 }
 
 
@@ -867,59 +863,242 @@ void print_2dfun_double(FILE* f, const char * name, const double  * u,
 }
 
 
-int convert_u_to_au(double * au, const double  * u,
-                    const UserDataCurr_struct * udc)
+int convert_u_to_au (double *au, const double  *u,
+                     const UserDataCurr_struct *udc)
 {
+  int m;
+  int N  = udc->N;
+  int NA = udc->NA;
+  int m1 = 0; // u-index
+  int m2 = 0; // au-index
+  for (m = 0; m < N; m++)
+    {
+      switch (st[m])
+        {
+        case 0:
+          {
+            // first equation
+            au[m2] = u[m1];
+            m1++; m2++;
+            // second equation
+            au[m2] = u[m1];
+            m1++; m2++;
+            // third equation
+            au[m2] = u[m1];
+            m1++; m2++;
+          }
+        case 1: // left boundary
+          {
+            // 0 non-trivial equations
+            // first equation
+            m1++;
+            // second equation
+            m1++;
+            // third equation
+            m1++;
+          }
+        case 2: // right boundary
+          {
+            // 2 non-trivial equation
+            // first equation
+            au[m2] = u[m1];
+            m1++; m2++;
+            // second equation
+            au[m2] = u[m1];
+            m1++; m2++;
+            // third equation
+            m1++;
+          }
+        case 3: // down boundary
+          {
+            // 1 non-trivial equation
+            // first equation
+            au[m2] = u[m1];
+            m1++; m2++;
+            // second equation
+            m1++;
+            // third equation
+            m1++;
+          }
+        case 4: // top boundary
+          {
+            // 1 non-trivial equation
+            // first equation
+            au[m2] = u[m1];
+            m1++; m2++;
+            // second equation
+            m1++;
+            // third equation
+            m1++;
+          }
+        case 5:
+          {
+            // 0 non-trivial equations
+            // first equation
+            m1++;
+            // second equation
+            m1++;
+            // third equation
+            m1++;
+          }
+        case 6:
+          {
+            // 0 non-trivial equations
+            // first equation
+            m1++;
+            // second equation
+            m1++;
+            // third equation
+            m1++;
+          }
+        case 7:
+          {
+            // 0 non-trivial equations
+            // first equation
+            m1++;
+            // second equation
+            m1++;
+            // third equation
+            m1++;
+          }
+        default:
+          break;
+        }
+    }
 
-  int i,j;
-
-  int Nx,Ny;
-
-  Nx=udc->Nx;
-  Ny=udc->Ny;
-
-  for(i=0;i<Nx-2;i++)
-    for(j=0;j<Ny-2;j++)
-      au[i+j*(Nx-2)]=u[(i+1)+(j+1)*Nx];
-
-
+  // Check that we fill all elements correctly
+  assert (m1 == 3 * N);
+  assert (m2 == NA);
+  return 0;
   return 0;
 }
 
-int convert_au_to_u(double *u, const double  * au,
-                    const UserDataCurr_struct * udc)
+int convert_au_to_u (double *u, const double  *au,
+                     const UserDataCurr_struct * udc)
 {
+  int m;
+  int N  = udc->N;
+  int NA = udc->NA;
+  int m1 = 0; // u-index
+  int m2 = 0; // au-index
+  // TODO: hehe, you know what to do :D with this double TODO:
+  double TODO;
+  for (m = 0; m < N; m++)
+    {
+      switch (st[m])
+        {
+        case 0:
+          {
+            // first equation
+            u[m1] = au[m2];
+            m1++; m2++;
+            // second equation
+            u[m1] = au[m2];
+            m1++; m2++;
+            // third equation
+            u[m1] = au[m2];
+            m1++; m2++;
+          }
+        case 1: // left boundary
+          {
+            // 0 non-trivial equations
+            // first equation
+            u[m1] = TODO;
+            m1++;
+            // second equation
+            u[m1] = TODO;
+            m1++;
+            // third equation
+            u[m1] = TODO;
+            m1++;
+          }
+        case 2: // right boundary
+          {
+            // 2 non-trivial equation
+            // first equation
+            u[m1] = au[m2];
+            m1++; m2++;
+            // second equation
+            u[m1] = au[m2];
+            m1++; m2++;
+            // third equation
+            u[m1] = TODO;
+            m1++;
+          }
+        case 3: // down boundary
+          {
+            // 1 non-trivial equation
+            // first equation
+            u[m1] = au[m2];
+            m1++; m2++;
+            // second equation
+            u[m1] = TODO;
+            m1++;
+            // third equation
+            u[m1] = TODO;
+            m1++;
+          }
+        case 4: // top boundary
+          {
+            // 1 non-trivial equation
+            // first equation
+            u[m1] = au[m2];
+            m1++; m2++;
+            // second equation
+            u[m1] = TODO;
+            m1++;
+            // third equation
+            u[m1] = TODO;
+            m1++;
+          }
+        case 5:
+          {
+            // 0 non-trivial equations
+            // first equation
+            u[m1] = TODO;
+            m1++;
+            // second equation
+            u[m1] = TODO;
+            m1++;
+            // third equation
+            u[m1] = TODO;
+            m1++;
+          }
+        case 6:
+          {
+            // 0 non-trivial equations
+            // first equation
+            u[m1] = TODO;
+            m1++;
+            // second equation
+            u[m1] = TODO;
+            m1++;
+            // third equation
+            u[m1] = TODO;
+            m1++;
+          }
+        case 7:
+          {
+            // 0 non-trivial equations
+            // first equation
+            u[m1] = TODO;
+            m1++;
+            // second equation
+            u[m1] = TODO;
+            m1++;
+            // third equation
+            u[m1] = TODO;
+            m1++;
+          }
+        default:
+          break;
+        }
+    }
 
-  int i,j;
-  int Nx,Ny;
-
-  Nx=udc->Nx;
-  Ny=udc->Ny;
-
-  i=0;
-  for(j=0;j<Ny;j++)
-    u[i+j*Nx]=0.;
-
-  i=Nx-1;
-  for(j=0;j<Ny;j++)
-    u[i+j*Nx]=0.;
-
-  j=0;
-  for(i=0;i<Nx;i++)
-    u[i+j*Nx]=0.;
-
-  j=Ny-1;
-  for(i=0;i<Nx;i++)
-    u[i+j*Nx]=0.;
-
-
-
-  for(i=1;i<Nx-1;i++)
-    for(j=1;j<Ny-1;j++)
-      u[i+j*Nx]=au[(i-1)+(j-1)*(Nx-2)];
-
+  // Check that we fill all elements correctly
+  assert (m1 == 3 * N);
+  assert (m2 == NA);
   return 0;
-
 }
 
 
@@ -932,13 +1111,7 @@ void A_op (double *Aau, const double *au, int n, void * ud)
   FIX_UNUSED (n);
 
   u  = make_vector_double (3 * udc->N, __FILE__, __FUNCTION__);
-  /*
-   *  TODO -- rename Lu, L_op, Lapl names, because
-   *  they suppose Laplace operator case, which was initial
-   *  for this propgram.
-  */
   Lu = make_vector_double (3 * udc->N, __FILE__, __FUNCTION__);
-
 
   // convert solution vector au (dim = NA < 3 * N) into solution vector u
   convert_au_to_u (u, au, udc);

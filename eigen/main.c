@@ -68,7 +68,7 @@ int main (void)
 
   FIX_UNUSED (input_stationary_solution);
 
-  // TODO: change eigenvalues_number to correct one
+  // it equals to number of non-trivial equations
   eigenvalues_number = 6;
 
   /* 'LM' -> eigenvalues of largest magnitude. */
@@ -78,7 +78,7 @@ int main (void)
   /* 'LI' -> eigenvalues of largest imaginary part. */
   /* 'SI' -> eigenvalues of smallest imaginary part.*/
 
-  strcpy(spectralSubSet,"SM");
+  strcpy (spectralSubSet, "SM");
   max_iterations = 1000;
   tolerance = 1.e-12;
 

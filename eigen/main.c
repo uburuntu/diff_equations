@@ -11,7 +11,8 @@
 
 
 #include "f.h"
-
+#include <stdio.h>
+#define STSOLFILE "stat_sol.txt"
 
 
 int main (void)
@@ -36,6 +37,7 @@ int main (void)
   int eignum=0;
   char fn[1024];
   int i,len;
+  int readedN;
 
   FILE *out;
 
@@ -66,7 +68,37 @@ int main (void)
   V1 = make_vector_double (udc.N, __FILE__, __FUNCTION__);
   V2 = make_vector_double (udc.N, __FILE__, __FUNCTION__);
 
-  FIX_UNUSED (input_stationary_solution);
+  input_stationary_solution = fopen(STSOLFILE, "r");
+  if(!input_stationary_solution)
+  {
+      printf("fopen error: cannot open %s", STSOLFILE);
+      return -1;
+  }
+  if(!fscanf (input_stationary_solution, "%d", &readedN))
+  {
+      printf("fread error: incorrect N by file %s", STSOLFILE);
+      fclose(input_stationary_solution);
+      return -1;
+  }
+  if(readedN != udc.N)
+  {
+      printf("fread error: incorrect N=%d by file %s", readedN, STSOLFILE);
+      fclose(input_stationary_solution);
+      return -1;
+  }
+  readedN = 0;
+  for(i = 0; i < 3 * udc.N; i++)
+  {
+      if(!fscanf (input_stationary_solution, "%lf", i%udc.N + (i/udc.N == 0 ? G : (i/udc.N == 1 ? V1 : V2))))
+      {
+          printf("fread error: incorrect data by %d in line %d by file %s", i%udc.N, i/udc.N, STSOLFILE);
+          fclose(input_stationary_solution);
+          return -1;
+      }
+      readedN++;
+  }
+  fclose(input_stationary_solution);
+  printf("Totally readed %d numbers from file %s", readedN, STSOLFILE);
 
   // it equals to number of non-trivial equations
   eigenvalues_number = 6;

@@ -23,6 +23,13 @@ int main (void)
   double *eigen_functions_A_op;
   double *eigen_functions;
 
+  // aux vectors for mesh parameters
+  int *st;
+  int *MOL;
+  int *MOR;
+  double *X;
+  double *Y;
+
   int eigenvalues_number;
   char spectralSubSet[3];
   int max_iterations;
@@ -35,7 +42,16 @@ int main (void)
 
   initparam_UserDataCurr_struct (&udc);
 
-  eigenvalues_number=6;
+  // aux vectors for all mesh elements
+  st  = make_vector_int (udc.N, __FILE__, __FUNCTION__);
+  MOL = make_vector_int (udc.N, __FILE__, __FUNCTION__);
+  MOR = make_vector_int (udc.N, __FILE__, __FUNCTION__);
+
+  X = make_vector_double (udc.N, __FILE__, __FUNCTION__);
+  Y = make_vector_double (udc.N, __FILE__, __FUNCTION__);
+
+  // TODO: change eigenvalues_number
+  eigenvalues_number = 6;
 
   /* 'LM' -> eigenvalues of largest magnitude. */
   /* 'SM' -> eigenvalues of smallest magnitude.*/
@@ -46,7 +62,7 @@ int main (void)
 
   strcpy(spectralSubSet,"SM");
   max_iterations = 1000;
-  tolerance =1.e-12;
+  tolerance = 1.e-12;
 
 
   eigen_values = make_vector_double (2 * eigenvalues_number,
@@ -92,6 +108,14 @@ int main (void)
       fclose(out);
     }
 
-  return 0;
+  // TODO: where are memory free function calls for *eigen_values?
+  // Kornev really hates memory...
 
+  if (st) free (st);
+  if (MOL) free (MOL);
+  if (MOR) free (MOR);
+  if (X) free (X);
+  if (Y) free (Y);
+
+  return 0;
 }

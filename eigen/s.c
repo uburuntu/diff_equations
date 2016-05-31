@@ -381,21 +381,40 @@ void A_op (double *Aau, const double *au, int n, void * ud)
 }
 
 
-double *  make_vector_double(int n,const char *info_1, const char *info_2)
+
+double *make_vector_double (int n, const char *info_1, const char *info_2)
 {
   double *u;
   int i;
 
-  u = (double*)malloc( sizeof(double)*n);
-  if(u==NULL){
-      printf("Error in %s %s: Fail to allocate %lu bytes\n",
-             info_1,info_2,sizeof(double)*n);
+  u = (double*) malloc (sizeof(double) * n);
+  if (u == NULL)
+    {
+      printf ("Error in %s %s: Fail to allocate %lu bytes\n",
+              info_1, info_2, sizeof(double) * n);
       exit(1);
     }
 
-  for(i=0;i<n ;i++){
+  for(i = 0; i < n; i++)
       u[i] = 0.;
+  return u;
+}
 
+
+int *make_vector_int (int n, const char *info_1, const char *info_2)
+{
+  int *u;
+  int i;
+
+  u = (int*) malloc (sizeof(int) * n);
+  if (u == NULL)
+    {
+      printf ("Error in %s %s: Fail to allocate %lu bytes\n",
+              info_1, info_2, sizeof(int) * n);
+      exit(1);
     }
+
+  for(i = 0; i < n; i++)
+      u[i] = 0.;
   return u;
 }

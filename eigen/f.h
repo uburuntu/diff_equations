@@ -84,7 +84,8 @@ int convert_au_to_u (double *u, const double  * au,
 
 void A_op (double *Aau, const double *au, int n, void * udc);
 
-double * make_vector_double (int n,const char *info_1, const char *info_2);
+double *make_vector_double (int n, const char *info_1, const char *info_2);
+int *make_vector_int (int n, const char *info_1, const char *info_2);
 
 int numsds_spectral_problem (
     double *eigen_values,

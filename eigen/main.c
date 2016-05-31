@@ -9,11 +9,10 @@
                      Halikov P.
 */
 
-
-#include "f.h"
 #include <stdio.h>
-#define STSOLFILE "stat_sol.txt"
+#include "f.h"
 
+#define STSOLFILE "stat_sol.txt"
 
 int main (void)
 {
@@ -133,7 +132,7 @@ int main (void)
                                     udc.NA, eigenvalues_number,
                                     max_iterations, tolerance,
                                     spectralSubSet, A_op, (void *) (&udc));
-  
+
   // TODO: change to correct values of []
   for (i = 0; i < eignum; i++)
     {

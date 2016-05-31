@@ -121,24 +121,30 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
   for (m = 0; m < N; m++)
     {
       // Fill all phys properties of current mesh node
-      fill_node_phys_prop (m, g00, gL0, gR0, g0L, g0R, gLL,
-                           gRL, gLR, gRR, G, M0L, M0R);
+      fill_node_phys_prop (m,
+                           &g00, &gL0, &gR0, &g0L, &g0R, &gLL, &gRL, &gLR, &gRR,
+                           G, M0L, M0R);
 
-      fill_node_phys_prop (m, v100, v1L0, v1R0, v10L, v10R, v1LL,
-                           v1RL, v1LR, v1RR, V1, M0L, M0R);
+      fill_node_phys_prop (m,
+                           &v100, &v1L0, &v1R0, &v10L, &v10R, &v1LL, &v1RL, &v1LR, &v1RR,
+                           V1, M0L, M0R);
 
-      fill_node_phys_prop (m, v200, v2L0, v2R0, v20L, v20R, v2LL,
-                           v2RL, v2LR, v2RR, V2, M0L, M0R);
+      fill_node_phys_prop (m,
+                           &v200, &v2L0, &v2R0, &v20L, &v20R, &v2LL, &v2RL, &v2LR, &v2RR,
+                           V2, M0L, M0R);
 
-      fill_node_phys_prop (3 * m + 0, j00, jL0, jR0, j0L, j0R, jLL,
-                           jRL, jLR, jRR, u, M0L, M0R);
+      fill_node_phys_prop (3 * m + 0,
+                           &j00, &jL0, &jR0, &j0L, &j0R, &jLL, &jRL, &jLR, &jRR,
+                           u, M0L, M0R);
 
-      fill_node_phys_prop (3 * m + 1, w100, w1L0, w1R0, w10L, w10R, w1LL,
-                           w1RL, w1LR, w1RR, u, M0L, M0R);
+      fill_node_phys_prop (3 * m + 1,
+                           &w100, &w1L0, &w1R0, &w10L, &w10R, &w1LL, &w1RL, &w1LR, &w1RR,
+                           u, M0L, M0R);
 
 
-      fill_node_phys_prop (3 * m + 2, w200, w2L0, w2R0, w20L, w20R, w2LL,
-                           w2RL, w2LR, w2RR, u, M0L, M0R);
+      fill_node_phys_prop (3 * m + 2,
+                           &w200, &w2L0, &w2R0, &w20L, &w20R, &w2LL, &w2RL, &w2LR, &w2RR,
+                           u, M0L, M0R);
 
       switch (st[m])
         {
@@ -1065,20 +1071,20 @@ int *make_vector_int (int n, const char *info_1, const char *info_2)
 }
 
 void fill_node_phys_prop (int m, // number of mesh node
-                          double &p00, double &pL0, double &pR0,
-                          double &p0L, double &p0R, double &pLL,
-                          double &pRL, double &pLR, double &pRR,
-                          const double *p, const int *M0L, const int *M0R)
+                          double *p00, double *pL0, double *pR0,
+                          double *p0L, double *p0R, double *pLL,
+                          double *pRL, double *pLR, double *pRR,
+                          const double *const p, const int *const M0L, const int *const M0R)
 {
-  p00 = p[m];
-  pL0 = p[m - 1];
-  pR0 = p[m + 1];
-  p0L = p[M0L[m]];
-  p0R = p[M0R[m]];
-  pLL = p[M0L[m] - 1];
-  pRL = p[M0L[m] + 1];
-  pLR = p[M0R[m] - 1];
-  pRR = p[M0R[m] + 1];
+  *p00 = p[m];
+  *pL0 = p[m - 1];
+  *pR0 = p[m + 1];
+  *p0L = p[M0L[m]];
+  *p0R = p[M0R[m]];
+  *pLL = p[M0L[m] - 1];
+  *pRL = p[M0L[m] + 1];
+  *pLR = p[M0R[m] - 1];
+  *pRR = p[M0R[m] + 1];
 }
 
 void recreate_coefficients (

@@ -30,11 +30,11 @@
 */
 
 
-#include <math.h>
 #include <stdio.h>
-#include <assert.h>
 #include <stdlib.h>
+#include <math.h>
 #include <string.h>
+#include <assert.h>
 
 #define FIX_UNUSED(X) (void)(X)
 
@@ -69,12 +69,12 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct * udc,
           const double *G, const double *V1, const double *V2);
 
 void fill_node_phys_prop (int m, // number of mesh node
-                          double &p00, double &pL0, double &pR0,
-                          double &p0L, double &p0R, double &pLL,
-                          double &pRL, double &pLR, double &pRR,
-                          const double *p, const int *M0L, const int *M0R);
+                          double *p00, double *pL0, double *pR0,
+                          double *p0L, double *p0R, double *pLL,
+                          double *pRL, double *pLR, double *pRR,
+                          const double *const p, const int *const M0L, const int *const M0R);
 
-void calc_mesh_params (int *st, double *X, double *Y, int *M0L, 
+void calc_mesh_params (int *st, double *X, double *Y, int *M0L,
                        int *M0R, const UserDataCurr_struct * udc);
 
 void print_2dfun_double (FILE* f, const char * name, const double  * u,

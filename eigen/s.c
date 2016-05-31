@@ -970,7 +970,6 @@ int convert_u_to_au (double *au, const double  *u,
   assert (m1 == 3 * N);
   assert (m2 == NA);
   return 0;
-  return 0;
 }
 
 int convert_au_to_u (double *u, const double  *au,

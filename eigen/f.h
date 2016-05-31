@@ -32,6 +32,7 @@
 
 #include <math.h>
 #include <stdio.h>
+#include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -68,7 +69,14 @@ typedef struct
 
 void initparam_UserDataCurr_struct (UserDataCurr_struct * udc);
 
-int  L_op (double * Lapl, const double *u, const UserDataCurr_struct * udc);
+int L_op (double *Lu, const double *u, const UserDataCurr_struct * udc,
+          const double *G, const double *V1, const double *V2);
+
+void fill_node_phys_prop (int m, // number of mesh node
+                          double &p00, double &pL0, double &pR0,
+                          double &p0L, double &p0R, double &pLL,
+                          double &pRL, double &pLR, double &pRR,
+                          const double *p, const int *M0L, const int *M0R);
 
 void calc_mesh_params (int *st, double *X, double *Y, int *M0L, 
                        int *M0R, const UserDataCurr_struct * udc);
@@ -85,6 +93,7 @@ int convert_au_to_u (double *u, const double  * au,
 void A_op (double *Aau, const double *au, int n, void * udc);
 
 double *make_vector_double (int n, const char *info_1, const char *info_2);
+
 int *make_vector_int (int n, const char *info_1, const char *info_2);
 
 int numsds_spectral_problem (

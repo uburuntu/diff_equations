@@ -16,6 +16,10 @@
 *.pdf
 *.aux
 
+# Eigen
+*.e
+eigenfun_*
+
 # Libraries
 *.lib
 *.a

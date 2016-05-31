@@ -168,13 +168,9 @@ int L_op(double * Lapl, const double *u, const UserDataCurr_struct * udc)
             W1_0L = 0.;
             W2_0L = -Hy2;
             J_L0  = -(v100 + fabs (v100)) * Hx2;
-            //W1_L0 = 0.;
-            //W2_L0 = -Hx2;
             W1_L0 = -Hx2;
             W2_L0 = 0.;
             J_00  = fabs (v100) / Hx + fabs (v200) / Hy;
-            //W1_00 = (v100 > 0. ? (g00 - gL0) / Hx : (g0R - g00) / Hx);
-            //W2_00 = (v200 > 0. ? (g00 - g0L) / Hy : (g0R - g00) / Hy);
             W1_00 = (v100 > 0. ? (g00 - gL0) / Hx : (gR0 - g00) / Hx);
             W2_00 = (v200 > 0. ? (g00 - g0L) / Hy : (g0R - g00) / Hy);
             J_R0  = (v100 - fabs (v100)) * Hx2;
@@ -199,34 +195,65 @@ int L_op(double * Lapl, const double *u, const UserDataCurr_struct * udc)
             W1_0L = -(v200 + fabs (v200)) * Hy2 - mu * exp (-g00) * Hy * Hy;
             W2_0L = 0.;
             J_L0  = - p_ro * Hx2; // p_ro = p_ro(g00)
-            W1_L0 = -(v100 + fabs (v100)) * Hx2 - mu * exp (-g00) * (4.0 / 3.0) * Hx * Hx;
+            W1_L0 = -(v100 + fabs (v100)) * Hx2 - mu * exp (-g00) * (4. / 3.) * Hx * Hx;
             W2_L0 = 0.;
             J_00  = p_2ro * (gR0 - gL0) * Hx2 + mu * exp (-g00) * (
-                        (4.0 / 3.0) * (v1R0 - 2.0 * v100 + v1L0) * Hx * Hx +
-                        (v10R - 2.0 * v100 + v10L) * Hy * Hy +
-                        (1.0 / 3.0) * (v2RR - v2RL - v2LR + v2LL) * Hx2 * Hy2);
+                        (4. / 3.) * (v1R0 - 2. * v100 + v1L0) * Hx * Hx +
+                        (v10R - 2. * v100 + v10L) * Hy * Hy +
+                        (1. / 3.) * (v2RR - v2RL - v2LR + v2LL) * Hx2 * Hy2);
             W1_00 = fabs (v100) * Hx + fabs (v200) * Hy +
                     (v100 > 0. ? (v100 - v1L0) / Hx : (v1R0 - v100) / Hx) +
-                    mu * exp (-g00) * ((4.0 / 3.0) * 2.0 * (Hx * Hx + Hy * Hy));
+                    mu * exp (-g00) * 2. * ((4. / 3.) * Hx * Hx + Hy * Hy);
             W2_00 = (v200 > 0. ? (v100 - v10L) / Hy : (v10R - v100) / Hy);
             J_R0  = p_ro * Hx2;
-            W1_R0 = (v100 - fabs (v100)) * Hx2 - mu * exp (-g00) * (4.0 / 3.0) * Hx * Hx;
+            W1_R0 = (v100 - fabs (v100)) * Hx2 - mu * exp (-g00) * (4. / 3.) * Hx * Hx;
             W2_R0 = 0.;
             J_0R  = 0.;
             W1_0R = (v200 - fabs (v200)) * Hy2 - mu * exp (-g00) * Hy * Hy;
-            W2_0R = Hy2;
+            W2_0R = 0.;
 
             W1_RR = 0.;
             W1_RL = 0.;
             W1_LR = 0.;
             W1_LL = 0.;
 
-            W2_RR = - mu * exp (-g00) * (1.0 / 3.0) * Hx2 * Hy2;
-            W2_RL =   mu * exp (-g00) * (1.0 / 3.0) * Hx2 * Hy2;
-            W2_LR =   mu * exp (-g00) * (1.0 / 3.0) * Hx2 * Hy2;
-            W2_LL = - mu * exp (-g00) * (1.0 / 3.0) * Hx2 * Hy2;
+            W2_RR = - mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
+            W2_RL = mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
+            W2_LR = mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
+            W2_LL = - mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
 
             // third equation
+
+            J_0L  = - p_ro * Hy2;
+            W1_0L = 0.;
+            W2_0L = -(v200 + fabs (v200)) * Hy2 - mu * exp (-g00) * (4. / 3.) * Hy * Hy;
+            J_L0  = 0.;
+            W1_L0 = 0.;
+            W2_L0 = -(v100 + fabs (v100)) * Hx2 - mu * exp (-g00) * Hx * Hx;
+            J_00  = p_2ro * (g0R - g0L) * Hx2 + mu * exp (-g00) * (
+                        (4. / 3.) * (v20R - 2. * v200 + v20L) * Hy * Hy +
+                        (v2R0 - 2. * v200 + v2L0) * Hx * Hx +
+                        (1. / 3.) * (v1RR - v1RL - v1LR + v1LL) * Hx2 * Hy2);
+            W1_00 = (v100 > 0. ? (v200 - v2L0) / Hx : (v2R0 - v200) / Hx);
+            W2_00 = fabs (v100) * Hx + fabs (v200) * Hy +
+                    (v200 > 0. ? (v200 - v20L) / Hy : (v20R - v200) / Hy) +
+                    mu * exp (-g00) * 2. * ((4. / 3.) * Hy * Hy + Hx * Hx);
+            J_R0  = 0.;
+            W1_R0 = 0.;
+            W2_R0 = (v100 - fabs (v100)) * Hx2 - mu * exp (-g00) * Hx * Hx;
+            J_0R  = p_ro * Hy2;
+            W1_0R = 0.;
+            W2_0R = (v200 - fabs (v200)) * Hy2 - mu * exp (-g00) * (4. / 3.) * Hy * Hy;;
+
+            W1_RR = - mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
+            W1_RL = mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
+            W1_LR = mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
+            W1_LL = - mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
+
+            W2_RR = 0.;
+            W2_RL = 0.;
+            W2_LR = 0.;
+            W2_LL = 0.;
           }
         case 1:
           {

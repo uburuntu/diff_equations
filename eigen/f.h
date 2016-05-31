@@ -103,3 +103,14 @@ int numsds_spectral_problem (
     void (*)(double *, const double *, int, void *),
     void * user_data
     );
+
+void recreate_coefficients (
+        double a_J_0L, double a_W1_0L, double a_W2_0L,
+        double a_J_L0, double a_W1_L0, double a_W2_L0,
+        double a_J_00, double a_W1_00, double a_W2_00,
+        double a_J_R0, double a_W1_R0, double a_W2_R0,
+        double a_J_0R, double a_W1_0R, double a_W2_0R,
+        double a_J_LL, double a_W1_LL, double a_W2_LL,
+        double a_J_LR, double a_W1_LR, double a_W2_LR,
+        double a_J_RL, double a_W1_RL, double a_W2_RL,
+        double a_J_RR, double a_W1_RR, double a_W2_RR);

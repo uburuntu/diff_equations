@@ -12,14 +12,14 @@
 #include "f.h"
 
 
-#define recreate() recreate_coefficients ( \
-  a_J_0L, a_W1_0L, a_W2_0L, a_J_L0,        \
-  a_W1_L0, a_W2_L0, a_J_00, a_W1_00,       \
-  a_W2_00, a_J_R0, a_W1_R0, a_W2_R0,       \
-  a_J_0R, a_W1_0R, a_W2_0R, a_J_LL,        \
-  a_W1_LL, a_W2_LL, a_J_LR, a_W1_LR,       \
-  a_W2_LR, a_J_RL,  a_W1_RL, a_W2_RL,      \
-  a_J_RR, a_W1_RR, a_W2_RR)
+#define recreate() recreate_coefficients (      \
+  &a_J_0L,  &a_W1_0L, &a_W2_0L, &a_J_L0,        \
+  &a_W1_L0, &a_W2_L0, &a_J_00,  &a_W1_00,       \
+  &a_W2_00, &a_J_R0,  &a_W1_R0, &a_W2_R0,       \
+  &a_J_0R,  &a_W1_0R, &a_W2_0R, &a_J_LL,        \
+  &a_W1_LL, &a_W2_LL, &a_J_LR,  &a_W1_LR,       \
+  &a_W2_LR, &a_J_RL,  &a_W1_RL, &a_W2_RL,       \
+  &a_J_RR,  &a_W1_RR, &a_W2_RR)
 
 
 void initparam_UserDataCurr_struct (
@@ -62,7 +62,8 @@ void initparam_UserDataCurr_struct (
 }
 
 int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
-          const double *G, const double *V1, const double *V2)
+          const double *G, const double *V1,  const double *V2,
+          const int *st, const int *M0L, const int *M0R)
 {
   //
   //  Lapl[i+j*Nx]= mu *  \delta u[i+j*Nx] + diag[i+j*Nx]*u[i+j*Nx] + u_x u[i+j*Nx]
@@ -73,7 +74,9 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
   double Hx = udc->Hx;
   double Hy = udc->Hy;
   double mu = udc->mu;
-  double p_ro, p_2ro;
+
+  // TODO: Init this values correctly!
+  double p_ro = 0., p_2ro = 0.;
 
   /*
    * TODO -- now this loop is for laplacian equation:
@@ -185,7 +188,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
             recreate();
             a_W1_0L = -(v200 + fabs (v200)) * Hy2 - mu * exp (-g00) * Hy * Hy;
 
-            a_J_L0  = - p_ro * Hx2; // p_ro = p_ro(g00)
+            a_J_L0  = -p_ro * Hx2; // p_ro = p_ro(g00)
             a_W1_L0 = -(v100 + fabs (v100)) * Hx2 - mu * exp (-g00) * (4. / 3.) * Hx * Hx;
 
             a_J_00  = p_2ro * (gR0 - gL0) * Hx2 + mu * exp (-g00) * (
@@ -768,9 +771,9 @@ void print_2dfun_double(FILE* f, const char * name, const double  * u,
   return ;
 }
 
-
 int convert_u_to_au (double *au, const double  *u,
-                     const UserDataCurr_struct *udc)
+                     const UserDataCurr_struct *udc,
+                     const int *st)
 {
   int m;
   int N  = udc->N;
@@ -879,7 +882,8 @@ int convert_u_to_au (double *au, const double  *u,
 }
 
 int convert_au_to_u (double *u, const double  *au,
-                     const UserDataCurr_struct * udc)
+                     const UserDataCurr_struct * udc,
+                     const int *st)
 {
   int m;
   int N  = udc->N;
@@ -1004,8 +1008,9 @@ int convert_au_to_u (double *u, const double  *au,
   return 0;
 }
 
-
-void A_op (double *Aau, const double *au, int n, void * ud)
+void A_op (double *Aau, const double *au, int n, void * ud,
+           const double *G, const double *V1,  const double *V2,
+           const int *st, const int *M0L, const int *M0R)
 {
   double *u = NULL;
   double *Lu = NULL;
@@ -1017,13 +1022,13 @@ void A_op (double *Aau, const double *au, int n, void * ud)
   Lu = make_vector_double (3 * udc->N, __FILE__, __FUNCTION__);
 
   // convert solution vector au (dim = NA < 3 * N) into solution vector u
-  convert_au_to_u (u, au, udc);
+  convert_au_to_u (u, au, udc, st);
 
   // multiplication L * u (dim(L) = (3 * N) ^ 2, dim(u) = 3 * N
-  L_op (Lu, u, udc);
+  L_op (Lu, u, udc, G, V1, V2, st, M0L, M0R);
 
   // convert solution vector Lu (dim = 3 * N) into solution vector Aau
-  convert_u_to_au (Aau, Lu, udc);
+  convert_u_to_au (Aau, Lu, udc, st);
 
   free(u);
   free(Lu);
@@ -1031,14 +1036,12 @@ void A_op (double *Aau, const double *au, int n, void * ud)
   return;
 }
 
-
-
 double *make_vector_double (int n, const char *info_1, const char *info_2)
 {
   double *u;
   int i;
 
-  u = (double*) malloc (sizeof(double) * n);
+  u = (double *) malloc (sizeof(double) * n);
   if (u == NULL)
     {
       printf ("Error in %s %s: Fail to allocate %lu bytes\n",
@@ -1047,17 +1050,17 @@ double *make_vector_double (int n, const char *info_1, const char *info_2)
     }
 
   for(i = 0; i < n; i++)
-      u[i] = 0.;
+    u[i] = 0.;
+
   return u;
 }
-
 
 int *make_vector_int (int n, const char *info_1, const char *info_2)
 {
   int *u;
   int i;
 
-  u = (int*) malloc (sizeof(int) * n);
+  u = (int *) malloc (sizeof(int) * n);
   if (u == NULL)
     {
       printf ("Error in %s %s: Fail to allocate %lu bytes\n",
@@ -1065,8 +1068,9 @@ int *make_vector_int (int n, const char *info_1, const char *info_2)
       exit(1);
     }
 
-  for(i = 0; i < n; i++)
-      u[i] = 0.;
+  for (i = 0; i < n; i++)
+    u[i] = 0.;
+
   return u;
 }
 
@@ -1074,7 +1078,9 @@ void fill_node_phys_prop (int m, // number of mesh node
                           double *p00, double *pL0, double *pR0,
                           double *p0L, double *p0R, double *pLL,
                           double *pRL, double *pLR, double *pRR,
-                          const double *const p, const int *const M0L, const int *const M0R)
+                          const double *const p,
+                          const    int *const M0L,
+                          const    int *const M0R)
 {
   *p00 = p[m];
   *pL0 = p[m - 1];
@@ -1088,24 +1094,25 @@ void fill_node_phys_prop (int m, // number of mesh node
 }
 
 void recreate_coefficients (
-        double a_J_0L, double a_W1_0L, double a_W2_0L,
-        double a_J_L0, double a_W1_L0, double a_W2_L0,
-        double a_J_00, double a_W1_00, double a_W2_00,
-        double a_J_R0, double a_W1_R0, double a_W2_R0,
-        double a_J_0R, double a_W1_0R, double a_W2_0R,
-        double a_J_LL, double a_W1_LL, double a_W2_LL,
-        double a_J_LR, double a_W1_LR, double a_W2_LR,
-        double a_J_RL, double a_W1_RL, double a_W2_RL,
-        double a_J_RR, double a_W1_RR, double a_W2_RR)
+        double *a_J_0L, double *a_W1_0L, double *a_W2_0L,
+        double *a_J_L0, double *a_W1_L0, double *a_W2_L0,
+        double *a_J_00, double *a_W1_00, double *a_W2_00,
+        double *a_J_R0, double *a_W1_R0, double *a_W2_R0,
+        double *a_J_0R, double *a_W1_0R, double *a_W2_0R,
+        double *a_J_LL, double *a_W1_LL, double *a_W2_LL,
+        double *a_J_LR, double *a_W1_LR, double *a_W2_LR,
+        double *a_J_RL, double *a_W1_RL, double *a_W2_RL,
+        double *a_J_RR, double *a_W1_RR, double *a_W2_RR)
 {
-    a_J_0L = a_W1_0L = a_W2_0L = 0.;
-    a_J_L0 = a_W1_L0 = a_W2_L0 = 0.;
-    a_J_00 = a_W1_00 = a_W2_00 = 0.;
-    a_J_R0 = a_W1_R0 = a_W2_R0 = 0.;
-    a_J_0R = a_W1_0R = a_W2_0R = 0.;
-    a_J_LL = a_W1_LL = a_W2_LL = 0.;
-    a_J_LR = a_W1_LR = a_W2_LR = 0.;
-    a_J_RL = a_W1_RL = a_W2_RL = 0.;
-    a_J_RR = a_W1_RR = a_W2_RR = 0.;
-    return;
+  *a_J_0L = *a_W1_0L = *a_W2_0L = 0.;
+  *a_J_L0 = *a_W1_L0 = *a_W2_L0 = 0.;
+  *a_J_00 = *a_W1_00 = *a_W2_00 = 0.;
+  *a_J_R0 = *a_W1_R0 = *a_W2_R0 = 0.;
+  *a_J_0R = *a_W1_0R = *a_W2_0R = 0.;
+  *a_J_LL = *a_W1_LL = *a_W2_LL = 0.;
+  *a_J_LR = *a_W1_LR = *a_W2_LR = 0.;
+  *a_J_RL = *a_W1_RL = *a_W2_RL = 0.;
+  *a_J_RR = *a_W1_RR = *a_W2_RR = 0.;
+
+  return;
 }

@@ -138,7 +138,7 @@ int main (void)
     {
       convert_au_to_u (&eigen_functions[i * udc.N],
                        &eigen_functions_A_op[i * udc.NA],
-                       &udc);
+                       &udc, st);
     }
 
 

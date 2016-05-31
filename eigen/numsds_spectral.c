@@ -4,21 +4,9 @@
 
 */
 
-
-
 #include "f.h"
 
-
-
-
-static int* sp_alloc_i_vector (int n, const char *info_1, const char *info_2);
-static void sp_free_i_vector (int *);
-static double* sp_alloc_d_vector (int n, const char *info_1, const char *info_2);
-static void sp_free_d_vector (double *);
-
-
-
-static int * sp_alloc_i_vector (
+int *sp_alloc_i_vector (
     int n,
     const char *info_1,
     const char *info_2)
@@ -37,19 +25,18 @@ static int * sp_alloc_i_vector (
   return tmp;
 }
 
-
-static void sp_free_i_vector (int * d)
+void sp_free_i_vector (int * d)
 {
-  if (d) free(d);
+  if (d)
+    free(d);
 }
 
-
-static double* sp_alloc_d_vector (
+double *sp_alloc_d_vector (
     int n,
     const char *info_1,
     const char *info_2)
 {
-  double *tmp = (double*)malloc(n * sizeof(double));
+  double *tmp = (double *)malloc(n * sizeof(double));
 
   if (tmp == NULL)
     {
@@ -63,30 +50,11 @@ static double* sp_alloc_d_vector (
   return tmp;
 }
 
-
-
-static void sp_free_d_vector (double * d)
+void sp_free_d_vector (double * d)
 {
-  if (d) free(d);
+  if (d)
+    free(d);
 }
-
-
-void dnaupd_(
-    int *ido, char *bmat, int *n, char *which, int*nev, double *tol,
-    double *resid, int *ncv, double *v, int *ldv, int *iparam,
-    int *ipntr, double *workd, double *workl, int *lworkl, int *info);
-
-void dneupd_(
-    int *vec, char *c, int *select, double *d, double * /*d(1,2)*/,
-    double *v, int *ldv, double *sigmar, double *sigmai, double *workev,
-    char *bmat, int *n, char *which, int *nev, double *tol,
-    double *resid, int *ncv, double *vv, int *ldvv, int *iparam,
-    int *ipntr, double *workd, double *workl, int *lworkl, int *ierr);
-
-static int nummsds_check_dnaupd_status (int info);
-
-static int nummsds_check_dneupd_status (int info);
-
 
 int numsds_spectral_problem (
     double *eigen_values,
@@ -343,7 +311,7 @@ int numsds_spectral_problem (
   return nconv;
 }
 
-static int nummsds_check_dnaupd_status(int info)
+int nummsds_check_dnaupd_status (int info)
 {
   switch (info) {
     case 0:
@@ -412,7 +380,7 @@ static int nummsds_check_dnaupd_status(int info)
   return info;
 }
 
-static int nummsds_check_dneupd_status(int info)
+int nummsds_check_dneupd_status (int info)
 {
   switch(info) {
     case 0:

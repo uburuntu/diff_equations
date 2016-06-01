@@ -3,7 +3,7 @@
 int read_stationary_solution (const char *fname, int N, double *G, double *V1, double *V2)
 {
   int i, readedN;
-  FILE *input_file = fopen(fname, "r");
+  FILE *input_file = fopen (fname, "r");
 
   if (!input_file)
     {
@@ -22,24 +22,30 @@ int read_stationary_solution (const char *fname, int N, double *G, double *V1, d
 
   for (i = 0; i < N; i++)
     {
-      if (!fscanf(input_file, "%lf ", G + i))
-        printf ("fread error: incorrect G filling from %s\n", fname);
+      if (!fscanf (input_file, "%lf ", G + i))
+        {
+          printf ("fread error: incorrect G filling from %s\n", fname);
+        }
 
       readedN++;
     }
 
   for (i = 0; i < N; i++)
     {
-      if (!fscanf(input_file, "%lf ", V1 + i))
-        printf ("fread error: incorrect V1 filling from %s\n", fname);
+      if (!fscanf (input_file, "%lf ", V1 + i))
+        {
+          printf ("fread error: incorrect V1 filling from %s\n", fname);
+        }
 
       readedN++;
     }
 
   for (i = 0; i < N; i++)
     {
-      if (!fscanf(input_file, "%lf ", V2 + i))
-        printf ("fread error: incorrect V2 filling from %s\n", fname);
+      if (!fscanf (input_file, "%lf ", V2 + i))
+        {
+          printf ("fread error: incorrect V2 filling from %s\n", fname);
+        }
 
       readedN++;
     }
@@ -50,60 +56,61 @@ int read_stationary_solution (const char *fname, int N, double *G, double *V1, d
   return 0;
 }
 
-void print_2dfun_double (FILE* f, const char * name, const double  * u,
+void print_2dfun_double (FILE *f, const char *name, const double   *u,
                          const int nx, const int ny)
 {
   int i;
   int j;
 
-  fprintf(f,"#%s\n",name);
+  fprintf (f, "#%s\n", name);
 
-  for(j = ny - 1; j >= 0; j--)
+  for (j = ny - 1; j >= 0; j--)
     {
-      for(i = 0; i < nx; i++)
+      for (i = 0; i < nx; i++)
         {
-          fprintf(f, "%9.2e ", u[i + j * nx]);
+          fprintf (f, "%9.2e ", u[i + j * nx]);
         }
-      fprintf(f, "\n");
+
+      fprintf (f, "\n");
     }
 
   return;
 }
 
 int *make_vector_int (
-    int n,
-    const char *info_1,
-    const char *info_2)
+  int n,
+  const char *info_1,
+  const char *info_2)
 {
-  int *tmp = (int *)malloc(n * sizeof(int ));
+  int *tmp = (int *)malloc (n * sizeof (int ));
 
   if (tmp == NULL)
     {
-      printf("Error in %s %s : Fail to allocate %u bytes\n",
-             info_1, info_2, n * sizeof(int));
-      exit(1);
+      printf ("Error in %s %s : Fail to allocate %u bytes\n",
+              info_1, info_2, n * sizeof (int));
+      exit (1);
     }
 
-  memset (tmp, 0, n * sizeof(int));
+  memset (tmp, 0, n * sizeof (int));
 
   return tmp;
 }
 
 double *make_vector_double (
-    int n,
-    const char *info_1,
-    const char *info_2)
+  int n,
+  const char *info_1,
+  const char *info_2)
 {
-  double *tmp = (double *)malloc(n * sizeof(double));
+  double *tmp = (double *)malloc (n * sizeof (double));
 
   if (tmp == NULL)
     {
       printf ("Error in %s %s : Fail to allocate %u bytes\n",
-              info_1, info_2, n * sizeof(double));
+              info_1, info_2, n * sizeof (double));
       exit (1);
     }
 
-  memset (tmp, 0, n * sizeof(double));
+  memset (tmp, 0, n * sizeof (double));
 
   return tmp;
 }

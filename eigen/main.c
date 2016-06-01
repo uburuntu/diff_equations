@@ -55,8 +55,11 @@ int main (void)
   V2 = make_vector_double (udc.N, __FILE__, __FUNCTION__);
 
   int ret = read_stationary_solution (ST_SOL_FILE, udc.N, G, V1, V2);
+
   if (ret < 0)
-    return 0;
+    {
+      return 0;
+    }
 
   eigenvalues_number = 6;
 
@@ -71,18 +74,13 @@ int main (void)
   max_iterations = 1000;
   tolerance = 1.e-12;
 
-
   // eigen_values[2 * i + 0] = LAMBDA_I_REAL_PART
   // eigen_values[2 * i + 1] = LAMBDA_I_IMAG_PART
-  eigen_values = make_vector_double (2 * eigenvalues_number,
-                                     __FILE__, __FUNCTION__);
+  eigen_values = make_vector_double (2 * eigenvalues_number, __FILE__, __FUNCTION__);
 
-  eigen_functions_A_op = make_vector_double (eigenvalues_number * udc.NA,
-                                             __FILE__, __FUNCTION__);
+  eigen_functions_A_op = make_vector_double (eigenvalues_number * udc.NA, __FILE__, __FUNCTION__);
 
-  eigen_functions = make_vector_double (eigenvalues_number * (3 * udc.N),
-                                        __FILE__, __FUNCTION__);
-
+  eigen_functions = make_vector_double (eigenvalues_number * (3 * udc.N), __FILE__, __FUNCTION__);
 
   calc_mesh_params (st, X, Y, M0L, M0R, (void *) (&udc));
 
@@ -103,19 +101,19 @@ int main (void)
 
   for (i = 0; i < eignum; i++)
     {
-      len = snprintf (fn, sizeof(fn)-1, "./results/eigenfun_%02d.txt", i);
-      fn[len] = '\0';
+      len = snprintf (fn, sizeof (fn) - 1, "./results/eigenfun_%02d.txt", i);
+      fn[len] = 0;
+
       out = fopen (fn, "w");
+
       if (out == NULL)
         {
-          printf ("%s ERR!\n", fn);
+          printf ("%s open error!\n", fn);
           exit (1);
         }
 
-      print_2dfun_double (out, "egenfun",
-                          &eigen_functions[i * (3 * udc.N)],
-                          udc.Nx, udc.Ny);
-      fclose(out);
+      print_2dfun_double (out, "eigenfun", &eigen_functions[i * (3 * udc.N)], udc.Nx, udc.Ny);
+      fclose (out);
     }
 
   FREE_ARRAY (eigen_values);

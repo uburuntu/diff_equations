@@ -1,25 +1,23 @@
 CC	= gcc
-HFILES	= ./f.h  
-OBJS	= ./objs/main.o ./objs/numsds_spectral.o ./objs/s.o ./objs/calc_mesh.o ./objs/funcs.o
-LIBS    = -lgfortran
-G	= -O  -g -Wall 
+LIBS    = ./arpack/libarpack_SUN4.a -lgfortran -lm
+OPTIMIZE= -O0
+CFLAGS  = -c $(OPTIMIZE) -g -W -Wall -Wunused -Wcast-align -Werror -fstack-protector-all -Wfloat-equal -Wpointer-arith -Wwrite-strings -Wcast-align -Wno-long-long -Wmissing-declarations
+LDFLAGS =    $(OPTIMIZE) -g -W -Wall -Wunused -Wcast-align -Werror -fstack-protector-all -Wfloat-equal -Wpointer-arith -Wwrite-strings -Wcast-align -Wno-long-long -Wmissing-declarations
 
+HFILES	= f.h
+SOURCES = main.c numsds_spectral.c s.c calc_mesh.c funcs.c
+OBJECTS = $(addprefix $(OBJS_FOLDER),$(SOURCES:.c=.o))
 
-./m.e:	$(OBJS)
-	$(CC) $(OBJS) ./arpack/libarpack_SUN4.a -lm $(LIBS)  -o ./m.e $(G)$ 
+OBJS_FOLDER = ./objs/
+EXECUTABLE = a.out
 
-./objs/main.o:	./main.c $(HFILES)
-	$(CC) $(G)$ -c ./main.c -o ./objs/main.o
-./objs/numsds_spectral.o:	./numsds_spectral.c $(HFILES)
-	$(CC) $(G)$ -c ./numsds_spectral.c -o ./objs/numsds_spectral.o
-./objs/s.o:	./s.c $(HFILES)
-	$(CC) $(G)$ -c ./s.c -o ./objs/s.o
-./objs/calc_mesh.o:	./s.c $(HFILES)
-	$(CC) $(G)$ -c ./calc_mesh.c -o ./objs/calc_mesh.o
-./objs/funcs.o:	./s.c $(HFILES)
-	$(CC) $(G)$ -c ./funcs.c -o ./objs/funcs.o
+all: $(HFILES) $(SOURCES) $(EXECUTABLE)
+    
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@ $(LIBS)
+
+$(OBJS_FOLDER)%.o: %.c $(HFILES)
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -f ./m.e ./objs/*.o ./numres/* ./*.dat
-
-
+	rm -f $(EXECUTABLE) $(OBJECTS) leak.out* log.txt

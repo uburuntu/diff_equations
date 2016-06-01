@@ -2,60 +2,56 @@
 
 int read_stationary_solution (const char *fname, int N, double *G, double *V1, double *V2)
 {
-    int i, readedN;
-    FILE *input_file = fopen(fname, "r");
+  int i, readedN;
+  FILE *input_file = fopen(fname, "r");
 
-    if (!input_file)
-      {
-        printf ("fopen error: cannot open %s\n", fname);
-        return -1;
-      }
+  if (!input_file)
+    {
+      printf ("fopen error: cannot open %s\n", fname);
+      return -1;
+    }
 
-    if (!fscanf (input_file, "%d", &readedN))
-      {
-        printf ("fread error: incorrect N by file %s\n", fname);
-        fclose (input_file);
-        return -1;
-      }
+  if (!fscanf (input_file, "%d", &readedN))
+    {
+      printf ("fread error: incorrect N by file %s\n", fname);
+      fclose (input_file);
+      return -1;
+    }
 
-    if (readedN != N)
-      {
-        printf ("fread error: incorrect N=%d by file %s\n", readedN, fname);
-        fclose (input_file);
-        return -1;
-      }
+  if (readedN != N)
+    {
+      printf ("fread error: incorrect N=%d by file %s\n", readedN, fname);
+      fclose (input_file);
+      return -1;
+    }
 
-    for (i = 0; i < N; i++)
-      {
-        fscanf(input_file, "%lf ", G + i);
-        readedN++;
-      }
+  for (i = 0; i < N; i++)
+    {
+      if (!fscanf(input_file, "%lf ", G + i))
+        printf ("fread error: incorrect G filling from %s\n", fname);
 
-    for (i = 0; i < N; i++)
-      {
-        fscanf(input_file, "%lf ", V1 + i);
-        readedN++;
-      }
+      readedN++;
+    }
 
-    for (i = 0; i < N; i++)
-      {
-        fscanf(input_file, "%lf ", V2 + i);
-        readedN++;
-      }
+  for (i = 0; i < N; i++)
+    {
+      if (!fscanf(input_file, "%lf ", V1 + i))
+        printf ("fread error: incorrect V1 filling from %s\n", fname);
 
-  //  for (i = 0; i < 3 * N; i++)
-  //    {
-  //      if (!fscanf (input_file, "%lf", i % N + (i / N == 0 ? G : (i / N == 1 ? V1 : V2))))
-  //        {
-  //          printf ("fread error: incorrect data by %d in line %d by file %s\n", i % N, i / N, fname);
-  //          fclose (input_file);
-  //          return -1;
-  //        }
-  //      readedN++;
-  //    }
-    fclose (input_file);
-    printf ("Totally readed %d numbers from file %s\n", readedN, fname);
-    printf ("%d data missing.\n", 3 * N - readedN);
+      readedN++;
+    }
+
+  for (i = 0; i < N; i++)
+    {
+      if (!fscanf(input_file, "%lf ", V2 + i))
+        printf ("fread error: incorrect V2 filling from %s\n", fname);
+
+      readedN++;
+    }
+
+  fclose (input_file);
+  printf ("Totally readed %d numbers from file %s\n", readedN, fname);
+  printf ("%d data missing.\n", 3 * N - readedN);
 
   return 0;
 }

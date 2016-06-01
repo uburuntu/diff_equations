@@ -10,7 +10,7 @@
 
 #include "f.h"
 
-#define ST_SOL_FILE "stat_sol.tex"
+#define ST_SOL_FILE "stat_sol.txt"
 
 int main (void)
 {

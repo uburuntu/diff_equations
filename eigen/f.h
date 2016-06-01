@@ -96,11 +96,7 @@ int *make_vector_int (int n, const char *info_1, const char *info_2);
 
 int *sp_alloc_i_vector (int n, const char *info_1, const char *info_2);
 
-void sp_free_i_vector (int *);
-
 double *sp_alloc_d_vector (int n, const char *info_1, const char *info_2);
-
-void sp_free_d_vector (double *);
 
 int read_stationary_solution (const char *fname, int N, double *G, double *V1, double *V2);
 

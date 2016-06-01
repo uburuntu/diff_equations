@@ -86,7 +86,7 @@ int numsds_spectral_problem (
   int  mode   = 1;
   int  ido    = 0;
   int it1 = 0;
-  //	double * tmp=NULL;
+
   double tol;
 
   char ch[] = "A";
@@ -99,22 +99,23 @@ int numsds_spectral_problem (
 
   n = dim;
   enx = eigenvalues_number;
-  //	nx[0] = enx;
+
   nev = enx;
   ncv  = ((2 * nev + 2) < n) ? (2 * nev + 2) : n;
   lworkl= 3 * ncv * ncv + 6 * ncv;
   ldv   = n;
 
-  c      = sp_alloc_i_vector (ncv, __FUNCTION__, __FILE__);
-  resid  = sp_alloc_d_vector (n, __FUNCTION__, __FILE__);
-  v      = sp_alloc_d_vector (ldv * ncv, __FUNCTION__, __FILE__);
-  workd  = sp_alloc_d_vector (3 * n, __FUNCTION__, __FILE__);
-  workev = sp_alloc_d_vector (3 * ncv, __FUNCTION__, __FILE__);
-  workl  = sp_alloc_d_vector (lworkl, __FUNCTION__, __FILE__);
+  c      = make_vector_int (ncv, __FUNCTION__, __FILE__);
+  resid  = make_vector_double (n, __FUNCTION__, __FILE__);
+  v      = make_vector_double (ldv * ncv, __FUNCTION__, __FILE__);
+  workd  = make_vector_double (3 * n, __FUNCTION__, __FILE__);
+  workev = make_vector_double (3 * ncv, __FUNCTION__, __FILE__);
+  workl  = make_vector_double (lworkl, __FUNCTION__, __FILE__);
 
-  wr   = sp_alloc_d_vector(n, __FUNCTION__, __FILE__);
-  wi   = sp_alloc_d_vector(n, __FUNCTION__, __FILE__);
+  wr   = make_vector_double (n, __FUNCTION__, __FILE__);
+  wi   = make_vector_double (n, __FUNCTION__, __FILE__);
 
+  select = make_vector_int (ncv, __FUNCTION__, __FILE__);
 
   if (spectralSubSet != 0 && strlen (spectralSubSet) > 1)
     {
@@ -127,12 +128,13 @@ int numsds_spectral_problem (
       exit (1);
     }
 
-  // tmp = sp_alloc_d_vector(n, __FUNCTION__, __FILE__);
   tol = tolerance;
 
   iparam[1-1] = ishfts;
   iparam[3-1] = max_iterations;
   iparam[7-1] = mode;
+
+  printf ("Arnoldi iter = %4.d", it1);
 
   do {
       dnaupd_(&ido, bmat, &n, which, &nev, &tol, resid,
@@ -156,13 +158,14 @@ int numsds_spectral_problem (
           A_op (w1, v1, n, user_data, G, V1, V2, st, M0L, M0R);
 
           ++it1;
-          if (it1 == 1 || it1 % 50 == 0)
-            printf ("Arnoldi iter = %4.d\n",it1);
+
+          printf("\b\b\b\b");
+          printf ("%4.d", it1);
+          fflush (stdout);
         }
     } while (ido == -1 || ido == 1);
 
-
-  select = sp_alloc_i_vector (ncv, __FUNCTION__, __FILE__);
+  printf("\n\n");
 
   dneupd_ ( &rvec, ch, select, wr, wi, v, &ldv,
             &sigmar, &sigmai, workev, bmat, &n, which, &nev, &tol,
@@ -183,41 +186,33 @@ int numsds_spectral_problem (
              nconv, enx);
     }
 
+  printf("\n\nArnoldi: found %d vectors. Accuracy=%.2e\n", nconv, tol);
 
-  {
-    printf("\n\nArnoldi: found %d vectors. Accuracy=%.2e\n", nconv, tol);
-  }
-
-
-
-  //------------------------------------------------------
-  if((1 == 0) && (nconv == 3) )
-    {//!!!!!!!!!!!!!!!!!!!!!!!!
-      //
+  // What is it?
+  if (0 && nconv == 3)
+    {
       int ko;
       double tmp;
 
-      if( fabs(wr[0]-wr[1])+fabs(wi[0]-wi[1]) >2.*tol*10.)
+      if (fabs(wr[0]-wr[1])+fabs(wi[0]-wi[1]) >2.*tol*10.)
         {
-          if( fabs(wr[2]-wr[1])+fabs(wi[2]-wi[1]) >2.*tol*10.)
+          if (fabs(wr[2]-wr[1])+fabs(wi[2]-wi[1]) >2.*tol*10.)
             ko=1;
           else
             ko=0;
 
           for(k=0;k<n;k++)
-            {	tmp = v[ko * n + k];
+            {
+              tmp = v[ko * n + k];
               v[ko * n + k]=v[2*n+k];
               v[2*n+k] = tmp;
             }
-
         }
-
-
     }
-  //------------------------------------------------------
-  if( (1==0)&&(nconv==3) )
-    {//!!!!!!!!!!!!!!!!!!!!!!!!
-      //
+
+  // What is it? #2
+  if (0 && nconv == 3)
+    {
       int ko;
       double tmp;
       double dl0;
@@ -232,12 +227,16 @@ int numsds_spectral_problem (
       dl2=sqrt(wr[i]*wr[i]+ wi[i]*wi[i]);
 
       ko=2;
-      if(dl2>dl0)ko=0;
-      if(dl2>dl1)ko=1;
-      if(ko!=2){
+      if (dl2>dl0)
+        ko=0;
+      if (dl2>dl1)
+        ko=1;
 
-          for(k=0;k<n;k++)
-            {	tmp = v[ko * n + k];
+      if (ko!=2)
+        {
+          for (k=0;k<n;k++)
+            {
+              tmp = v[ko * n + k];
               v[ko * n + k]=v[2*n+k];
               v[2*n+k] = tmp;
             }
@@ -249,35 +248,37 @@ int numsds_spectral_problem (
           wi[ko]=wi[2];
           wi[2] = tmp;
         }
-
     }
-  //------------------------------------------------------
 
-
-
-  for (i = 0; i < nconv; ++i) {
+  for (i = 0; i < nconv; ++i)
+    {
       dl = sqrt (wr[i] * wr[i] + wi[i] * wi[i]);
 
-      printf("         lambda[%2d]=(%24.16e,%24.16e), |lambda| = %24.16e\n",
-             i+1, wr[i], wi[i],dl);
-
+      printf("\tlambda[%2d]=(%24.16e,%24.16e), |lambda| = %24.16e\n", i + 1, wr[i], wi[i], dl);
     }
 
-
-  for (count = 0; count < eigenvalues_number; count++) {
-
-      for (k = 0; k < n; k++) {
+  for (count = 0; count < eigenvalues_number; count++)
+    {
+      for (k = 0; k < n; k++)
+        {
           eigen_functions[count * n + k] = v[count * n + k];
         }
 
-      eigen_values[2*count+0] = wr[count];
-      eigen_values[2*count+1] = wi[count];
+      eigen_values[2 * count + 0] = wr[count];
+      eigen_values[2 * count + 1] = wi[count];
     }
 
+  FREE_ARRAY (c);
+  FREE_ARRAY (resid);
+  FREE_ARRAY (v);
+  FREE_ARRAY (workd);
+  FREE_ARRAY (workev);
+  FREE_ARRAY (workl);
 
-  sp_free_d_vector(wr);
-  sp_free_d_vector(wi);
-  sp_free_i_vector(c);
+  FREE_ARRAY (wr);
+  FREE_ARRAY (wi);
+
+  FREE_ARRAY (select);
 
   return nconv;
 }

@@ -78,6 +78,16 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
   double p_ro = udc->p_ro;
   double p_2ro = udc->p_2ro;
 
+  double *J   = make_vector_double (N, __FILE__, __FUNCTION__);
+  double *W1  = make_vector_double (N, __FILE__, __FUNCTION__);
+  double *W2  = make_vector_double (N, __FILE__, __FUNCTION__);
+
+  for (m = 0; m < N; m++)
+    {
+      J[m]  = u[3 * m + 0];
+      W1[m] = u[3 * m + 1];
+      W2[m] = u[3 * m + 2];
+    }
   /*
    * TODO -- now this loop is for laplacian equation:
    * mu * (u_{x \bar{x}} + u_{y \bar{y}}) + du + 10 * u_x + 7 * u_y = lambda * u
@@ -136,18 +146,18 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
                            &v200, &v2L0, &v2R0, &v20L, &v20R, &v2LL, &v2RL, &v2LR, &v2RR,
                            V2, M0L, M0R);
 
-      fill_node_phys_prop (3 * m + 0,
+      fill_node_phys_prop (m,
                            &j00, &jL0, &jR0, &j0L, &j0R, &jLL, &jRL, &jLR, &jRR,
-                           u, M0L, M0R);
+                           J, M0L, M0R);
 
-      fill_node_phys_prop (3 * m + 1,
+      fill_node_phys_prop (m,
                            &w100, &w1L0, &w1R0, &w10L, &w10R, &w1LL, &w1RL, &w1LR, &w1RR,
-                           u, M0L, M0R);
+                           W1, M0L, M0R);
 
 
-      fill_node_phys_prop (3 * m + 2,
+      fill_node_phys_prop (m,
                            &w200, &w2L0, &w2R0, &w20L, &w20R, &w2LL, &w2RL, &w2LR, &w2RR,
-                           u, M0L, M0R);
+                           W2, M0L, M0R);
 
       switch (st[m])
         {
@@ -758,6 +768,9 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
 
   // Check that we fill all elements of Lu
   assert (mm == 3 * N);
+  FREE_ARRAY (J);
+  FREE_ARRAY (W1);
+  FREE_ARRAY (W2);
   return 0;
 }
 
@@ -1062,8 +1075,8 @@ void A_op (double *Aau, const double *au, int n, void * ud,
   // convert solution vector Lu (dim = 3 * N) into solution vector Aau
   convert_u_to_au (Aau, Lu, udc, st);
 
-  free(u);
-  free(Lu);
+  FREE_ARRAY(u);
+  FREE_ARRAY(Lu);
 
   return;
 }

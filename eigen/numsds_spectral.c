@@ -156,7 +156,8 @@ int numsds_spectral_problem (
           A_op (w1, v1, n, user_data, G, V1, V2, st, M0L, M0R);
 
           ++it1;
-          printf ("Arnoldi iter -> %d\n",it1);
+          if (it1 == 1 || it1 % 50 == 0)
+            printf ("Arnoldi iter = %4.d\n",it1);
         }
     } while (ido == -1 || ido == 1);
 

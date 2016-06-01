@@ -25,6 +25,8 @@ int read_stationary_solution (const char *fname, int N, double *G, double *V1, d
       return -1;
     }
 
+  readedN = 0;
+
   for (i = 0; i < N; i++)
     {
       if (!fscanf(input_file, "%lf ", G + i))

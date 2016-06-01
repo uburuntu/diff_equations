@@ -89,7 +89,8 @@ int main (void)
   eignum = numsds_spectral_problem (eigen_values, eigen_functions_A_op,
                                     udc.NA, eigenvalues_number,
                                     max_iterations, tolerance,
-                                    spectralSubSet, A_op, (void *) (&udc));
+                                    spectralSubSet, A_op, (void *) (&udc),
+                                    G, V1, V2, st, M0L, M0R);
 
   for (i = 0; i < eignum; i++)
     {

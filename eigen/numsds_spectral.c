@@ -18,8 +18,24 @@ int numsds_spectral_problem (
     int max_iterations,
     double tolerance,
     const char spectralSubSet[3],
-    void (*A_op)(double *, const double *, int, void *),
-    void * user_data
+    void (*A_op)(double *,
+             const double *,
+             int,
+             void *,
+             const double *,
+             const double *,
+             const double *,
+             const int *,
+             const int *,
+             const int *
+             ),
+    void * user_data,
+    const double *G,
+    const double *V1,
+    const double *V2,
+    const int *st,
+    const int *M0L,
+    const int *M0R
     )
 
 {
@@ -137,7 +153,7 @@ int numsds_spectral_problem (
           double *w1 = &workd[addr2];
           double *v1 = &workd[addr1];
 
-          A_op (w1, v1, n, user_data);
+          A_op (w1, v1, n, user_data, G, V1, V2, st, M0L, M0R);
 
           ++it1;
           printf ("Arnoldi iter -> %d\n",it1);

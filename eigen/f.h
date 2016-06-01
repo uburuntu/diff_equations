@@ -120,15 +120,22 @@ int nummsds_check_dnaupd_status (int info);
 
 int nummsds_check_dneupd_status (int info);
 
-int numsds_spectral_problem (double *eigen_values,
+int numsds_spectral_problem (
+    double *eigen_values,
     double *eigen_functions,
     int dim,
     int eigenvalues_number,
     int max_iterations,
     double tolerance,
-    const char spectralSubSet[],
-    void (*)(double *, const double *, int, void *),
-    void * user_data
+    const char spectralSubSet[3],
+    void (*)(double *, const double *, int, void *, const double *, const double *,  const double *, const int *, const int *, const int *),
+    void * user_data,
+    const double *G,
+    const double *V1,
+    const double *V2,
+    const int *st,
+    const int *M0L,
+    const int *M0R
     );
 
 void recreate_coefficients (

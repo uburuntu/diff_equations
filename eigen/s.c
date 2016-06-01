@@ -262,6 +262,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
                 a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
                 a_W2_RR * w2RR;
             mm++;
+            break;
           }
         case 1:
           {
@@ -321,6 +322,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
                 a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
                 a_W2_RR * w2RR;
             mm++;
+            break;
           }
         case 2:
           {
@@ -380,6 +382,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
                 a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
                 a_W2_RR * w2RR;
             mm++;
+            break;
           }
         case 3:
           {
@@ -439,6 +442,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
                 a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
                 a_W2_RR * w2RR;
             mm++;
+            break;
           }
         case 4:
           {
@@ -498,6 +502,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
                 a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
                 a_W2_RR * w2RR;
             mm++;
+            break;
           }
         case 5:
           {
@@ -559,6 +564,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
                 a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
                 a_W2_RR * w2RR;
             mm++;
+            break;
           }
         case 6:
           {
@@ -620,6 +626,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
                 a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
                 a_W2_RR * w2RR;
             mm++;
+            break;
           }
         case 7:
           {
@@ -681,6 +688,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
                 a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
                 a_W2_RR * w2RR;
             mm++;
+            break;
           }
       case 8:
         {
@@ -742,6 +750,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
               a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
               a_W2_RR * w2RR;
           mm++;
+          break;
         }
         default:
           break;
@@ -777,6 +786,7 @@ int convert_u_to_au (double *au, const double  *u,
             // third equation
             au[m2] = u[m1];
             m1++; m2++;
+            break;
           }
         case 1: // left boundary
           {
@@ -787,6 +797,7 @@ int convert_u_to_au (double *au, const double  *u,
             m1++;
             // third equation
             m1++;
+            break;
           }
         case 2: // right boundary
           {
@@ -799,6 +810,7 @@ int convert_u_to_au (double *au, const double  *u,
             m1++; m2++;
             // third equation
             m1++;
+            break;
           }
         case 3: // down boundary
           {
@@ -810,6 +822,7 @@ int convert_u_to_au (double *au, const double  *u,
             m1++;
             // third equation
             m1++;
+            break;
           }
         case 4: // top boundary
           {
@@ -821,6 +834,7 @@ int convert_u_to_au (double *au, const double  *u,
             m1++;
             // third equation
             m1++;
+            break;
           }
         case 5:
           {
@@ -831,6 +845,7 @@ int convert_u_to_au (double *au, const double  *u,
             m1++;
             // third equation
             m1++;
+            break;
           }
         case 6:
           {
@@ -841,6 +856,7 @@ int convert_u_to_au (double *au, const double  *u,
             m1++;
             // third equation
             m1++;
+            break;
           }
         case 7:
           {
@@ -851,6 +867,7 @@ int convert_u_to_au (double *au, const double  *u,
             m1++;
             // third equation
             m1++;
+            break;
           }
         case 8:
           {
@@ -861,6 +878,7 @@ int convert_u_to_au (double *au, const double  *u,
             m1++;
             // third equation
             m1++;
+            break;
           }
         default:
           break;
@@ -898,6 +916,7 @@ int convert_au_to_u (double *u, const double  *au,
             // third equation
             u[m1] = au[m2];
             m1++; m2++;
+            break;
           }
         case 1: // left boundary
           {
@@ -911,6 +930,7 @@ int convert_au_to_u (double *u, const double  *au,
             // third equation
             u[m1] =  0.;
             m1++;
+            break;
           }
         case 2: // right boundary
           {
@@ -924,6 +944,7 @@ int convert_au_to_u (double *u, const double  *au,
             // third equation
             u[m1] =  0.;
             m1++;
+            break;
           }
         case 3: // down boundary
           {
@@ -937,6 +958,7 @@ int convert_au_to_u (double *u, const double  *au,
             // third equation
             u[m1] =  0.;
             m1++;
+            break;
           }
         case 4: // top boundary
           {
@@ -950,6 +972,7 @@ int convert_au_to_u (double *u, const double  *au,
             // third equation
             u[m1] =  0.;
             m1++;
+            break;
           }
         case 5:
           {
@@ -963,6 +986,7 @@ int convert_au_to_u (double *u, const double  *au,
             // third equation
             u[m1] =  0.;
             m1++;
+            break;
           }
         case 6:
           {
@@ -976,9 +1000,11 @@ int convert_au_to_u (double *u, const double  *au,
             // third equation
             u[m1] =  0.;
             m1++;
+            break;
           }
         case 7:
           {
+            printf ("%d %d \n", 3 * N - 1, m1);
             // 0 non-trivial equations
             // first equation
             u[m1] =  0.;
@@ -989,6 +1015,7 @@ int convert_au_to_u (double *u, const double  *au,
             // third equation
             u[m1] =  0.;
             m1++;
+            break;
           }
         case 8:
           {
@@ -1002,6 +1029,7 @@ int convert_au_to_u (double *u, const double  *au,
             // third equation
             u[m1] =  0.;
             m1++;
+            break;
           }
         default:
           break;

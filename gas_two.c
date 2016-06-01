@@ -30,16 +30,16 @@ int main ()
 
   if (!NEW_INIT)
     {
-      nc_g = (double*) malloc ((n_ver) * sizeof(double));
-      nc_v1 = (double*) malloc ((n_ver) * sizeof(double));
-      nc_v2 = (double*) malloc ((n_ver) * sizeof(double));
-      nl2_g = (double*) malloc ((n_ver) * sizeof(double));
-      nl2_v1 = (double*) malloc ((n_ver) * sizeof(double));
-      nl2_v2 = (double*) malloc ((n_ver) * sizeof(double));
+      nc_g = (double *) malloc ((n_ver) * sizeof (double));
+      nc_v1 = (double *) malloc ((n_ver) * sizeof (double));
+      nc_v2 = (double *) malloc ((n_ver) * sizeof (double));
+      nl2_g = (double *) malloc ((n_ver) * sizeof (double));
+      nl2_v1 = (double *) malloc ((n_ver) * sizeof (double));
+      nl2_v2 = (double *) malloc ((n_ver) * sizeof (double));
     }
 
-  time = (double*) malloc ((n_ver) * sizeof(double));
-  tauit = (double*) malloc ((it_t_max + 1) * sizeof(double));
+  time = (double *) malloc ((n_ver) * sizeof (double));
+  tauit = (double *) malloc ((it_t_max + 1) * sizeof (double));
 
   P_she p_s;
 
@@ -50,26 +50,31 @@ int main ()
   //-------------------------------------------------
   FILE *fout;
 
-  if(!NEW_INIT)
-      fout = fopen(OUTTEX_SMOOTH, "w");
-  else
-      fout = fopen(OUTTEX_ABRUPT, "w");
-
-  if (fout)
+  if (!NEW_INIT)
     {
-      printhead(fout);
-      fprintf(fout, "\\section* {Графики:}  \n");
-      fclose(fout);
+      fout = fopen (OUTTEX_SMOOTH, "w");
     }
   else
     {
-      printf("Can't open OUTTEX file\n");
+      fout = fopen (OUTTEX_ABRUPT, "w");
+    }
+
+  if (fout)
+    {
+      printhead (fout);
+      fprintf (fout, "\\section* {Графики:}  \n");
+      fclose (fout);
+    }
+  else
+    {
+      printf ("Can't open OUTTEX file\n");
       return -1;
     }
 
   //-------------------------------------------------
 
   it = 0;
+
   for (it_t = 0; it_t <= it_t_max; it_t++)
     {
       for (it_sp = 0; it_sp <= it_sp_max; it_sp++)
@@ -82,19 +87,22 @@ int main ()
           fflush (stdout);
 
           if (it_sp == 0)
-            tauit[it_t] = p_s.tau;
+            {
+              tauit[it_t] = p_s.tau;
+            }
 
-          X = (double*) malloc ((p_s.Dim) * sizeof(double));  // x-coord array of nodes
-          Y = (double*) malloc ((p_s.Dim) * sizeof(double));  // y-coord array of nodes
+          X = (double *) malloc ((p_s.Dim) * sizeof (double)); // x-coord array of nodes
+          Y = (double *) malloc ((p_s.Dim) * sizeof (double)); // y-coord array of nodes
 
-          G  = (double*) malloc ((p_s.Dim) * sizeof(double));  // press array of nodes
-          V1 = (double*) malloc ((p_s.Dim) * sizeof(double)); // v1 array of nodes
-          V2 = (double*) malloc ((p_s.Dim) * sizeof(double)); // v2 array of nodes
+          G  = (double *) malloc ((p_s.Dim) * sizeof (double)); // press array of nodes
+          V1 = (double *) malloc ((p_s.Dim) * sizeof (double)); // v1 array of nodes
+          V2 = (double *) malloc ((p_s.Dim) * sizeof (double)); // v2 array of nodes
+
           if (STAT_SOL && it_sp == it_t && it_sp == 0)
             {
-              G_prev  = (double*) malloc ((p_s.Dim) * sizeof(double));  // press array of nodes
-              V1_prev = (double*) malloc ((p_s.Dim) * sizeof(double)); // v1 array of nodes
-              V2_prev = (double*) malloc ((p_s.Dim) * sizeof(double)); // v2 array of nodes
+              G_prev  = (double *) malloc ((p_s.Dim) * sizeof (double)); // press array of nodes
+              V1_prev = (double *) malloc ((p_s.Dim) * sizeof (double)); // v1 array of nodes
+              V2_prev = (double *) malloc ((p_s.Dim) * sizeof (double)); // v2 array of nodes
             }
           else
             {
@@ -103,9 +111,9 @@ int main ()
               V2_prev = NULL;
             }
 
-          st  = (int*) malloc ((p_s.Dim) * sizeof(int));       // status of nodes
-          M0L = (int*) malloc ((p_s.Dim) * sizeof(int));
-          M0R = (int*) malloc ((p_s.Dim) * sizeof(int));
+          st  = (int *) malloc ((p_s.Dim) * sizeof (int));     // status of nodes
+          M0L = (int *) malloc ((p_s.Dim) * sizeof (int));
+          M0R = (int *) malloc ((p_s.Dim) * sizeof (int));
 
           // Define properties of nodes
           Setka (st, X, Y, M0L, M0R, &p_s, &p_d);
@@ -114,7 +122,7 @@ int main ()
                        st, X, Y, M0L, M0R, &p_s, &p_d);
 
           EndClock = clock();
-          time[it] = (double)(EndClock - BegClock) / CLOCKS_PER_SEC;
+          time[it] = (double) (EndClock - BegClock) / CLOCKS_PER_SEC;
           printf ("Elapsed time: %.2f sec.\n", time[it]);
 
           if (!NEW_INIT)
@@ -137,18 +145,27 @@ int main ()
               fprintf (stat_sol_out, "%d \n", p_s.Dim);
 
               for (i = 0; i < p_s.Dim; i++)
-                fprintf (stat_sol_out, "%lf ", G[i]);
+                {
+                  fprintf (stat_sol_out, "%lf ", G[i]);
+                }
+
               fprintf (stat_sol_out, "\n");
 
               for (i = 0; i < p_s.Dim; i++)
-                fprintf (stat_sol_out, "%lf ", V1[i]);
+                {
+                  fprintf (stat_sol_out, "%lf ", V1[i]);
+                }
+
               fprintf (stat_sol_out, "\n");
 
               for (i = 0; i < p_s.Dim; i++)
-                fprintf (stat_sol_out, "%lf ", V2[i]);
+                {
+                  fprintf (stat_sol_out, "%lf ", V2[i]);
+                }
+
               fprintf (stat_sol_out, "\n");
 
-              fclose(stat_sol_out);
+              fclose (stat_sol_out);
 
               // hehekostil to leave cycle
               it_sp = it_sp_max + 1;
@@ -167,22 +184,29 @@ int main ()
           free (M0R);
         }
     }
+
   //-------------------------------------------------
-  if(!NEW_INIT)
-      fout = fopen(OUTTEX_SMOOTH, "a+");
+  if (!NEW_INIT)
+    {
+      fout = fopen (OUTTEX_SMOOTH, "a+");
+    }
   else
-      fout = fopen(OUTTEX_ABRUPT, "a+");
+    {
+      fout = fopen (OUTTEX_ABRUPT, "a+");
+    }
+
   if (fout)
     {
-      printtail(fout);
+      printtail (fout);
     }
   else
     {
-      printf("Can't open file OUTTEX\n");
+      printf ("Can't open file OUTTEX\n");
       return -1;
     }
-  fclose(fout);
-   //-------------------------------------------------
+
+  fclose (fout);
+  //-------------------------------------------------
 
   if (!NEW_INIT)
     {

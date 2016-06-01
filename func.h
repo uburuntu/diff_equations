@@ -47,11 +47,11 @@ typedef struct
   double eta;
 } P_she;
 
-void param_she_step (P_she *p_s, P_dif *p_d, int it_t,int int_sp);
+void param_she_step (P_she *p_s, P_dif *p_d, int it_t, int int_sp);
 
-double Norm_c(double *A, int Dim, double *X, double *Y, double t, double (*f)(double tt,double x1,double x2));
+double Norm_c (double *A, int Dim, double *X, double *Y, double t, double (*f) (double tt, double x1, double x2));
 
-double Norm_l2(double *A, int Dim, double *X, double *Y, double t, double (*f)(double tt,double x1,double x2));
+double Norm_l2 (double *A, int Dim, double *X, double *Y, double t, double (*f) (double tt, double x1, double x2));
 
 double ro (double t, double x, double y);
 double gg (double t, double x, double y);
@@ -63,10 +63,10 @@ double Func_v1 (double t, double x, double y, double p_ro, double mu);
 double Func_v2 (double t, double x, double y, double p_ro, double mu);
 void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif *p_d);
 
-int  Sxema(double *G, double *V1, double *V2,
-           double *G_prev, double *V1_prev, double *V2_prev,
-           int *st, double *X, double *Y, int *M0L,
-           int *M0R, P_she *p_s, P_dif *p_d);
+int  Sxema (double *G, double *V1, double *V2,
+            double *G_prev, double *V1_prev, double *V2_prev,
+            int *st, double *X, double *Y, int *M0L,
+            int *M0R, P_she *p_s, P_dif *p_d);
 
 double calc_sol_residual_norm (int Dim, double *G, double *V1, double *V2,
                                double *G_prev, double *V1_prev, double *V2_prev);

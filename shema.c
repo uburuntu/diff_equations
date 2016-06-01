@@ -530,17 +530,17 @@ int  Sxema (double *G, double *V1, double *V2,
           if (norm < STAT_SOL_EPS)
             {
               printf ("Stationary solution has been found at T = %d. \n", nn);
-              printf ("Accuracy = %E. \n", STAT_SOL_EPS);
+              printf ("Accuracy = %E. \n", norm);
               Q_Destr (&A);
               V_Destr (&D);
               V_Destr (&B);
               return 1;
             }
-          else
+          else if (nn == 1 || nn % 10 == 0)
             {
-              printf ("t = %d, norm = %E \n", nn, norm);
-              init_prev_with_curr (Dim, G, V1, V2, G_prev, V1_prev, V2_prev);
+              printf ("t = %3.d, norm = %E \n", nn, norm);
             }
+          init_prev_with_curr (Dim, G, V1, V2, G_prev, V1_prev, V2_prev);
         }
     }
 

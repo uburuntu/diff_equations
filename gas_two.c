@@ -133,7 +133,7 @@ int main ()
           if (STAT_SOL && it_sp == it_t && it_sp == 0 &&
               ret == 1 /* stat_sol was found */)
             {
-              stat_sol_out = fopen ("stat_sol.tex", "w");
+              stat_sol_out = fopen ("./eigen/stat_sol.txt", "w");
               fprintf (stat_sol_out, "%d \n", p_s.Dim);
 
               for (i = 0; i < p_s.Dim; i++)

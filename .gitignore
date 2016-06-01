@@ -19,6 +19,7 @@
 # Eigen
 *.e
 eigenfun_*
+stat_sol.txt
 
 # Libraries
 *.lib

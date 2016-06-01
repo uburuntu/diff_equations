@@ -103,7 +103,7 @@ int main (void)
 
   for (i = 0; i < eignum; i++)
     {
-      len = snprintf (fn, sizeof(fn)-1, "./Numres/eigenfun_%02d", i);
+      len = snprintf (fn, sizeof(fn)-1, "./results/eigenfun_%02d.txt", i);
       fn[len] = '\0';
       out = fopen (fn, "w");
       if (out == NULL)

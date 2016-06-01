@@ -1,6 +1,6 @@
 CC	= gcc
 LIBS    = ./arpack/libarpack_SUN4.a -lgfortran -lm
-OPTIMIZE= -O0
+OPTIMIZE= -Ofast
 CFLAGS  = -c $(OPTIMIZE) -g -W -Wall -Wunused -Wcast-align -Werror -fstack-protector-all -Wfloat-equal -Wpointer-arith -Wwrite-strings -Wcast-align -Wno-long-long -Wmissing-declarations
 LDFLAGS =    $(OPTIMIZE) -g -W -Wall -Wunused -Wcast-align -Werror -fstack-protector-all -Wfloat-equal -Wpointer-arith -Wwrite-strings -Wcast-align -Wno-long-long -Wmissing-declarations
 

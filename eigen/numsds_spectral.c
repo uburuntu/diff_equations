@@ -147,7 +147,6 @@ int numsds_spectral_problem (
           exit (1);
         }
 
-
       if (ido == -1 || ido == 1)
         {
           int addr2 = ipntr[2-1]-1;
@@ -165,7 +164,7 @@ int numsds_spectral_problem (
         }
     } while (ido == -1 || ido == 1);
 
-  printf("\n\n");
+  printf("\n");
 
   dneupd_ ( &rvec, ch, select, wr, wi, v, &ldv,
             &sigmar, &sigmai, workev, bmat, &n, which, &nev, &tol,
@@ -285,6 +284,9 @@ int numsds_spectral_problem (
 
 int nummsds_check_dnaupd_status (int info)
 {
+  if (info != 0)
+    printf("\n");
+
   switch (info) {
     case 0:
       //          =  0: Normal exit.

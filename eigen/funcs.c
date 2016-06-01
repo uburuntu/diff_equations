@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "f.h"
 
 int read_stationary_solution (const char *fname, int N, double *G, double *V1, double *V2)
@@ -52,16 +51,16 @@ void print_2dfun_double (FILE* f, const char * name, const double  * u,
 
   fprintf(f,"#%s\n",name);
 
-  for(j=ny-1;j>=0;j--)
+  for(j = ny - 1; j >= 0; j--)
     {
-      for(i=0;i<nx;i++)
+      for(i = 0; i < nx; i++)
         {
-          fprintf(f,"%9.2e ",u[i+j*nx]);
+          fprintf(f, "%9.2e ", u[i + j * nx]);
         }
-      fprintf(f,"\n");
+      fprintf(f, "\n");
     }
 
-  return ;
+  return;
 }
 
 int *sp_alloc_i_vector (

@@ -1,5 +1,4 @@
 /*
-
  Copyright (c)  2016 Kornev Andrey A.
                      Ozeritsky  Alexey V.
                      and
@@ -9,7 +8,6 @@
                      Halikov P.
 */
 
-#include <stdio.h>
 #include "f.h"
 
 #define ST_SOL_FILE "stat_sol.txt"
@@ -38,9 +36,9 @@ int main (void)
   char spectralSubSet[3];
   int max_iterations;
   double tolerance;
-  int eignum=0;
+  int eignum = 0;
   char fn[1024];
-  int i,len;
+  int i, len;
 
   FILE *out;
 
@@ -60,7 +58,6 @@ int main (void)
   if (ret < 0)
     return 0;
 
-  // it equals to number of non-trivial equations
   eigenvalues_number = 6;
 
   /* 'LM' -> eigenvalues of largest magnitude. */
@@ -75,48 +72,45 @@ int main (void)
   tolerance = 1.e-12;
 
 
-  // TODO: change amount of memory to correct value
+  // eigen_values[2 * i + 0] = LAMBDA_I_REAL_PART
+  // eigen_values[2 * i + 1] = LAMBDA_I_IMAG_PART
   eigen_values = make_vector_double (2 * eigenvalues_number,
                                      __FILE__, __FUNCTION__);
 
-  // TODO: change amount of memory to correct value
   eigen_functions_A_op = make_vector_double (eigenvalues_number * udc.NA,
                                              __FILE__, __FUNCTION__);
 
-  // TODO: change amount of memory to correct value
-  eigen_functions = make_vector_double (eigenvalues_number * udc.N,
+  eigen_functions = make_vector_double (eigenvalues_number * (3 * udc.N),
                                         __FILE__, __FUNCTION__);
 
 
   // TODO: look through this function to check correctness
+  // i have checked, but i`m not sure it`s correct...
   eignum = numsds_spectral_problem (eigen_values, eigen_functions_A_op,
                                     udc.NA, eigenvalues_number,
                                     max_iterations, tolerance,
                                     spectralSubSet, A_op, (void *) (&udc));
 
-  // TODO: change to correct values of []
   for (i = 0; i < eignum; i++)
     {
-      convert_au_to_u (&eigen_functions[i * udc.N],
+      convert_au_to_u (&eigen_functions[i * (3 * udc.N)],
                        &eigen_functions_A_op[i * udc.NA],
                        &udc, st);
     }
 
-
-  // TODO: change to correct values of []
   for (i = 0; i < eignum; i++)
     {
       len = snprintf (fn, sizeof(fn)-1, "./Numres/eigenfun_%02d", i);
       fn[len] = '\0';
-      out = fopen (fn,"w");
+      out = fopen (fn, "w");
       if (out == NULL)
         {
-          printf ("%s ERR!\n",fn);
+          printf ("%s ERR!\n", fn);
           exit (1);
         }
 
       print_2dfun_double (out, "egenfun",
-                          &eigen_functions[i * udc.N],
+                          &eigen_functions[i * (3 * udc.N)],
                           udc.Nx, udc.Ny);
       fclose(out);
     }

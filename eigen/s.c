@@ -1,5 +1,4 @@
 /*
-
  Copyright (c)  2016 Kornev Andrey A.
                      Ozeritsky  Alexey V.
                      and

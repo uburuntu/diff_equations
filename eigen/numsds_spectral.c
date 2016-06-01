@@ -1,7 +1,11 @@
 /*
-
- Copyright (c)  2007  Ozeritsky  Alexey V.
-
+ Copyright (c)  2016 Kornev Andrey A.
+                     Ozeritsky  Alexey V.
+                     and
+                     Afanasieva A.
+                     Bekbulatov R.
+                     Nazarov V.
+                     Halikov P.
 */
 
 #include "f.h"
@@ -24,7 +28,7 @@ int numsds_spectral_problem (
 
   //	int nx[1];
 
-  int i,k,count;
+  int i, k, count;
   double dl;
 
   int info = 0;
@@ -52,7 +56,7 @@ int numsds_spectral_problem (
 
   /* BMAT = 'I' -> standard eigenvalue problem A*x = lambda*x*/
   /* BMAT = 'G' -> generalized eigenvalue problem A*x = lambda*B*x*/
-  char   bmat[] ="I";
+  char bmat[] = "I";
 
   /* 'LM' -> want the NEV eigenvalues of largest magnitude. */
   /* 'SM' -> want the NEV eigenvalues of smallest magnitude.*/
@@ -246,7 +250,7 @@ int numsds_spectral_problem (
   for (count = 0; count < eigenvalues_number; count++) {
 
       for (k = 0; k < n; k++) {
-          eigen_functions[count*n+k] = v[count * n + k];
+          eigen_functions[count * n + k] = v[count * n + k];
         }
 
       eigen_values[2*count+0] = wr[count];

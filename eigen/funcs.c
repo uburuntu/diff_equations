@@ -11,16 +11,9 @@ int read_stationary_solution (const char *fname, int N, double *G, double *V1, d
       return -1;
     }
 
-  if (!fscanf (input_file, "%d", &readedN))
+  if (!fscanf (input_file, "%d", &readedN) || readedN != N)
     {
       printf ("fread error: incorrect N by file %s\n", fname);
-      fclose (input_file);
-      return -1;
-    }
-
-  if (readedN != N)
-    {
-      printf ("fread error: incorrect N=%d by file %s\n", readedN, fname);
       fclose (input_file);
       return -1;
     }

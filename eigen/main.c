@@ -84,6 +84,8 @@ int main (void)
                                         __FILE__, __FUNCTION__);
 
 
+  calc_mesh_params (st, X, Y, M0L, M0R, (void *) (&udc));
+
   // TODO: look through this function to check correctness
   // i have checked, but i`m not sure it`s correct...
   eignum = numsds_spectral_problem (eigen_values, eigen_functions_A_op,

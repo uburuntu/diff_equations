@@ -37,7 +37,6 @@ void initparam_UserDataCurr_struct (
             1 * (udc->Nx - 2) +                 // top boundary
             0 * (udc->Ny - 2) +                 // left boundary
             0 * 4;                              // vertices of square
-  printf ("%d %d \n", 3 * udc->N, udc->NA);
 #else
   udc->N = udc->Nx * udc->Ny - (udc->Nx_0 - 1) * (udc->Ny_0 - 1);
   udc->NA = (udc->Nx - 2) * (udc->Ny - 2) - (udc->Nx_0 - 1) * (udc->Ny_0 - 1);
@@ -1004,7 +1003,6 @@ int convert_au_to_u (double *u, const double  *au,
           }
         case 7:
           {
-            printf ("%d %d \n", 3 * N - 1, m1);
             // 0 non-trivial equations
             // first equation
             u[m1] =  0.;

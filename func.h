@@ -1,7 +1,7 @@
 #define FIX_UNUSED(X) (void)(X)
 
 #define MINIMAL_FOR_COMPARE   1.e-16
-#define STAT_SOL_EPS          1.e-12
+#define STAT_SOL_EPS          1.e-5
 
 #define RHO_0   0.5
 #define RHO_G   0.3

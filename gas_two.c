@@ -10,12 +10,16 @@
 
 int main ()
 {
+  int ret;
+  int i;
+  FILE *stat_sol_out;
+
   P_dif p_d;
   param_dif (&p_d);
 
   int it_t, it_t_max, it_sp, it_sp_max, n_ver, it;
-  it_t_max = 1;
-  it_sp_max = 1;
+  it_t_max = 0;
+  it_sp_max = 0;
   it_t = 0;
   it_sp = 0;
 
@@ -40,7 +44,7 @@ int main ()
   P_she p_s;
 
   int *st, *M0L, *M0R;
-  double *X, *Y, *G, *V1, *V2;
+  double *X, *Y, *G, *V1, *V2, *G_prev, *V1_prev, *V2_prev;
 
   clock_t BegClock, EndClock;
   //-------------------------------------------------
@@ -74,7 +78,7 @@ int main ()
 
           // Define area params
           param_she_step (&p_s, &p_d, it_t, it_sp);
-          printf ("N = %3.d, M1 = %3.d, M2 = %3.d, Dim = %6.d", p_s.N, p_s.M_x, p_s.M_y, p_s.Dim);
+          printf ("N = %3.d, M1 = %3.d, M2 = %3.d, Dim = %6.d. \n", p_s.N, p_s.M_x, p_s.M_y, p_s.Dim);
           fflush (stdout);
 
           if (it_sp == 0)
@@ -82,21 +86,36 @@ int main ()
 
           X = (double*) malloc ((p_s.Dim) * sizeof(double));  // x-coord array of nodes
           Y = (double*) malloc ((p_s.Dim) * sizeof(double));  // y-coord array of nodes
-          G = (double*) malloc ((p_s.Dim) * sizeof(double));  // press array of nodes
+
+          G  = (double*) malloc ((p_s.Dim) * sizeof(double));  // press array of nodes
           V1 = (double*) malloc ((p_s.Dim) * sizeof(double)); // v1 array of nodes
           V2 = (double*) malloc ((p_s.Dim) * sizeof(double)); // v2 array of nodes
-          st = (int*) malloc ((p_s.Dim) * sizeof(int));       // status of nodes
+          if (STAT_SOL && it_sp == it_t && it_sp == 0)
+            {
+              G_prev  = (double*) malloc ((p_s.Dim) * sizeof(double));  // press array of nodes
+              V1_prev = (double*) malloc ((p_s.Dim) * sizeof(double)); // v1 array of nodes
+              V2_prev = (double*) malloc ((p_s.Dim) * sizeof(double)); // v2 array of nodes
+            }
+          else
+            {
+              G_prev  = NULL;
+              V1_prev = NULL;
+              V2_prev = NULL;
+            }
+
+          st  = (int*) malloc ((p_s.Dim) * sizeof(int));       // status of nodes
           M0L = (int*) malloc ((p_s.Dim) * sizeof(int));
           M0R = (int*) malloc ((p_s.Dim) * sizeof(int));
 
           // Define properties of nodes
           Setka (st, X, Y, M0L, M0R, &p_s, &p_d);
           // Run calculations
-          Sxema (G, V1, V2, st, X, Y, M0L, M0R, &p_s, &p_d);
+          ret = Sxema (G, V1, V2, G_prev, V1_prev, V2_prev,
+                       st, X, Y, M0L, M0R, &p_s, &p_d);
 
           EndClock = clock();
           time[it] = (double)(EndClock - BegClock) / CLOCKS_PER_SEC;
-          printf (", Elapsed time: %.2f sec.\n", time[it]);
+          printf ("Elapsed time: %.2f sec.\n", time[it]);
 
           if (!NEW_INIT)
             {
@@ -109,6 +128,31 @@ int main ()
 
               // debug
               printf (" %lf %lf %lf \n", nl2_g[it], nl2_v1[it], nl2_v2[it]);
+            }
+
+          if (STAT_SOL && it_sp == it_t && it_sp == 0 &&
+              ret == 1 /* stat_sol was found */)
+            {
+              stat_sol_out = fopen ("stat_sol.txt", "w");
+              fprintf (stat_sol_out, "%d", p_s.Dim);
+
+              for (i = 0; i < p_s.Dim; i++)
+                fprintf (stat_sol_out, "%lf ", G[i]);
+              fprintf (stat_sol_out, "\n");
+
+              for (i = 0; i < p_s.Dim; i++)
+                fprintf (stat_sol_out, "%lf ", V1[i]);
+              fprintf (stat_sol_out, "\n");
+
+              for (i = 0; i < p_s.Dim; i++)
+                fprintf (stat_sol_out, "%lf ", V2[i]);
+              fprintf (stat_sol_out, "\n");
+
+              fclose(stat_sol_out);
+
+              // hehekostil to leave cycle
+              it_sp = it_sp_max + 1;
+              it_t = it_t_max + 1;
             }
 
           it++;

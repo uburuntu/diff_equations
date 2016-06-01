@@ -8,7 +8,11 @@ inline int is_equal (double x1, double x2)
 
 void param_dif (P_dif *p_d)
 {
-  p_d->Segm_T = 1.;
+#if !STAT_SOL
+  p_d->Segm_T = 1;
+#else
+  p_d->Segm_T = 100;
+#endif
   p_d->Segm_X = 3.;
   p_d->Segm_Y = 3.;
   p_d->Segm_X_0 = 2.;
@@ -22,7 +26,11 @@ void param_she_step (P_she *p_s, P_dif *p_d, int it_t, int it_sp)
   // main rectangle
   p_s->M_x = 60;
   p_s->M_y = 60;
+#if !STAT_SOL
   p_s->N   = 20;
+#else
+  p_s->N   = 2000;
+#endif
 
   // cut rectangle
   p_s->M_x_0 = 40;
@@ -68,32 +76,32 @@ void param_she_step (P_she *p_s, P_dif *p_d, int it_t, int it_sp)
 double Norm_c (double *a, int Dim, double *X, double *Y, double t, double (*f) (double tt,double x1,double x2))
 {
   int m;
-  double norma = 0.;
+  double norm = 0.;
   double tmp;
 
   for(m = 0; m < Dim; m++)
     {
       tmp = fabs (a[m] - (*f) (t, X[m], Y[m]));
-      if(tmp > norma)
+      if(tmp > norm)
         {
-          norma = tmp;
+          norm = tmp;
         }
     }
-  return norma;
+  return norm;
 }
 
 double Norm_l2 (double *a, int Dim, double *X, double *Y, double t, double (*f) (double tt,double x1,double x2))
 {
   int m;
-  double norma = 0.;
+  double norm = 0.;
   double tmp;
 
   for(m = 0; m < Dim; m++)
     {
       tmp = a[m] - (*f) (t, X[m], Y[m]);
-      norma += tmp * tmp;
+      norm += tmp * tmp;
     }
-  return sqrt (norma / Dim);
+  return sqrt (norm / Dim);
 }
 
 inline double ro (double t, double x, double y)
@@ -282,4 +290,35 @@ inline double Func_v2 (double t, double x, double y, double p_ro, double mu)
                               + (1. / 3.) * M_PI * M_PI * cos (M_PI * y) * cos (M_PI * x) * exp (t)));
         }
     }
+}
+
+
+double calc_sol_residual_norm (int Dim, double *G, double *V1, double *V2,
+                               double *G_prev, double *V1_prev, double *V2_prev)
+{
+  int m;
+  double norm = 0.;
+  double tmp_1, tmp_2, tmp_3;
+
+  for(m = 0; m < Dim; m++)
+    {
+      tmp_1 = G[m] - G_prev[m];
+      tmp_2 = V1[m] - V1_prev[m];
+      tmp_3 = V2[m] - V2_prev[m];
+      norm += tmp_1 * tmp_1 + tmp_2 * tmp_2 + tmp_3 * tmp_3;
+    }
+  return sqrt (norm / (3 * Dim));
+}
+
+void init_prev_with_curr (int Dim, double *G, double *V1, double *V2,
+                          double *G_prev, double *V1_prev, double *V2_prev)
+{
+  int i;
+  for (i = 0; i < Dim; i++)
+    {
+      G_prev[i]  = G[i];
+      V1_prev[i] = V1[i];
+      V2_prev[i] = V2[i];
+    }
+  return;
 }

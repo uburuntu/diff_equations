@@ -12,10 +12,14 @@
 #include "func.h"
 #include "gnuplot.h"
 
-void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif *p_d)
+int  Sxema (double *G, double *V1, double *V2,
+            double *G_prev, double *V1_prev, double *V2_prev,
+            int *st, double *X, double *Y, int *M0L,
+            int *M0R, P_she *p_s, P_dif *p_d)
 {
   // Arguments
   int N, Dim;
+  double norm;
   double hx, hy, tau, mu, p_ro;
 
   N   = p_s->N;
@@ -82,16 +86,19 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
       tmp = gg (tt, xx, yy);
       V_SetCmp (&D, mm, tmp);
       G[m] = tmp;
+      if (G_prev) G_prev[m] = tmp;
       mm++;
 
       tmp = u1 (tt, xx, yy);
       V_SetCmp (&D, mm, tmp);
       V1[m] = tmp;
+      if (V1_prev) V1_prev[m] = tmp;
       mm++;
 
       tmp = u2 (tt, xx, yy);
       V_SetCmp (&D, mm, tmp);
       V2[m] = tmp;
+      if (V2_prev) V2_prev[m] = tmp;
       mm++;
     }
 
@@ -508,6 +515,7 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
           //printf ("%lf %lf %lf \n", tt, xx, yy);
         }
 
+
       if (nn == nameiter || nn == N)
         {
           nameiter += N / DIVISOR;
@@ -515,10 +523,37 @@ void Sxema (double *G, double *V1, double *V2, int *st, double *X, double *Y, in
           print_plot(plot_name(plotname, tau, hx, hy, nn), X, Y, G, V1, V2, Dim, tt);
           make_graph(tex_name(texname, tau, hx, hy, nn), plotname, hx, hy, tau, tt);
         }
+
+      if (STAT_SOL && G_prev && V1_prev && V2_prev)
+        {
+          norm = calc_sol_residual_norm (Dim, G, V1, V2, G_prev, V1_prev, V2_prev);
+          if (norm < STAT_SOL_EPS)
+            {
+              printf ("Stationary solution has been found at T = %d. \n", nn);
+              printf ("Accuracy = %E. \n", STAT_SOL_EPS);
+              Q_Destr (&A);
+              V_Destr (&D);
+              V_Destr (&B);
+              return 1;
+            }
+          else
+            {
+              printf ("t = %d, norm = %E \n", nn, norm);
+              init_prev_with_curr (Dim, G, V1, V2, G_prev, V1_prev, V2_prev);
+            }
+        }
     }
 
   Q_Destr (&A);
   V_Destr (&D);
   V_Destr (&B);
+
+  if (STAT_SOL && G_prev && V1_prev && V2_prev)
+    {
+      printf ("Stationary solution has not been found at T = %d. \n", nn);
+      printf ("Accuracy = %E. \n", STAT_SOL_EPS);
+      return -1;
+    }
+  return 0;
 }
 

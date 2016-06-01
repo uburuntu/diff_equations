@@ -55,6 +55,8 @@ void initparam_UserDataCurr_struct (
   udc->Hx = udc->Lx / (udc->Nx - 1);
   udc->Hy = udc->Ly / (udc->Ny - 1);
 
+  udc->p_ro = 1.0;
+  udc->p_2ro = 0.0;
   udc->mu = 1.;
   return;
 }
@@ -73,8 +75,8 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
   double Hy = udc->Hy;
   double mu = udc->mu;
 
-  // TODO: Init this values correctly!
-  double p_ro = 0., p_2ro = 0.;
+  double p_ro = udc->p_ro;
+  double p_2ro = udc->p_2ro;
 
   /*
    * TODO -- now this loop is for laplacian equation:

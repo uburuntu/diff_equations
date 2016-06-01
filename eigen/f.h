@@ -57,6 +57,8 @@ typedef struct
   double Hx;
   double Hy;
 
+  double p_ro;
+  double p_2ro;
   double mu;
 
 } UserDataCurr_struct;

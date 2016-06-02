@@ -14,7 +14,7 @@
 
 #define DEBUG_VARIANT_I   0
 #define DEBUG_VARIANT_II  0
-#define DEBUG_VARIANT_III 0
+#define DEBUG_VARIANT_III 1
 #define EIG_USAGE_TIME    5
 
 int  Sxema (double *G, double *V1, double *V2,

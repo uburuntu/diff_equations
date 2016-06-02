@@ -297,7 +297,7 @@ int main ()
           time[it] = (double) (EndClock - BegClock) / CLOCKS_PER_SEC;
           printf ("Elapsed time: %.2f sec.\n", time[it]);
 
-        if (!NO_SMOOTH)
+          if (!NO_SMOOTH)
             {
               nc_g[it] = Norm_c (G, p_s.Dim, X, Y, p_d.Segm_T, gg);
               nl2_g[it] = Norm_l2 (G, p_s.Dim, X, Y, p_d.Segm_T, gg);
@@ -366,7 +366,7 @@ int main ()
     }
 
   //-------------------------------------------------
-if (!NO_SMOOTH)
+  if (!NO_SMOOTH)
     {
       fout = fopen (OUTTEX_SMOOTH, "a+");
     }
@@ -388,7 +388,7 @@ if (!NO_SMOOTH)
   fclose (fout);
   //-------------------------------------------------
 
- if (!NO_SMOOTH)
+  if (!NO_SMOOTH)
     {
       tabtex_nc_g (it_t_max, it_sp_max, nc_g, tauit, p_d.p_ro, p_d.mu);
       tabtex_nc_v1 (it_t_max, it_sp_max, nc_v1, tauit, p_d.p_ro, p_d.mu);

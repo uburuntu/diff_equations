@@ -3,7 +3,7 @@
 #define CLOSE_FILE(X) if ((X)) fclose ((X)); (X) = NULL
 
 #define MINIMAL_FOR_COMPARE   1.e-16
-#define STAT_SOL_EPS          7 * 1.e-7
+#define STAT_SOL_EPS          1.e-4 //3.5 * 1.e-7
 
 #define RHO_0   0.5
 #define RHO_G   0.3

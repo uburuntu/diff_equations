@@ -44,6 +44,8 @@ typedef struct
 {
   int Nx;
   int Ny;
+  int Nx_0;
+  int Ny_0;
 
   int N;
   int NA;

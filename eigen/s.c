@@ -25,8 +25,10 @@ void init_user_data (
   user_data *ud)
 {
   // Number of mesh nodes
-  ud->Nx    =  61;
-  ud->Ny    =  61;
+  ud->Nx   =  61;
+  ud->Ny   =  61;
+  ud->Nx_0 =  41;
+  ud->Ny_0 =  21;
 
 #if SQUARE
   ud->N  = ud->Nx * ud->Ny;
@@ -56,7 +58,7 @@ void init_user_data (
 
   ud->p_ro = 1.0;
   ud->p_2ro = 0.0;
-  ud->mu = 1.;
+  ud->mu = 0.1;
   return;
 }
 

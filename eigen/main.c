@@ -70,7 +70,7 @@ int main (void)
   /* 'LI' -> eigenvalues of largest imaginary part. */
   /* 'SI' -> eigenvalues of smallest imaginary part.*/
 
-  strcpy (spectralSubSet, "SM");
+  strcpy (spectralSubSet, "LR");
   max_iterations = 1000;
   tolerance = 1.e-12;
 

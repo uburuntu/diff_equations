@@ -77,19 +77,33 @@ void param_she_step (P_she *p_s, P_dif *p_d, int it_t, int it_sp)
 
       case VOLODYA_9:
         {
+          // cut rectangle
+          p_s->M_x_0 = 40;
+          p_s->M_y_0 = 20;
+          p_s->M_x_0 *= k_sp;
+          p_s->M_y_0 *= k_sp;
           p_s->Dim = (p_s->M_x + 1) * (p_s->M_y + 1) - (p_s->M_x_0 + 0) * (p_s->M_y_0 + 0);
           break;
         }
 
       case RAMZAN_10:
         {
-          p_s->Dim = (p_s->M_x + 1) * (p_s->M_y + 1) - (p_s->M_x_0 + 0) * (p_s->M_y_0 + 0);
+          p_s->M_x_0 = 20;
+          p_s->M_y_0 = 20;
+          p_s->M_x_0 *= k_sp;
+          p_s->M_y_0 *= k_sp;
+          p_s->Dim = (p_s->M_x + 1) * (p_s->M_y + 1) - 3 * (p_s->M_x_0 + 0) * (p_s->M_y_0 + 0);
           break;
         }
 
       case NASTYA_11:
         {
-          p_s->Dim = (p_s->M_x + 1) * (p_s->M_y + 1) - (p_s->M_x_0 + 0) * (p_s->M_y_0 + 0);
+          // cut rectangle
+          p_s->M_x_0 = 20;
+          p_s->M_y_0 = 20;
+          p_s->M_x_0 *= k_sp;
+          p_s->M_y_0 *= k_sp;
+          p_s->Dim = (p_s->M_x + 1) * (p_s->M_y + 1) - 4 * (p_s->M_x_0 + 0) * (p_s->M_y_0 + 0);
           break;
         }
     }

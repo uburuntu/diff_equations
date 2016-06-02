@@ -10,26 +10,16 @@
 
 #include "f.h"
 
-int numsds_spectral_problem (
+int find_eigen_values (
   double *eigen_values,
   double *eigen_functions,
-  int dim,
-  int eigenvalues_number,
-  int max_iterations,
-  double tolerance,
-  const char spectralSubSet[3],
-  void (*A_op) (double *,
-                const double *,
-                int,
-                void *,
-                const double *,
-                const double *,
-                const double *,
-                const int *,
-                const int *,
-                const int *
-               ),
-  void *user_data,
+  const int dim,
+  const int n_eigen_values,
+  const int max_iterations,
+  const double tolerance,
+  const char *spectralSubSet,
+  const char *bmat,
+  const void *user_data,
   const double *G,
   const double *V1,
   const double *V2,
@@ -39,110 +29,50 @@ int numsds_spectral_problem (
 )
 
 {
-  int n;
-  int enx;
-
-  //  int nx[1];
-
-  int i, k, count;
-  double dl;
-
+  int n = dim;
+  int ido = 0;
+  int iters = 0;
+  int rvec = 1;
   int info = 0;
+  double tol = tolerance;
+  double sigma_real = 0, sigma_imag = 0;
+  int n_found_eigen_values;
 
-  /* Number of eigenvalues of OP to be computed. 0 < NEV < N-1.*/
-  int nev;
-
-  /* Number of columns of the matrix V. NCV must satisfy the two
-                inequalities 2 <= NCV-NEV and NCV <= N.*/
-  int ncv;
-
-  int lworkl;
-  int ldv;
-
-  int *c;
-
-  double *resid;
-  double *v;
-  double *workd;
-  double *workev;
-  double *workl;
-
-  double *wr;
-  double *wi;
-
-  /* BMAT = 'I' -> standard eigenvalue problem A*x = lambda*x*/
-  /* BMAT = 'G' -> generalized eigenvalue problem A*x = lambda*B*x*/
-  char bmat[] = "I";
-
-  /* 'LM' -> want the NEV eigenvalues of largest magnitude. */
-  /* 'SM' -> want the NEV eigenvalues of smallest magnitude.*/
-  /* 'LR' -> want the NEV eigenvalues of largest real part. */
-  /* 'SR' -> want the NEV eigenvalues of smallest real part.*/
-  /* 'LI' -> want the NEV eigenvalues of largest imaginary part. */
-  /* 'SI' -> want the NEV eigenvalues of smallest imaginary part.*/
-  char which[] = "LM";
-  int  iparam[11], ipntr[14];
-  int  ishfts = 1;
-  int  mode   = 1;
-  int  ido    = 0;
-  int it1 = 0;
-
-  double tol;
-
-  char ch[] = "A";
-  int rvec   = 1;
-  int *select;
-  double sigmar = 0, sigmai = 0;
-  int ierr = 0;
-  int nconv;
-
-
-  n = dim;
-  enx = eigenvalues_number;
-
-  nev = enx;
-  ncv  = ((2 * nev + 2) < n) ? (2 * nev + 2) : n;
-  lworkl = 3 * ncv * ncv + 6 * ncv;
-  ldv   = n;
-
-  c      = make_vector_int (ncv, __FUNCTION__, __FILE__);
-  resid  = make_vector_double (n, __FUNCTION__, __FILE__);
-  v      = make_vector_double (ldv * ncv, __FUNCTION__, __FILE__);
-  workd  = make_vector_double (3 * n, __FUNCTION__, __FILE__);
-  workev = make_vector_double (3 * ncv, __FUNCTION__, __FILE__);
-  workl  = make_vector_double (lworkl, __FUNCTION__, __FILE__);
-
-  wr   = make_vector_double (n, __FUNCTION__, __FILE__);
-  wi   = make_vector_double (n, __FUNCTION__, __FILE__);
-
-  select = make_vector_int (ncv, __FUNCTION__, __FILE__);
-
-  if (spectralSubSet != 0 && strlen (spectralSubSet) > 1)
-    {
-      which[0] = spectralSubSet[0];
-      which[1] = spectralSubSet[1];
-    }
-  else
-    {
-      printf ("Arnoldi: incorrect spectralSubSet parametr\n");
-      exit (1);
-    }
-
-  tol = tolerance;
-
-  iparam[1 - 1] = ishfts;
+  int iparam[11] = {}, ipntr[14] = {};
+  iparam[1 - 1] = 1; // ishfts
   iparam[3 - 1] = max_iterations;
-  iparam[7 - 1] = mode;
+  iparam[7 - 1] = 1; // mode
 
-  printf ("Arnoldi iter = %4.d", it1);
+  /* Number of eigenvalues of OP to be computed. 0 < NEV < N-1. */
+  int nev = n_eigen_values;
+
+  /* Number of columns of the matrix V. NCV must satisfy the two inequalities 2 <= NCV-NEV and NCV <= N. */
+  int ncv    = ((2 * nev + 2) < n) ? (2 * nev + 2) : n;
+  int lworkl = 3 * ncv * ncv + 6 * ncv;
+  int ldv    = n;
+
+  double *resid  = make_vector_double (n, __FUNCTION__, __FILE__);
+  double *v      = make_vector_double (ldv * ncv, __FUNCTION__, __FILE__);
+  double *workd  = make_vector_double (3 * n, __FUNCTION__, __FILE__);
+  double *workev = make_vector_double (3 * ncv, __FUNCTION__, __FILE__);
+  double *workl  = make_vector_double (lworkl, __FUNCTION__, __FILE__);
+
+  double *w_real = make_vector_double (n, __FUNCTION__, __FILE__);
+  double *w_imag = make_vector_double (n, __FUNCTION__, __FILE__);
+
+  int *select = make_vector_int (ncv, __FUNCTION__, __FILE__);
+
+  /// Calculations run
+
+  printf ("Arnoldi iter = %4.d", iters);
 
   do
     {
-      dnaupd_ (&ido, bmat, &n, which, &nev, &tol, resid,
+      dnaupd_ (&ido, bmat, &n, spectralSubSet, &nev, &tol, resid,
                &ncv, v, &ldv, iparam, ipntr, workd, workl, &lworkl,
                &info);
 
-      if (nummsds_check_dnaupd_status (info) != 0)
+      if (check_dnaupd_status (info) != 0)
         {
           printf ("Arnoldi: dnaupd_ call error\n");
           exit (1);
@@ -157,10 +87,10 @@ int numsds_spectral_problem (
 
           A_op (w1, v1, n, user_data, G, V1, V2, st, M0L, M0R);
 
-          ++it1;
+          iters++;
 
           printf ("\b\b\b\b");
-          printf ("%4.d", it1);
+          printf ("%4.d", iters);
           fflush (stdout);
         }
     }
@@ -168,134 +98,59 @@ int numsds_spectral_problem (
 
   printf ("\n");
 
-  dneupd_ ( &rvec, ch, select, wr, wi, v, &ldv,
-            &sigmar, &sigmai, workev, bmat, &n, which, &nev, &tol,
+  dneupd_ ( &rvec, "A", select, w_real, w_imag, v, &ldv,
+            &sigma_real, &sigma_imag, workev, bmat, &n, spectralSubSet, &nev, &tol,
             resid, &ncv, v, &ldv, iparam, ipntr, workd, workl,
-            &lworkl, &ierr );
+            &lworkl, &info );
 
-  if (nummsds_check_dneupd_status (ierr) != 0)
+  if (check_dneupd_status (info) != 0)
     {
       printf ("Arnoldi: dneupd_ call error\n");
       exit (1);
     }
 
-  nconv = iparam[5 - 1];
+  n_found_eigen_values = iparam[5 - 1];
 
-  if (nconv < enx)
+  if (n_found_eigen_values < n_eigen_values)
     {
-      printf ("Arnoldi: warning: found %d vectors - less then requested %d\n",
-              nconv, enx);
+      printf ("Arnoldi: warning: found %d vectors - less then requested %d\n", n_found_eigen_values, n_eigen_values);
     }
 
-  printf ("\n\nArnoldi: found %d vectors. Accuracy=%.2e\n", nconv, tol);
+  printf ("\nArnoldi: found %d vectors. Accuracy = %.2e\n", n_found_eigen_values, tol);
 
-  // What is it?
-  if (0 && nconv == 3)
+  for (int i = 0; i < n_found_eigen_values; ++i)
     {
-      int ko;
-      double tmp;
+      double dl = sqrt (w_real[i] * w_real[i] + w_imag[i] * w_imag[i]);
 
-      if (fabs (wr[0] - wr[1]) + fabs (wi[0] - wi[1]) > 2. * tol * 10.)
-        {
-          if (fabs (wr[2] - wr[1]) + fabs (wi[2] - wi[1]) > 2. * tol * 10.)
-            {
-              ko = 1;
-            }
-          else
-            {
-              ko = 0;
-            }
-
-          for (k = 0; k < n; k++)
-            {
-              tmp = v[ko * n + k];
-              v[ko * n + k] = v[2 * n + k];
-              v[2 * n + k] = tmp;
-            }
-        }
+      printf ("\tlambda_%d = %11.5e %c %11.5e * i, |lambda| = %11.5e\n", i + 1, w_real[i], w_imag[i] < 0. ? '-' : '+', fabs (w_imag[i]), dl);
     }
 
-  // What is it? #2
-  if (0 && nconv == 3)
+  for (int count = 0; count < n_eigen_values; count++)
     {
-      int ko;
-      double tmp;
-      double dl0;
-      double dl1;
-      double dl2;
-
-      i = 0;
-      dl0 = sqrt (wr[i] * wr[i] + wi[i] * wi[i]);
-      i = 1;
-      dl1 = sqrt (wr[i] * wr[i] + wi[i] * wi[i]);
-      i = 2;
-      dl2 = sqrt (wr[i] * wr[i] + wi[i] * wi[i]);
-
-      ko = 2;
-
-      if (dl2 > dl0)
-        {
-          ko = 0;
-        }
-
-      if (dl2 > dl1)
-        {
-          ko = 1;
-        }
-
-      if (ko != 2)
-        {
-          for (k = 0; k < n; k++)
-            {
-              tmp = v[ko * n + k];
-              v[ko * n + k] = v[2 * n + k];
-              v[2 * n + k] = tmp;
-            }
-
-          tmp = wr[ko];
-          wr[ko] = wr[2];
-          wr[2] = tmp;
-
-          tmp = wi[ko];
-          wi[ko] = wi[2];
-          wi[2] = tmp;
-        }
-    }
-
-  for (i = 0; i < nconv; ++i)
-    {
-      dl = sqrt (wr[i] * wr[i] + wi[i] * wi[i]);
-
-      printf ("\tlambda[%2d]=(%24.16e,%24.16e), |lambda| = %24.16e\n", i + 1, wr[i], wi[i], dl);
-    }
-
-  for (count = 0; count < eigenvalues_number; count++)
-    {
-      for (k = 0; k < n; k++)
+      for (int k = 0; k < n; k++)
         {
           eigen_functions[count * n + k] = v[count * n + k];
         }
 
-      eigen_values[2 * count + 0] = wr[count];
-      eigen_values[2 * count + 1] = wi[count];
+      eigen_values[2 * count + 0] = w_real[count];
+      eigen_values[2 * count + 1] = w_imag[count];
     }
 
-  FREE_ARRAY (c);
   FREE_ARRAY (resid);
   FREE_ARRAY (v);
   FREE_ARRAY (workd);
   FREE_ARRAY (workev);
   FREE_ARRAY (workl);
 
-  FREE_ARRAY (wr);
-  FREE_ARRAY (wi);
+  FREE_ARRAY (w_real);
+  FREE_ARRAY (w_imag);
 
   FREE_ARRAY (select);
 
-  return nconv;
+  return n_found_eigen_values;
 }
 
-int nummsds_check_dnaupd_status (int info)
+int check_dnaupd_status (int info)
 {
   if (info != 0)
     {
@@ -342,7 +197,7 @@ int nummsds_check_dnaupd_status (int info)
         break;
 
       case -5:
-        printf ("5: WHICH must be one of 'LM', 'SM', 'LR', 'SR', 'LI', 'SI'\n");
+        printf ("5: spectralSubSet must be one of 'LM', 'SM', 'LR', 'SR', 'LI', 'SI'\n");
         break;
 
       case -6:
@@ -388,7 +243,7 @@ int nummsds_check_dnaupd_status (int info)
   return info;
 }
 
-int nummsds_check_dneupd_status (int info)
+int check_dneupd_status (int info)
 {
   switch (info)
     {
@@ -420,7 +275,7 @@ int nummsds_check_dneupd_status (int info)
         break;
 
       case -5:
-        printf ("-5: WHICH must be one of 'LM', 'SM', 'LR', 'SR', 'LI', 'SI'\n");
+        printf ("-5: spectralSubSet must be one of 'LM', 'SM', 'LR', 'SR', 'LI', 'SI'\n");
         break;
 
       case -6:

@@ -1097,7 +1097,7 @@ int convert_au_to_u (double *u, const double  *au,
   return 0;
 }
 
-void A_op (double *Aau, const double *au, int n, void *ud,
+void A_op (double *Aau, const double *au, int n, const void *ud,
            const double *G, const double *V1,  const double *V2,
            const int *st, const int *M0L, const int *M0R)
 {

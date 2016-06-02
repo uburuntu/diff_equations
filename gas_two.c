@@ -15,7 +15,7 @@
  Queen of the Andels and the First Men,
  the rightful ruler of Westeros
 */
-#define FREE_ALL() {                                               \
+#define FREE_ALL_ARRAYS {                                          \
   FREE_ARRAY(nc_g);     FREE_ARRAY(nl2_g);   FREE_ARRAY(nc_v1);    \
   FREE_ARRAY(nc_v2);    FREE_ARRAY(nl2_v1);  FREE_ARRAY(nl2_v2);   \
   FREE_ARRAY(time);     FREE_ARRAY(tauit);   FREE_ARRAY(st);       \
@@ -26,7 +26,7 @@
   FREE_ARRAY(V2_eigen); FREE_ARRAY(G_stat);  FREE_ARRAY(V1_stat);  \
   FREE_ARRAY(V2_stat);}
 
-#define CLOSE_ALL() {       \
+#define CLOSE_ALL_FILES {   \
   CLOSE_FILE(stat_sol_out); \
   CLOSE_FILE(stat_sol_in);  \
   CLOSE_FILE(eig_func_in);}
@@ -123,26 +123,29 @@ int main ()
   else
     {
       printf ("Cannot open OUTTEX file\n");
-      FREE_ALL();
+      FREE_ALL_ARRAYS;
       return -1;
     }
 
   if (EIG_FUNC_INIT)
     {
       eig_func_in = fopen ("./eigen/results/eigenfun_00.txt", "r");
+
       if (eig_func_in == NULL)
         {
           printf ("Cannot open ./eigen/results/eigenfun_00.txt");
           printf (" in EIG_FUNC_INIT mode.\n");
-          FREE_ALL();
+          FREE_ALL_ARRAYS;
           return -1;
         }
+
       stat_sol_in = fopen ("./eigen/stat_sol.txt", "r");
+
       if (stat_sol_in == NULL)
         {
           printf ("Cannot open ./eigen/stat_sol.txt");
           printf (" in EIG_FUNC_INIT mode.\n");
-          FREE_ALL();
+          FREE_ALL_ARRAYS;
           return -1;
         }
     }
@@ -175,14 +178,14 @@ int main ()
           V1 = (double *) malloc ((p_s.Dim) * sizeof (double)); // v1 array of nodes
           V2 = (double *) malloc ((p_s.Dim) * sizeof (double)); // v2 array of nodes
 
-          if (STAT_SOL_SRCH && it_sp == it_t && it_sp == 0)
+          if (STAT_SOL_SRCH && it_t == 0 && it_sp == 0)
             {
               G_prev  = (double *) malloc ((p_s.Dim) * sizeof (double)); // press array of nodes
               V1_prev = (double *) malloc ((p_s.Dim) * sizeof (double)); // v1 array of nodes
               V2_prev = (double *) malloc ((p_s.Dim) * sizeof (double)); // v2 array of nodes
             }
 
-          if (EIG_FUNC_INIT && it_sp == it_t && it_sp == 0)
+          if (EIG_FUNC_INIT && it_t == 0 && it_sp == 0)
             {
               ret = 0;
               G_eigen  = (double *) malloc ((p_s.Dim) * sizeof (double)); // press array of nodes
@@ -191,33 +194,36 @@ int main ()
               G_stat   = (double *) malloc ((p_s.Dim) * sizeof (double)); // press array of nodes
               V1_stat  = (double *) malloc ((p_s.Dim) * sizeof (double)); // v1 array of nodes
               V2_stat  = (double *) malloc ((p_s.Dim) * sizeof (double)); // v2 array of nodes
+
               for (i = 0; i < p_s.Dim; i++)
                 {
                   if (!fscanf (eig_func_in, "%lf ", G_eigen + i))
                     {
-                      ret = -999;
+                      ret = -1;
                       break;
                     }
+
                   if (!fscanf (eig_func_in, "%lf ", V1_eigen + i))
                     {
-                      ret = -999;
+                      ret = -1;
                       break;
                     }
+
                   if (!fscanf (eig_func_in, "%lf ", V2_eigen + i))
                     {
-                      ret = -999;
+                      ret = -1;
                       break;
                     }
                 }
+
               if (ret < 0)
                 {
                   printf ("fread error: incorrect G_eigen, V1_eigen, V2_eigen filling from %s\n",
                           "./eigen/results/eigenfun_00.txt");
-                  FREE_ALL();
-                  CLOSE_ALL();
+                  FREE_ALL_ARRAYS;
+                  CLOSE_ALL_FILES;
                   return -1;
                 }
-              //CLOSE_FILE(eig_func_in);
 
               G_stat   = (double *) malloc ((p_s.Dim) * sizeof (double)); // press array of nodes
               V1_stat  = (double *) malloc ((p_s.Dim) * sizeof (double)); // v1 array of nodes
@@ -226,36 +232,38 @@ int main ()
               if (!fscanf (stat_sol_in, "%d ", &i) || i != p_s.Dim)
                 {
                   printf ("%d %d", i, p_s.Dim);
-                  ret = -999;
+                  ret = -1;
                 }
 
               for (i = 0; i < p_s.Dim; i++)
                 {
                   if (!fscanf (stat_sol_in, "%lf ", G_stat + i))
                     {
-                      ret = -999;
+                      ret = -1;
                       break;
                     }
+
                   if (!fscanf (stat_sol_in, "%lf ", V1_stat + i))
                     {
-                      ret = -999;
+                      ret = -1;
                       break;
                     }
+
                   if (!fscanf (stat_sol_in, "%lf ", V2_stat + i))
                     {
-                      ret = -999;
+                      ret = -1;
                       break;
                     }
                 }
+
               if (ret < 0)
                 {
                   printf ("fread error: incorrect G_stat, V1_stat, V2_stat filling from %s\n",
                           "./eigen/stat_sol.txt \n");
-                  FREE_ALL();
-                  CLOSE_ALL();
+                  FREE_ALL_ARRAYS;
+                  CLOSE_ALL_FILES;
                   return -1;
                 }
-              //CLOSE_FILE(stat_sol_in);
             }
 
           st  = (int *) malloc ((p_s.Dim) * sizeof (int));     // status of nodes
@@ -315,29 +323,31 @@ int main ()
 
               fprintf (stat_sol_out, "\n");
 
-              FREE_ALL();
-              CLOSE_ALL();
+              FREE_ALL_ARRAYS;
+              CLOSE_ALL_FILES;
               return 0;
             }
 
           if (EIG_FUNC_INIT && it_sp == it_t && it_sp == 0 &&
               ret == 2 /* stat_sol was found in EIG mode*/)
             {
-              //FREE_ALL();
-              //CLOSE_ALL();
+              FREE_ALL_ARRAYS;
+              CLOSE_ALL_FILES;
               return 0;
             }
 
           it++;
 
-          free (X);
-          free (Y);
-          free (G);
-          free (V1);
-          free (V2);
-          free (st);
-          free (M0L);
-          free (M0R);
+          FREE_ARRAY (st);
+          FREE_ARRAY (M0L);
+          FREE_ARRAY (M0R);
+
+          FREE_ARRAY (X);
+          FREE_ARRAY (Y);
+
+          FREE_ARRAY (G);
+          FREE_ARRAY (V1);
+          FREE_ARRAY (V2);
         }
     }
 
@@ -377,8 +387,9 @@ int main ()
       make_tabletex();
     }
 
-  //FREE_ALL();
-  //CLOSE_ALL();
+  FREE_ALL_ARRAYS;
+  CLOSE_ALL_FILES;
+
   return 0;
 }
 

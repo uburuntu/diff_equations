@@ -501,11 +501,11 @@ int  Sxema (double *G, double *V1, double *V2,
         }
 
       // Solver
+      static const int max_iters = 2000;
+      static const double precond_omega = 1.;
+
       switch (4)
         {
-            static const int max_iters = 2000;
-            static const double precond_omega = 1.;
-
           case 1:
             {
               BiCGIter (&A, &D, &B, max_iters, JacobiPrecond, precond_omega);

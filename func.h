@@ -10,8 +10,8 @@
 #define W       0.1
 
 #define NEW_INIT       1
-#define STAT_SOL_SRCH  1
-#define EIG_FUNC_INIT  !STAT_SOL_SRCH
+#define STAT_SOL_SRCH  0
+#define EIG_FUNC_INIT  1
 #define SQUARE         1
 
 #define LIGHT_FUNCS   0

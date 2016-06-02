@@ -51,8 +51,8 @@ int main ()
     }
   else
     {
-      it_t_max = 2;
-      it_sp_max = 2;
+      it_t_max = 1;
+      it_sp_max = 1;
     }
 
   it_t = 0;

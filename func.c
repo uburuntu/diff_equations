@@ -10,6 +10,8 @@ void param_dif (P_dif *p_d)
 {
 #if STAT_SOL_SRCH || EIG_FUNC_INIT
   p_d->Segm_T = 100;
+#elif NO_SMOOTH
+  p_d->Segm_T = 5;
 #else
   p_d->Segm_T = 1;
 #endif
@@ -28,6 +30,8 @@ void param_she_step (P_she *p_s, P_dif *p_d, int it_t, int it_sp)
   p_s->M_y = 60;
 #if STAT_SOL_SRCH || EIG_FUNC_INIT
   p_s->N   = 2000;
+#elif NO_SMOOTH
+  p_s->N   = 100;
 #else
   p_s->N   = 20;
 #endif

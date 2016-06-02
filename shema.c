@@ -14,8 +14,8 @@
 
 #define DEBUG_VARIANT_I   0
 #define DEBUG_VARIANT_II  0
-#define DEBUG_VARIANT_III 1
-#define EIG_USAGE_TIME    200
+#define DEBUG_VARIANT_III 0
+#define EIG_USAGE_TIME    5
 
 int  Sxema (double *G, double *V1, double *V2,
             double *G_prev, double *V1_prev, double *V2_prev,
@@ -375,7 +375,7 @@ int  Sxema (double *G, double *V1, double *V2,
               {
                 g00 = G[m];
                 v100 = u1 (tt, xx, yy);
-                v200 = (NO_SMOOTH && is_equal (yy, 0.) ? V2[M0R[m]] : u2 (tt, xx, yy));
+                v200 = (NO_SMOOTH && !SQUARE && is_equal (yy, 0.) ? V2[M0R[m]] : u2 (tt, xx, yy));
                 mmv20R = (3 * M0R[m] + 1) + 2;
 
                 // g(mx,my)--------------------------------------------

@@ -242,13 +242,17 @@ int main ()
                       ret = -1;
                       break;
                     }
-
+                }
+              for (i = 0; i < p_s.Dim; i++)
+                {
                   if (!fscanf (stat_sol_in, "%lf ", V1_stat + i))
                     {
                       ret = -1;
                       break;
                     }
-
+                }
+              for (i = 0; i < p_s.Dim; i++)
+                {
                   if (!fscanf (stat_sol_in, "%lf ", V2_stat + i))
                     {
                       ret = -1;

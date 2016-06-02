@@ -8,11 +8,37 @@
 #include "func.h"
 #include "gnuplot.h"
 
+/*
+ Macros of Daenerys Stormborn Targaryen,
+ Mother of Dragons,
+ Breaker of Chains,
+ Queen of the Andels and the First Men,
+ the rightful ruler of Westeros
+*/
+#define FREE_ALL() {                                               \
+  FREE_ARRAY(nc_g);     FREE_ARRAY(nl2_g);   FREE_ARRAY(nc_v1);    \
+  FREE_ARRAY(nc_v2);    FREE_ARRAY(nl2_v1);  FREE_ARRAY(nl2_v2);   \
+  FREE_ARRAY(time);     FREE_ARRAY(tauit);   FREE_ARRAY(st);       \
+  FREE_ARRAY(M0L);      FREE_ARRAY(M0R);     FREE_ARRAY(X);        \
+  FREE_ARRAY(Y);        FREE_ARRAY(G);       FREE_ARRAY(V1);       \
+  FREE_ARRAY(V2);       FREE_ARRAY(G_prev);  FREE_ARRAY(V1_prev);  \
+  FREE_ARRAY(V2_prev);  FREE_ARRAY(G_eigen); FREE_ARRAY(V1_eigen); \
+  FREE_ARRAY(V2_eigen); FREE_ARRAY(G_stat);  FREE_ARRAY(V1_stat);  \
+  FREE_ARRAY(V2_stat);}
+
+#define CLOSE_ALL() {       \
+  CLOSE_FILE(fout);         \
+  CLOSE_FILE(stat_sol_out); \
+  CLOSE_FILE(stat_sol_in);  \
+  CLOSE_FILE(eig_func_in);}
+
 int main ()
 {
   int ret;
   int i;
-  FILE *stat_sol_out;
+  FILE *stat_sol_out = NULL;
+  FILE *stat_sol_in  = NULL;
+  FILE *eig_func_in  = NULL;
 
   P_dif p_d;
   param_dif (&p_d);
@@ -37,6 +63,15 @@ int main ()
       nl2_v1 = (double *) malloc ((n_ver) * sizeof (double));
       nl2_v2 = (double *) malloc ((n_ver) * sizeof (double));
     }
+  else
+    {
+      nc_g   = NULL;
+      nc_v1  = NULL;
+      nc_v2  = NULL;
+      nl2_g  = NULL;
+      nl2_v1 = NULL;
+      nl2_v2 = NULL;
+    }
 
   time = (double *) malloc ((n_ver) * sizeof (double));
   tauit = (double *) malloc ((it_t_max + 1) * sizeof (double));
@@ -44,7 +79,28 @@ int main ()
   P_she p_s;
 
   int *st, *M0L, *M0R;
-  double *X, *Y, *G, *V1, *V2, *G_prev, *V1_prev, *V2_prev;
+  double *X, *Y, *G, *V1, *V2;
+  double *G_prev, *V1_prev, *V2_prev;
+  double *G_eigen, *V1_eigen, *V2_eigen;
+  double *G_stat, *V1_stat, *V2_stat;
+
+  st = NULL;
+  M0L = NULL;
+  M0R = NULL;
+  X = NULL;
+  Y = NULL;
+  G = NULL;
+  V1 = NULL;
+  V2 = NULL;
+  G_prev = NULL;
+  V1_prev = NULL;
+  V2_prev = NULL;
+  G_eigen = NULL;
+  V1_eigen = NULL;
+  V2_eigen = NULL;
+  G_stat = NULL;
+  V1_stat = NULL;
+  V2_stat = NULL;
 
   clock_t BegClock, EndClock;
   //-------------------------------------------------
@@ -67,9 +123,31 @@ int main ()
     }
   else
     {
-      printf ("Can't open OUTTEX file\n");
+      printf ("Cannot open OUTTEX file\n");
+      FREE_ALL();
       return -1;
     }
+
+  if (EIG_FUNC_INIT)
+    {
+      eig_func_in = fopen ("./eigen/results/eigenfun_00.txt", "r");
+      if (eig_func_in == NULL)
+        {
+          printf ("Cannot open ./eigen/results/eigenfun_00.txt");
+          printf (" in EIG_FUNC_INIT mode.\n");
+          FREE_ALL();
+          return -1;
+        }
+      stat_sol_in = fopen ("./eigen/stat_sol.txt", "r");
+      if (stat_sol_in == NULL)
+        {
+          printf ("Cannot open ./eigen/stat_sol.txt");
+          printf (" in EIG_FUNC_INIT mode.\n");
+          FREE_ALL();
+          return -1;
+        }
+    }
+
 
   //-------------------------------------------------
 
@@ -98,17 +176,86 @@ int main ()
           V1 = (double *) malloc ((p_s.Dim) * sizeof (double)); // v1 array of nodes
           V2 = (double *) malloc ((p_s.Dim) * sizeof (double)); // v2 array of nodes
 
-          if (STAT_SOL && it_sp == it_t && it_sp == 0)
+          if (STAT_SOL_SRCH && it_sp == it_t && it_sp == 0)
             {
               G_prev  = (double *) malloc ((p_s.Dim) * sizeof (double)); // press array of nodes
               V1_prev = (double *) malloc ((p_s.Dim) * sizeof (double)); // v1 array of nodes
               V2_prev = (double *) malloc ((p_s.Dim) * sizeof (double)); // v2 array of nodes
             }
-          else
+
+          if (EIG_FUNC_INIT && it_sp == it_t && it_sp == 0)
             {
-              G_prev  = NULL;
-              V1_prev = NULL;
-              V2_prev = NULL;
+              ret = 0;
+              G_eigen  = (double *) malloc ((p_s.Dim) * sizeof (double)); // press array of nodes
+              V1_eigen = (double *) malloc ((p_s.Dim) * sizeof (double)); // v1 array of nodes
+              V2_eigen = (double *) malloc ((p_s.Dim) * sizeof (double)); // v2 array of nodes
+              G_stat   = (double *) malloc ((p_s.Dim) * sizeof (double)); // press array of nodes
+              V1_stat  = (double *) malloc ((p_s.Dim) * sizeof (double)); // v1 array of nodes
+              V2_stat  = (double *) malloc ((p_s.Dim) * sizeof (double)); // v2 array of nodes
+              for (i = 0; i < p_s.Dim; i++)
+                {
+                  if (!fscanf (eig_func_in, "%lf ", G_eigen + i))
+                    {
+                      ret = -999;
+                      break;
+                    }
+                  if (!fscanf (eig_func_in, "%lf ", V1_eigen + i))
+                    {
+                      ret = -999;
+                      break;
+                    }
+                  if (!fscanf (eig_func_in, "%lf ", V2_eigen + i))
+                    {
+                      ret = -999;
+                      break;
+                    }
+                }
+              if (ret < 0)
+                {
+                  printf ("fread error: incorrect G_eigen, V1_eigen, V2_eigen filling from %s\n",
+                          "./eigen/results/eigenfun_00.txt");
+                  FREE_ALL();
+                  CLOSE_ALL();
+                  return -1;
+                }
+              CLOSE_FILE(eig_func_in);
+
+              G_stat   = (double *) malloc ((p_s.Dim) * sizeof (double)); // press array of nodes
+              V1_stat  = (double *) malloc ((p_s.Dim) * sizeof (double)); // v1 array of nodes
+              V2_stat  = (double *) malloc ((p_s.Dim) * sizeof (double)); // v2 array of nodes
+
+              if (!fscanf (eig_func_in, "%lf ", &i) || i != p_s.Dim)
+                {
+                  ret = -999;
+                }
+
+              for (i = 0; i < p_s.Dim; i++)
+                {
+                  if (!fscanf (eig_func_in, "%lf ", G_stat + i))
+                    {
+                      ret = -999;
+                      break;
+                    }
+                  if (!fscanf (eig_func_in, "%lf ", V1_stat + i))
+                    {
+                      ret = -999;
+                      break;
+                    }
+                  if (!fscanf (eig_func_in, "%lf ", V2_stat + i))
+                    {
+                      ret = -999;
+                      break;
+                    }
+                }
+              if (ret < 0)
+                {
+                  printf ("fread error: incorrect G_stat, V1_stat, V2_stat filling from %s\n",
+                          "./eigen/results/eigenfun_00.txt \n");
+                  FREE_ALL();
+                  CLOSE_ALL();
+                  return -1;
+                }
+              CLOSE_FILE(stat_sol_in);
             }
 
           st  = (int *) malloc ((p_s.Dim) * sizeof (int));     // status of nodes
@@ -118,7 +265,10 @@ int main ()
           // Define properties of nodes
           Setka (st, X, Y, M0L, M0R, &p_s, &p_d);
           // Run calculations
-          ret = Sxema (G, V1, V2, G_prev, V1_prev, V2_prev,
+          ret = Sxema (G, V1, V2,
+                       G_prev, V1_prev, V2_prev,
+                       G_eigen, V1_eigen, V2_eigen,
+                       G_stat, V1_stat, V2_stat,
                        st, X, Y, M0L, M0R, &p_s, &p_d);
 
           EndClock = clock();
@@ -138,8 +288,8 @@ int main ()
               printf (" %lf %lf %lf \n", nl2_g[it], nl2_v1[it], nl2_v2[it]);
             }
 
-          if (STAT_SOL && it_sp == it_t && it_sp == 0 &&
-              ret == 1 /* stat_sol was found */)
+          if (STAT_SOL_SRCH && it_sp == it_t && it_sp == 0 &&
+              ret == 1 /* stat_sol was found in SRCH mode*/)
             {
               stat_sol_out = fopen ("./eigen/stat_sol.txt", "w");
               fprintf (stat_sol_out, "%d \n", p_s.Dim);
@@ -165,11 +315,17 @@ int main ()
 
               fprintf (stat_sol_out, "\n");
 
-              fclose (stat_sol_out);
+              FREE_ALL();
+              CLOSE_ALL();
+              return 0;
+            }
 
-              // hehekostil to leave cycle
-              it_sp = it_sp_max + 1;
-              it_t = it_t_max + 1;
+          if (EIG_FUNC_INIT && it_sp == it_t && it_sp == 0 &&
+              ret == 2 /* stat_sol was found in EIG mode*/)
+            {
+              FREE_ALL();
+              CLOSE_ALL();
+              return 0;
             }
 
           it++;
@@ -221,19 +377,8 @@ int main ()
       make_tabletex();
     }
 
-  if (!NEW_INIT)
-    {
-      free (nc_g);
-      free (nc_v1);
-      free (nc_v2);
-      free (nl2_g);
-      free (nl2_v1);
-      free (nl2_v2);
-    }
-
-  free (tauit);
-  free (time);
-
+  FREE_ALL();
+  CLOSE_ALL();
   return 0;
 }
 

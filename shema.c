@@ -14,6 +14,8 @@
 
 int  Sxema (double *G, double *V1, double *V2,
             double *G_prev, double *V1_prev, double *V2_prev,
+            const double *G_eigen, const double *V1_eigen, const double *V2_eigen,
+            const double *G_stat, const double *V1_stat, const double *V2_stat,
             int *st, double *X, double *Y, int *M0L,
             int *M0R, P_she *p_s, P_dif *p_d)
 {
@@ -88,7 +90,12 @@ int  Sxema (double *G, double *V1, double *V2,
       V_SetCmp (&D, mm, tmp);
       G[m] = tmp;
 
-      if (G_prev)
+      if (EIG_FUNC_INIT && G_eigen)
+        {
+          G[m] += G_eigen[m];
+        }
+
+      if (STAT_SOL_SRCH && G_prev)
         {
           G_prev[m] = tmp;
         }
@@ -99,7 +106,12 @@ int  Sxema (double *G, double *V1, double *V2,
       V_SetCmp (&D, mm, tmp);
       V1[m] = tmp;
 
-      if (V1_prev)
+      if (EIG_FUNC_INIT && V1_eigen)
+        {
+          V1[m] += V1_eigen[m];
+        }
+
+      if (STAT_SOL_SRCH && V1_prev)
         {
           V1_prev[m] = tmp;
         }
@@ -110,7 +122,12 @@ int  Sxema (double *G, double *V1, double *V2,
       V_SetCmp (&D, mm, tmp);
       V2[m] = tmp;
 
-      if (V2_prev)
+      if (EIG_FUNC_INIT && V2_eigen)
+        {
+          V2[m] += V2_eigen[m];
+        }
+
+      if (STAT_SOL_SRCH && V2_prev)
         {
           V2_prev[m] = tmp;
         }
@@ -552,7 +569,7 @@ int  Sxema (double *G, double *V1, double *V2,
           make_graph (tex_name (texname, tau, hx, hy, nn), plotname, hx, hy, tau, tt);
         }
 
-      if (STAT_SOL && G_prev && V1_prev && V2_prev)
+      if (STAT_SOL_SRCH && G_prev && V1_prev && V2_prev)
         {
           norm = calc_sol_residual_norm (Dim, G, V1, V2, G_prev, V1_prev, V2_prev);
 
@@ -572,13 +589,31 @@ int  Sxema (double *G, double *V1, double *V2,
 
           init_prev_with_curr (Dim, G, V1, V2, G_prev, V1_prev, V2_prev);
         }
+
+      if (EIG_FUNC_INIT && G_stat && V1_stat && V2_stat)
+        {
+          norm = calc_sol_residual_norm (Dim, G, V1, V2, G_stat, V1_stat, V2_stat);
+          if (norm < STAT_SOL_EPS)
+            {
+              printf ("Stationary solution has been found at T = %d. \n", nn);
+              printf ("Accuracy = %E. \n", norm);
+              Q_Destr (&A);
+              V_Destr (&D);
+              V_Destr (&B);
+              return 2;
+            }
+          else if (nn == 1 || nn % 10 == 0)
+            {
+              printf ("t = %3.d, norm = %E \n", nn, norm);
+            }
+        }
     }
 
   Q_Destr (&A);
   V_Destr (&D);
   V_Destr (&B);
 
-  if (STAT_SOL && G_prev && V1_prev && V2_prev)
+  if (STAT_SOL_SRCH && G_prev && V1_prev && V2_prev)
     {
       printf ("Stationary solution has not been found at T = %d. \n", nn);
       printf ("Accuracy = %E. \n", STAT_SOL_EPS);

@@ -8,10 +8,10 @@ inline int is_equal (double x1, double x2)
 
 void param_dif (P_dif *p_d)
 {
-#if !STAT_SOL
-  p_d->Segm_T = 1;
-#else
+#if STAT_SOL_SRCH
   p_d->Segm_T = 100;
+#else
+  p_d->Segm_T = 1;
 #endif
   p_d->Segm_X = 3.;
   p_d->Segm_Y = 3.;
@@ -26,10 +26,10 @@ void param_she_step (P_she *p_s, P_dif *p_d, int it_t, int it_sp)
   // main rectangle
   p_s->M_x = 60;
   p_s->M_y = 60;
-#if !STAT_SOL
-  p_s->N   = 20;
-#else
+#if STAT_SOL_SRCH
   p_s->N   = 2000;
+#else
+  p_s->N   = 20;
 #endif
 
   // cut rectangle
@@ -308,8 +308,9 @@ inline double Func_v2 (double t, double x, double y, double p_ro, double mu)
 }
 
 
-double calc_sol_residual_norm (int Dim, double *G, double *V1, double *V2,
-                               double *G_prev, double *V1_prev, double *V2_prev)
+double calc_sol_residual_norm (int Dim, const double *G, const double *V1,
+                               const double *V2, const double *G_prev,
+                               const double *V1_prev, const double *V2_prev)
 {
   int m;
   double norm = 0.;

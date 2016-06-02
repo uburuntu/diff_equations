@@ -59,10 +59,9 @@ int read_stationary_solution (const char *fname, int N, double *G, double *V1, d
 void print_2dfun_double (FILE *f, const char *name, const double   *u,
                          const int nx, const int ny)
 {
+  FIX_UNUSED (name);
   int i;
   int j;
-
-  fprintf (f, "#%s\n", name);
 
   for (j = ny - 1; j >= 0; j--)
     {

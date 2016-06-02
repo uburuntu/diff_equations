@@ -1,4 +1,6 @@
 #define FIX_UNUSED(X) (void)(X)
+#define FREE_ARRAY(X) if ((X)) free ((X))
+#define CLOSE_FILE(X) if ((X)) fclose ((X))
 
 #define MINIMAL_FOR_COMPARE   1.e-16
 #define STAT_SOL_EPS          1.e-5
@@ -7,14 +9,16 @@
 #define RHO_G   0.3
 #define W       0.1
 
-#define NEW_INIT   1
-#define STAT_SOL   1
-#define SQUARE     1
+#define NEW_INIT       1
+#define STAT_SOL_SRCH  1
+#define EIG_FUNC_INIT  !STAT_SOL_SRCH
+#define SQUARE         1
 
 #define LIGHT_FUNCS   0
 #define LIGHT_G       0
 #define LIGHT_U1      0
 #define LIGHT_U2      0
+
 
 // Working area is a rectangle which is located in a first quadrant.
 // Its sides are parallel to axes OXY and one vertex is located in (0, 0).
@@ -61,15 +65,19 @@ double u2 (double t, double x, double y);
 double Func_g (double t, double x, double y);
 double Func_v1 (double t, double x, double y, double p_ro, double mu);
 double Func_v2 (double t, double x, double y, double p_ro, double mu);
+
 void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif *p_d);
 
 int  Sxema (double *G, double *V1, double *V2,
             double *G_prev, double *V1_prev, double *V2_prev,
+            const double *G_eigen, const double *V1_eigen, const double *V2_eigen,
+            const double *G_stat, const double *V1_stat, const double *V2_stat,
             int *st, double *X, double *Y, int *M0L,
             int *M0R, P_she *p_s, P_dif *p_d);
 
-double calc_sol_residual_norm (int Dim, double *G, double *V1, double *V2,
-                               double *G_prev, double *V1_prev, double *V2_prev);
+double calc_sol_residual_norm (int Dim, const double *G, const double *V1,
+                               const double *V2, const double *G_prev,
+                               const double *V1_prev, const double *V2_prev);
 
 void init_prev_with_curr (int Dim, double *G, double *V1, double *V2,
                           double *G_prev, double *V1_prev, double *V2_prev);

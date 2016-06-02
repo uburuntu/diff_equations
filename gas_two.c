@@ -130,7 +130,7 @@ int main ()
   if (EIG_FUNC_INIT)
     {
       eig_func_in = fopen ("./eigen/results/eigenfun_00.txt", "r");
-      if (!eig_func_in)
+      if (eig_func_in == NULL)
         {
           printf ("Cannot open ./eigen/results/eigenfun_00.txt");
           printf (" in EIG_FUNC_INIT mode.\n");
@@ -138,7 +138,7 @@ int main ()
           return -1;
         }
       stat_sol_in = fopen ("./eigen/stat_sol.txt", "r");
-      if (!stat_sol_in)
+      if (stat_sol_in == NULL)
         {
           printf ("Cannot open ./eigen/stat_sol.txt");
           printf (" in EIG_FUNC_INIT mode.\n");
@@ -217,7 +217,7 @@ int main ()
                   CLOSE_ALL();
                   return -1;
                 }
-              //CLOSE_FILE(eig_func_in);
+              CLOSE_FILE(eig_func_in);
 
               G_stat   = (double *) malloc ((p_s.Dim) * sizeof (double)); // press array of nodes
               V1_stat  = (double *) malloc ((p_s.Dim) * sizeof (double)); // v1 array of nodes
@@ -254,7 +254,7 @@ int main ()
                   CLOSE_ALL();
                   return -1;
                 }
-              //CLOSE_FILE(stat_sol_in);
+              CLOSE_FILE(stat_sol_in);
             }
 
           st  = (int *) malloc ((p_s.Dim) * sizeof (int));     // status of nodes
@@ -323,7 +323,7 @@ int main ()
               ret == 2 /* stat_sol was found in EIG mode*/)
             {
               FREE_ALL();
-              //CLOSE_ALL();
+              CLOSE_ALL();
               return 0;
             }
 
@@ -377,7 +377,7 @@ int main ()
     }
 
   FREE_ALL();
-  //CLOSE_ALL();
+  CLOSE_ALL();
   return 0;
 }
 

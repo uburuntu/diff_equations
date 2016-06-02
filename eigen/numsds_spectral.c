@@ -25,7 +25,9 @@ int find_eigen_values (
   const double *V2,
   const int *st,
   const int *M0L,
-  const int *M0R
+  const int *M0R,
+  const double *X,
+  const double *Y
 )
 
 {
@@ -85,7 +87,7 @@ int find_eigen_values (
           double *w1 = &workd[addr2];
           double *v1 = &workd[addr1];
 
-          A_op (w1, v1, user_data, G, V1, V2, st, M0L, M0R);
+          A_op (w1, v1, user_data, G, V1, V2, st, M0L, M0R, X, Y);
 
           iters++;
 

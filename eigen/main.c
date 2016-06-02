@@ -84,13 +84,13 @@ int main (void)
                          ud.NA, n_eigen_values,
                          max_iterations, tolerance,
                          spectralSubSet, bmat, (void *) (&ud),
-                         G, V1, V2, st, M0L, M0R);
+                         G, V1, V2, st, M0L, M0R, X, Y);
 
   for (int i = 0; i < n_found_eigen_values; i++)
     {
       convert_au_to_u (&eigen_functions[i * (3 * ud.N)],
                        &eigen_functions_A_op[i * ud.NA],
-                       &ud, st);
+                       &ud, st, X, Y);
     }
 
   for (int i = 0; i < n_found_eigen_values; i++)

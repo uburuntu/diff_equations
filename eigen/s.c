@@ -63,8 +63,8 @@ void init_user_data (
 }
 
 int L_op (double *Lu, const double *u, const user_data *ud,
-          const double *G, const double *V1,  const double *V2,
-          const int *st, const int *M0L, const int *M0R)
+          const double *G, const double *V1,  const double *V2, const int *st,
+          const int *M0L, const int *M0R, const double *X, const double *Y)
 {
   //
   //  Lapl[i+j*Nx]= mu *  \delta u[i+j*Nx] + diag[i+j*Nx]*u[i+j*Nx] + u_x u[i+j*Nx]
@@ -78,6 +78,11 @@ int L_op (double *Lu, const double *u, const user_data *ud,
 
   double p_ro = ud->p_ro;
   double p_2ro = ud->p_2ro;
+
+  // DON`T DELETE THIS PARAMETER
+  // IT MAY BE USED FOR ANOTHER NO-SQUARE MESH
+  // !!!!
+  FIX_UNUSED(X);
 
   double *J   = make_vector_double (N, __FILE__, __FUNCTION__);
   double *W1  = make_vector_double (N, __FILE__, __FUNCTION__);
@@ -302,8 +307,7 @@ int L_op (double *Lu, const double *u, const user_data *ud,
               // second equation
 
               RECREATE_COEFFS;
-              a_W1_00 = 0.;
-              a_W2_00 = 0.;
+              a_W1_00 = 1.;
 
               // New Lu elements:
               Lu[mm] =
@@ -321,8 +325,7 @@ int L_op (double *Lu, const double *u, const user_data *ud,
               // third equation
 
               RECREATE_COEFFS;
-              a_W1_00 = 0.;
-              a_W2_00 = 0.;
+              a_W2_00 = 1.;
 
               // New Lu elements:
               Lu[mm] =
@@ -363,8 +366,8 @@ int L_op (double *Lu, const double *u, const user_data *ud,
               // second equation
 
               RECREATE_COEFFS;
-              a_W1_00 = 0.;
-              a_W2_00 = 0.;
+              a_W1_00 = 1.;
+              a_W1_L0 = (SQUARE ? -1. : 0.);
 
               // New Lu elements:
               Lu[mm] =
@@ -382,8 +385,7 @@ int L_op (double *Lu, const double *u, const user_data *ud,
               // third equation
 
               RECREATE_COEFFS;
-              a_W1_00 = 0.;
-              a_W2_00 = 0.;
+              a_W2_00 = 1.;
 
               // New Lu elements:
               Lu[mm] =
@@ -424,8 +426,7 @@ int L_op (double *Lu, const double *u, const user_data *ud,
               // second equation
 
               RECREATE_COEFFS;
-              a_W1_00 = 0.;
-              a_W2_00 = 0.;
+              a_W1_00 = 1.;
 
               // New Lu elements:
               Lu[mm] =
@@ -443,8 +444,8 @@ int L_op (double *Lu, const double *u, const user_data *ud,
               // third equation
 
               RECREATE_COEFFS;
-              a_W1_00 = 0.;
-              a_W2_00 = 0.;
+              a_W2_00 = 1.;
+              a_W2_0R = (!SQUARE && is_equal(Y[m], 0.) ? -1. : 0.);
 
               // New Lu elements:
               Lu[mm] =
@@ -485,8 +486,7 @@ int L_op (double *Lu, const double *u, const user_data *ud,
               // second equation
 
               RECREATE_COEFFS;
-              a_W1_00 = 0.;
-              a_W2_00 = 0.;
+              a_W1_00 = 1.;
 
               // New Lu elements:
               Lu[mm] =
@@ -504,8 +504,7 @@ int L_op (double *Lu, const double *u, const user_data *ud,
               // third equation
 
               RECREATE_COEFFS;
-              a_W1_00 = 0.;
-              a_W2_00 = 0.;
+              a_W2_00 = 1.;
 
               // New Lu elements:
               Lu[mm] =
@@ -527,10 +526,7 @@ int L_op (double *Lu, const double *u, const user_data *ud,
               // first equation
 
               RECREATE_COEFFS;
-              a_W1_R0 = 1.;
-              a_W1_00 = -1.;
-              a_W2_0R = 1.;
-              a_W2_00 = -1.;
+              a_J_00 = 1.;
 
               // New Lu elements:
               Lu[mm] =
@@ -548,8 +544,7 @@ int L_op (double *Lu, const double *u, const user_data *ud,
               // second equation
 
               RECREATE_COEFFS;
-              a_W1_00 = 0.;
-              a_W2_00 = 0.;
+              a_W1_00 = 1.;
 
               // New Lu elements:
               Lu[mm] =
@@ -567,8 +562,7 @@ int L_op (double *Lu, const double *u, const user_data *ud,
               // third equation
 
               RECREATE_COEFFS;
-              a_W1_00 = 0.;
-              a_W2_00 = 0.;
+              a_W2_00 = 1.;
 
               // New Lu elements:
               Lu[mm] =
@@ -584,16 +578,12 @@ int L_op (double *Lu, const double *u, const user_data *ud,
               mm++;
               break;
             }
-
           case 6:
             {
               // first equation
 
               RECREATE_COEFFS;
-              a_W1_00 = 1.;
-              a_W1_L0 = -1.;
-              a_W2_0R = 1.;
-              a_W2_00 = -1.;
+              a_J_00 = 1.;
 
               // New Lu elements:
               Lu[mm] =
@@ -611,8 +601,7 @@ int L_op (double *Lu, const double *u, const user_data *ud,
               // second equation
 
               RECREATE_COEFFS;
-              a_W1_00 = 0.;
-              a_W2_00 = 0.;
+              a_W1_00 = 1.;
 
               // New Lu elements:
               Lu[mm] =
@@ -630,8 +619,7 @@ int L_op (double *Lu, const double *u, const user_data *ud,
               // third equation
 
               RECREATE_COEFFS;
-              a_W1_00 = 0.;
-              a_W2_00 = 0.;
+              a_W2_00 = 1.;
 
               // New Lu elements:
               Lu[mm] =
@@ -653,10 +641,7 @@ int L_op (double *Lu, const double *u, const user_data *ud,
               // first equation
 
               RECREATE_COEFFS;
-              a_W1_R0 = 1.;
-              a_W1_00 = -1.;
-              a_W2_00 = 1.;
-              a_W2_0L = -1.;
+              a_J_00 = 1.;
 
               // New Lu elements:
               Lu[mm] =
@@ -674,8 +659,7 @@ int L_op (double *Lu, const double *u, const user_data *ud,
               // second equation
 
               RECREATE_COEFFS;
-              a_W1_00 = 0.;
-              a_W2_00 = 0.;
+              a_W1_00 = 1.;
 
               // New Lu elements:
               Lu[mm] =
@@ -693,8 +677,7 @@ int L_op (double *Lu, const double *u, const user_data *ud,
               // third equation
 
               RECREATE_COEFFS;
-              a_W1_00 = 0.;
-              a_W2_00 = 0.;
+              a_W2_00 = 1.;
 
               // New Lu elements:
               Lu[mm] =
@@ -716,10 +699,7 @@ int L_op (double *Lu, const double *u, const user_data *ud,
               // first equation
 
               RECREATE_COEFFS;
-              a_W1_00 = 1.;
-              a_W1_L0 = -1.;
-              a_W2_00 = 1.;
-              a_W2_0L = -1.;
+              a_J_00 = 1.;
 
               // New Lu elements:
               Lu[mm] =
@@ -737,8 +717,7 @@ int L_op (double *Lu, const double *u, const user_data *ud,
               // second equation
 
               RECREATE_COEFFS;
-              a_W1_00 = 0.;
-              a_W2_00 = 0.;
+              a_W1_00 = 1.;
 
               // New Lu elements:
               Lu[mm] =
@@ -756,8 +735,7 @@ int L_op (double *Lu, const double *u, const user_data *ud,
               // third equation
 
               RECREATE_COEFFS;
-              a_W1_00 = 0.;
-              a_W2_00 = 0.;
+              a_W2_00 = 1.;
 
               // New Lu elements:
               Lu[mm] =
@@ -787,15 +765,19 @@ int L_op (double *Lu, const double *u, const user_data *ud,
   return 0;
 }
 
-int convert_u_to_au (double *au, const double  *u,
-                     const user_data *ud,
-                     const int *st)
+int convert_u_to_au (double *au, const double  *u, const user_data *ud,
+                     const int *st, const double *X, const double *Y)
 {
   int m;
   int N  = ud->N;
   int NA = ud->NA;
   int m1 = 0; // u-index
   int m2 = 0; // au-index
+
+  // DON`T DELETE THIS PARAMETER
+  // IT MAY BE USED FOR ANOTHER NO-SQUARE MESH
+  // !!!!
+  FIX_UNUSED(X);
 
   for (m = 0; m < N; m++)
     {
@@ -832,15 +814,18 @@ int convert_u_to_au (double *au, const double  *u,
 
           case 2: // right boundary
             {
-              // 2 non-trivial equation
+              // 1 or 2 non-trivial equation
               // first equation
               au[m2] = u[m1];
               m1++;
               m2++;
               // second equation
-              au[m2] = u[m1];
+              if (SQUARE)
+                {
+                  au[m2] = u[m1];
+                  m2++;
+                }
               m1++;
-              m2++;
               // third equation
               m1++;
               break;
@@ -848,7 +833,7 @@ int convert_u_to_au (double *au, const double  *u,
 
           case 3: // down boundary
             {
-              // 1 non-trivial equation
+              // 1 or 2 non-trivial equation
               // first equation
               au[m2] = u[m1];
               m1++;
@@ -856,6 +841,11 @@ int convert_u_to_au (double *au, const double  *u,
               // second equation
               m1++;
               // third equation
+              if (!SQUARE && is_equal (Y[m1], 0.))
+                {
+                  au[m2] = u[m1];
+                  m2++;
+                }
               m1++;
               break;
             }
@@ -933,15 +923,19 @@ int convert_u_to_au (double *au, const double  *u,
   return 0;
 }
 
-int convert_au_to_u (double *u, const double  *au,
-                     const user_data *ud,
-                     const int *st)
+int convert_au_to_u (double *u, const double  *au, const user_data *ud,
+                     const int *st, const double *X, const double *Y)
 {
   int m;
   int N  = ud->N;
   int NA = ud->NA;
   int m1 = 0; // u-index
   int m2 = 0; // au-index
+
+  // DON`T DELETE THIS PARAMETER
+  // IT MAY BE USED FOR ANOTHER NO-SQUARE MESH
+  // !!!!
+  FIX_UNUSED(X);
 
   for (m = 0; m < N; m++)
     {
@@ -981,15 +975,22 @@ int convert_au_to_u (double *u, const double  *au,
 
           case 2: // right boundary
             {
-              // 2 non-trivial equation
+              // 1 or 2 non-trivial equation
               // first equation
               u[m1] = au[m2];
               m1++;
               m2++;
               // second equation
-              u[m1] = au[m2];
+              if (SQUARE)
+                {
+                  u[m1] = au[m2];
+                  m2++;
+                }
+              else
+                {
+                  u[m1] = 0.;
+                }
               m1++;
-              m2++;
               // third equation
               u[m1] =  0.;
               m1++;
@@ -998,7 +999,7 @@ int convert_au_to_u (double *u, const double  *au,
 
           case 3: // down boundary
             {
-              // 1 non-trivial equation
+              // 1 or 2 non-trivial equation
               // first equation
               u[m1] = au[m2];
               m1++;
@@ -1007,7 +1008,15 @@ int convert_au_to_u (double *u, const double  *au,
               u[m1] = 0.;
               m1++;
               // third equation
-              u[m1] =  0.;
+              if (!SQUARE && is_equal (Y[m1], 0.))
+                {
+                  u[m1] = au[m2];
+                  m2++;
+                }
+              else
+                {
+                  u[m1] =  0.;
+                }
               m1++;
               break;
             }
@@ -1100,8 +1109,8 @@ int convert_au_to_u (double *u, const double  *au,
 }
 
 void A_op (double *Aau, const double *au, const user_data *ud,
-           const double *G, const double *V1,  const double *V2,
-           const int *st, const int *M0L, const int *M0R)
+           const double *G, const double *V1,  const double *V2, const int *st,
+           const int *M0L, const int *M0R, const double *X, const double *Y)
 {
   double *u = NULL, *Lu = NULL;
 
@@ -1109,13 +1118,13 @@ void A_op (double *Aau, const double *au, const user_data *ud,
   Lu = make_vector_double (3 * ud->N, __FILE__, __FUNCTION__);
 
   // convert solution vector au (dim = NA < 3 * N) into solution vector u
-  convert_au_to_u (u, au, ud, st);
+  convert_au_to_u (u, au, ud, st, X, Y);
 
   // multiplication L * u (dim(L) = (3 * N) ^ 2, dim(u) = 3 * N
-  L_op (Lu, u, ud, G, V1, V2, st, M0L, M0R);
+  L_op (Lu, u, ud, G, V1, V2, st, M0L, M0R, X, Y);
 
   // convert solution vector Lu (dim = 3 * N) into solution vector Aau
-  convert_u_to_au (Aau, Lu, ud, st);
+  convert_u_to_au (Aau, Lu, ud, st, X, Y);
 
   FREE_ARRAY (u);
   FREE_ARRAY (Lu);

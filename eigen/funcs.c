@@ -110,3 +110,8 @@ double *make_vector_double (
 
   return tmp;
 }
+
+int is_equal (double x1, double x2)
+{
+  return fabs (x1 - x2) < MINIMAL_FOR_COMPARE;
+}

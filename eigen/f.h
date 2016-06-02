@@ -38,6 +38,8 @@
 #define FIX_UNUSED(X) (void)(X)
 #define FREE_ARRAY(X) if ((X)) free ((X)); (X) = NULL
 
+#define MINIMAL_FOR_COMPARE   1.e-16
+
 #define SQUARE 1
 
 typedef struct
@@ -66,7 +68,8 @@ typedef struct
 void init_user_data (user_data *ud);
 
 int L_op (double *Lu, const double *u, const user_data *ud,
-          const double *G, const double *V1, const double *V2, const int *st, const int *M0L, const int *M0R);
+          const double *G, const double *V1, const double *V2, const int *st,
+          const int *M0L, const int *M0R, const double *X, const double *Y);
 
 void fill_node_phys_prop (int m, // number of mesh node
                           double *p00, double *pL0, double *pR0,
@@ -80,15 +83,15 @@ void calc_mesh_params (int *st, double *X, double *Y, int *M0L,
 
 void print_2dfun_double (FILE *f, const double *u, const int n);
 
-int convert_u_to_au (double *au, const double   *u,
-                     const user_data *ud, const int *st);
+int convert_u_to_au (double *au, const double *u, const user_data *ud,
+                     const int *st, const double *X, const double *Y);
 
-int convert_au_to_u (double *u, const double   *au,
-                     const user_data *ud, const int *st);
+int convert_au_to_u (double *u, const double *au, const user_data *ud,
+                     const int *st, const double *X, const double *Y);
 
 void A_op (double *Aau, const double *au, const user_data *ud,
-           const double *G, const double *V1, const double *V2,
-           const int *st, const int *M0L, const int *M0R);
+           const double *G, const double *V1, const double *V2, const int *st,
+           const int *M0L, const int *M0R, const double *X, const double *Y);
 
 double *make_vector_double (int n, const char *info_1, const char *info_2);
 
@@ -131,5 +134,9 @@ int find_eigen_values (
   const double *V2,
   const int *st,
   const int *M0L,
-  const int *M0R
+  const int *M0R,
+  const double *X,
+  const double *Y
 );
+
+int is_equal (double x1, double x2);

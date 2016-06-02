@@ -16,6 +16,8 @@ int main (void)
 {
   UserDataCurr_struct  udc;
 
+  int n_found_eigen_values;
+
   double *eigen_values;
   double *eigen_functions_A_op;
   double *eigen_functions;
@@ -31,13 +33,6 @@ int main (void)
   double *G;
   double *V1;
   double *V2;
-
-
-  int n_found_eigen_values = 0;
-  char fn[1024];
-  int i, len;
-
-  FILE *out;
 
   initparam_UserDataCurr_struct (&udc);
 
@@ -91,19 +86,21 @@ int main (void)
                          spectralSubSet, bmat, (void *) (&udc),
                          G, V1, V2, st, M0L, M0R);
 
-  for (i = 0; i < n_found_eigen_values; i++)
+  for (int i = 0; i < n_found_eigen_values; i++)
     {
       convert_au_to_u (&eigen_functions[i * (3 * udc.N)],
                        &eigen_functions_A_op[i * udc.NA],
                        &udc, st);
     }
 
-  for (i = 0; i < n_found_eigen_values; i++)
+  for (int i = 0; i < n_found_eigen_values; i++)
     {
-      len = snprintf (fn, sizeof (fn) - 1, "./results/eigenfun_%02d.txt", i);
+      char fn[1024];
+
+      int len = snprintf (fn, sizeof (fn) - 1, "./results/eigenfun_%02d.txt", i);
       fn[len] = 0;
 
-      out = fopen (fn, "w");
+      FILE *out = fopen (fn, "w");
 
       if (out == NULL)
         {

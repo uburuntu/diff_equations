@@ -113,7 +113,7 @@ double Norm_l2 (double *a, int Dim, double *X, double *Y, double t, double (*f) 
 
 inline double ro (double t, double x, double y)
 {
-  if (NEW_INIT)
+  if (NO_SMOOTH)
     {
       // Left boundary
       if (is_equal (x, 0.))
@@ -158,7 +158,7 @@ inline double p (double t, double x, double y, double p_ro)
 
 inline double u1 (double t, double x, double y)
 {
-  if (NEW_INIT)
+  if (NO_SMOOTH)
     {
       // Left boundary
       if (is_equal (x, 0.))
@@ -195,7 +195,7 @@ inline double u1 (double t, double x, double y)
 
 inline double u2 (double t, double x, double y)
 {
-  if (NEW_INIT)
+  if (NO_SMOOTH)
     {
       // Left boundary
       if (is_equal (x, 0.))
@@ -233,7 +233,7 @@ inline double u2 (double t, double x, double y)
 
 inline double Func_g (double t, double x, double y)
 {
-  if (NEW_INIT)
+  if (NO_SMOOTH)
     {
       return 0.;
     }
@@ -256,7 +256,7 @@ inline double Func_g (double t, double x, double y)
 
 inline double Func_v1 (double t, double x, double y, double p_ro, double mu)
 {
-  if (NEW_INIT)
+  if (NO_SMOOTH)
     {
       return 0.;
     }
@@ -283,7 +283,7 @@ inline double Func_v1 (double t, double x, double y, double p_ro, double mu)
 
 inline double Func_v2 (double t, double x, double y, double p_ro, double mu)
 {
-  if (NEW_INIT)
+  if (NO_SMOOTH)
     {
       return 0.;
     }

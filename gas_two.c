@@ -43,8 +43,18 @@ int main ()
   param_dif (&p_d);
 
   int it_t, it_t_max, it_sp, it_sp_max, n_ver, it;
-  it_t_max = 0;
-  it_sp_max = 0;
+
+  if (STAT_SOL_SRCH || EIG_FUNC_INIT)
+    {
+      it_t_max = 0;
+      it_sp_max = 0;
+    }
+  else
+    {
+      it_t_max = 2;
+      it_sp_max = 2;
+    }
+
   it_t = 0;
   it_sp = 0;
 
@@ -53,7 +63,7 @@ int main ()
   double *nc_g, *nl2_g, *nc_v1, *nc_v2, *nl2_v1, *nl2_v2;
   double *time, *tauit;
 
-  if (!NEW_INIT)
+  if (!NO_SMOOTH)
     {
       nc_g = (double *) malloc ((n_ver) * sizeof (double));
       nc_v1 = (double *) malloc ((n_ver) * sizeof (double));
@@ -105,7 +115,7 @@ int main ()
   //-------------------------------------------------
   FILE *fout;
 
-  if (!NEW_INIT)
+  if (!NO_SMOOTH)
     {
       fout = fopen (OUTTEX_SMOOTH, "w");
     }
@@ -287,7 +297,7 @@ int main ()
           time[it] = (double) (EndClock - BegClock) / CLOCKS_PER_SEC;
           printf ("Elapsed time: %.2f sec.\n", time[it]);
 
-          if (!NEW_INIT)
+        if (!NO_SMOOTH)
             {
               nc_g[it] = Norm_c (G, p_s.Dim, X, Y, p_d.Segm_T, gg);
               nl2_g[it] = Norm_l2 (G, p_s.Dim, X, Y, p_d.Segm_T, gg);
@@ -356,7 +366,7 @@ int main ()
     }
 
   //-------------------------------------------------
-  if (!NEW_INIT)
+if (!NO_SMOOTH)
     {
       fout = fopen (OUTTEX_SMOOTH, "a+");
     }
@@ -378,7 +388,7 @@ int main ()
   fclose (fout);
   //-------------------------------------------------
 
-  if (!NEW_INIT)
+ if (!NO_SMOOTH)
     {
       tabtex_nc_g (it_t_max, it_sp_max, nc_g, tauit, p_d.p_ro, p_d.mu);
       tabtex_nc_v1 (it_t_max, it_sp_max, nc_v1, tauit, p_d.p_ro, p_d.mu);

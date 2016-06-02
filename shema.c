@@ -315,7 +315,7 @@ int  Sxema (double *G, double *V1, double *V2,
               {
                 // On boundary where the velocity vector is directed inside
                 // the value of g is known according to your test conditions.
-                g00 = (NEW_INIT && is_equal (xx, 0.0) ? RHO_G : G[m]);
+                g00 = (NO_SMOOTH && is_equal (xx, 0.0) ? RHO_G : G[m]);
                 mmv1R0 = mm + 4;
 
                 // g(mx,my)--------------------------------------------
@@ -375,7 +375,7 @@ int  Sxema (double *G, double *V1, double *V2,
               {
                 g00 = G[m];
                 v100 = u1 (tt, xx, yy);
-                v200 = (NEW_INIT && is_equal (yy, 0.) ? V2[M0R[m]] : u2 (tt, xx, yy));
+                v200 = (NO_SMOOTH && is_equal (yy, 0.) ? V2[M0R[m]] : u2 (tt, xx, yy));
                 mmv20R = (3 * M0R[m] + 1) + 2;
 
                 // g(mx,my)--------------------------------------------

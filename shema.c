@@ -92,7 +92,7 @@ int  Sxema (double *G, double *V1, double *V2,
 
       if (EIG_FUNC_INIT && G_eigen)
         {
-          G[m] += G_eigen[m];
+          G[m] -= G_eigen[m];
         }
 
       if (STAT_SOL_SRCH && G_prev)
@@ -108,7 +108,7 @@ int  Sxema (double *G, double *V1, double *V2,
 
       if (EIG_FUNC_INIT && V1_eigen)
         {
-          V1[m] += V1_eigen[m];
+          V1[m] -= V1_eigen[m];
         }
 
       if (STAT_SOL_SRCH && V1_prev)
@@ -124,7 +124,7 @@ int  Sxema (double *G, double *V1, double *V2,
 
       if (EIG_FUNC_INIT && V2_eigen)
         {
-          V2[m] += V2_eigen[m];
+          V2[m] -= V2_eigen[m];
         }
 
       if (STAT_SOL_SRCH && V2_prev)

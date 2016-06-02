@@ -79,8 +79,7 @@ void fill_node_phys_prop (int m, // number of mesh node
 void calc_mesh_params (int *st, double *X, double *Y, int *M0L,
                        int *M0R, const UserDataCurr_struct *udc);
 
-void print_2dfun_double (FILE *f, const char *name, const double   *u,
-                         const int nx, const int ny);
+void print_2dfun_double (FILE *f, const double *u, const int n);
 
 int convert_u_to_au (double *au, const double   *u,
                      const UserDataCurr_struct *udc, const int *st);

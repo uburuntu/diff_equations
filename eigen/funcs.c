@@ -56,20 +56,15 @@ int read_stationary_solution (const char *fname, int N, double *G, double *V1, d
   return 0;
 }
 
-void print_2dfun_double (FILE *f, const char *name, const double   *u,
-                         const int nx, const int ny)
+void print_2dfun_double (FILE *f, const double *u, const int n)
 {
-  FIX_UNUSED (name);
   int i;
-  //int j;
-  FIX_UNUSED(ny);
-      for (i = 0; i < nx; i++)
-        {
-          fprintf (f, "%9.2e ", u[i]);
-        }
+  for (i = 0; i < n; i++)
+    {
+      fprintf (f, "%9.2e ", u[i]);
+    }
 
-      fprintf (f, "\n");
-
+  fprintf (f, "\n");
   return;
 }
 

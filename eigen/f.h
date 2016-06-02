@@ -36,7 +36,7 @@
 #include <assert.h>
 
 #define FIX_UNUSED(X) (void)(X)
-#define FREE_ARRAY(X) if ((X)) free ((X))
+#define FREE_ARRAY(X) if ((X)) free ((X)); (X) = NULL
 
 #define SQUARE 1
 
@@ -64,7 +64,6 @@ typedef struct
 } UserDataCurr_struct;
 
 
-
 void initparam_UserDataCurr_struct (UserDataCurr_struct *udc);
 
 int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
@@ -89,7 +88,7 @@ int convert_u_to_au (double *au, const double   *u,
 int convert_au_to_u (double *u, const double   *au,
                      const UserDataCurr_struct *udc, const int *st);
 
-void A_op (double *Aau, const double *au, int n, void *udc,
+void A_op (double *Aau, const double *au, int n, const void *udc,
            const double *G, const double *V1, const double *V2,
            const int *st, const int *M0L, const int *M0R);
 
@@ -104,31 +103,31 @@ double *sp_alloc_d_vector (int n, const char *info_1, const char *info_2);
 int read_stationary_solution (const char *fname, int N, double *G, double *V1, double *V2);
 
 void dnaupd_ (
-  int *ido, char *bmat, int *n, char *which, int *nev, double *tol,
+  int *ido, const char *bmat, int *n, const char *which, int *nev, double *tol,
   double *resid, int *ncv, double *v, int *ldv, int *iparam,
   int *ipntr, double *workd, double *workl, int *lworkl, int *info);
 
 void dneupd_ (
-  int *vec, char *c, int *select, double *d, double * /*d(1,2)*/,
+  int *vec, const char *c, int *select, double *d, double * /*d(1,2)*/,
   double *v, int *ldv, double *sigmar, double *sigmai, double *workev,
-  char *bmat, int *n, char *which, int *nev, double *tol,
+  const char *bmat, int *n, const char *which, int *nev, double *tol,
   double *resid, int *ncv, double *vv, int *ldvv, int *iparam,
   int *ipntr, double *workd, double *workl, int *lworkl, int *ierr);
 
-int nummsds_check_dnaupd_status (int info);
+int check_dnaupd_status (int info);
 
-int nummsds_check_dneupd_status (int info);
+int check_dneupd_status (int info);
 
-int numsds_spectral_problem (
+int find_eigen_values (
   double *eigen_values,
   double *eigen_functions,
-  int dim,
-  int eigenvalues_number,
-  int max_iterations,
-  double tolerance,
-  const char spectralSubSet[3],
-  void (*) (double *, const double *, int, void *, const double *, const double *,  const double *, const int *, const int *, const int *),
-  void *user_data,
+  const int dim,
+  const int eigenvalues_number,
+  const int max_iterations,
+  const double tolerance,
+  const char *spectralSubSet,
+  const char *bmat,
+  const void *user_data,
   const double *G,
   const double *V1,
   const double *V2,

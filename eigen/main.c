@@ -32,11 +32,8 @@ int main (void)
   double *V1;
   double *V2;
 
-  int eigenvalues_number;
-  char spectralSubSet[3];
-  int max_iterations;
-  double tolerance;
-  int eignum = 0;
+
+  int n_found_eigen_values = 0;
   char fn[1024];
   int i, len;
 
@@ -61,45 +58,47 @@ int main (void)
       return 0;
     }
 
-  eigenvalues_number = 6;
-
   /* 'LM' -> eigenvalues of largest magnitude. */
   /* 'SM' -> eigenvalues of smallest magnitude.*/
   /* 'LR' -> eigenvalues of largest real part. */
   /* 'SR' -> eigenvalues of smallest real part.*/
   /* 'LI' -> eigenvalues of largest imaginary part. */
   /* 'SI' -> eigenvalues of smallest imaginary part.*/
+  const char *spectralSubSet = "LR";
+  /* BMAT = 'I' -> standard eigenvalue problem A*x = lambda*x*/
+  /* BMAT = 'G' -> generalized eigenvalue problem A*x = lambda*B*x*/
+  const char *bmat = "I";
 
-  strcpy (spectralSubSet, "LR");
-  max_iterations = 1000;
-  tolerance = 1.e-12;
+  const int n_eigen_values = 6;
+  const int max_iterations = 1000;
+  const double tolerance = 1.e-12;
 
   // eigen_values[2 * i + 0] = LAMBDA_I_REAL_PART
   // eigen_values[2 * i + 1] = LAMBDA_I_IMAG_PART
-  eigen_values = make_vector_double (2 * eigenvalues_number, __FILE__, __FUNCTION__);
+  eigen_values = make_vector_double (2 * n_eigen_values, __FILE__, __FUNCTION__);
 
-  eigen_functions_A_op = make_vector_double (eigenvalues_number * udc.NA, __FILE__, __FUNCTION__);
+  eigen_functions_A_op = make_vector_double (n_eigen_values * udc.NA, __FILE__, __FUNCTION__);
 
-  eigen_functions = make_vector_double (eigenvalues_number * (3 * udc.N), __FILE__, __FUNCTION__);
+  eigen_functions = make_vector_double (n_eigen_values * (3 * udc.N), __FILE__, __FUNCTION__);
 
   calc_mesh_params (st, X, Y, M0L, M0R, (void *) (&udc));
 
   // TODO: look through this function to check correctness
   // i have checked, but i`m not sure it`s correct...
-  eignum = numsds_spectral_problem (eigen_values, eigen_functions_A_op,
-                                    udc.NA, eigenvalues_number,
-                                    max_iterations, tolerance,
-                                    spectralSubSet, A_op, (void *) (&udc),
-                                    G, V1, V2, st, M0L, M0R);
+  n_found_eigen_values = find_eigen_values (eigen_values, eigen_functions_A_op,
+                         udc.NA, n_eigen_values,
+                         max_iterations, tolerance,
+                         spectralSubSet, bmat, (void *) (&udc),
+                         G, V1, V2, st, M0L, M0R);
 
-  for (i = 0; i < eignum; i++)
+  for (i = 0; i < n_found_eigen_values; i++)
     {
       convert_au_to_u (&eigen_functions[i * (3 * udc.N)],
                        &eigen_functions_A_op[i * udc.NA],
                        &udc, st);
     }
 
-  for (i = 0; i < eignum; i++)
+  for (i = 0; i < n_found_eigen_values; i++)
     {
       len = snprintf (fn, sizeof (fn) - 1, "./results/eigenfun_%02d.txt", i);
       fn[len] = 0;

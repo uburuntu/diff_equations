@@ -21,46 +21,46 @@
   a_J_RL = a_W1_RL = a_W2_RL =\
   a_J_RR = a_W1_RR = a_W2_RR = 0.
 
-void initparam_UserDataCurr_struct (
-  user_data *udc)
+void init_user_data (
+  user_data *ud)
 {
   // Number of mesh nodes
-  udc->Nx    =  61;
-  udc->Ny    =  61;
+  ud->Nx    =  61;
+  ud->Ny    =  61;
 
 #if SQUARE
-  udc->N  = udc->Nx * udc->Ny;
-  udc->NA = 3 * (udc->Nx - 2) * (udc->Ny - 2) + // inner nodes
-            2 * (udc->Ny - 2) +                 // right boundary
-            1 * (udc->Nx - 2) +                 // down boundary
-            1 * (udc->Nx - 2) +                 // top boundary
-            0 * (udc->Ny - 2) +                 // left boundary
-            0 * 4;                              // vertices of square
+  ud->N  = ud->Nx * ud->Ny;
+  ud->NA = 3 * (ud->Nx - 2) * (ud->Ny - 2) + // inner nodes
+           2 * (ud->Ny - 2) +                 // right boundary
+           1 * (ud->Nx - 2) +                 // down boundary
+           1 * (ud->Nx - 2) +                 // top boundary
+           0 * (ud->Ny - 2) +                 // left boundary
+           0 * 4;                              // vertices of square
 #else
-  udc->N = udc->Nx * udc->Ny - (udc->Nx_0 - 1) * (udc->Ny_0 - 1);
-  udc->NA = (udc->Nx - 2) * (udc->Ny - 2) - (udc->Nx_0 - 1) * (udc->Ny_0 - 1);
-  udc->NA = 3 * ((udc->Nx - 2) * (udc->Ny - 2) - (udc->Nx_0 - 1) * (udc->Ny_0 - 1) + 1) +
-            2 * (udc->Nx - udc->Nx_0 - 1) +     // II-part of down boundary
-            1 * (udc->Ny_0 - 2) +               // I-part of left boundary
-            1 * (udc->Ny - 2) +                 // right boundary
-            1 * (udc->Nx - 2) +                 // top boundary
-            1 * (udc->Nx_0 - 2) +               // I-part of down boundary
-            0 * (udc->Ny - udc->Ny_0 - 1) +     // II-part of left boundary
-            0 * 5;                              // vertices
+  ud->N = ud->Nx * ud->Ny - (ud->Nx_0 - 1) * (ud->Ny_0 - 1);
+  ud->NA = (ud->Nx - 2) * (ud->Ny - 2) - (ud->Nx_0 - 1) * (ud->Ny_0 - 1);
+  ud->NA = 3 * ((ud->Nx - 2) * (ud->Ny - 2) - (ud->Nx_0 - 1) * (ud->Ny_0 - 1) + 1) +
+           2 * (ud->Nx - ud->Nx_0 - 1) +     // II-part of down boundary
+           1 * (ud->Ny_0 - 2) +               // I-part of left boundary
+           1 * (ud->Ny - 2) +                 // right boundary
+           1 * (ud->Nx - 2) +                 // top boundary
+           1 * (ud->Nx_0 - 2) +               // I-part of down boundary
+           0 * (ud->Ny - ud->Ny_0 - 1) +     // II-part of left boundary
+           0 * 5;                              // vertices
 #endif
 
-  udc->Lx = 3.;
-  udc->Ly = 3.;
-  udc->Hx = udc->Lx / (udc->Nx - 1);
-  udc->Hy = udc->Ly / (udc->Ny - 1);
+  ud->Lx = 3.;
+  ud->Ly = 3.;
+  ud->Hx = ud->Lx / (ud->Nx - 1);
+  ud->Hy = ud->Ly / (ud->Ny - 1);
 
-  udc->p_ro = 1.0;
-  udc->p_2ro = 0.0;
-  udc->mu = 1.;
+  ud->p_ro = 1.0;
+  ud->p_2ro = 0.0;
+  ud->mu = 1.;
   return;
 }
 
-int L_op (double *Lu, const double *u, const user_data *udc,
+int L_op (double *Lu, const double *u, const user_data *ud,
           const double *G, const double *V1,  const double *V2,
           const int *st, const int *M0L, const int *M0R)
 {
@@ -69,13 +69,13 @@ int L_op (double *Lu, const double *u, const user_data *udc,
   //
 
   int m;
-  int N = udc->N;
-  double Hx = udc->Hx;
-  double Hy = udc->Hy;
-  double mu = udc->mu;
+  int N = ud->N;
+  double Hx = ud->Hx;
+  double Hy = ud->Hy;
+  double mu = ud->mu;
 
-  double p_ro = udc->p_ro;
-  double p_2ro = udc->p_2ro;
+  double p_ro = ud->p_ro;
+  double p_2ro = ud->p_2ro;
 
   double *J   = make_vector_double (N, __FILE__, __FUNCTION__);
   double *W1  = make_vector_double (N, __FILE__, __FUNCTION__);
@@ -786,12 +786,12 @@ int L_op (double *Lu, const double *u, const user_data *udc,
 }
 
 int convert_u_to_au (double *au, const double  *u,
-                     const user_data *udc,
+                     const user_data *ud,
                      const int *st)
 {
   int m;
-  int N  = udc->N;
-  int NA = udc->NA;
+  int N  = ud->N;
+  int NA = ud->NA;
   int m1 = 0; // u-index
   int m2 = 0; // au-index
 
@@ -932,12 +932,12 @@ int convert_u_to_au (double *au, const double  *u,
 }
 
 int convert_au_to_u (double *u, const double  *au,
-                     const user_data *udc,
+                     const user_data *ud,
                      const int *st)
 {
   int m;
-  int N  = udc->N;
-  int NA = udc->NA;
+  int N  = ud->N;
+  int NA = ud->NA;
   int m1 = 0; // u-index
   int m2 = 0; // au-index
 
@@ -1097,27 +1097,23 @@ int convert_au_to_u (double *u, const double  *au,
   return 0;
 }
 
-void A_op (double *Aau, const double *au, int n, const void *ud,
+void A_op (double *Aau, const double *au, const user_data *ud,
            const double *G, const double *V1,  const double *V2,
            const int *st, const int *M0L, const int *M0R)
 {
-  double *u = NULL;
-  double *Lu = NULL;
-  user_data *udc = (user_data *)ud;
+  double *u = NULL, *Lu = NULL;
 
-  FIX_UNUSED (n);
-
-  u  = make_vector_double (3 * udc->N, __FILE__, __FUNCTION__);
-  Lu = make_vector_double (3 * udc->N, __FILE__, __FUNCTION__);
+  u  = make_vector_double (3 * ud->N, __FILE__, __FUNCTION__);
+  Lu = make_vector_double (3 * ud->N, __FILE__, __FUNCTION__);
 
   // convert solution vector au (dim = NA < 3 * N) into solution vector u
-  convert_au_to_u (u, au, udc, st);
+  convert_au_to_u (u, au, ud, st);
 
   // multiplication L * u (dim(L) = (3 * N) ^ 2, dim(u) = 3 * N
-  L_op (Lu, u, udc, G, V1, V2, st, M0L, M0R);
+  L_op (Lu, u, ud, G, V1, V2, st, M0L, M0R);
 
   // convert solution vector Lu (dim = 3 * N) into solution vector Aau
-  convert_u_to_au (Aau, Lu, udc, st);
+  convert_u_to_au (Aau, Lu, ud, st);
 
   FREE_ARRAY (u);
   FREE_ARRAY (Lu);

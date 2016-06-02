@@ -14,7 +14,7 @@
 
 int main (void)
 {
-  user_data  udc;
+  user_data ud;
 
   int n_found_eigen_values;
 
@@ -34,19 +34,19 @@ int main (void)
   double *V1;
   double *V2;
 
-  initparam_UserDataCurr_struct (&udc);
+  init_user_data (&ud);
 
   // aux vectors for all mesh elements
-  st  = make_vector_int (udc.N, __FILE__, __FUNCTION__);
-  M0L = make_vector_int (udc.N, __FILE__, __FUNCTION__);
-  M0R = make_vector_int (udc.N, __FILE__, __FUNCTION__);
-  X  = make_vector_double (udc.N, __FILE__, __FUNCTION__);
-  Y  = make_vector_double (udc.N, __FILE__, __FUNCTION__);
-  G  = make_vector_double (udc.N, __FILE__, __FUNCTION__);
-  V1 = make_vector_double (udc.N, __FILE__, __FUNCTION__);
-  V2 = make_vector_double (udc.N, __FILE__, __FUNCTION__);
+  st  = make_vector_int (ud.N, __FILE__, __FUNCTION__);
+  M0L = make_vector_int (ud.N, __FILE__, __FUNCTION__);
+  M0R = make_vector_int (ud.N, __FILE__, __FUNCTION__);
+  X  = make_vector_double (ud.N, __FILE__, __FUNCTION__);
+  Y  = make_vector_double (ud.N, __FILE__, __FUNCTION__);
+  G  = make_vector_double (ud.N, __FILE__, __FUNCTION__);
+  V1 = make_vector_double (ud.N, __FILE__, __FUNCTION__);
+  V2 = make_vector_double (ud.N, __FILE__, __FUNCTION__);
 
-  int ret = read_stationary_solution (ST_SOL_FILE, udc.N, G, V1, V2);
+  int ret = read_stationary_solution (ST_SOL_FILE, ud.N, G, V1, V2);
 
   if (ret < 0)
     {
@@ -72,25 +72,25 @@ int main (void)
   // eigen_values[2 * i + 1] = LAMBDA_I_IMAG_PART
   eigen_values = make_vector_double (2 * n_eigen_values, __FILE__, __FUNCTION__);
 
-  eigen_functions_A_op = make_vector_double (n_eigen_values * udc.NA, __FILE__, __FUNCTION__);
+  eigen_functions_A_op = make_vector_double (n_eigen_values * ud.NA, __FILE__, __FUNCTION__);
 
-  eigen_functions = make_vector_double (n_eigen_values * (3 * udc.N), __FILE__, __FUNCTION__);
+  eigen_functions = make_vector_double (n_eigen_values * (3 * ud.N), __FILE__, __FUNCTION__);
 
-  calc_mesh_params (st, X, Y, M0L, M0R, (void *) (&udc));
+  calc_mesh_params (st, X, Y, M0L, M0R, (void *) (&ud));
 
   // TODO: look through this function to check correctness
   // i have checked, but i`m not sure it`s correct...
   n_found_eigen_values = find_eigen_values (eigen_values, eigen_functions_A_op,
-                         udc.NA, n_eigen_values,
+                         ud.NA, n_eigen_values,
                          max_iterations, tolerance,
-                         spectralSubSet, bmat, (void *) (&udc),
+                         spectralSubSet, bmat, (void *) (&ud),
                          G, V1, V2, st, M0L, M0R);
 
   for (int i = 0; i < n_found_eigen_values; i++)
     {
-      convert_au_to_u (&eigen_functions[i * (3 * udc.N)],
-                       &eigen_functions_A_op[i * udc.NA],
-                       &udc, st);
+      convert_au_to_u (&eigen_functions[i * (3 * ud.N)],
+                       &eigen_functions_A_op[i * ud.NA],
+                       &ud, st);
     }
 
   for (int i = 0; i < n_found_eigen_values; i++)
@@ -108,7 +108,7 @@ int main (void)
           exit (1);
         }
 
-      print_2dfun_double (out, &eigen_functions[i * (3 * udc.N)], 3 * udc.N);
+      print_2dfun_double (out, &eigen_functions[i * (3 * ud.N)], 3 * ud.N);
       fclose (out);
     }
 

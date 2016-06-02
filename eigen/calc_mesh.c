@@ -44,17 +44,17 @@
 #define b 3.
 
 void calc_mesh_params (int *st, double *X, double *Y, int *M0L,
-                       int *M0R, const user_data *udc)
+                       int *M0R, const user_data *ud)
 {
 
 #if SQUARE
   int M1, M2;
   double hx, hy;
   // Minus 1 because it`s a number of line-segments
-  M1 = udc->Nx - 1;
-  M2 = udc->Ny - 1;
-  hx = udc->Hx;
-  hy = udc->Hy;
+  M1 = ud->Nx - 1;
+  M2 = ud->Ny - 1;
+  hx = ud->Hx;
+  hy = ud->Hy;
   int j, j1, j2;
 
   st[0] = 5;
@@ -131,12 +131,12 @@ void calc_mesh_params (int *st, double *X, double *Y, int *M0L,
 #else
   int M1, M2, M1_0, M2_0;
   double hx, hy;
-  M1 = (udc->Nx - 1);
-  M2 = (udc->Ny - 1);
-  M1_0 = M1 - (udc->Nx_0 - 1);
-  M2_0 = (udc->Ny_0 - 1);
-  hx = udc->Hx;
-  hy = udc->Hy;
+  M1 = (ud->Nx - 1);
+  M2 = (ud->Ny - 1);
+  M1_0 = M1 - (ud->Nx_0 - 1);
+  M2_0 = (ud->Ny_0 - 1);
+  hx = ud->Hx;
+  hy = ud->Hy;
   int j, j1, j2;
 
   // (x, y) = (c, 0)
@@ -233,7 +233,7 @@ void calc_mesh_params (int *st, double *X, double *Y, int *M0L,
   j++;
 
   // (X, Y) = {X = (0, c) & Y = {a}}
-  for (j1 = 1; j1 < (udc->Nx_0 - 1); j1++)
+  for (j1 = 1; j1 < (ud->Nx_0 - 1); j1++)
     {
       st[j] = 3;
       M0L[j] = -1;
@@ -322,7 +322,7 @@ void calc_mesh_params (int *st, double *X, double *Y, int *M0L,
   Y[j] = M2 * hy;
   j++;
   assert (j == (M1_0 + 1) * (M2_0) + (M1 + 1) * (M2 + 1 - M2_0));
-  assert (j == udc->N);
+  assert (j == ud->N);
 #endif
 }
 #undef a

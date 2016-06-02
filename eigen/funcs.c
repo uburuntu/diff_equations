@@ -59,6 +59,7 @@ int read_stationary_solution (const char *fname, int N, double *G, double *V1, d
 void print_2dfun_double (FILE *f, const double *u, const int n)
 {
   int i;
+
   for (i = 0; i < n; i++)
     {
       fprintf (f, "%9.2e ", u[i]);

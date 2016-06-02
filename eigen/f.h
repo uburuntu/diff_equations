@@ -61,9 +61,9 @@ typedef struct
 } user_data;
 
 
-void initparam_UserDataCurr_struct (user_data *udc);
+void init_user_data (user_data *ud);
 
-int L_op (double *Lu, const double *u, const user_data *udc,
+int L_op (double *Lu, const double *u, const user_data *ud,
           const double *G, const double *V1, const double *V2, const int *st, const int *M0L, const int *M0R);
 
 void fill_node_phys_prop (int m, // number of mesh node
@@ -74,17 +74,17 @@ void fill_node_phys_prop (int m, // number of mesh node
                           const int *const M0R);
 
 void calc_mesh_params (int *st, double *X, double *Y, int *M0L,
-                       int *M0R, const user_data *udc);
+                       int *M0R, const user_data *ud);
 
 void print_2dfun_double (FILE *f, const double *u, const int n);
 
 int convert_u_to_au (double *au, const double   *u,
-                     const user_data *udc, const int *st);
+                     const user_data *ud, const int *st);
 
 int convert_au_to_u (double *u, const double   *au,
-                     const user_data *udc, const int *st);
+                     const user_data *ud, const int *st);
 
-void A_op (double *Aau, const double *au, int n, const void *udc,
+void A_op (double *Aau, const double *au, const user_data *ud,
            const double *G, const double *V1, const double *V2,
            const int *st, const int *M0L, const int *M0R);
 

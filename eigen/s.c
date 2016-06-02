@@ -20,15 +20,13 @@
   a_J_LR = a_W1_LR = a_W2_LR =\
   a_J_RL = a_W1_RL = a_W2_RL =\
   a_J_RR = a_W1_RR = a_W2_RR = 0.
-  
+
 void initparam_UserDataCurr_struct (
-  UserDataCurr_struct *udc)
+  user_data *udc)
 {
   // Number of mesh nodes
   udc->Nx    =  61;
   udc->Ny    =  61;
-  udc->Nx_0  =  41;
-  udc->Ny_0  =  21;
 
 #if SQUARE
   udc->N  = udc->Nx * udc->Ny;
@@ -62,7 +60,7 @@ void initparam_UserDataCurr_struct (
   return;
 }
 
-int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
+int L_op (double *Lu, const double *u, const user_data *udc,
           const double *G, const double *V1,  const double *V2,
           const int *st, const int *M0L, const int *M0R)
 {
@@ -788,7 +786,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
 }
 
 int convert_u_to_au (double *au, const double  *u,
-                     const UserDataCurr_struct *udc,
+                     const user_data *udc,
                      const int *st)
 {
   int m;
@@ -934,7 +932,7 @@ int convert_u_to_au (double *au, const double  *u,
 }
 
 int convert_au_to_u (double *u, const double  *au,
-                     const UserDataCurr_struct *udc,
+                     const user_data *udc,
                      const int *st)
 {
   int m;
@@ -1105,7 +1103,7 @@ void A_op (double *Aau, const double *au, int n, const void *ud,
 {
   double *u = NULL;
   double *Lu = NULL;
-  UserDataCurr_struct *udc = (UserDataCurr_struct *)ud;
+  user_data *udc = (user_data *)ud;
 
   FIX_UNUSED (n);
 

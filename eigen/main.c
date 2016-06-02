@@ -14,7 +14,7 @@
 
 int main (void)
 {
-  UserDataCurr_struct  udc;
+  user_data  udc;
 
   int n_found_eigen_values;
 

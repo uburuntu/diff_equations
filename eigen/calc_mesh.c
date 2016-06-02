@@ -44,7 +44,7 @@
 #define b 3.
 
 void calc_mesh_params (int *st, double *X, double *Y, int *M0L,
-                       int *M0R, const UserDataCurr_struct *udc)
+                       int *M0R, const user_data *udc)
 {
 
 #if SQUARE

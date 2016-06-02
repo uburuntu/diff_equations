@@ -113,7 +113,7 @@ int make_graph (char *texname, char *plotname, double h1, double h2, double tau,
 
   fclose (fout);
 
-  if (!NEW_INIT)
+  if (!NO_SMOOTH)
     {
       fout = fopen (OUTTEX_SMOOTH, "a+");
     }

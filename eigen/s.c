@@ -10,16 +10,17 @@
 
 #include "f.h"
 
-#define recreate() recreate_coefficients (      \
-  &a_J_0L,  &a_W1_0L, &a_W2_0L, &a_J_L0,        \
-  &a_W1_L0, &a_W2_L0, &a_J_00,  &a_W1_00,       \
-  &a_W2_00, &a_J_R0,  &a_W1_R0, &a_W2_R0,       \
-  &a_J_0R,  &a_W1_0R, &a_W2_0R, &a_J_LL,        \
-  &a_W1_LL, &a_W2_LL, &a_J_LR,  &a_W1_LR,       \
-  &a_W2_LR, &a_J_RL,  &a_W1_RL, &a_W2_RL,       \
-  &a_J_RR,  &a_W1_RR, &a_W2_RR)
-
-
+#define RECREATE_COEFFS       \
+  a_J_0L = a_W1_0L = a_W2_0L =\
+  a_J_L0 = a_W1_L0 = a_W2_L0 =\
+  a_J_00 = a_W1_00 = a_W2_00 =\
+  a_J_R0 = a_W1_R0 = a_W2_R0 =\
+  a_J_0R = a_W1_0R = a_W2_0R =\
+  a_J_LL = a_W1_LL = a_W2_LL =\
+  a_J_LR = a_W1_LR = a_W2_LR =\
+  a_J_RL = a_W1_RL = a_W2_RL =\
+  a_J_RR = a_W1_RR = a_W2_RR = 0.
+  
 void initparam_UserDataCurr_struct (
   UserDataCurr_struct *udc)
 {
@@ -166,7 +167,8 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
           case 0:
             {
               // first equation
-              recreate();
+              RECREATE_COEFFS;
+
               a_J_0L  = - (v200 + fabs (v200)) * Hy2;
               a_W2_0L = -Hy2;
 
@@ -197,7 +199,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
               mm++;
 
               // second equation
-              recreate();
+              RECREATE_COEFFS;
               a_W1_0L = - (v200 + fabs (v200)) * Hy2 - mu * exp (-g00) * Hy * Hy;
 
               a_J_L0  = -p_ro * Hx2; // p_ro = p_ro(g00)
@@ -236,7 +238,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
               mm++;
 
               // third equation
-              recreate();
+              RECREATE_COEFFS;
               a_J_0L  = - p_ro * Hy2;
               a_W2_0L = - (v200 + fabs (v200)) * Hy2 - mu * exp (-g00) * (4. / 3.) * Hy * Hy;
 
@@ -280,7 +282,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
             {
               // first equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_R0 = 1.;
               a_W1_00 = -1.;
 
@@ -299,7 +301,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
 
               // second equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_00 = 0.;
               a_W2_00 = 0.;
 
@@ -318,7 +320,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
 
               // third equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_00 = 0.;
               a_W2_00 = 0.;
 
@@ -341,7 +343,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
             {
               // first equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_00 = 1.;
               a_W1_L0 = -1.;
 
@@ -360,7 +362,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
 
               // second equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_00 = 0.;
               a_W2_00 = 0.;
 
@@ -379,7 +381,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
 
               // third equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_00 = 0.;
               a_W2_00 = 0.;
 
@@ -402,7 +404,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
             {
               // first equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W2_0R = 1.;
               a_W2_00 = -1.;
 
@@ -421,7 +423,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
 
               // second equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_00 = 0.;
               a_W2_00 = 0.;
 
@@ -440,7 +442,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
 
               // third equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_00 = 0.;
               a_W2_00 = 0.;
 
@@ -463,7 +465,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
             {
               // first equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W2_00 = 1.;
               a_W2_0L = -1.;
 
@@ -482,7 +484,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
 
               // second equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_00 = 0.;
               a_W2_00 = 0.;
 
@@ -501,7 +503,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
 
               // third equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_00 = 0.;
               a_W2_00 = 0.;
 
@@ -524,7 +526,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
             {
               // first equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_R0 = 1.;
               a_W1_00 = -1.;
               a_W2_0R = 1.;
@@ -545,7 +547,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
 
               // second equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_00 = 0.;
               a_W2_00 = 0.;
 
@@ -564,7 +566,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
 
               // third equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_00 = 0.;
               a_W2_00 = 0.;
 
@@ -587,7 +589,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
             {
               // first equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_00 = 1.;
               a_W1_L0 = -1.;
               a_W2_0R = 1.;
@@ -608,7 +610,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
 
               // second equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_00 = 0.;
               a_W2_00 = 0.;
 
@@ -627,7 +629,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
 
               // third equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_00 = 0.;
               a_W2_00 = 0.;
 
@@ -650,7 +652,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
             {
               // first equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_R0 = 1.;
               a_W1_00 = -1.;
               a_W2_00 = 1.;
@@ -671,7 +673,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
 
               // second equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_00 = 0.;
               a_W2_00 = 0.;
 
@@ -690,7 +692,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
 
               // third equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_00 = 0.;
               a_W2_00 = 0.;
 
@@ -713,7 +715,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
             {
               // first equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_00 = 1.;
               a_W1_L0 = -1.;
               a_W2_00 = 1.;
@@ -734,7 +736,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
 
               // second equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_00 = 0.;
               a_W2_00 = 0.;
 
@@ -753,7 +755,7 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
 
               // third equation
 
-              recreate();
+              RECREATE_COEFFS;
               a_W1_00 = 0.;
               a_W2_00 = 0.;
 
@@ -1142,28 +1144,4 @@ void fill_node_phys_prop (int m, // number of mesh node
   *pRL = p[M0L[m] + 1];
   *pLR = p[M0R[m] - 1];
   *pRR = p[M0R[m] + 1];
-}
-
-void recreate_coefficients (
-  double *a_J_0L, double *a_W1_0L, double *a_W2_0L,
-  double *a_J_L0, double *a_W1_L0, double *a_W2_L0,
-  double *a_J_00, double *a_W1_00, double *a_W2_00,
-  double *a_J_R0, double *a_W1_R0, double *a_W2_R0,
-  double *a_J_0R, double *a_W1_0R, double *a_W2_0R,
-  double *a_J_LL, double *a_W1_LL, double *a_W2_LL,
-  double *a_J_LR, double *a_W1_LR, double *a_W2_LR,
-  double *a_J_RL, double *a_W1_RL, double *a_W2_RL,
-  double *a_J_RR, double *a_W1_RR, double *a_W2_RR)
-{
-  *a_J_0L = *a_W1_0L = *a_W2_0L = 0.;
-  *a_J_L0 = *a_W1_L0 = *a_W2_L0 = 0.;
-  *a_J_00 = *a_W1_00 = *a_W2_00 = 0.;
-  *a_J_R0 = *a_W1_R0 = *a_W2_R0 = 0.;
-  *a_J_0R = *a_W1_0R = *a_W2_0R = 0.;
-  *a_J_LL = *a_W1_LL = *a_W2_LL = 0.;
-  *a_J_LR = *a_W1_LR = *a_W2_LR = 0.;
-  *a_J_RL = *a_W1_RL = *a_W2_RL = 0.;
-  *a_J_RR = *a_W1_RR = *a_W2_RR = 0.;
-
-  return;
 }

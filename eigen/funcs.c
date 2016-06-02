@@ -61,17 +61,14 @@ void print_2dfun_double (FILE *f, const char *name, const double   *u,
 {
   FIX_UNUSED (name);
   int i;
-  int j;
-
-  for (j = ny - 1; j >= 0; j--)
-    {
+  //int j;
+  FIX_UNUSED(ny);
       for (i = 0; i < nx; i++)
         {
-          fprintf (f, "%9.2e ", u[i + j * nx]);
+          fprintf (f, "%9.2e ", u[i]);
         }
 
       fprintf (f, "\n");
-    }
 
   return;
 }

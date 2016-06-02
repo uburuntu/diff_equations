@@ -112,7 +112,7 @@ int main (void)
           exit (1);
         }
 
-      print_2dfun_double (out, "eigenfun", &eigen_functions[i * (3 * udc.N)], udc.Nx, udc.Ny);
+      print_2dfun_double (out, "eigenfun", &eigen_functions[i * (3 * udc.N)], 3 * udc.N, udc.Ny);
       fclose (out);
     }
 

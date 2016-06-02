@@ -74,16 +74,18 @@ int *make_vector_int (
   const char *info_1,
   const char *info_2)
 {
-  int *tmp = (int *)malloc (n * sizeof (int ));
+  unsigned int size = n * sizeof (int);
+
+  int *tmp = (int *)malloc (size);
 
   if (tmp == NULL)
     {
-      printf ("Error in %s %s : Fail to allocate %lu bytes\n",
-              info_1, info_2, n * sizeof (int));
+      printf ("Error in %s %s : Fail to allocate %u bytes\n",
+              info_1, info_2, size);
       exit (1);
     }
 
-  memset (tmp, 0, n * sizeof (int));
+  memset (tmp, 0, size);
 
   return tmp;
 }
@@ -93,16 +95,18 @@ double *make_vector_double (
   const char *info_1,
   const char *info_2)
 {
-  double *tmp = (double *)malloc (n * sizeof (double));
+  unsigned int size = n * sizeof (double);
+
+  double *tmp = (double *)malloc (size);
 
   if (tmp == NULL)
     {
-      printf ("Error in %s %s : Fail to allocate %lu bytes\n",
-              info_1, info_2, n * sizeof (double));
+      printf ("Error in %s %s : Fail to allocate %u bytes\n",
+              info_1, info_2, size);
       exit (1);
     }
 
-  memset (tmp, 0, n * sizeof (double));
+  memset (tmp, 0, size);
 
   return tmp;
 }

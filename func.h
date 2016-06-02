@@ -82,4 +82,4 @@ double calc_sol_residual_norm (int Dim, const double *G, const double *V1,
 void init_prev_with_curr (int Dim, double *G, double *V1, double *V2,
                           double *G_prev, double *V1_prev, double *V2_prev);
 
-inline int is_equal (double x1, double x2);
+int is_equal (double x1, double x2);

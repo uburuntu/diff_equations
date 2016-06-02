@@ -1,3 +1,4 @@
+CC = gcc
 CFLAGS=-c -W -Wall -Wunused -Wcast-align -Werror -fstack-protector-all -Wfloat-equal -Wpointer-arith -Wwrite-strings -Wcast-align -Wno-format -Wno-long-long -Wmissing-declarations
 LDFLAGS=-W -Wall -Wunused -Wcast-align -Werror -fstack-protector-all -Wfloat-equal -Wpointer-arith -Wwrite-strings -Wcast-align -Wno-format -Wno-long-long -Wmissing-declarations -lm
 # You can add -Ofast flag for optimization, but che-to ne to schitaet
@@ -11,10 +12,10 @@ REPORT_FILENAME=theplot.pdf
 all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-	gcc $(OBJECTS) ./laspack/liblaspack.a -o $@ $(LDFLAGS)
+	$(CC) $(OBJECTS) ./laspack/liblaspack.a -o $@ $(LDFLAGS)
 
 .cpp.o:
-	gcc $(CFLAGS) $<
+	$(CC) $(CFLAGS) $<
 
 clean:
 	rm -rf *.o a.out leak.out output.txt

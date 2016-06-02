@@ -1,7 +1,7 @@
 #include <math.h>
 #include "func.h"
 
-inline int is_equal (double x1, double x2)
+int is_equal (double x1, double x2)
 {
   return fabs (x1 - x2) < MINIMAL_FOR_COMPARE;
 }

@@ -4,7 +4,7 @@
 # compatible with gnuplot >=4.2
 # author: Anna Schneider
 
-# line styles
+# line syles
 set style line 1 lc rgb '#FFFFD9' # very light yellow-green-blue
 set style line 2 lc rgb '#EDF8B1' #
 set style line 3 lc rgb '#C7E9B4' #

@@ -41,22 +41,20 @@
  *
  */
 
-#define a 1.
-#define c 2.
-#define b 3.
+#define A_LENGHT 1.
+#define C_LENGHT 2.
+#define B_LENGHT 3.
 
-void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif *p_d)
+void grid_square (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s)
 {
-  FIX_UNUSED (p_d);
-
-#if SQUARE
   int M1, M2;
+  int j, j1, j2;
   double hx, hy;
+
   M1 = p_s->M_x;
   M2 = p_s->M_y;
   hx = p_s->h_x;
   hy = p_s->h_y;
-  int j, j1, j2;
 
   st[0] = 5;
   M0L[0] = -1;
@@ -129,22 +127,26 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
   M0R[j] = -1;
   X[j] = M1 * hx;
   Y[j] = M2 * hy;
-#else
+}
+
+void grid_9_volodya (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s)
+{
   int M1, M2, M1_0, M2_0;
+  int j, j1, j2;
   double hx, hy;
+
   M1 = p_s->M_x;
   M2 = p_s->M_y;
   M1_0 = M1 - p_s->M_x_0;
   M2_0 = p_s->M_y_0;
   hx = p_s->h_x;
   hy = p_s->h_y;
-  int j, j1, j2;
 
   // (x, y) = (c, 0)
   st[0] = 5;
   M0L[0] = -1;
   M0R[0] = M1_0 + 1;
-  X[0] = c;
+  X[0] = C_LENGHT;
   Y[0] = 0.;
 
   // (X, Y) = {X = (c, b) & Y = {0}}
@@ -153,7 +155,7 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
       st[j1] = 3;
       M0L[j1] = -1;
       M0R[j1] = M1_0 + j1 + 1;
-      X[j1] = c + j1 * hx;
+      X[j1] = C_LENGHT + j1 * hx;
       Y[j1] = 0.;
     }
 
@@ -161,7 +163,7 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
   st[M1_0] = 6;
   M0L[M1_0] = -1;
   M0R[M1_0] = 2 * M1_0 + 1;
-  X[M1_0] = c + M1_0 * hx;
+  X[M1_0] = C_LENGHT + M1_0 * hx;
   Y[M1_0] = 0.;
   j = M1_0 + 1;
 
@@ -171,7 +173,7 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
       st[j] = 1;
       M0L[j] = j - M1_0 - 1;
       M0R[j] = j + M1_0 + 1;
-      X[j] = c;
+      X[j] = C_LENGHT;
       Y[j] = j2 * hy;
       j++;
 
@@ -181,7 +183,7 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
           st[j] = 0;
           M0L[j] = j - M1_0 - 1;
           M0R[j] = j + M1_0 + 1;
-          X[j] = c + j1 * hx;
+          X[j] = C_LENGHT + j1 * hx;
           Y[j] = j2 * hy;
           j++;
         }
@@ -190,7 +192,7 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
       st[j] = 2;
       M0L[j] = j - M1_0 - 1;
       M0R[j] = j + M1_0 + 1;
-      X[j] = c + M1_0 * hx;
+      X[j] = C_LENGHT + M1_0 * hx;
       Y[j] = j2 * hy;
       j++;
     }
@@ -201,7 +203,7 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
   st[j] = 1;
   M0L[j] = j - M1_0 - 1;
   M0R[j] = j + M1 + 1;
-  X[j] = c;
+  X[j] = C_LENGHT;
   Y[j] = (M2_0 - 1) * hy;
   j++;
 
@@ -211,7 +213,7 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
       st[j] = 0;
       M0L[j] = j - M1_0 - 1;
       M0R[j] = j + M1 + 1;
-      X[j] = c + j1 * hx;
+      X[j] = C_LENGHT + j1 * hx;
       Y[j] = (M2_0 - 1) * hy;
       j++;
     }
@@ -219,7 +221,7 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
   st[j] = 2;
   M0L[j] = j - M1_0 - 1;
   M0R[j] = j + M1 + 1;
-  X[j] = c + M1_0 * hx;
+  X[j] = C_LENGHT + M1_0 * hx;
   Y[j] = (M2_0 - 1) * hy;
   j++;
 
@@ -230,7 +232,7 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
   M0L[j] = -1;
   M0R[j] = j + M1 + 1;
   X[j] = 0.;
-  Y[j] = a;
+  Y[j] = A_LENGHT;
   j++;
 
   // (X, Y) = {X = (0, c) & Y = {a}}
@@ -240,7 +242,7 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
       M0L[j] = -1;
       M0R[j] = j + M1 + 1;
       X[j] = j1 * hx;
-      Y[j] = a;
+      Y[j] = A_LENGHT;
       j++;
     }
 
@@ -250,8 +252,8 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
       st[j] = 0;
       M0L[j] = j - M1 - 1;
       M0R[j] = j + M1 + 1;
-      X[j] = c + j1 * hx;
-      Y[j] = a;
+      X[j] = C_LENGHT + j1 * hx;
+      Y[j] = A_LENGHT;
       j++;
     }
 
@@ -259,8 +261,8 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
   st[j] = 2;
   M0L[j] = j - M1 - 1;
   M0R[j] = j + M1 + 1;
-  X[j] = b;
-  Y[j] = a;
+  X[j] = B_LENGHT;
+  Y[j] = A_LENGHT;
   j++;
 
   assert (j == (M1_0 + 1) * (M2_0) + (M1 + 1));
@@ -322,10 +324,407 @@ void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif
   X[j] = M1 * hx;
   Y[j] = M2 * hy;
   j++;
+
   assert (j == (M1_0 + 1) * (M2_0) + (M1 + 1) * (M2 + 1 - M2_0));
   assert (j == p_s->Dim);
-#endif
 }
-#undef a
-#undef c
-#undef b
+
+void grid_10_ramzan (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s)
+{
+  int M1, M2, M1_0, M2_0;
+  int j, j1, j2;
+  double hx, hy;
+
+  M1 = p_s->M_x;
+  M2 = p_s->M_y;
+  M1_0 = M1 - p_s->M_x_0;
+  M2_0 = p_s->M_y_0;
+  hx = p_s->h_x;
+  hy = p_s->h_y;
+
+  // (x, y) = (c, 0)
+  st[0] = 5;
+  M0L[0] = -1;
+  M0R[0] = M1_0 + 1;
+  X[0] = C_LENGHT;
+  Y[0] = 0.;
+
+  // (X, Y) = {X = (c, b) & Y = {0}}
+  for (j1 = 1; j1 < M1_0; j1++)
+    {
+      st[j1] = 3;
+      M0L[j1] = -1;
+      M0R[j1] = M1_0 + j1 + 1;
+      X[j1] = C_LENGHT + j1 * hx;
+      Y[j1] = 0.;
+    }
+
+  // (x, y) = (b, 0)
+  st[M1_0] = 6;
+  M0L[M1_0] = -1;
+  M0R[M1_0] = 2 * M1_0 + 1;
+  X[M1_0] = C_LENGHT + M1_0 * hx;
+  Y[M1_0] = 0.;
+  j = M1_0 + 1;
+
+  for (j2 = 1; j2 < M2_0 - 1; j2++)
+    {
+      // (X, Y) = {X = {c} & Y = (0, a - 1)}
+      st[j] = 1;
+      M0L[j] = j - M1_0 - 1;
+      M0R[j] = j + M1_0 + 1;
+      X[j] = C_LENGHT;
+      Y[j] = j2 * hy;
+      j++;
+
+      // internal nodes
+      for (j1 = 1; j1 < M1_0; j1++)
+        {
+          st[j] = 0;
+          M0L[j] = j - M1_0 - 1;
+          M0R[j] = j + M1_0 + 1;
+          X[j] = C_LENGHT + j1 * hx;
+          Y[j] = j2 * hy;
+          j++;
+        }
+
+      // (X, Y) = {X = {b} & Y = (0, a - 1)}
+      st[j] = 2;
+      M0L[j] = j - M1_0 - 1;
+      M0R[j] = j + M1_0 + 1;
+      X[j] = C_LENGHT + M1_0 * hx;
+      Y[j] = j2 * hy;
+      j++;
+    }
+
+  assert (j == (M1_0 + 1) * (M2_0 - 1));
+
+  // last non-boundary layer of smaller rectangle
+  st[j] = 1;
+  M0L[j] = j - M1_0 - 1;
+  M0R[j] = j + M1 + 1;
+  X[j] = C_LENGHT;
+  Y[j] = (M2_0 - 1) * hy;
+  j++;
+
+  // internal nodes of last non-boundary layer of smaller rectangle
+  for (j1 = 1; j1 < M1_0; j1++)
+    {
+      st[j] = 0;
+      M0L[j] = j - M1_0 - 1;
+      M0R[j] = j + M1 + 1;
+      X[j] = C_LENGHT + j1 * hx;
+      Y[j] = (M2_0 - 1) * hy;
+      j++;
+    }
+
+  st[j] = 2;
+  M0L[j] = j - M1_0 - 1;
+  M0R[j] = j + M1 + 1;
+  X[j] = C_LENGHT + M1_0 * hx;
+  Y[j] = (M2_0 - 1) * hy;
+  j++;
+
+  assert (j == (M1_0 + 1) * (M2_0));
+
+  // (x, y) = (0, a)
+  st[j] = 5;
+  M0L[j] = -1;
+  M0R[j] = j + M1 + 1;
+  X[j] = 0.;
+  Y[j] = A_LENGHT;
+  j++;
+
+  // (X, Y) = {X = (0, c) & Y = {a}}
+  for (j1 = 1; j1 < p_s->M_x_0; j1++)
+    {
+      st[j] = 3;
+      M0L[j] = -1;
+      M0R[j] = j + M1 + 1;
+      X[j] = j1 * hx;
+      Y[j] = A_LENGHT;
+      j++;
+    }
+
+  // (X, Y) = {X = [c, b) & Y = a}
+  for (j1 = 0; j1 < M1_0; j1++)
+    {
+      st[j] = 0;
+      M0L[j] = j - M1 - 1;
+      M0R[j] = j + M1 + 1;
+      X[j] = C_LENGHT + j1 * hx;
+      Y[j] = A_LENGHT;
+      j++;
+    }
+
+  // (x, y) = (b, a)
+  st[j] = 2;
+  M0L[j] = j - M1 - 1;
+  M0R[j] = j + M1 + 1;
+  X[j] = B_LENGHT;
+  Y[j] = A_LENGHT;
+  j++;
+
+  assert (j == (M1_0 + 1) * (M2_0) + (M1 + 1));
+
+  for (j2 = M2_0 + 1; j2 < M2; j2++)
+    {
+      // (X, Y) = {X = {0} & Y = (a, b)}
+      st[j] = 1;
+      M0L[j] = j - M1 - 1;
+      M0R[j] = j + M1 + 1;
+      X[j] = 0.;
+      Y[j] = j2 * hy;
+      j++;
+
+      // internal nodes
+      for (j1 = 1; j1 < M1; j1++)
+        {
+          st[j] = 0;
+          M0L[j] = j - M1 - 1;
+          M0R[j] = j + M1 + 1;
+          X[j] = j1 * hx;
+          Y[j] = j2 * hy;
+          j++;
+        }
+
+      // (X, Y) = {X = {b} & Y = (0, a - 1)}
+      st[j] = 2;
+      M0L[j] = j - M1 - 1;
+      M0R[j] = j + M1 + 1;
+      X[j] = M1 * hx;
+      Y[j] = j2 * hy;
+      j++;
+    }
+
+  assert (j == (M1_0 + 1) * (M2_0) + (M1 + 1) * (M2 - M2_0));
+
+  // (x, y) = (0, b)
+  st[j] = 7;
+  M0L[j] = j - M1 - 1;
+  M0R[j] = -1;
+  X[j] = 0.;
+  Y[j] = M2 * hy;
+  j++;
+
+  for (j1 = 1; j1 < M1; j1++)
+    {
+      st[j] = 4;
+      M0L[j] = j - M1 - 1;
+      M0R[j] = -1;
+      X[j] = j1 * hx;
+      Y[j] = M2 * hy;
+      j++;
+    }
+
+  // (x, y) = (b, b)
+  st[j] = 8;
+  M0L[j] = j - M1 - 1;
+  M0R[j] = -1;
+  X[j] = M1 * hx;
+  Y[j] = M2 * hy;
+  j++;
+
+  assert (j == (M1_0 + 1) * (M2_0) + (M1 + 1) * (M2 + 1 - M2_0));
+  assert (j == p_s->Dim);
+}
+
+void grid_11_nastya (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s)
+{
+  int M1, M2, M1_0, M2_0;
+  int j, j1, j2;
+  double hx, hy;
+
+  M1 = p_s->M_x;
+  M2 = p_s->M_y;
+  M1_0 = M1 - p_s->M_x_0;
+  M2_0 = p_s->M_y_0;
+  hx = p_s->h_x;
+  hy = p_s->h_y;
+
+  // (x, y) = (c, 0)
+  st[0] = 5;
+  M0L[0] = -1;
+  M0R[0] = M1_0 + 1;
+  X[0] = C_LENGHT;
+  Y[0] = 0.;
+
+  // (X, Y) = {X = (c, b) & Y = {0}}
+  for (j1 = 1; j1 < M1_0; j1++)
+    {
+      st[j1] = 3;
+      M0L[j1] = -1;
+      M0R[j1] = M1_0 + j1 + 1;
+      X[j1] = C_LENGHT + j1 * hx;
+      Y[j1] = 0.;
+    }
+
+  // (x, y) = (b, 0)
+  st[M1_0] = 6;
+  M0L[M1_0] = -1;
+  M0R[M1_0] = 2 * M1_0 + 1;
+  X[M1_0] = C_LENGHT + M1_0 * hx;
+  Y[M1_0] = 0.;
+  j = M1_0 + 1;
+
+  for (j2 = 1; j2 < M2_0 - 1; j2++)
+    {
+      // (X, Y) = {X = {c} & Y = (0, a - 1)}
+      st[j] = 1;
+      M0L[j] = j - M1_0 - 1;
+      M0R[j] = j + M1_0 + 1;
+      X[j] = C_LENGHT;
+      Y[j] = j2 * hy;
+      j++;
+
+      // internal nodes
+      for (j1 = 1; j1 < M1_0; j1++)
+        {
+          st[j] = 0;
+          M0L[j] = j - M1_0 - 1;
+          M0R[j] = j + M1_0 + 1;
+          X[j] = C_LENGHT + j1 * hx;
+          Y[j] = j2 * hy;
+          j++;
+        }
+
+      // (X, Y) = {X = {b} & Y = (0, a - 1)}
+      st[j] = 2;
+      M0L[j] = j - M1_0 - 1;
+      M0R[j] = j + M1_0 + 1;
+      X[j] = C_LENGHT + M1_0 * hx;
+      Y[j] = j2 * hy;
+      j++;
+    }
+
+  assert (j == (M1_0 + 1) * (M2_0 - 1));
+
+  // last non-boundary layer of smaller rectangle
+  st[j] = 1;
+  M0L[j] = j - M1_0 - 1;
+  M0R[j] = j + M1 + 1;
+  X[j] = C_LENGHT;
+  Y[j] = (M2_0 - 1) * hy;
+  j++;
+
+  // internal nodes of last non-boundary layer of smaller rectangle
+  for (j1 = 1; j1 < M1_0; j1++)
+    {
+      st[j] = 0;
+      M0L[j] = j - M1_0 - 1;
+      M0R[j] = j + M1 + 1;
+      X[j] = C_LENGHT + j1 * hx;
+      Y[j] = (M2_0 - 1) * hy;
+      j++;
+    }
+
+  st[j] = 2;
+  M0L[j] = j - M1_0 - 1;
+  M0R[j] = j + M1 + 1;
+  X[j] = C_LENGHT + M1_0 * hx;
+  Y[j] = (M2_0 - 1) * hy;
+  j++;
+
+  assert (j == (M1_0 + 1) * (M2_0));
+
+  // (x, y) = (0, a)
+  st[j] = 5;
+  M0L[j] = -1;
+  M0R[j] = j + M1 + 1;
+  X[j] = 0.;
+  Y[j] = A_LENGHT;
+  j++;
+
+  // (X, Y) = {X = (0, c) & Y = {a}}
+  for (j1 = 1; j1 < p_s->M_x_0; j1++)
+    {
+      st[j] = 3;
+      M0L[j] = -1;
+      M0R[j] = j + M1 + 1;
+      X[j] = j1 * hx;
+      Y[j] = A_LENGHT;
+      j++;
+    }
+
+  // (X, Y) = {X = [c, b) & Y = a}
+  for (j1 = 0; j1 < M1_0; j1++)
+    {
+      st[j] = 0;
+      M0L[j] = j - M1 - 1;
+      M0R[j] = j + M1 + 1;
+      X[j] = C_LENGHT + j1 * hx;
+      Y[j] = A_LENGHT;
+      j++;
+    }
+
+  // (x, y) = (b, a)
+  st[j] = 2;
+  M0L[j] = j - M1 - 1;
+  M0R[j] = j + M1 + 1;
+  X[j] = B_LENGHT;
+  Y[j] = A_LENGHT;
+  j++;
+
+  assert (j == (M1_0 + 1) * (M2_0) + (M1 + 1));
+
+  for (j2 = M2_0 + 1; j2 < M2; j2++)
+    {
+      // (X, Y) = {X = {0} & Y = (a, b)}
+      st[j] = 1;
+      M0L[j] = j - M1 - 1;
+      M0R[j] = j + M1 + 1;
+      X[j] = 0.;
+      Y[j] = j2 * hy;
+      j++;
+
+      // internal nodes
+      for (j1 = 1; j1 < M1; j1++)
+        {
+          st[j] = 0;
+          M0L[j] = j - M1 - 1;
+          M0R[j] = j + M1 + 1;
+          X[j] = j1 * hx;
+          Y[j] = j2 * hy;
+          j++;
+        }
+
+      // (X, Y) = {X = {b} & Y = (0, a - 1)}
+      st[j] = 2;
+      M0L[j] = j - M1 - 1;
+      M0R[j] = j + M1 + 1;
+      X[j] = M1 * hx;
+      Y[j] = j2 * hy;
+      j++;
+    }
+
+  assert (j == (M1_0 + 1) * (M2_0) + (M1 + 1) * (M2 - M2_0));
+
+  // (x, y) = (0, b)
+  st[j] = 7;
+  M0L[j] = j - M1 - 1;
+  M0R[j] = -1;
+  X[j] = 0.;
+  Y[j] = M2 * hy;
+  j++;
+
+  for (j1 = 1; j1 < M1; j1++)
+    {
+      st[j] = 4;
+      M0L[j] = j - M1 - 1;
+      M0R[j] = -1;
+      X[j] = j1 * hx;
+      Y[j] = M2 * hy;
+      j++;
+    }
+
+  // (x, y) = (b, b)
+  st[j] = 8;
+  M0L[j] = j - M1 - 1;
+  M0R[j] = -1;
+  X[j] = M1 * hx;
+  Y[j] = M2 * hy;
+  j++;
+
+  assert (j == (M1_0 + 1) * (M2_0) + (M1 + 1) * (M2 + 1 - M2_0));
+  assert (j == p_s->Dim);
+}

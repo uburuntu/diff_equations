@@ -387,7 +387,7 @@ int  Sxema (double *G, double *V1, double *V2,
                 {
                   g00 = G[m];
                   v100 = u1 (tt, xx, yy);
-                  v200 = (NO_SMOOTH && !SQUARE && is_equal (yy, 0.) ? V2[M0R[m]] : u2 (tt, xx, yy));
+                  v200 = (NO_SMOOTH && (grid_type != SQUARE) && is_equal (yy, 0.) ? V2[M0R[m]] : u2 (tt, xx, yy));
                   mmv20R = (3 * M0R[m] + 1) + 2;
 
                   // g(mx,my)--------------------------------------------

@@ -253,6 +253,7 @@ int main ()
                       break;
                     }
                 }
+
               for (i = 0; i < p_s.Dim; i++)
                 {
                   if (!fscanf (stat_sol_in, "%lf ", V1_stat + i))
@@ -261,6 +262,7 @@ int main ()
                       break;
                     }
                 }
+
               for (i = 0; i < p_s.Dim; i++)
                 {
                   if (!fscanf (stat_sol_in, "%lf ", V2_stat + i))
@@ -285,7 +287,33 @@ int main ()
           M0R = (int *) malloc ((p_s.Dim) * sizeof (int));
 
           // Define properties of nodes
-          Setka (st, X, Y, M0L, M0R, &p_s, &p_d);
+          switch (grid_type)
+            {
+              case SQUARE:
+                {
+                  grid_square (st, X, Y, M0L, M0R, &p_s);
+                  break;
+                }
+
+              case VOLODYA_9:
+                {
+                  grid_9_volodya (st, X, Y, M0L, M0R, &p_s);
+                  break;
+                }
+
+              case RAMZAN_10:
+                {
+                  grid_10_ramzan (st, X, Y, M0L, M0R, &p_s);
+                  break;
+                }
+
+              case NASTYA_11:
+                {
+                  grid_11_nastya (st, X, Y, M0L, M0R, &p_s);
+                  break;
+                }
+            }
+
           // Run calculations
           ret = Sxema (G, V1, V2,
                        G_prev, V1_prev, V2_prev,

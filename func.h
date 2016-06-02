@@ -10,9 +10,19 @@
 #define W       0.1
 
 #define NO_SMOOTH      1
-#define STAT_SOL_SRCH  0
-#define EIG_FUNC_INIT  1
-#define SQUARE         1
+#define STAT_SOL_SRCH  1
+#define EIG_FUNC_INIT  0
+
+typedef enum enum_grid_type_t
+  {
+    SQUARE,
+    VOLODYA_9,
+    RAMZAN_10,
+    NASTYA_11,
+  } grid_type_t;
+
+// Change this
+static const grid_type_t grid_type = SQUARE;
 
 #define LIGHT_FUNCS   0
 #define LIGHT_G       0
@@ -66,7 +76,10 @@ double Func_g (double t, double x, double y);
 double Func_v1 (double t, double x, double y, double p_ro, double mu);
 double Func_v2 (double t, double x, double y, double p_ro, double mu);
 
-void Setka (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s, P_dif *p_d);
+void grid_square (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s);
+void grid_9_volodya (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s);
+void grid_10_ramzan (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s);
+void grid_11_nastya (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s);
 
 int  Sxema (double *G, double *V1, double *V2,
             double *G_prev, double *V1_prev, double *V2_prev,

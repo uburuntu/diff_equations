@@ -127,8 +127,8 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
   double a_J_RL, a_W1_RL, a_W2_RL;
   double a_J_RR, a_W1_RR, a_W2_RR;
 
-  double Hx2 = (1. / (2 * Hx));
-  double Hy2 = (1. / (2 * Hy));
+  double Hx2 = (1. / (2  / Hx));
+  double Hy2 = (1. / (2  / Hy));
 
   // Чтобы избежать багов заполняем здесь ВСЕ уравнения,
   // ненужные потом в конверте не копируем в укороченный вектор au.
@@ -200,24 +200,24 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
 
               // second equation
               RECREATE_COEFFS;
-              a_W1_0L = - (v200 + fabs (v200)) * Hy2 - mu * exp (-g00) * Hy * Hy;
+              a_W1_0L = - (v200 + fabs (v200)) * Hy2 - mu * exp (-g00)  / Hy  / Hy;
 
               a_J_L0  = -p_ro * Hx2; // p_ro = p_ro(g00)
-              a_W1_L0 = - (v100 + fabs (v100)) * Hx2 - mu * exp (-g00) * (4. / 3.) * Hx * Hx;
+              a_W1_L0 = - (v100 + fabs (v100)) * Hx2 - mu * exp (-g00) * (4. / 3.)  / Hx  / Hx;
 
               a_J_00  = p_2ro * (gR0 - gL0) * Hx2 + mu * exp (-g00) * (
-                          (4. / 3.) * (v1R0 - 2. * v100 + v1L0) * Hx * Hx +
-                          (v10R - 2. * v100 + v10L) * Hy * Hy +
+                          (4. / 3.) * (v1R0 - 2. * v100 + v1L0)  / Hx  / Hx +
+                          (v10R - 2. * v100 + v10L)  / Hy  / Hy +
                           (1. / 3.) * (v2RR - v2RL - v2LR + v2LL) * Hx2 * Hy2);
-              a_W1_00 = fabs (v100) * Hx + fabs (v200) * Hy +
+              a_W1_00 = fabs (v100)  / Hx + fabs (v200)  / Hy +
                         (v100 > 0. ? (v100 - v1L0) / Hx : (v1R0 - v100) / Hx) +
-                        mu * exp (-g00) * 2. * ((4. / 3.) * Hx * Hx + Hy * Hy);
+                        mu * exp (-g00) * 2. * ((4. / 3.)  / Hx  / Hx + Hy  / Hy);
               a_W2_00 = (v200 > 0. ? (v100 - v10L) / Hy : (v10R - v100) / Hy);
 
               a_J_R0  = p_ro * Hx2;
-              a_W1_R0 = (v100 - fabs (v100)) * Hx2 - mu * exp (-g00) * (4. / 3.) * Hx * Hx;
+              a_W1_R0 = (v100 - fabs (v100)) * Hx2 - mu * exp (-g00) * (4. / 3.)  / Hx  / Hx;
 
-              a_W1_0R = (v200 - fabs (v200)) * Hy2 - mu * exp (-g00) * Hy * Hy;
+              a_W1_0R = (v200 - fabs (v200)) * Hy2 - mu * exp (-g00)  / Hy  / Hy;
 
               a_W2_RR = - mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
               a_W2_RL = mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
@@ -240,23 +240,23 @@ int L_op (double *Lu, const double *u, const UserDataCurr_struct *udc,
               // third equation
               RECREATE_COEFFS;
               a_J_0L  = - p_ro * Hy2;
-              a_W2_0L = - (v200 + fabs (v200)) * Hy2 - mu * exp (-g00) * (4. / 3.) * Hy * Hy;
+              a_W2_0L = - (v200 + fabs (v200)) * Hy2 - mu * exp (-g00) * (4. / 3.)  / Hy  / Hy;
 
-              a_W2_L0 = - (v100 + fabs (v100)) * Hx2 - mu * exp (-g00) * Hx * Hx;
+              a_W2_L0 = - (v100 + fabs (v100)) * Hx2 - mu * exp (-g00)  / Hx  / Hx;
 
               a_J_00  = p_2ro * (g0R - g0L) * Hx2 + mu * exp (-g00) * (
-                          (4. / 3.) * (v20R - 2. * v200 + v20L) * Hy * Hy +
-                          (v2R0 - 2. * v200 + v2L0) * Hx * Hx +
+                          (4. / 3.) * (v20R - 2. * v200 + v20L)  / Hy  / Hy +
+                          (v2R0 - 2. * v200 + v2L0)  / Hx  / Hx +
                           (1. / 3.) * (v1RR - v1RL - v1LR + v1LL) * Hx2 * Hy2);
               a_W1_00 = (v100 > 0. ? (v200 - v2L0) / Hx : (v2R0 - v200) / Hx);
-              a_W2_00 = fabs (v100) * Hx + fabs (v200) * Hy +
+              a_W2_00 = fabs (v100)  / Hx + fabs (v200)  / Hy +
                         (v200 > 0. ? (v200 - v20L) / Hy : (v20R - v200) / Hy) +
-                        mu * exp (-g00) * 2. * ((4. / 3.) * Hy * Hy + Hx * Hx);
+                        mu * exp (-g00) * 2. * ((4. / 3.)  / Hy  / Hy + Hx  / Hx);
 
-              a_W2_R0 = (v100 - fabs (v100)) * Hx2 - mu * exp (-g00) * Hx * Hx;
+              a_W2_R0 = (v100 - fabs (v100)) * Hx2 - mu * exp (-g00)  / Hx  / Hx;
 
               a_J_0R  = p_ro * Hy2;
-              a_W2_0R = (v200 - fabs (v200)) * Hy2 - mu * exp (-g00) * (4. / 3.) * Hy * Hy;;
+              a_W2_0R = (v200 - fabs (v200)) * Hy2 - mu * exp (-g00) * (4. / 3.)  / Hy  / Hy;;
 
               a_W1_RR = - mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
               a_W1_RL = mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;

@@ -8,7 +8,7 @@ inline int is_equal (double x1, double x2)
 
 void param_dif (P_dif *p_d)
 {
-#if STAT_SOL_SRCH
+#if STAT_SOL_SRCH || EIG_FUNC_INIT
   p_d->Segm_T = 100;
 #else
   p_d->Segm_T = 1;
@@ -26,7 +26,7 @@ void param_she_step (P_she *p_s, P_dif *p_d, int it_t, int it_sp)
   // main rectangle
   p_s->M_x = 60;
   p_s->M_y = 60;
-#if STAT_SOL_SRCH
+#if STAT_SOL_SRCH || EIG_FUNC_INIT
   p_s->N   = 2000;
 #else
   p_s->N   = 20;

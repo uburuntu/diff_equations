@@ -217,30 +217,31 @@ int main ()
                   CLOSE_ALL();
                   return -1;
                 }
-              CLOSE_FILE(eig_func_in);
+              //CLOSE_FILE(eig_func_in);
 
               G_stat   = (double *) malloc ((p_s.Dim) * sizeof (double)); // press array of nodes
               V1_stat  = (double *) malloc ((p_s.Dim) * sizeof (double)); // v1 array of nodes
               V2_stat  = (double *) malloc ((p_s.Dim) * sizeof (double)); // v2 array of nodes
 
-              if (!fscanf (eig_func_in, "%lf ", &i) || i != p_s.Dim)
+              if (!fscanf (stat_sol_in, "%d ", &i) || i != p_s.Dim)
                 {
+                  printf ("%d %d", i, p_s.Dim);
                   ret = -999;
                 }
 
               for (i = 0; i < p_s.Dim; i++)
                 {
-                  if (!fscanf (eig_func_in, "%lf ", G_stat + i))
+                  if (!fscanf (stat_sol_in, "%lf ", G_stat + i))
                     {
                       ret = -999;
                       break;
                     }
-                  if (!fscanf (eig_func_in, "%lf ", V1_stat + i))
+                  if (!fscanf (stat_sol_in, "%lf ", V1_stat + i))
                     {
                       ret = -999;
                       break;
                     }
-                  if (!fscanf (eig_func_in, "%lf ", V2_stat + i))
+                  if (!fscanf (stat_sol_in, "%lf ", V2_stat + i))
                     {
                       ret = -999;
                       break;
@@ -249,12 +250,12 @@ int main ()
               if (ret < 0)
                 {
                   printf ("fread error: incorrect G_stat, V1_stat, V2_stat filling from %s\n",
-                          "./eigen/results/eigenfun_00.txt \n");
+                          "./eigen/stat_sol.txt \n");
                   FREE_ALL();
                   CLOSE_ALL();
                   return -1;
                 }
-              CLOSE_FILE(stat_sol_in);
+              //CLOSE_FILE(stat_sol_in);
             }
 
           st  = (int *) malloc ((p_s.Dim) * sizeof (int));     // status of nodes
@@ -322,8 +323,8 @@ int main ()
           if (EIG_FUNC_INIT && it_sp == it_t && it_sp == 0 &&
               ret == 2 /* stat_sol was found in EIG mode*/)
             {
-              FREE_ALL();
-              CLOSE_ALL();
+              //FREE_ALL();
+              //CLOSE_ALL();
               return 0;
             }
 
@@ -376,8 +377,8 @@ int main ()
       make_tabletex();
     }
 
-  FREE_ALL();
-  CLOSE_ALL();
+  //FREE_ALL();
+  //CLOSE_ALL();
   return 0;
 }
 

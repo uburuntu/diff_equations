@@ -86,7 +86,7 @@ int *make_vector_int (
 
   if (tmp == NULL)
     {
-      printf ("Error in %s %s : Fail to allocate %u bytes\n",
+      printf ("Error in %s %s : Fail to allocate %lu bytes\n",
               info_1, info_2, n * sizeof (int));
       exit (1);
     }
@@ -105,7 +105,7 @@ double *make_vector_double (
 
   if (tmp == NULL)
     {
-      printf ("Error in %s %s : Fail to allocate %u bytes\n",
+      printf ("Error in %s %s : Fail to allocate %lu bytes\n",
               info_1, info_2, n * sizeof (double));
       exit (1);
     }

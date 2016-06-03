@@ -96,53 +96,53 @@ void param_she_step (P_she *p_s, P_dif *p_d, int it_t, int it_sp)
           break;
         }
 
-      case NASTYA_11:
-        {
-          // main rectangle
-          p_s->M_x = 60;
-          p_s->M_y = 60;
-        #if STAT_SOL_SRCH || EIG_FUNC_INIT
-          p_s->N   = 2000;
-        #elif NO_SMOOTH
-          p_s->N   = 100;
-        #else
-          p_s->N   = 20;
-        #endif
+  case NASTYA_11:
+          {
+            // main rectangle
+            p_s->M_x = 60;
+            p_s->M_y = 60;
+          #if STAT_SOL_SRCH || EIG_FUNC_INIT
+            p_s->N   = 2000;
+          #elif NO_SMOOTH
+            p_s->N   = 100;
+          #else
+            p_s->N   = 20;
+          #endif
 
-          // cut rectangle
-          p_s->M_x_0 = 20;
-          p_s->M_y_0 = 20;
+            // cut rectangle
+            p_s->M_x_0 = 20;
+            p_s->M_y_0 = 20;
 
-          int i, k_sp, k_t;
-          k_sp = 1;
-          k_t = 1;
+            int i, k_sp, k_t;
+            k_sp = 1;
+            k_t = 1;
 
-          if (it_sp > 0)
-            {
-              for (i = 1; i <= it_sp; i++)
-                {
-                  k_sp *= 2;
-                }
-            }
+            if (it_sp > 0)
+              {
+                for (i = 1; i <= it_sp; i++)
+                  {
+                    k_sp *= 2;
+                  }
+              }
 
-          if (it_t > 0)
-            {
-              for (i = 1; i <= it_t; i++)
-                {
-                  k_t *= 2;
-                }
-            }
+            if (it_t > 0)
+              {
+                for (i = 1; i <= it_t; i++)
+                  {
+                    k_t *= 2;
+                  }
+              }
 
-          p_s->M_x *= k_sp;
-          p_s->M_y *= k_sp;
-          p_s->N   *= k_t;
+            p_s->M_x *= k_sp;
+            p_s->M_y *= k_sp;
+            p_s->N   *= k_t;
 
-          p_s->M_x_0 *= k_sp;
-          p_s->M_y_0 *= k_sp;
+            p_s->M_x_0 *= k_sp;
+            p_s->M_y_0 *= k_sp;
 
-          p_s->Dim = (p_s->M_x + 1) * (p_s->M_y + 1) - 4 * (p_s->M_x_0 + 0) * (p_s->M_y_0 + 0);
-          break;
-        }
+            p_s->Dim = (p_s->M_x + 1) * (p_s->M_y + 1) - 4 * (p_s->M_x_0 + 0) * (p_s->M_y_0 + 0);
+            break;
+          }
     }
 
   p_s->h_x = p_d->Segm_X / p_s->M_x;

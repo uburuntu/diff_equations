@@ -589,7 +589,6 @@ void grid_11_nastya (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p
     hx = p_s->h_x;
     hy = p_s->h_y;
 
-    //j = 0;
     // (x, y) = (0, 0)
     st[0] = 5;
     M0L[0] = -1;
@@ -597,7 +596,6 @@ void grid_11_nastya (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p
     X[0] = 0.;
     Y[0] = 0.;
 
-    //j = 1;
     // (X, Y) = {X = (0, a) & Y = {0}}
     for (j1 = 1; j1 < MA; j1++)
       {
@@ -606,7 +604,6 @@ void grid_11_nastya (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p
         M0R[j1] = MA + MA + j1 + 1;
         X[j1] = j1 * hx;
         Y[j1] = 0.;
-        //j++;
       }
 
     // (x, y) = (a, 0)
@@ -615,9 +612,7 @@ void grid_11_nastya (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p
     M0R[MA] = MA + MA + 1;
     X[MA] = A_LENGHT;
     Y[MA] = 0.;
-    //j++;
 
-    //assert (j == (MA + 1));
     j = MA + 1;
     // (x, y) = (c, 0)
     st[j] = 5;
@@ -625,7 +620,6 @@ void grid_11_nastya (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p
     M0R[j] = MC + 1;
     X[j] = C_LENGHT;
     Y[j] = 0.;
-    j++;
 
     // (X, Y) = {X = (c, b) & Y = {0}}
     for (j1 = 1; j1 < MA; j1++)
@@ -638,11 +632,11 @@ void grid_11_nastya (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p
       }
 
     // (x, y) = (b, 0)
-    st[MC] = 6;
-    M0L[MC] = -1;
-    M0R[MC] = MC + 1;
-    X[MC] = C_LENGHT + MA * hx;
-    Y[MC] = 0.;
+    st[MC + 1] = 6;
+    M0L[MC + 1] = -1;
+    M0R[MC + 1] = MC + 1;
+    X[MC + 1] = C_LENGHT + MA * hx;
+    Y[MC + 1] = 0.;
     j = MC + 2;
 
     //__________________________________________

@@ -17,7 +17,8 @@ void print_plot (char *file_name, double *X, double *Y,
 
 int make_graph (char *texname, char *plotname, double h1, double h2,
                 double tau, double t);
-void make_tabletex();
+
+void make_tabletex (void);
 
 void printhead (FILE *fout);
 void printtail (FILE *fout);

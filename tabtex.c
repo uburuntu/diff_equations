@@ -240,7 +240,7 @@ void tabtex_time (int it_t_max, int it_sp_max, double *time, double *tauit,
   fclose (fi1);
 }
 
-void make_tabletex()
+void make_tabletex (void)
 {
   FILE *fout;
 

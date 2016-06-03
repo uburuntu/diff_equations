@@ -1,6 +1,6 @@
 CC = gcc
-CFLAGS=-c -g -W -Wall -Wunused -Wcast-align -Werror -fstack-protector-all -Wfloat-equal -Wpointer-arith -Wwrite-strings -Wcast-align -Wno-format -Wno-long-long -Wmissing-declarations
-LDFLAGS=-g -W -Wall -Wunused -Wcast-align -Werror -fstack-protector-all -Wfloat-equal -Wpointer-arith -Wwrite-strings -Wcast-align -Wno-format -Wno-long-long -Wmissing-declarations -lm
+CFLAGS=-c -g -W -Wall -Wunused -Wcast-align -Werror -fstack-protector-all -Wfloat-equal -Wpointer-arith -Wwrite-strings -Wcast-align -Wno-long-long -Wmissing-declarations -std=gnu99
+LDFLAGS=-g -W -Wall -Wunused -Wcast-align -Werror -fstack-protector-all -Wfloat-equal -Wpointer-arith -Wwrite-strings -Wcast-align -Wno-long-long -Wmissing-declarations -std=gnu99 -lm
 # You can add -Ofast flag for optimization, but che-to ne to schitaet
 
 SOURCES=func.c gas_two.c setka.c gnuplot.c shema.c tabtex.c

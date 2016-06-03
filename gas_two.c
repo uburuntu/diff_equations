@@ -31,18 +31,32 @@
   CLOSE_FILE(stat_sol_in);  \
   CLOSE_FILE(eig_func_in);}
 
-int main ()
+int main (void)
 {
   int ret;
   int i;
-  FILE *stat_sol_out = NULL;
-  FILE *stat_sol_in  = NULL;
-  FILE *eig_func_in  = NULL;
+  int it_t, it_t_max, it_sp, it_sp_max, n_ver, it;
+  double *nc_g, *nl2_g, *nc_v1, *nc_v2, *nl2_v1, *nl2_v2;
+  double *time, *tauit;
 
+  FILE *stat_sol_out;
+  FILE *stat_sol_in;
+  FILE *eig_func_in;
+  FILE *fout;
+
+  P_she p_s;
   P_dif p_d;
+
+  int *st, *M0L, *M0R;
+  double *X, *Y, *G, *V1, *V2;
+  double *G_prev, *V1_prev, *V2_prev;
+  double *G_eigen, *V1_eigen, *V2_eigen;
+  double *G_stat, *V1_stat, *V2_stat;
+
+  clock_t BegClock, EndClock;
+
   param_dif (&p_d);
 
-  int it_t, it_t_max, it_sp, it_sp_max, n_ver, it;
 
   if (STAT_SOL_SRCH || EIG_FUNC_INIT)
     {
@@ -59,9 +73,6 @@ int main ()
   it_sp = 0;
 
   n_ver = (it_t_max + 1) * (it_sp_max + 1);
-
-  double *nc_g, *nl2_g, *nc_v1, *nc_v2, *nl2_v1, *nl2_v2;
-  double *time, *tauit;
 
   if (!NO_SMOOTH)
     {
@@ -85,14 +96,6 @@ int main ()
   time = (double *) malloc ((n_ver) * sizeof (double));
   tauit = (double *) malloc ((it_t_max + 1) * sizeof (double));
 
-  P_she p_s;
-
-  int *st, *M0L, *M0R;
-  double *X, *Y, *G, *V1, *V2;
-  double *G_prev, *V1_prev, *V2_prev;
-  double *G_eigen, *V1_eigen, *V2_eigen;
-  double *G_stat, *V1_stat, *V2_stat;
-
   st = NULL;
   M0L = NULL;
   M0R = NULL;
@@ -111,9 +114,10 @@ int main ()
   V1_stat = NULL;
   V2_stat = NULL;
 
-  clock_t BegClock, EndClock;
-  //-------------------------------------------------
-  FILE *fout;
+  stat_sol_out = NULL;
+  stat_sol_in  = NULL;
+  eig_func_in  = NULL;
+
 
   if (!NO_SMOOTH)
     {

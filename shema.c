@@ -30,14 +30,9 @@ int  Sxema (double *G, double *V1, double *V2,
   double norm;
   double hx, hy, tau, mu, p_ro;
 
-  N   = p_s->N;
-  Dim = p_s->Dim;
-  hx  = p_s->h_x;
-  hy  = p_s->h_y;
-  tau = p_s->tau;
-
-  mu   = p_d->mu;
-  p_ro = p_d->p_ro;
+  // Solver defs
+  static const int max_iters = 2000;
+  static const double precond_omega = 1.;
 
   // Local variables
   int nn, m, mm;
@@ -63,6 +58,19 @@ int  Sxema (double *G, double *V1, double *V2,
   double thxy_1_12, thxp_05, thyp_05;
   double thxx_4_3, thyy_4_3, thxx, thyy;
 
+  QMatrix A;
+  Vector D, B;
+
+  N   = p_s->N;
+  Dim = p_s->Dim;
+  hx  = p_s->h_x;
+  hy  = p_s->h_y;
+  tau = p_s->tau;
+
+  mu   = p_d->mu;
+  p_ro = p_d->p_ro;
+
+
   thx       = tau / hx;
   thy       = tau / hy;
   thx_05    = 0.5 * thx;
@@ -76,8 +84,6 @@ int  Sxema (double *G, double *V1, double *V2,
   thyy      = tau / (hy * hy);
 
   // A -- sparse matrix of the system, D -- solution vector, B -- rhs vector
-  QMatrix A;
-  Vector D, B;
   Q_Constr (&A, char_A, 3 * Dim, False, Rowws, Normal, True);
   V_Constr (&B, char_B, 3 * Dim, Normal, True);
   V_Constr (&D, char_D, 3 * Dim, Normal, True);
@@ -592,8 +598,6 @@ int  Sxema (double *G, double *V1, double *V2,
         }
 
       // Solver
-      static const int max_iters = 2000;
-      static const double precond_omega = 1.;
 
       switch (4)
         {

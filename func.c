@@ -26,6 +26,8 @@ void param_dif (P_dif *p_d)
 void param_she_step (P_she *p_s, P_dif *p_d, int it_t, int it_sp)
 {
   // main rectangle
+  int i, k_sp, k_t;
+
   p_s->M_x = 60;
   p_s->M_y = 60;
 #if STAT_SOL_SRCH || EIG_FUNC_INIT
@@ -40,7 +42,6 @@ void param_she_step (P_she *p_s, P_dif *p_d, int it_t, int it_sp)
   p_s->M_x_0 = 40;
   p_s->M_y_0 = 20;
 
-  int i, k_sp, k_t;
   k_sp = 1;
   k_t = 1;
 
@@ -113,7 +114,6 @@ void param_she_step (P_she *p_s, P_dif *p_d, int it_t, int it_sp)
             p_s->M_x_0 = 20;
             p_s->M_y_0 = 20;
 
-            int i, k_sp, k_t;
             k_sp = 1;
             k_t = 1;
 

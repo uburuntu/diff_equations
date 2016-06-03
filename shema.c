@@ -356,7 +356,7 @@ int  Sxema (double *G, double *V1, double *V2,
               case 2:
                 {
                   g00 = G[m];
-                  v100 = (NO_SMOOTH && SQUARE ? V1[m - 1] : u1 (tt, xx, yy));
+                  v100 = (NO_SMOOTH && (grid_type == SQUARE) ? V1[m - 1] : u1 (tt, xx, yy));
                   v200 = u2 (tt, xx, yy);
                   mmv1L0 = mm - 2;
 

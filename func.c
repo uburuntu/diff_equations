@@ -9,7 +9,7 @@ int is_equal (double x1, double x2)
 void param_dif (P_dif *p_d)
 {
 #if STAT_SOL_SRCH || EIG_FUNC_INIT
-  p_d->Segm_T = 100;
+  p_d->Segm_T = 200;
 #elif NO_SMOOTH
   p_d->Segm_T = 5;
 #else
@@ -31,7 +31,7 @@ void param_she_step (P_she *p_s, P_dif *p_d, int it_t, int it_sp)
   p_s->M_x = 60;
   p_s->M_y = 60;
 #if STAT_SOL_SRCH || EIG_FUNC_INIT
-  p_s->N   = 2000;
+  p_s->N   = 4000;
 #elif NO_SMOOTH
   p_s->N   = 100;
 #else

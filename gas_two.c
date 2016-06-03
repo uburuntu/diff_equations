@@ -6,6 +6,7 @@
 
 #include "tabtex.h"
 #include "func.h"
+#include "config.h"
 #include "gnuplot.h"
 
 /*

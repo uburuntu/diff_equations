@@ -2,6 +2,7 @@
 #include <math.h>
 #include "gnuplot.h"
 #include "func.h"
+#include "config.h"
 
 char *plot_name (char *name, double tau, double h1, double h2, int t)
 {
@@ -147,10 +148,10 @@ int make_graph (const char *texname, const char *plotname, double h1, double h2,
 
   fclose (fout);
 
-  if (!NO_SMOOTH)
-      fout = fopen (OUTTEX_SMOOTH, "a+");
+  if (calc_type == SMOOTH)
+    fout = fopen (OUTTEX_SMOOTH, "a+");
   else
-      fout = fopen (OUTTEX_ABRUPT, "a+");
+    fout = fopen (OUTTEX_ABRUPT, "a+");
 
   if (fout != NULL)
       fprintf (fout, "\\input{%s} \n", texname);

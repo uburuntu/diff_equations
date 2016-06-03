@@ -9,8 +9,7 @@
 */
 
 #include "f.h"
-
-#define ST_SOL_FILE "stat_sol.txt"
+#include "../config.h"
 
 int main (void)
 {
@@ -77,10 +76,23 @@ int main (void)
 
   eigen_functions = make_vector_double (n_eigen_values * (3 * ud.N), __FILE__, __FUNCTION__);
 
-  calc_mesh_params (st, X, Y, M0L, M0R, (void *) (&ud));
+  // Choose area type
+  switch (grid_type)
+    {
+    case SQUARE:
+      calc_mesh_params_square (st, X, Y, M0L, M0R, (void *) (&ud));
+      break;
+    case VOLODYA_9:
+      calc_mesh_params_volodya_9 (st, X, Y, M0L, M0R, (void *) (&ud));
+      break;
+    case RAMZAN_10:
+      calc_mesh_params_ramzan_10 (st, X, Y, M0L, M0R, (void *) (&ud));
+      break;
+    case NASTYA_11:
+      calc_mesh_params_nastya_11 (st, X, Y, M0L, M0R, (void *) (&ud));
+      break;
+    }
 
-  // TODO: look through this function to check correctness
-  // i have checked, but i`m not sure it`s correct...
   n_found_eigen_values = find_eigen_values (eigen_values, eigen_functions_A_op,
                          ud.NA, n_eigen_values,
                          max_iterations, tolerance,

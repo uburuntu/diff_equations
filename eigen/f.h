@@ -40,7 +40,7 @@
 
 #define MINIMAL_FOR_COMPARE 1.e-16
 
-#define SQUARE 1
+#define ST_SOL_FILE "stat_sol.txt"
 
 typedef struct
 {
@@ -64,7 +64,6 @@ typedef struct
 
 } user_data;
 
-
 void init_user_data (user_data *ud);
 
 int L_op (double *Lu, const double *u, const user_data *ud,
@@ -78,8 +77,10 @@ void fill_node_phys_prop (int m, // number of mesh node
                           const double *const p, const int *const M0L,
                           const int *const M0R);
 
-void calc_mesh_params (int *st, double *X, double *Y, int *M0L,
-                       int *M0R, const user_data *ud);
+void calc_mesh_params_square (int *st, double *X, double *Y, int *M0L, int *M0R, const user_data *ud);
+void calc_mesh_params_volodya_9 (int *st, double *X, double *Y, int *M0L, int *M0R, const user_data *ud);
+void calc_mesh_params_ramzan_10 (int *st, double *X, double *Y, int *M0L, int *M0R, const user_data *ud);
+void calc_mesh_params_nastya_11 (int *st, double *X, double *Y, int *M0L, int *M0R, const user_data *ud);
 
 void print_2dfun_double (FILE *f, const double *u, const int n);
 

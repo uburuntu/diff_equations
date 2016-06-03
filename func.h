@@ -3,26 +3,6 @@
 #define CLOSE_FILE(X) if ((X)) fclose ((X)); (X) = NULL
 
 #define MINIMAL_FOR_COMPARE   1.e-16
-#define STAT_SOL_EPS          1.e-12
-
-#define RHO_0   0.5
-#define RHO_G   0.3
-#define W       0.1
-
-#define NO_SMOOTH      0
-#define STAT_SOL_SRCH  0
-#define EIG_FUNC_INIT  0
-
-typedef enum enum_grid_type_t
-  {
-    SQUARE,
-    VOLODYA_9,
-    RAMZAN_10,
-    NASTYA_11,
-  } grid_type_t;
-
-// Change this
-static const grid_type_t grid_type = SQUARE;
 
 // Working area is a rectangle which is located in a first quadrant.
 // Its sides are parallel to axes OXY and one vertex is located in (0, 0).

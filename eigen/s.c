@@ -9,6 +9,7 @@
 */
 
 #include "f.h"
+#include "../config.h"
 
 #define RECREATE_COEFFS       \
   a_J_0L = a_W1_0L = a_W2_0L =\
@@ -21,34 +22,79 @@
   a_J_RL = a_W1_RL = a_W2_RL =\
   a_J_RR = a_W1_RR = a_W2_RR = 0.
 
-void init_user_data (
-    user_data *ud)
+void init_user_data (user_data *ud)
 {
   // Number of mesh nodes
   ud->Nx   =  61;
   ud->Ny   =  61;
-  ud->Nx_0 =  41;
-  ud->Ny_0 =  21;
+  ud->Nx_0 =  0;
+  ud->Ny_0 =  0;
 
-#if SQUARE
-  ud->N  = ud->Nx * ud->Ny;
-  ud->NA = 3 * (ud->Nx - 2) * (ud->Ny - 2) +   // inner nodes
-      2 * (ud->Ny - 2) +                  // right boundary
-      1 * (ud->Nx - 2) +                  // down boundary
-      1 * (ud->Nx - 2) +                  // top boundary
-      0 * (ud->Ny - 2) +                  // left boundary
-      0 * 4;                              // vertices of square
-#else
-  ud->N = ud->Nx * ud->Ny - (ud->Nx_0 - 1) * (ud->Ny_0 - 1);
-  ud->NA = 3 * ((ud->Nx - 2) * (ud->Ny - 2) - (ud->Nx_0 - 1) * (ud->Ny_0 - 1) + 1) +
-      2 * (ud->Nx - ud->Nx_0 - 1) +       // II-part of down boundary
-      1 * (ud->Ny_0 - 2) +                // I-part of left boundary
-      1 * (ud->Ny - 2) +                  // right boundary
-      1 * (ud->Nx - 2) +                  // top boundary
-      1 * (ud->Nx_0 - 2) +                // I-part of down boundary
-      0 * (ud->Ny - ud->Ny_0 - 1) +       // II-part of left boundary
-      0 * 5;                              // vertices
-#endif
+  switch (grid_type)
+    {
+    case SQUARE:
+      {
+        ud->N  = ud->Nx * ud->Ny;
+        ud->NA = 3 * (ud->Nx - 2) * (ud->Ny - 2) +   // inner nodes
+                 2 * (ud->Ny - 2) +                  // right boundary
+                 1 * (ud->Nx - 2) +                  // down boundary
+                 1 * (ud->Nx - 2) +                  // top boundary
+                 0 * (ud->Ny - 2) +                  // left boundary
+                 0 * 4;                              // vertices of square
+        break;
+      }
+    case VOLODYA_9:
+      {
+        ud->Nx_0 = 41;
+        ud->Ny_0 = 21;
+
+        ud->N = ud->Nx * ud->Ny - (ud->Nx_0 - 1) * (ud->Ny_0 - 1);
+
+        ud->NA = 3 * ((ud->Nx - 2) * (ud->Ny - 2) - (ud->Nx_0 - 1) * (ud->Ny_0 - 1) + 1) +
+                 2 * (ud->Nx - ud->Nx_0 - 1) +       // II-part of down boundary
+                 1 * (ud->Ny_0 - 2) +                // I-part of left boundary
+                 1 * (ud->Ny - 2) +                  // right boundary
+                 1 * (ud->Nx - 2) +                  // top boundary
+                 1 * (ud->Nx_0 - 2) +                // I-part of down boundary
+                 0 * (ud->Ny - ud->Ny_0 - 1) +       // II-part of left boundary
+                 0 * 5;
+        break;
+      }
+    case RAMZAN_10:
+      {
+        ud->Nx_0 = 21;
+        ud->Ny_0 = 21;
+
+        ud->N = ud->Nx * ud->Ny - (ud->Nx_0 - 1) * (ud->Ny_0 - 1);
+
+        ud->NA = 3 * ((ud->Nx - 2) * (ud->Ny - 2) - (ud->Nx_0 - 1) * (ud->Ny_0 - 1) + 1) +
+                 2 * (ud->Nx - ud->Nx_0 - 1) +       // II-part of down boundary
+                 1 * (ud->Ny_0 - 2) +                // I-part of left boundary
+                 1 * (ud->Ny - 2) +                  // right boundary
+                 1 * (ud->Nx - 2) +                  // top boundary
+                 1 * (ud->Nx_0 - 2) +                // I-part of down boundary
+                 0 * (ud->Ny - ud->Ny_0 - 1) +       // II-part of left boundary
+                 0 * 5;
+        break;
+      }
+    case NASTYA_11:
+      {
+        ud->Nx_0 = 21;
+        ud->Ny_0 = 21;
+
+        ud->N = ud->Nx * ud->Ny - (ud->Nx_0 - 1) * (ud->Ny_0 - 1);
+
+        ud->NA = 3 * ((ud->Nx - 2) * (ud->Ny - 2) - (ud->Nx_0 - 1) * (ud->Ny_0 - 1) + 1) +
+                 2 * (ud->Nx - ud->Nx_0 - 1) +       // II-part of down boundary
+                 1 * (ud->Ny_0 - 2) +                // I-part of left boundary
+                 1 * (ud->Ny - 2) +                  // right boundary
+                 1 * (ud->Nx - 2) +                  // top boundary
+                 1 * (ud->Nx_0 - 2) +                // I-part of down boundary
+                 0 * (ud->Ny - ud->Ny_0 - 1) +       // II-part of left boundary
+                 0 * 5;
+        break;
+      }
+    }
 
   ud->Lx = 3.;
   ud->Ly = 3.;
@@ -126,10 +172,6 @@ int L_op (double *Lu, const double *u, const user_data *ud,
   // ненужные потом в конверте не копируем в укороченный вектор au.
   int mm = 0;
 
-
-  // DON`T DELETE THIS PARAMETER
-  // IT MAY BE USED FOR ANOTHER NO-SQUARE MESH
-  // !!!!
   FIX_UNUSED(X);
 
   for (m = 0; m < N; m++)
@@ -366,8 +408,34 @@ int L_op (double *Lu, const double *u, const user_data *ud,
             // second equation
 
             RECREATE_COEFFS;
-            a_W1_00 = 1.;
-            a_W1_L0 = (SQUARE ? -1. : 0.);
+
+            switch (grid_type)
+              {
+                case SQUARE:
+                  {
+                    a_W1_00 = 1.;
+                    a_W1_L0 = -1.;
+                    break;
+                  }
+                case VOLODYA_9:
+                  {
+                    a_W1_00 = 1.;
+                    a_W1_L0 = 0.;
+                    break;
+                  }
+                case RAMZAN_10:
+                  {
+                    a_W1_00 = 1.;
+                    a_W1_L0 = 0.;
+                    break;
+                  }
+                case NASTYA_11:
+                  {
+                    a_W1_00 = 1.;
+                    a_W1_L0 = 0.;
+                    break;
+                  }
+              }
 
             // New Lu elements:
             Lu[mm] =
@@ -444,8 +512,34 @@ int L_op (double *Lu, const double *u, const user_data *ud,
             // third equation
 
             RECREATE_COEFFS;
-            a_W2_00 = 1.;
-            a_W2_0R = (!SQUARE && is_equal(Y[m], 0.) ? -1. : 0.);
+
+            switch (grid_type)
+              {
+                case SQUARE:
+                  {
+                    a_W2_00 = 1.;
+                    a_W2_0R = -1.;
+                    break;
+                  }
+                case VOLODYA_9:
+                  {
+                    a_W2_00 = 1.;
+                    a_W2_0R = is_equal (Y[m], 0.) ? -1. : 0.;
+                    break;
+                  }
+                case RAMZAN_10:
+                  {
+                    a_W2_00 = 1.;
+                    a_W2_0R = is_equal (Y[m], 0.) ? -1. : 0.;
+                    break;
+                  }
+                case NASTYA_11:
+                  {
+                    a_W2_00 = 1.;
+                    a_W2_0R = is_equal (Y[m], 0.) ? -1. : 0.;
+                    break;
+                  }
+              }
 
             // New Lu elements:
             Lu[mm] =
@@ -799,11 +893,32 @@ int convert_u_to_au (double *au, const double  *u, const user_data *ud,
           {
             // 0 non-trivial equations
             // first equation
-            if (!SQUARE && !is_equal(X[m], 0.))
+            switch (grid_type)
               {
-                au[m2] = u[m1];
-                m2++;
+                case SQUARE:
+                  {
+                    break;
+                  }
+                case VOLODYA_9:
+                  {
+                    if (!is_equal(X[m], 0.))
+                      {
+                        au[m2] = u[m1];
+                        m2++;
+                      }
+
+                    break;
+                  }
+                case RAMZAN_10:
+                  {
+                    break;
+                  }
+                case NASTYA_11:
+                  {
+                    break;
+                  }
               }
+
             m1++;
             // second equation
             m1++;
@@ -819,13 +934,25 @@ int convert_u_to_au (double *au, const double  *u, const user_data *ud,
             au[m2] = u[m1];
             m1++;
             m2++;
+
             // second equation
-            if (SQUARE)
+            switch (grid_type)
               {
-                au[m2] = u[m1];
-                m2++;
+                case SQUARE:
+                  {
+                    au[m2] = u[m1];
+                    m2++;
+                    break;
+                  }
+                case VOLODYA_9:
+                case RAMZAN_10:
+                case NASTYA_11:
+                  {
+                    break;
+                  }
               }
             m1++;
+
             // third equation
             m1++;
             break;
@@ -841,10 +968,29 @@ int convert_u_to_au (double *au, const double  *u, const user_data *ud,
             // second equation
             m1++;
             // third equation
-            if (!SQUARE && is_equal (Y[m], 0.))
+            switch (grid_type)
               {
-                au[m2] = u[m1];
-                m2++;
+                case SQUARE:
+                  {
+                    break;
+                  }
+                case VOLODYA_9:
+                  {
+                    if (is_equal (Y[m], 0.))
+                      {
+                        au[m2] = u[m1];
+                        m2++;
+                      }
+                    break;
+                  }
+                case RAMZAN_10:
+                  {
+                    break;
+                  }
+                case NASTYA_11:
+                  {
+                    break;
+                  }
               }
             m1++;
             break;
@@ -957,15 +1103,27 @@ int convert_au_to_u (double *u, const double  *au, const user_data *ud,
           {
             // 0 non-trivial equations
             // first equation
-            if (!SQUARE && !is_equal(X[m], 0.))
+            switch (grid_type)
               {
-                u[m1] =  au[m2];
-                m2++;
+                case SQUARE:
+                  {
+                    u[m1] =  0.;
+                    break;
+                  }
+                case VOLODYA_9:
+                case RAMZAN_10:
+                case NASTYA_11:
+                  {
+                    if (!is_equal(X[m], 0.))
+                      {
+                        u[m1] =  au[m2];
+                        m2++;
+                      }
+
+                    break;
+                  }
               }
-            else
-              {
-                u[m1] =  0.;
-              }
+
             m1++;
             // second equation
             u[m1] =  0.;
@@ -984,14 +1142,28 @@ int convert_au_to_u (double *u, const double  *au, const user_data *ud,
             m1++;
             m2++;
             // second equation
-            if (SQUARE)
+            switch (grid_type)
               {
-                u[m1] = au[m2];
-                m2++;
-              }
-            else
-              {
-                u[m1] = 0.;
+                case SQUARE:
+                  {
+                    u[m1] = au[m2];
+                    m2++;
+                    break;
+                  }
+                case VOLODYA_9:
+                  {
+                    u[m1] = 0.;
+
+                    break;
+                  }
+                case RAMZAN_10:
+                  {
+                    break;
+                  }
+                case NASTYA_11:
+                  {
+                    break;
+                  }
               }
             m1++;
             // third equation
@@ -1011,14 +1183,31 @@ int convert_au_to_u (double *u, const double  *au, const user_data *ud,
             u[m1] = 0.;
             m1++;
             // third equation
-            if (!SQUARE && is_equal (Y[m], 0.))
+            switch (grid_type)
               {
-                u[m1] = au[m2];
-                m2++;
-              }
-            else
-              {
-                u[m1] =  0.;
+                case SQUARE:
+                  {
+                    u[m1] =  0.;
+                    break;
+                  }
+                case VOLODYA_9:
+                  {
+                    if (is_equal (Y[m], 0.))
+                      {
+                        u[m1] = au[m2];
+                        m2++;
+                      }
+
+                    break;
+                  }
+                case RAMZAN_10:
+                  {
+                    break;
+                  }
+                case NASTYA_11:
+                  {
+                    break;
+                  }
               }
             m1++;
             break;

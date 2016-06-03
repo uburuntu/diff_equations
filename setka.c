@@ -1,10 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
+#include "config.h"
 #include "func.h"
-
-#define A_LENGHT 1.
-#define C_LENGHT 2.
-#define B_LENGHT 3.
 
 void grid_square (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s)
 {
@@ -330,12 +327,6 @@ void grid_9_volodya (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p
   assert (j == (M1_0 + 1) * (M2_0) + (M1 + 1) * (M2 + 1 - M2_0));
   assert (j == p_s->Dim);
 }
-
-
-/*
- *
- *
- */
 
 void grid_10_ramzan (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s)
 {

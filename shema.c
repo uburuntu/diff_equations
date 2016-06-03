@@ -10,6 +10,7 @@
 #include "laspack/version.h"
 #include "laspack/copyrght.h"
 #include "func.h"
+#include "config.h"
 #include "gnuplot.h"
 
 int  Sxema (double *G, double *V1, double *V2,

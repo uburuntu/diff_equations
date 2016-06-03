@@ -1,5 +1,6 @@
 #include <math.h>
 #include "func.h"
+#include "config.h"
 
 int is_equal (double x1, double x2)
 {

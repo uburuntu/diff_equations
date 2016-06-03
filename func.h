@@ -9,9 +9,9 @@
 #define RHO_G   0.3
 #define W       0.1
 
-#define NO_SMOOTH      1
+#define NO_SMOOTH      0
 #define STAT_SOL_SRCH  0
-#define EIG_FUNC_INIT  1
+#define EIG_FUNC_INIT  0
 
 typedef enum enum_grid_type_t
   {

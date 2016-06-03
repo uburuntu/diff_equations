@@ -625,9 +625,14 @@ int  Sxema (double *G, double *V1, double *V2,
           if (norm < STAT_SOL_EPS)
             {
               if (calc_type == STAT_SOL_SRCH)
-                printf ("Stationary solution has been found at T = %d. \n", nn);
+                {
+                  printf ("Stationary solution has been found at T = %d. \n", nn);
+                }
               else if (calc_type == EIG_FUNC_INIT)
-                printf ("Solution has stabilized at T = %d. \n", nn);
+                {
+                  printf ("Solution has stabilized at T = %d. \n", nn);
+                }
+
               printf ("Accuracy = %e. \n", STAT_SOL_EPS);
               Q_Destr (&A);
               V_Destr (&D);
@@ -650,9 +655,14 @@ int  Sxema (double *G, double *V1, double *V2,
   if ((calc_type == STAT_SOL_SRCH || calc_type == EIG_FUNC_INIT) && G_prev && V1_prev && V2_prev)
     {
       if (calc_type == STAT_SOL_SRCH)
-        printf ("Sorry: stationary solution has been found at T = %d. \n", nn);
+        {
+          printf ("Sorry: stationary solution has been found at T = %d. \n", nn);
+        }
       else if (calc_type == EIG_FUNC_INIT)
-        printf ("Sorry: solution has not stabilized at T = %d. \n", nn);
+        {
+          printf ("Sorry: solution has not stabilized at T = %d. \n", nn);
+        }
+
       printf ("Accuracy = %e. \n", STAT_SOL_EPS);
       return -1;
     }

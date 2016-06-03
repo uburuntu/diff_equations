@@ -570,293 +570,295 @@ void grid_10_ramzan (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p
 
 void grid_11_nastya (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s)
 {
-    int M1, M2;
-    double hx, hy;
-    int j, j1, j2;
-    int MA = p_s->M_x_0; // = M1 / 3;
-    int MC = 2 * MA;
-    M1 = p_s->M_x;
-    M2 = p_s->M_y - MA; // without upper layers
-    hx = p_s->h_x;
-    hy = p_s->h_y;
+  int M1, M2;
+  double hx, hy;
+  int j, j1, j2;
+  int MA = p_s->M_x_0; // = M1 / 3;
+  int MC = 2 * MA;
+  M1 = p_s->M_x;
+  M2 = p_s->M_y - MA; // without upper layers
+  hx = p_s->h_x;
+  hy = p_s->h_y;
 
-    // (x, y) = (0, 0)
-    st[0] = 5;
-    M0L[0] = -1;
-    M0R[0] = MA + MA + 1;
-    X[0] = 0.;
-    Y[0] = 0.;
+  // (x, y) = (0, 0)
+  st[0] = 5;
+  M0L[0] = -1;
+  M0R[0] = MA + MA + 1;
+  X[0] = 0.;
+  Y[0] = 0.;
 
-    // (X, Y) = {X = (0, a) & Y = {0}}
-    for (j1 = 1; j1 < MA; j1++)
-      {
-        st[j1] = 3;
-        M0L[j1] = -1;
-        M0R[j1] = MA + MA + j1 + 1;
-        X[j1] = j1 * hx;
-        Y[j1] = 0.;
-      }
+  // (X, Y) = {X = (0, a) & Y = {0}}
+  for (j1 = 1; j1 < MA; j1++)
+    {
+      st[j1] = 3;
+      M0L[j1] = -1;
+      M0R[j1] = MA + MA + j1 + 1;
+      X[j1] = j1 * hx;
+      Y[j1] = 0.;
+    }
 
-    // (x, y) = (a, 0)
-    st[MA] = 6;
-    M0L[MA] = -1;
-    M0R[MA] = MA + MA + 1;
-    X[MA] = A_LENGHT;
-    Y[MA] = 0.;
+  // (x, y) = (a, 0)
+  st[MA] = 6;
+  M0L[MA] = -1;
+  M0R[MA] = MA + MA + 1;
+  X[MA] = A_LENGHT;
+  Y[MA] = 0.;
 
-    j = MA + 1;
-    // (x, y) = (c, 0)
-    st[j] = 5;
-    M0L[j] = -1;
-    M0R[j] = MC + 1;
-    X[j] = C_LENGHT;
-    Y[j] = 0.;
+  j = MA + 1;
+  // (x, y) = (c, 0)
+  st[j] = 5;
+  M0L[j] = -1;
+  M0R[j] = MC + 1;
+  X[j] = C_LENGHT;
+  Y[j] = 0.;
 
-    // (X, Y) = {X = (c, b) & Y = {0}}
-    for (j1 = 1; j1 < MA; j1++)
-      {
-        st[j + j1] = 3;
-        M0L[j + j1] = -1;
-        M0R[j + j1] = MC + j1 + 1;
-        X[j + j1] = C_LENGHT + j1 * hx;
-        Y[j + j1] = 0.;
-      }
+  // (X, Y) = {X = (c, b) & Y = {0}}
+  for (j1 = 1; j1 < MA; j1++)
+    {
+      st[j + j1] = 3;
+      M0L[j + j1] = -1;
+      M0R[j + j1] = MC + j1 + 1;
+      X[j + j1] = C_LENGHT + j1 * hx;
+      Y[j + j1] = 0.;
+    }
 
-    // (x, y) = (b, 0)
-    st[MC + 1] = 6;
-    M0L[MC + 1] = -1;
-    M0R[MC + 1] = MC + 1;
-    X[MC + 1] = C_LENGHT + MA * hx;
-    Y[MC + 1] = 0.;
-    j = MC + 2;
+  // (x, y) = (b, 0)
+  st[MC + 1] = 6;
+  M0L[MC + 1] = -1;
+  M0R[MC + 1] = MC + 1;
+  X[MC + 1] = C_LENGHT + MA * hx;
+  Y[MC + 1] = 0.;
+  j = MC + 2;
 
-    //__________________________________________
+  //__________________________________________
 
-    // Y = (0, a - 1)
-    for (j2 = 1; j2 < MA - 1; j2++)
-      {
-        // (X, Y) = {X = {0} & Y = (0, a - 1)}
-        st[j] = 1;
-        M0L[j] = j - MC - 1;
-        M0R[j] = j + MC + 1;
-        X[j] = 0;
-        Y[j] = j2 * hy;
-        j++;
+  // Y = (0, a - 1)
+  for (j2 = 1; j2 < MA - 1; j2++)
+    {
+      // (X, Y) = {X = {0} & Y = (0, a - 1)}
+      st[j] = 1;
+      M0L[j] = j - MC - 1;
+      M0R[j] = j + MC + 1;
+      X[j] = 0;
+      Y[j] = j2 * hy;
+      j++;
 
-        // internal nodes
-        for (j1 = 1; j1 < MA; j1++)
-          {
-            st[j] = 0;
-            M0L[j] = j - MC - 1;
-            M0R[j] = j + MC+ 1;
-            X[j] = j1 * hx;
-            Y[j] = j2 * hy;
-            j++;
-          }
+      // internal nodes
+      for (j1 = 1; j1 < MA; j1++)
+        {
+          st[j] = 0;
+          M0L[j] = j - MC - 1;
+          M0R[j] = j + MC + 1;
+          X[j] = j1 * hx;
+          Y[j] = j2 * hy;
+          j++;
+        }
 
-        // (X, Y) = {X = {a} & Y = (0, a - 1)}
-        st[j] = 2;
-        M0L[j] = j - MC - 1;
-        M0R[j] = j + MC + 1;
-        X[j] = MA * hx;
-        Y[j] = j2 * hy;
-        j++;
-        // -------------------------------------
-        // (X, Y) = {X = {c} & Y = (0, a - 1)}
-        st[j] = 1;
-        M0L[j] = j - MC - 1;
-        M0R[j] = j + MC + 1;
-        X[j] = C_LENGHT;
-        Y[j] = j2 * hy;
-        j++;
+      // (X, Y) = {X = {a} & Y = (0, a - 1)}
+      st[j] = 2;
+      M0L[j] = j - MC - 1;
+      M0R[j] = j + MC + 1;
+      X[j] = MA * hx;
+      Y[j] = j2 * hy;
+      j++;
+      // -------------------------------------
+      // (X, Y) = {X = {c} & Y = (0, a - 1)}
+      st[j] = 1;
+      M0L[j] = j - MC - 1;
+      M0R[j] = j + MC + 1;
+      X[j] = C_LENGHT;
+      Y[j] = j2 * hy;
+      j++;
 
-        // internal nodes
-        for (j1 = 1; j1 < MA; j1++)
-          {
-            st[j] = 0;
-            M0L[j] = j - MC - 1;
-            M0R[j] = j + MC+ 1;
-            X[j] = C_LENGHT + j1 * hx;
-            Y[j] = j2 * hy;
-            j++;
-          }
+      // internal nodes
+      for (j1 = 1; j1 < MA; j1++)
+        {
+          st[j] = 0;
+          M0L[j] = j - MC - 1;
+          M0R[j] = j + MC + 1;
+          X[j] = C_LENGHT + j1 * hx;
+          Y[j] = j2 * hy;
+          j++;
+        }
 
-        // (X, Y) = {X = {b} & Y = (0, a - 1)}
-        st[j] = 2;
-        M0L[j] = j - MC - 1;
-        M0R[j] = j + MC + 1;
-        X[j] = C_LENGHT + MA * hx;
-        Y[j] = j2 * hy;
-        j++;
-      }
-    assert (j == 2 * (MA + 1) * (MA - 1));
+      // (X, Y) = {X = {b} & Y = (0, a - 1)}
+      st[j] = 2;
+      M0L[j] = j - MC - 1;
+      M0R[j] = j + MC + 1;
+      X[j] = C_LENGHT + MA * hx;
+      Y[j] = j2 * hy;
+      j++;
+    }
+
+  assert (j == 2 * (MA + 1) * (MA - 1));
   // ----------------------- 2:10 -------------------------
-    // last non-boundary layer of smaller rectangle x = 0
-    st[j] = 1;
-    M0L[j] = j - MC - 1;
-    M0R[j] = j + M1 + 1;
-    X[j] = 0;
-    Y[j] = (MA - 1) * hy;
-    j++;
+  // last non-boundary layer of smaller rectangle x = 0
+  st[j] = 1;
+  M0L[j] = j - MC - 1;
+  M0R[j] = j + M1 + 1;
+  X[j] = 0;
+  Y[j] = (MA - 1) * hy;
+  j++;
 
-    // internal nodes of last non-boundary layer of smaller rectangle
-    for (j1 = 1; j1 < MA; j1++)
-      {
-        st[j] = 0;
-        M0L[j] = j - MC - 1;
-        M0R[j] = j + M1 + 1;
-        X[j] = j1 * hx;
-        Y[j] = (MA - 1) * hy;
-        j++;
-      }
+  // internal nodes of last non-boundary layer of smaller rectangle
+  for (j1 = 1; j1 < MA; j1++)
+    {
+      st[j] = 0;
+      M0L[j] = j - MC - 1;
+      M0R[j] = j + M1 + 1;
+      X[j] = j1 * hx;
+      Y[j] = (MA - 1) * hy;
+      j++;
+    }
 
-    st[j] = 2;
-    M0L[j] = j - MC - 1;
-    M0R[j] = j + M1 + 1;
-    X[j] = MA * hx;
-    Y[j] = (MA - 1) * hy;
-    j++;
+  st[j] = 2;
+  M0L[j] = j - MC - 1;
+  M0R[j] = j + M1 + 1;
+  X[j] = MA * hx;
+  Y[j] = (MA - 1) * hy;
+  j++;
 
-    // last non-boundary layer of smaller rectangle x = C
-    st[j] = 1;
-    M0L[j] = j - MC - 1;
-    M0R[j] = j + M1 + 1;
-    X[j] = C_LENGHT;
-    Y[j] = (MA - 1) * hy;
-    j++;
+  // last non-boundary layer of smaller rectangle x = C
+  st[j] = 1;
+  M0L[j] = j - MC - 1;
+  M0R[j] = j + M1 + 1;
+  X[j] = C_LENGHT;
+  Y[j] = (MA - 1) * hy;
+  j++;
 
-    // internal nodes of last non-boundary layer of smaller rectangle
-    for (j1 = 1; j1 < MA; j1++)
-      {
-        st[j] = 0;
-        M0L[j] = j - MC - 1;
-        M0R[j] = j + M1 + 1;
-        X[j] = C_LENGHT + j1 * hx;
-        Y[j] = (MA - 1) * hy;
-        j++;
-      }
+  // internal nodes of last non-boundary layer of smaller rectangle
+  for (j1 = 1; j1 < MA; j1++)
+    {
+      st[j] = 0;
+      M0L[j] = j - MC - 1;
+      M0R[j] = j + M1 + 1;
+      X[j] = C_LENGHT + j1 * hx;
+      Y[j] = (MA - 1) * hy;
+      j++;
+    }
 
-    st[j] = 2;
-    M0L[j] = j - MC - 1;
-    M0R[j] = j + M1 + 1;
-    X[j] = C_LENGHT + MA * hx;
-    Y[j] = (MA - 1) * hy;
-    j++;
+  st[j] = 2;
+  M0L[j] = j - MC - 1;
+  M0R[j] = j + M1 + 1;
+  X[j] = C_LENGHT + MA * hx;
+  Y[j] = (MA - 1) * hy;
+  j++;
 
-    assert (j == 2 * (MA + 1) * (MA));
-    // ----------------------- 2:58 -------------------------
+  assert (j == 2 * (MA + 1) * (MA));
+  // ----------------------- 2:58 -------------------------
 
-    // (x, y) = (0, a)
-    st[j] = 1;
-    M0L[j] = j - MC - 1;
-    M0R[j] = j + M1 + 1;
-    X[j] = 0.;
-    Y[j] = A_LENGHT;
-    j++;
+  // (x, y) = (0, a)
+  st[j] = 1;
+  M0L[j] = j - MC - 1;
+  M0R[j] = j + M1 + 1;
+  X[j] = 0.;
+  Y[j] = A_LENGHT;
+  j++;
 
-    // (X, Y) = {X = (0, a] & Y = {a}}
-    for (j1 = 1; j1 <= MA; j1++)
-      {
-        st[j] = 0;
-        M0L[j] = j - MC - 1;
-        M0R[j] = j + M1 + 1;
-        X[j] = j1 * hx;
-        Y[j] = A_LENGHT;
-        j++;
-      }
+  // (X, Y) = {X = (0, a] & Y = {a}}
+  for (j1 = 1; j1 <= MA; j1++)
+    {
+      st[j] = 0;
+      M0L[j] = j - MC - 1;
+      M0R[j] = j + M1 + 1;
+      X[j] = j1 * hx;
+      Y[j] = A_LENGHT;
+      j++;
+    }
 
-    // (X, Y) = {X = (a, c) & Y = {a}}
-    for (j1 = 1; j1 < MA; j1++)
-      {
-        st[j] = 3;
-        M0L[j] = -1;
-        M0R[j] = j + M1 + 1;
-        X[j] = A_LENGHT + j1 * hx;
-        Y[j] = A_LENGHT;
-        j++;
-      }
+  // (X, Y) = {X = (a, c) & Y = {a}}
+  for (j1 = 1; j1 < MA; j1++)
+    {
+      st[j] = 3;
+      M0L[j] = -1;
+      M0R[j] = j + M1 + 1;
+      X[j] = A_LENGHT + j1 * hx;
+      Y[j] = A_LENGHT;
+      j++;
+    }
 
-    // (X, Y) = {X = [c, b) & Y = a}
-    for (j1 = 0; j1 < MA; j1++)
-      {
-        st[j] = 0;
-        M0L[j] = j - M1 - 1;
-        M0R[j] = j + M1 + 1;
-        X[j] = C_LENGHT + j1 * hx;
-        Y[j] = A_LENGHT;
-        j++;
-      }
+  // (X, Y) = {X = [c, b) & Y = a}
+  for (j1 = 0; j1 < MA; j1++)
+    {
+      st[j] = 0;
+      M0L[j] = j - M1 - 1;
+      M0R[j] = j + M1 + 1;
+      X[j] = C_LENGHT + j1 * hx;
+      Y[j] = A_LENGHT;
+      j++;
+    }
 
-    // (x, y) = (b, a)
-    st[j] = 2;
-    M0L[j] = j - M1 - 1;
-    M0R[j] = j + M1 + 1;
-    X[j] = B_LENGHT;
-    Y[j] = A_LENGHT;
-    j++;
+  // (x, y) = (b, a)
+  st[j] = 2;
+  M0L[j] = j - M1 - 1;
+  M0R[j] = j + M1 + 1;
+  X[j] = B_LENGHT;
+  Y[j] = A_LENGHT;
+  j++;
 
-    assert (j == 2 * (MA + 1) * (MA) + (M1 + 1));
+  assert (j == 2 * (MA + 1) * (MA) + (M1 + 1));
+
   // ----------------------- 2:30 -------------------------
-    for (j2 = MA + 1; j2 < M2; j2++)
-      {
-        // (X, Y) = {X = {0} & Y = (a, b)}
-        st[j] = 1;
-        M0L[j] = j - M1 - 1;
-        M0R[j] = j + M1 + 1;
-        X[j] = 0.;
-        Y[j] = j2 * hy;
-        j++;
+  for (j2 = MA + 1; j2 < M2; j2++)
+    {
+      // (X, Y) = {X = {0} & Y = (a, b)}
+      st[j] = 1;
+      M0L[j] = j - M1 - 1;
+      M0R[j] = j + M1 + 1;
+      X[j] = 0.;
+      Y[j] = j2 * hy;
+      j++;
 
-        // internal nodes
-        for (j1 = 1; j1 < M1; j1++)
-          {
-            st[j] = 0;
-            M0L[j] = j - M1 - 1;
-            M0R[j] = j + M1 + 1;
-            X[j] = j1 * hx;
-            Y[j] = j2 * hy;
-            j++;
-          }
+      // internal nodes
+      for (j1 = 1; j1 < M1; j1++)
+        {
+          st[j] = 0;
+          M0L[j] = j - M1 - 1;
+          M0R[j] = j + M1 + 1;
+          X[j] = j1 * hx;
+          Y[j] = j2 * hy;
+          j++;
+        }
 
-        // (X, Y) = {X = {b} & Y = (0, a - 1)}
-        st[j] = 2;
-        M0L[j] = j - M1 - 1;
-        M0R[j] = j + M1 + 1;
-        X[j] = M1 * hx;
-        Y[j] = j2 * hy;
-        j++;
-      }
+      // (X, Y) = {X = {b} & Y = (0, a - 1)}
+      st[j] = 2;
+      M0L[j] = j - M1 - 1;
+      M0R[j] = j + M1 + 1;
+      X[j] = M1 * hx;
+      Y[j] = j2 * hy;
+      j++;
+    }
 
-    assert (j == 2 * (MA + 1) * (MA) + (M1 + 1) * (M2 - MA));
-    assert (j == 2 * (MA + 1) * (MA) + (M1 + 1) * MA);
-    // ----------------------- 3:00 -------------------------
+  assert (j == 2 * (MA + 1) * (MA) + (M1 + 1) * (M2 - MA));
+  assert (j == 2 * (MA + 1) * (MA) + (M1 + 1) * MA);
+  // ----------------------- 3:00 -------------------------
 
-    // (x, y) = (0, b)
-    st[j] = 7;
-    M0L[j] = j - M1 - 1;
-    M0R[j] = -1;
-    X[j] = 0.;
-    Y[j] = M2 * hy;
-    j++;
+  // (x, y) = (0, b)
+  st[j] = 7;
+  M0L[j] = j - M1 - 1;
+  M0R[j] = -1;
+  X[j] = 0.;
+  Y[j] = M2 * hy;
+  j++;
 
-    for (j1 = 1; j1 < M1; j1++)
-      {
-        st[j] = 4;
-        M0L[j] = j - M1 - 1;
-        M0R[j] = -1;
-        X[j] = j1 * hx;
-        Y[j] = M2 * hy;
-        j++;
-      }
+  for (j1 = 1; j1 < M1; j1++)
+    {
+      st[j] = 4;
+      M0L[j] = j - M1 - 1;
+      M0R[j] = -1;
+      X[j] = j1 * hx;
+      Y[j] = M2 * hy;
+      j++;
+    }
 
-    // (x, y) = (b, b)
-    st[j] = 8;
-    M0L[j] = j - M1 - 1;
-    M0R[j] = -1;
-    X[j] = M1 * hx;
-    Y[j] = M2 * hy;
-    j++;
-    assert (j == 2 * (MA + 1) * (MA) + (M1 + 1) * (M2 + 1 - MA));
-    assert (j == 2 * (MA + 1) * (MA) + (M1 + 1) * (MA + 1));
-    assert (j == p_s->Dim);
+  // (x, y) = (b, b)
+  st[j] = 8;
+  M0L[j] = j - M1 - 1;
+  M0R[j] = -1;
+  X[j] = M1 * hx;
+  Y[j] = M2 * hy;
+  j++;
+  assert (j == 2 * (MA + 1) * (MA) + (M1 + 1) * (M2 + 1 - MA));
+  assert (j == 2 * (MA + 1) * (MA) + (M1 + 1) * (MA + 1));
+  assert (j == p_s->Dim);
 }

@@ -28,7 +28,9 @@ void print_plot (const char *file_name, double *X, double *Y,
   int i;
 
   if (!file_name)
+    {
       printf ("Incorrect filename by time %lf\n", tt);
+    }
 
   if (! (fp = fopen (file_name, "w+")))
     {
@@ -42,7 +44,9 @@ void print_plot (const char *file_name, double *X, double *Y,
       fprintf (fp, "%f %f %f %f %f\n", Y[i], X[i], V2[i], V1[i], exp (G[i]));
 
       if ( i < size - 1 && fabs (Y[i] - Y[i + 1]) > 1e-6)
+        {
           fprintf (fp, "\n");
+        }
     }
 
   fclose (fp);
@@ -54,7 +58,9 @@ void print_data (const char *file_name, double *G, double *V1, double *V2, int s
   int i;
 
   if (!file_name)
+    {
       printf ("Incorrect filename\n");
+    }
 
   if (! (fp = fopen (file_name, "w")))
     {
@@ -65,17 +71,23 @@ void print_data (const char *file_name, double *G, double *V1, double *V2, int s
   fprintf (fp, "%d \n", size);
 
   for (i = 0; i < size; i++)
+    {
       fprintf (fp, "%lf ", G[i]);
+    }
 
   fprintf (fp, "\n");
 
   for (i = 0; i < size; i++)
+    {
       fprintf (fp, "%lf ", V1[i]);
+    }
 
   fprintf (fp, "\n");
 
   for (i = 0; i < size; i++)
+    {
       fprintf (fp, "%lf ", V2[i]);
+    }
 
   fprintf (fp, "\n");
 
@@ -93,10 +105,12 @@ int make_graph (const char *texname, const char *plotname, double h1, double h2,
     {
       fprintf (fout, "\\begin{minipage}{\\linewidth}\n"
                "\\centering\n");
-      if(h1 > 0.)
-          fprintf (fout,
-                   "$\\tau = %1.3f$, $h = \\left(%1.3f, %1.3f\\right)$, $t = %1.3f$\n\n\n",
-                   tau, h1, h2, t);
+
+      if (h1 > 0.)
+        fprintf (fout,
+                 "$\\tau = %1.3f$, $h = \\left(%1.3f, %1.3f\\right)$, $t = %1.3f$\n\n\n",
+                 tau, h1, h2, t);
+
       fprintf (fout,
                "\\begin{minipage}{0.49 \\linewidth}\n"
                "\\begin{figure}[H]\n"
@@ -149,12 +163,18 @@ int make_graph (const char *texname, const char *plotname, double h1, double h2,
   fclose (fout);
 
   if (calc_type == SMOOTH)
-    fout = fopen (OUTTEX_SMOOTH, "a+");
+    {
+      fout = fopen (OUTTEX_SMOOTH, "a+");
+    }
   else
-    fout = fopen (OUTTEX_ABRUPT, "a+");
+    {
+      fout = fopen (OUTTEX_ABRUPT, "a+");
+    }
 
   if (fout != NULL)
+    {
       fprintf (fout, "\\input{%s} \n", texname);
+    }
   else
     {
       printf ("Can't open OUTTEX file\n");

@@ -79,18 +79,21 @@ int main (void)
   // Choose area type
   switch (grid_type)
     {
-    case SQUARE:
-      calc_mesh_params_square (st, X, Y, M0L, M0R, (void *) (&ud));
-      break;
-    case VOLODYA_9:
-      calc_mesh_params_volodya_9 (st, X, Y, M0L, M0R, (void *) (&ud));
-      break;
-    case RAMZAN_10:
-      calc_mesh_params_ramzan_10 (st, X, Y, M0L, M0R, (void *) (&ud));
-      break;
-    case NASTYA_11:
-      calc_mesh_params_nastya_11 (st, X, Y, M0L, M0R, (void *) (&ud));
-      break;
+      case SQUARE:
+        calc_mesh_params_square (st, X, Y, M0L, M0R, (void *) (&ud));
+        break;
+
+      case VOLODYA_9:
+        calc_mesh_params_volodya_9 (st, X, Y, M0L, M0R, (void *) (&ud));
+        break;
+
+      case RAMZAN_10:
+        calc_mesh_params_ramzan_10 (st, X, Y, M0L, M0R, (void *) (&ud));
+        break;
+
+      case NASTYA_11:
+        calc_mesh_params_nastya_11 (st, X, Y, M0L, M0R, (void *) (&ud));
+        break;
     }
 
   n_found_eigen_values = find_eigen_values (eigen_values, eigen_functions_A_op,

@@ -7,12 +7,12 @@
 #define STAT_SOL_EPS    1.e-12
 
 typedef enum enum_calc_type_t
-  {
-    SMOOTH,
-    NO_SMOOTH,
-    STAT_SOL_SRCH,
-    EIG_FUNC_INIT
-  } calc_type_t;
+{
+  SMOOTH,
+  NO_SMOOTH,
+  STAT_SOL_SRCH,
+  EIG_FUNC_INIT
+} calc_type_t;
 
 // Change this for different calculation type
 static const calc_type_t calc_type = STAT_SOL_SRCH;
@@ -26,12 +26,12 @@ static const calc_type_t calc_type = STAT_SOL_SRCH;
 #define B_LENGHT 3.
 
 typedef enum enum_grid_type_t
-  {
-    SQUARE,
-    VOLODYA_9,
-    RAMZAN_10,
-    NASTYA_11
-  } grid_type_t;
+{
+  SQUARE,
+  VOLODYA_9,
+  RAMZAN_10,
+  NASTYA_11
+} grid_type_t;
 
 // Change this for different grids
 static const grid_type_t grid_type = VOLODYA_9;

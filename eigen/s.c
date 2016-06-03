@@ -32,68 +32,71 @@ void init_user_data (user_data *ud)
 
   switch (grid_type)
     {
-    case SQUARE:
-      {
-        ud->N  = ud->Nx * ud->Ny;
-        ud->NA = 3 * (ud->Nx - 2) * (ud->Ny - 2) +   // inner nodes
-                 2 * (ud->Ny - 2) +                  // right boundary
-                 1 * (ud->Nx - 2) +                  // down boundary
-                 1 * (ud->Nx - 2) +                  // top boundary
-                 0 * (ud->Ny - 2) +                  // left boundary
-                 0 * 4;                              // vertices of square
-        break;
-      }
-    case VOLODYA_9:
-      {
-        ud->Nx_0 = 41;
-        ud->Ny_0 = 21;
+      case SQUARE:
+        {
+          ud->N  = ud->Nx * ud->Ny;
+          ud->NA = 3 * (ud->Nx - 2) * (ud->Ny - 2) +   // inner nodes
+                   2 * (ud->Ny - 2) +                  // right boundary
+                   1 * (ud->Nx - 2) +                  // down boundary
+                   1 * (ud->Nx - 2) +                  // top boundary
+                   0 * (ud->Ny - 2) +                  // left boundary
+                   0 * 4;                              // vertices of square
+          break;
+        }
 
-        ud->N = ud->Nx * ud->Ny - (ud->Nx_0 - 1) * (ud->Ny_0 - 1);
+      case VOLODYA_9:
+        {
+          ud->Nx_0 = 41;
+          ud->Ny_0 = 21;
 
-        ud->NA = 3 * ((ud->Nx - 2) * (ud->Ny - 2) - (ud->Nx_0 - 1) * (ud->Ny_0 - 1) + 1) +
-                 2 * (ud->Nx - ud->Nx_0 - 1) +       // II-part of down boundary
-                 1 * (ud->Ny_0 - 2) +                // I-part of left boundary
-                 1 * (ud->Ny - 2) +                  // right boundary
-                 1 * (ud->Nx - 2) +                  // top boundary
-                 1 * (ud->Nx_0 - 2) +                // I-part of down boundary
-                 0 * (ud->Ny - ud->Ny_0 - 1) +       // II-part of left boundary
-                 0 * 5;
-        break;
-      }
-    case RAMZAN_10:
-      {
-        ud->Nx_0 = 21;
-        ud->Ny_0 = 21;
+          ud->N = ud->Nx * ud->Ny - (ud->Nx_0 - 1) * (ud->Ny_0 - 1);
 
-        ud->N = ud->Nx * ud->Ny - (ud->Nx_0 - 1) * (ud->Ny_0 - 1);
+          ud->NA = 3 * ((ud->Nx - 2) * (ud->Ny - 2) - (ud->Nx_0 - 1) * (ud->Ny_0 - 1) + 1) +
+                   2 * (ud->Nx - ud->Nx_0 - 1) +       // II-part of down boundary
+                   1 * (ud->Ny_0 - 2) +                // I-part of left boundary
+                   1 * (ud->Ny - 2) +                  // right boundary
+                   1 * (ud->Nx - 2) +                  // top boundary
+                   1 * (ud->Nx_0 - 2) +                // I-part of down boundary
+                   0 * (ud->Ny - ud->Ny_0 - 1) +       // II-part of left boundary
+                   0 * 5;
+          break;
+        }
 
-        ud->NA = 3 * ((ud->Nx - 2) * (ud->Ny - 2) - (ud->Nx_0 - 1) * (ud->Ny_0 - 1) + 1) +
-                 2 * (ud->Nx - ud->Nx_0 - 1) +       // II-part of down boundary
-                 1 * (ud->Ny_0 - 2) +                // I-part of left boundary
-                 1 * (ud->Ny - 2) +                  // right boundary
-                 1 * (ud->Nx - 2) +                  // top boundary
-                 1 * (ud->Nx_0 - 2) +                // I-part of down boundary
-                 0 * (ud->Ny - ud->Ny_0 - 1) +       // II-part of left boundary
-                 0 * 5;
-        break;
-      }
-    case NASTYA_11:
-      {
-        ud->Nx_0 = 21;
-        ud->Ny_0 = 21;
+      case RAMZAN_10:
+        {
+          ud->Nx_0 = 21;
+          ud->Ny_0 = 21;
 
-        ud->N = ud->Nx * ud->Ny - (ud->Nx_0 - 1) * (ud->Ny_0 - 1);
+          ud->N = ud->Nx * ud->Ny - (ud->Nx_0 - 1) * (ud->Ny_0 - 1);
 
-        ud->NA = 3 * ((ud->Nx - 2) * (ud->Ny - 2) - (ud->Nx_0 - 1) * (ud->Ny_0 - 1) + 1) +
-                 2 * (ud->Nx - ud->Nx_0 - 1) +       // II-part of down boundary
-                 1 * (ud->Ny_0 - 2) +                // I-part of left boundary
-                 1 * (ud->Ny - 2) +                  // right boundary
-                 1 * (ud->Nx - 2) +                  // top boundary
-                 1 * (ud->Nx_0 - 2) +                // I-part of down boundary
-                 0 * (ud->Ny - ud->Ny_0 - 1) +       // II-part of left boundary
-                 0 * 5;
-        break;
-      }
+          ud->NA = 3 * ((ud->Nx - 2) * (ud->Ny - 2) - (ud->Nx_0 - 1) * (ud->Ny_0 - 1) + 1) +
+                   2 * (ud->Nx - ud->Nx_0 - 1) +       // II-part of down boundary
+                   1 * (ud->Ny_0 - 2) +                // I-part of left boundary
+                   1 * (ud->Ny - 2) +                  // right boundary
+                   1 * (ud->Nx - 2) +                  // top boundary
+                   1 * (ud->Nx_0 - 2) +                // I-part of down boundary
+                   0 * (ud->Ny - ud->Ny_0 - 1) +       // II-part of left boundary
+                   0 * 5;
+          break;
+        }
+
+      case NASTYA_11:
+        {
+          ud->Nx_0 = 21;
+          ud->Ny_0 = 21;
+
+          ud->N = ud->Nx * ud->Ny - (ud->Nx_0 - 1) * (ud->Ny_0 - 1);
+
+          ud->NA = 3 * ((ud->Nx - 2) * (ud->Ny - 2) - (ud->Nx_0 - 1) * (ud->Ny_0 - 1) + 1) +
+                   2 * (ud->Nx - ud->Nx_0 - 1) +       // II-part of down boundary
+                   1 * (ud->Ny_0 - 2) +                // I-part of left boundary
+                   1 * (ud->Ny - 2) +                  // right boundary
+                   1 * (ud->Nx - 2) +                  // top boundary
+                   1 * (ud->Nx_0 - 2) +                // I-part of down boundary
+                   0 * (ud->Ny - ud->Ny_0 - 1) +       // II-part of left boundary
+                   0 * 5;
+          break;
+        }
     }
 
   ud->Lx = 3.;
@@ -172,7 +175,7 @@ int L_op (double *Lu, const double *u, const user_data *ud,
   // ненужные потом в конверте не копируем в укороченный вектор au.
   int mm = 0;
 
-  FIX_UNUSED(X);
+  FIX_UNUSED (X);
 
   for (m = 0; m < N; m++)
     {
@@ -211,29 +214,29 @@ int L_op (double *Lu, const double *u, const user_data *ud,
 
       switch (st[m])
         {
-        case 0:
-          {
-            // first equation
-            RECREATE_COEFFS;
+          case 0:
+            {
+              // first equation
+              RECREATE_COEFFS;
 
-            a_J_0L  = - (v200 + fabs (v200)) * Hy2;
-            a_W2_0L = -Hy2;
+              a_J_0L  = - (v200 + fabs (v200)) * Hy2;
+              a_W2_0L = -Hy2;
 
-            a_J_L0  = - (v100 + fabs (v100)) * Hx2;
-            a_W1_L0 = -Hx2;
+              a_J_L0  = - (v100 + fabs (v100)) * Hx2;
+              a_W1_L0 = -Hx2;
 
-            a_J_00  = fabs (v100) / Hx + fabs (v200) / Hy;
-            a_W1_00 = (v100 > 0. ? (g00 - gL0) / Hx : (gR0 - g00) / Hx);
-            a_W2_00 = (v200 > 0. ? (g00 - g0L) / Hy : (g0R - g00) / Hy);
+              a_J_00  = fabs (v100) / Hx + fabs (v200) / Hy;
+              a_W1_00 = (v100 > 0. ? (g00 - gL0) / Hx : (gR0 - g00) / Hx);
+              a_W2_00 = (v200 > 0. ? (g00 - g0L) / Hy : (g0R - g00) / Hy);
 
-            a_J_R0  = (v100 - fabs (v100)) * Hx2;
-            a_W1_R0 = Hx2;
+              a_J_R0  = (v100 - fabs (v100)) * Hx2;
+              a_W1_R0 = Hx2;
 
-            a_J_0R  = (v200 - fabs (v200)) * Hy2;
-            a_W2_0R = Hy2;
+              a_J_0R  = (v200 - fabs (v200)) * Hy2;
+              a_W2_0R = Hy2;
 
-            // New Lu elements:
-            Lu[mm] =
+              // New Lu elements:
+              Lu[mm] =
                 a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
                 a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
                 a_J_RR * jRR +
@@ -243,36 +246,36 @@ int L_op (double *Lu, const double *u, const user_data *ud,
                 a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
                 a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
                 a_W2_RR * w2RR;
-            mm++;
+              mm++;
 
-            // second equation
-            RECREATE_COEFFS;
-            a_W1_0L = - (v200 + fabs (v200)) * Hy2 - mu * exp (-g00)  / Hy  / Hy;
+              // second equation
+              RECREATE_COEFFS;
+              a_W1_0L = - (v200 + fabs (v200)) * Hy2 - mu * exp (-g00)  / Hy  / Hy;
 
-            a_J_L0  = -p_ro * Hx2; // p_ro = p_ro(g00)
-            a_W1_L0 = - (v100 + fabs (v100)) * Hx2 - mu * exp (-g00) * (4. / 3.)  / Hx  / Hx;
+              a_J_L0  = -p_ro * Hx2; // p_ro = p_ro(g00)
+              a_W1_L0 = - (v100 + fabs (v100)) * Hx2 - mu * exp (-g00) * (4. / 3.)  / Hx  / Hx;
 
-            a_J_00  = p_2ro * (gR0 - gL0) * Hx2 + mu * exp (-g00) * (
-                  (4. / 3.) * (v1R0 - 2. * v100 + v1L0)  / Hx  / Hx +
-                  (v10R - 2. * v100 + v10L)  / Hy  / Hy +
-                  (1. / 3.) * (v2RR - v2RL - v2LR + v2LL) * Hx2 * Hy2);
-            a_W1_00 = fabs (v100)  / Hx + fabs (v200)  / Hy +
-                (v100 > 0. ? (v100 - v1L0) / Hx : (v1R0 - v100) / Hx) +
-                mu * exp (-g00) * 2. * ((4. / 3.)  / Hx  / Hx + Hy  / Hy);
-            a_W2_00 = (v200 > 0. ? (v100 - v10L) / Hy : (v10R - v100) / Hy);
+              a_J_00  = p_2ro * (gR0 - gL0) * Hx2 + mu * exp (-g00) * (
+                          (4. / 3.) * (v1R0 - 2. * v100 + v1L0)  / Hx  / Hx +
+                          (v10R - 2. * v100 + v10L)  / Hy  / Hy +
+                          (1. / 3.) * (v2RR - v2RL - v2LR + v2LL) * Hx2 * Hy2);
+              a_W1_00 = fabs (v100)  / Hx + fabs (v200)  / Hy +
+                        (v100 > 0. ? (v100 - v1L0) / Hx : (v1R0 - v100) / Hx) +
+                        mu * exp (-g00) * 2. * ((4. / 3.)  / Hx  / Hx + Hy  / Hy);
+              a_W2_00 = (v200 > 0. ? (v100 - v10L) / Hy : (v10R - v100) / Hy);
 
-            a_J_R0  = p_ro * Hx2;
-            a_W1_R0 = (v100 - fabs (v100)) * Hx2 - mu * exp (-g00) * (4. / 3.)  / Hx  / Hx;
+              a_J_R0  = p_ro * Hx2;
+              a_W1_R0 = (v100 - fabs (v100)) * Hx2 - mu * exp (-g00) * (4. / 3.)  / Hx  / Hx;
 
-            a_W1_0R = (v200 - fabs (v200)) * Hy2 - mu * exp (-g00)  / Hy  / Hy;
+              a_W1_0R = (v200 - fabs (v200)) * Hy2 - mu * exp (-g00)  / Hy  / Hy;
 
-            a_W2_RR = - mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
-            a_W2_RL = mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
-            a_W2_LR = mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
-            a_W2_LL = - mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
+              a_W2_RR = - mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
+              a_W2_RL = mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
+              a_W2_LR = mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
+              a_W2_LL = - mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
 
-            // New Lu elements:
-            Lu[mm] =
+              // New Lu elements:
+              Lu[mm] =
                 a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
                 a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
                 a_J_RR * jRR +
@@ -282,36 +285,36 @@ int L_op (double *Lu, const double *u, const user_data *ud,
                 a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
                 a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
                 a_W2_RR * w2RR;
-            mm++;
+              mm++;
 
-            // third equation
-            RECREATE_COEFFS;
-            a_J_0L  = - p_ro * Hy2;
-            a_W2_0L = - (v200 + fabs (v200)) * Hy2 - mu * exp (-g00) * (4. / 3.)  / Hy  / Hy;
+              // third equation
+              RECREATE_COEFFS;
+              a_J_0L  = - p_ro * Hy2;
+              a_W2_0L = - (v200 + fabs (v200)) * Hy2 - mu * exp (-g00) * (4. / 3.)  / Hy  / Hy;
 
-            a_W2_L0 = - (v100 + fabs (v100)) * Hx2 - mu * exp (-g00)  / Hx  / Hx;
+              a_W2_L0 = - (v100 + fabs (v100)) * Hx2 - mu * exp (-g00)  / Hx  / Hx;
 
-            a_J_00  = p_2ro * (g0R - g0L) * Hx2 + mu * exp (-g00) * (
-                  (4. / 3.) * (v20R - 2. * v200 + v20L)  / Hy  / Hy +
-                  (v2R0 - 2. * v200 + v2L0)  / Hx  / Hx +
-                  (1. / 3.) * (v1RR - v1RL - v1LR + v1LL) * Hx2 * Hy2);
-            a_W1_00 = (v100 > 0. ? (v200 - v2L0) / Hx : (v2R0 - v200) / Hx);
-            a_W2_00 = fabs (v100)  / Hx + fabs (v200)  / Hy +
-                (v200 > 0. ? (v200 - v20L) / Hy : (v20R - v200) / Hy) +
-                mu * exp (-g00) * 2. * ((4. / 3.)  / Hy  / Hy + Hx  / Hx);
+              a_J_00  = p_2ro * (g0R - g0L) * Hx2 + mu * exp (-g00) * (
+                          (4. / 3.) * (v20R - 2. * v200 + v20L)  / Hy  / Hy +
+                          (v2R0 - 2. * v200 + v2L0)  / Hx  / Hx +
+                          (1. / 3.) * (v1RR - v1RL - v1LR + v1LL) * Hx2 * Hy2);
+              a_W1_00 = (v100 > 0. ? (v200 - v2L0) / Hx : (v2R0 - v200) / Hx);
+              a_W2_00 = fabs (v100)  / Hx + fabs (v200)  / Hy +
+                        (v200 > 0. ? (v200 - v20L) / Hy : (v20R - v200) / Hy) +
+                        mu * exp (-g00) * 2. * ((4. / 3.)  / Hy  / Hy + Hx  / Hx);
 
-            a_W2_R0 = (v100 - fabs (v100)) * Hx2 - mu * exp (-g00)  / Hx  / Hx;
+              a_W2_R0 = (v100 - fabs (v100)) * Hx2 - mu * exp (-g00)  / Hx  / Hx;
 
-            a_J_0R  = p_ro * Hy2;
-            a_W2_0R = (v200 - fabs (v200)) * Hy2 - mu * exp (-g00) * (4. / 3.)  / Hy  / Hy;;
+              a_J_0R  = p_ro * Hy2;
+              a_W2_0R = (v200 - fabs (v200)) * Hy2 - mu * exp (-g00) * (4. / 3.)  / Hy  / Hy;;
 
-            a_W1_RR = - mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
-            a_W1_RL = mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
-            a_W1_LR = mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
-            a_W1_LL = - mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
+              a_W1_RR = - mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
+              a_W1_RL = mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
+              a_W1_LR = mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
+              a_W1_LL = - mu * exp (-g00) * (1. / 3.) * Hx2 * Hy2;
 
-            // New Lu elements:
-            Lu[mm] =
+              // New Lu elements:
+              Lu[mm] =
                 a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
                 a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
                 a_J_RR * jRR +
@@ -321,533 +324,540 @@ int L_op (double *Lu, const double *u, const user_data *ud,
                 a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
                 a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
                 a_W2_RR * w2RR;
-            mm++;
+              mm++;
+              break;
+            }
+
+          case 1:
+            {
+              // first equation
+
+              RECREATE_COEFFS;
+              a_W1_R0 = 1.;
+              a_W1_00 = -1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+
+              // second equation
+
+              RECREATE_COEFFS;
+              a_W1_00 = 1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+
+              // third equation
+
+              RECREATE_COEFFS;
+              a_W2_00 = 1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+              break;
+            }
+
+          case 2:
+            {
+              // first equation
+
+              RECREATE_COEFFS;
+              a_W1_00 = 1.;
+              a_W1_L0 = -1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+
+              // second equation
+
+              RECREATE_COEFFS;
+
+              switch (grid_type)
+                {
+                  case SQUARE:
+                    {
+                      a_W1_00 = 1.;
+                      a_W1_L0 = -1.;
+                      break;
+                    }
+
+                  case VOLODYA_9:
+                    {
+                      a_W1_00 = 1.;
+                      a_W1_L0 = 0.;
+                      break;
+                    }
+
+                  case RAMZAN_10:
+                    {
+                      a_W1_00 = 1.;
+                      a_W1_L0 = 0.;
+                      break;
+                    }
+
+                  case NASTYA_11:
+                    {
+                      a_W1_00 = 1.;
+                      a_W1_L0 = 0.;
+                      break;
+                    }
+                }
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+
+              // third equation
+
+              RECREATE_COEFFS;
+              a_W2_00 = 1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+              break;
+            }
+
+          case 3:
+            {
+              // first equation
+
+              RECREATE_COEFFS;
+              a_W2_0R = 1.;
+              a_W2_00 = -1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+
+              // second equation
+
+              RECREATE_COEFFS;
+              a_W1_00 = 1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+
+              // third equation
+
+              RECREATE_COEFFS;
+
+              switch (grid_type)
+                {
+                  case SQUARE:
+                    {
+                      a_W2_00 = 1.;
+                      a_W2_0R = -1.;
+                      break;
+                    }
+
+                  case VOLODYA_9:
+                    {
+                      a_W2_00 = 1.;
+                      a_W2_0R = is_equal (Y[m], 0.) ? -1. : 0.;
+                      break;
+                    }
+
+                  case RAMZAN_10:
+                    {
+                      a_W2_00 = 1.;
+                      a_W2_0R = is_equal (Y[m], 0.) ? -1. : 0.;
+                      break;
+                    }
+
+                  case NASTYA_11:
+                    {
+                      a_W2_00 = 1.;
+                      a_W2_0R = is_equal (Y[m], 0.) ? -1. : 0.;
+                      break;
+                    }
+                }
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+              break;
+            }
+
+          case 4:
+            {
+              // first equation
+
+              RECREATE_COEFFS;
+              a_W2_00 = 1.;
+              a_W2_0L = -1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+
+              // second equation
+
+              RECREATE_COEFFS;
+              a_W1_00 = 1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+
+              // third equation
+
+              RECREATE_COEFFS;
+              a_W2_00 = 1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+              break;
+            }
+
+          case 5:
+            {
+              // first equation
+
+              RECREATE_COEFFS;
+              a_J_00 = 1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+
+              // second equation
+
+              RECREATE_COEFFS;
+              a_W1_00 = 1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+
+              // third equation
+
+              RECREATE_COEFFS;
+              a_W2_00 = 1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+              break;
+            }
+
+          case 6:
+            {
+              // first equation
+
+              RECREATE_COEFFS;
+              a_J_00 = 1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+
+              // second equation
+
+              RECREATE_COEFFS;
+              a_W1_00 = 1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+
+              // third equation
+
+              RECREATE_COEFFS;
+              a_W2_00 = 1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+              break;
+            }
+
+          case 7:
+            {
+              // first equation
+
+              RECREATE_COEFFS;
+              a_J_00 = 1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+
+              // second equation
+
+              RECREATE_COEFFS;
+              a_W1_00 = 1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+
+              // third equation
+
+              RECREATE_COEFFS;
+              a_W2_00 = 1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+              break;
+            }
+
+          case 8:
+            {
+              // first equation
+
+              RECREATE_COEFFS;
+              a_J_00 = 1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+
+              // second equation
+
+              RECREATE_COEFFS;
+              a_W1_00 = 1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+
+              // third equation
+
+              RECREATE_COEFFS;
+              a_W2_00 = 1.;
+
+              // New Lu elements:
+              Lu[mm] =
+                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
+                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
+                a_J_RR * jRR +
+                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
+                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
+                a_W1_RR * w1RR +
+                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
+                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
+                a_W2_RR * w2RR;
+              mm++;
+              break;
+            }
+
+          default:
             break;
-          }
-
-        case 1:
-          {
-            // first equation
-
-            RECREATE_COEFFS;
-            a_W1_R0 = 1.;
-            a_W1_00 = -1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-
-            // second equation
-
-            RECREATE_COEFFS;
-            a_W1_00 = 1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-
-            // third equation
-
-            RECREATE_COEFFS;
-            a_W2_00 = 1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-            break;
-          }
-
-        case 2:
-          {
-            // first equation
-
-            RECREATE_COEFFS;
-            a_W1_00 = 1.;
-            a_W1_L0 = -1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-
-            // second equation
-
-            RECREATE_COEFFS;
-
-            switch (grid_type)
-              {
-                case SQUARE:
-                  {
-                    a_W1_00 = 1.;
-                    a_W1_L0 = -1.;
-                    break;
-                  }
-                case VOLODYA_9:
-                  {
-                    a_W1_00 = 1.;
-                    a_W1_L0 = 0.;
-                    break;
-                  }
-                case RAMZAN_10:
-                  {
-                    a_W1_00 = 1.;
-                    a_W1_L0 = 0.;
-                    break;
-                  }
-                case NASTYA_11:
-                  {
-                    a_W1_00 = 1.;
-                    a_W1_L0 = 0.;
-                    break;
-                  }
-              }
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-
-            // third equation
-
-            RECREATE_COEFFS;
-            a_W2_00 = 1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-            break;
-          }
-
-        case 3:
-          {
-            // first equation
-
-            RECREATE_COEFFS;
-            a_W2_0R = 1.;
-            a_W2_00 = -1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-
-            // second equation
-
-            RECREATE_COEFFS;
-            a_W1_00 = 1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-
-            // third equation
-
-            RECREATE_COEFFS;
-
-            switch (grid_type)
-              {
-                case SQUARE:
-                  {
-                    a_W2_00 = 1.;
-                    a_W2_0R = -1.;
-                    break;
-                  }
-                case VOLODYA_9:
-                  {
-                    a_W2_00 = 1.;
-                    a_W2_0R = is_equal (Y[m], 0.) ? -1. : 0.;
-                    break;
-                  }
-                case RAMZAN_10:
-                  {
-                    a_W2_00 = 1.;
-                    a_W2_0R = is_equal (Y[m], 0.) ? -1. : 0.;
-                    break;
-                  }
-                case NASTYA_11:
-                  {
-                    a_W2_00 = 1.;
-                    a_W2_0R = is_equal (Y[m], 0.) ? -1. : 0.;
-                    break;
-                  }
-              }
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-            break;
-          }
-
-        case 4:
-          {
-            // first equation
-
-            RECREATE_COEFFS;
-            a_W2_00 = 1.;
-            a_W2_0L = -1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-
-            // second equation
-
-            RECREATE_COEFFS;
-            a_W1_00 = 1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-
-            // third equation
-
-            RECREATE_COEFFS;
-            a_W2_00 = 1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-            break;
-          }
-
-        case 5:
-          {
-            // first equation
-
-            RECREATE_COEFFS;
-            a_J_00 = 1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-
-            // second equation
-
-            RECREATE_COEFFS;
-            a_W1_00 = 1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-
-            // third equation
-
-            RECREATE_COEFFS;
-            a_W2_00 = 1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-            break;
-          }
-        case 6:
-          {
-            // first equation
-
-            RECREATE_COEFFS;
-            a_J_00 = 1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-
-            // second equation
-
-            RECREATE_COEFFS;
-            a_W1_00 = 1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-
-            // third equation
-
-            RECREATE_COEFFS;
-            a_W2_00 = 1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-            break;
-          }
-
-        case 7:
-          {
-            // first equation
-
-            RECREATE_COEFFS;
-            a_J_00 = 1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-
-            // second equation
-
-            RECREATE_COEFFS;
-            a_W1_00 = 1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-
-            // third equation
-
-            RECREATE_COEFFS;
-            a_W2_00 = 1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-            break;
-          }
-
-        case 8:
-          {
-            // first equation
-
-            RECREATE_COEFFS;
-            a_J_00 = 1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-
-            // second equation
-
-            RECREATE_COEFFS;
-            a_W1_00 = 1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-
-            // third equation
-
-            RECREATE_COEFFS;
-            a_W2_00 = 1.;
-
-            // New Lu elements:
-            Lu[mm] =
-                a_J_00 * j00 + a_J_L0 * jL0 + a_J_R0 * jR0 + a_J_0L * j0L +
-                a_J_0R * j0R + a_J_LL * jLL + a_J_RL * jRL + a_J_LR * jLR +
-                a_J_RR * jRR +
-                a_W1_00 * w100 + a_W1_L0 * w1L0 + a_W1_R0 * w1R0 + a_W1_0L * w10L +
-                a_W1_0R * w10R + a_W1_LL * w1LL + a_W1_RL * w1RL + a_W1_LR * w1LR +
-                a_W1_RR * w1RR +
-                a_W2_00 * w200 + a_W2_L0 * w2L0 + a_W2_R0 * w2R0 + a_W2_0L * w20L +
-                a_W2_0R * w20R + a_W2_LL * w2LL + a_W2_RL * w2RL + a_W2_LR * w2LR +
-                a_W2_RR * w2RR;
-            mm++;
-            break;
-          }
-
-        default:
-          break;
         }
     }
 
@@ -872,194 +882,205 @@ int convert_u_to_au (double *au, const double  *u, const user_data *ud,
     {
       switch (st[m])
         {
-        case 0:
-          {
-            // first equation
-            au[m2] = u[m1];
-            m1++;
-            m2++;
-            // second equation
-            au[m2] = u[m1];
-            m1++;
-            m2++;
-            // third equation
-            au[m2] = u[m1];
-            m1++;
-            m2++;
+          case 0:
+            {
+              // first equation
+              au[m2] = u[m1];
+              m1++;
+              m2++;
+              // second equation
+              au[m2] = u[m1];
+              m1++;
+              m2++;
+              // third equation
+              au[m2] = u[m1];
+              m1++;
+              m2++;
+              break;
+            }
+
+          case 1: // left boundary
+            {
+              // 0 non-trivial equations
+              // first equation
+              switch (grid_type)
+                {
+                  case SQUARE:
+                    {
+                      break;
+                    }
+
+                  case VOLODYA_9:
+                    {
+                      if (!is_equal (X[m], 0.))
+                        {
+                          au[m2] = u[m1];
+                          m2++;
+                        }
+
+                      break;
+                    }
+
+                  case RAMZAN_10:
+                    {
+                      break;
+                    }
+
+                  case NASTYA_11:
+                    {
+                      break;
+                    }
+                }
+
+              m1++;
+              // second equation
+              m1++;
+              // third equation
+              m1++;
+              break;
+            }
+
+          case 2: // right boundary
+            {
+              // 1 or 2 non-trivial equation
+              // first equation
+              au[m2] = u[m1];
+              m1++;
+              m2++;
+
+              // second equation
+              switch (grid_type)
+                {
+                  case SQUARE:
+                    {
+                      au[m2] = u[m1];
+                      m2++;
+                      break;
+                    }
+
+                  case VOLODYA_9:
+                  case RAMZAN_10:
+                  case NASTYA_11:
+                    {
+                      break;
+                    }
+                }
+
+              m1++;
+
+              // third equation
+              m1++;
+              break;
+            }
+
+          case 3: // down boundary
+            {
+              // 1 or 2 non-trivial equation
+              // first equation
+              au[m2] = u[m1];
+              m1++;
+              m2++;
+              // second equation
+              m1++;
+
+              // third equation
+              switch (grid_type)
+                {
+                  case SQUARE:
+                    {
+                      break;
+                    }
+
+                  case VOLODYA_9:
+                    {
+                      if (is_equal (Y[m], 0.))
+                        {
+                          au[m2] = u[m1];
+                          m2++;
+                        }
+
+                      break;
+                    }
+
+                  case RAMZAN_10:
+                    {
+                      break;
+                    }
+
+                  case NASTYA_11:
+                    {
+                      break;
+                    }
+                }
+
+              m1++;
+              break;
+            }
+
+          case 4: // top boundary
+            {
+              // 1 non-trivial equation
+              // first equation
+              au[m2] = u[m1];
+              m1++;
+              m2++;
+              // second equation
+              m1++;
+              // third equation
+              m1++;
+              break;
+            }
+
+          case 5:
+            {
+              // 0 non-trivial equations
+              // first equation
+              m1++;
+              // second equation
+              m1++;
+              // third equation
+              m1++;
+              break;
+            }
+
+          case 6:
+            {
+              // 0 non-trivial equations
+              // first equation
+              m1++;
+              // second equation
+              m1++;
+              // third equation
+              m1++;
+              break;
+            }
+
+          case 7:
+            {
+              // 0 non-trivial equations
+              // first equation
+              m1++;
+              // second equation
+              m1++;
+              // third equation
+              m1++;
+              break;
+            }
+
+          case 8:
+            {
+              // 0 non-trivial equations
+              // first equation
+              m1++;
+              // second equation
+              m1++;
+              // third equation
+              m1++;
+              break;
+            }
+
+          default:
             break;
-          }
-
-        case 1: // left boundary
-          {
-            // 0 non-trivial equations
-            // first equation
-            switch (grid_type)
-              {
-                case SQUARE:
-                  {
-                    break;
-                  }
-                case VOLODYA_9:
-                  {
-                    if (!is_equal(X[m], 0.))
-                      {
-                        au[m2] = u[m1];
-                        m2++;
-                      }
-
-                    break;
-                  }
-                case RAMZAN_10:
-                  {
-                    break;
-                  }
-                case NASTYA_11:
-                  {
-                    break;
-                  }
-              }
-
-            m1++;
-            // second equation
-            m1++;
-            // third equation
-            m1++;
-            break;
-          }
-
-        case 2: // right boundary
-          {
-            // 1 or 2 non-trivial equation
-            // first equation
-            au[m2] = u[m1];
-            m1++;
-            m2++;
-
-            // second equation
-            switch (grid_type)
-              {
-                case SQUARE:
-                  {
-                    au[m2] = u[m1];
-                    m2++;
-                    break;
-                  }
-                case VOLODYA_9:
-                case RAMZAN_10:
-                case NASTYA_11:
-                  {
-                    break;
-                  }
-              }
-            m1++;
-
-            // third equation
-            m1++;
-            break;
-          }
-
-        case 3: // down boundary
-          {
-            // 1 or 2 non-trivial equation
-            // first equation
-            au[m2] = u[m1];
-            m1++;
-            m2++;
-            // second equation
-            m1++;
-            // third equation
-            switch (grid_type)
-              {
-                case SQUARE:
-                  {
-                    break;
-                  }
-                case VOLODYA_9:
-                  {
-                    if (is_equal (Y[m], 0.))
-                      {
-                        au[m2] = u[m1];
-                        m2++;
-                      }
-                    break;
-                  }
-                case RAMZAN_10:
-                  {
-                    break;
-                  }
-                case NASTYA_11:
-                  {
-                    break;
-                  }
-              }
-            m1++;
-            break;
-          }
-
-        case 4: // top boundary
-          {
-            // 1 non-trivial equation
-            // first equation
-            au[m2] = u[m1];
-            m1++;
-            m2++;
-            // second equation
-            m1++;
-            // third equation
-            m1++;
-            break;
-          }
-
-        case 5:
-          {
-            // 0 non-trivial equations
-            // first equation
-            m1++;
-            // second equation
-            m1++;
-            // third equation
-            m1++;
-            break;
-          }
-
-        case 6:
-          {
-            // 0 non-trivial equations
-            // first equation
-            m1++;
-            // second equation
-            m1++;
-            // third equation
-            m1++;
-            break;
-          }
-
-        case 7:
-          {
-            // 0 non-trivial equations
-            // first equation
-            m1++;
-            // second equation
-            m1++;
-            // third equation
-            m1++;
-            break;
-          }
-
-        case 8:
-          {
-            // 0 non-trivial equations
-            // first equation
-            m1++;
-            // second equation
-            m1++;
-            // third equation
-            m1++;
-            break;
-          }
-
-        default:
-          break;
         }
     }
 
@@ -1082,215 +1103,226 @@ int convert_au_to_u (double *u, const double  *au, const user_data *ud,
     {
       switch (st[m])
         {
-        case 0:
-          {
-            // first equation
-            u[m1] = au[m2];
-            m1++;
-            m2++;
-            // second equation
-            u[m1] = au[m2];
-            m1++;
-            m2++;
-            // third equation
-            u[m1] = au[m2];
-            m1++;
-            m2++;
+          case 0:
+            {
+              // first equation
+              u[m1] = au[m2];
+              m1++;
+              m2++;
+              // second equation
+              u[m1] = au[m2];
+              m1++;
+              m2++;
+              // third equation
+              u[m1] = au[m2];
+              m1++;
+              m2++;
+              break;
+            }
+
+          case 1: // left boundary
+            {
+              // 0 non-trivial equations
+              // first equation
+              switch (grid_type)
+                {
+                  case SQUARE:
+                    {
+                      u[m1] =  0.;
+                      break;
+                    }
+
+                  case VOLODYA_9:
+                  case RAMZAN_10:
+                  case NASTYA_11:
+                    {
+                      if (!is_equal (X[m], 0.))
+                        {
+                          u[m1] =  au[m2];
+                          m2++;
+                        }
+
+                      break;
+                    }
+                }
+
+              m1++;
+              // second equation
+              u[m1] =  0.;
+              m1++;
+              // third equation
+              u[m1] =  0.;
+              m1++;
+              break;
+            }
+
+          case 2: // right boundary
+            {
+              // 1 or 2 non-trivial equation
+              // first equation
+              u[m1] = au[m2];
+              m1++;
+              m2++;
+
+              // second equation
+              switch (grid_type)
+                {
+                  case SQUARE:
+                    {
+                      u[m1] = au[m2];
+                      m2++;
+                      break;
+                    }
+
+                  case VOLODYA_9:
+                    {
+                      u[m1] = 0.;
+
+                      break;
+                    }
+
+                  case RAMZAN_10:
+                    {
+                      break;
+                    }
+
+                  case NASTYA_11:
+                    {
+                      break;
+                    }
+                }
+
+              m1++;
+              // third equation
+              u[m1] =  0.;
+              m1++;
+              break;
+            }
+
+          case 3: // down boundary
+            {
+              // 1 or 2 non-trivial equation
+              // first equation
+              u[m1] = au[m2];
+              m1++;
+              m2++;
+              // second equation
+              u[m1] = 0.;
+              m1++;
+
+              // third equation
+              switch (grid_type)
+                {
+                  case SQUARE:
+                    {
+                      u[m1] =  0.;
+                      break;
+                    }
+
+                  case VOLODYA_9:
+                    {
+                      if (is_equal (Y[m], 0.))
+                        {
+                          u[m1] = au[m2];
+                          m2++;
+                        }
+
+                      break;
+                    }
+
+                  case RAMZAN_10:
+                    {
+                      break;
+                    }
+
+                  case NASTYA_11:
+                    {
+                      break;
+                    }
+                }
+
+              m1++;
+              break;
+            }
+
+          case 4: // top boundary
+            {
+              // 1 non-trivial equation
+              // first equation
+              u[m1] = au[m2];
+              m1++;
+              m2++;
+              // second equation
+              u[m1] =  0.;
+              m1++;
+              // third equation
+              u[m1] =  0.;
+              m1++;
+              break;
+            }
+
+          case 5:
+            {
+              // 0 non-trivial equations
+              // first equation
+              u[m1] =  0.;
+              m1++;
+              // second equation
+              u[m1] =  0.;
+              m1++;
+              // third equation
+              u[m1] =  0.;
+              m1++;
+              break;
+            }
+
+          case 6:
+            {
+              // 0 non-trivial equations
+              // first equation
+              u[m1] =  0.;
+              m1++;
+              // second equation
+              u[m1] =  0.;
+              m1++;
+              // third equation
+              u[m1] =  0.;
+              m1++;
+              break;
+            }
+
+          case 7:
+            {
+              // 0 non-trivial equations
+              // first equation
+              u[m1] =  0.;
+              m1++;
+              // second equation
+              u[m1] =  0.;
+              m1++;
+              // third equation
+              u[m1] =  0.;
+              m1++;
+              break;
+            }
+
+          case 8:
+            {
+              // 0 non-trivial equations
+              // first equation
+              u[m1] =  0.;
+              m1++;
+              // second equation
+              u[m1] =  0.;
+              m1++;
+              // third equation
+              u[m1] =  0.;
+              m1++;
+              break;
+            }
+
+          default:
             break;
-          }
-
-        case 1: // left boundary
-          {
-            // 0 non-trivial equations
-            // first equation
-            switch (grid_type)
-              {
-                case SQUARE:
-                  {
-                    u[m1] =  0.;
-                    break;
-                  }
-                case VOLODYA_9:
-                case RAMZAN_10:
-                case NASTYA_11:
-                  {
-                    if (!is_equal(X[m], 0.))
-                      {
-                        u[m1] =  au[m2];
-                        m2++;
-                      }
-
-                    break;
-                  }
-              }
-
-            m1++;
-            // second equation
-            u[m1] =  0.;
-            m1++;
-            // third equation
-            u[m1] =  0.;
-            m1++;
-            break;
-          }
-
-        case 2: // right boundary
-          {
-            // 1 or 2 non-trivial equation
-            // first equation
-            u[m1] = au[m2];
-            m1++;
-            m2++;
-            // second equation
-            switch (grid_type)
-              {
-                case SQUARE:
-                  {
-                    u[m1] = au[m2];
-                    m2++;
-                    break;
-                  }
-                case VOLODYA_9:
-                  {
-                    u[m1] = 0.;
-
-                    break;
-                  }
-                case RAMZAN_10:
-                  {
-                    break;
-                  }
-                case NASTYA_11:
-                  {
-                    break;
-                  }
-              }
-            m1++;
-            // third equation
-            u[m1] =  0.;
-            m1++;
-            break;
-          }
-
-        case 3: // down boundary
-          {
-            // 1 or 2 non-trivial equation
-            // first equation
-            u[m1] = au[m2];
-            m1++;
-            m2++;
-            // second equation
-            u[m1] = 0.;
-            m1++;
-            // third equation
-            switch (grid_type)
-              {
-                case SQUARE:
-                  {
-                    u[m1] =  0.;
-                    break;
-                  }
-                case VOLODYA_9:
-                  {
-                    if (is_equal (Y[m], 0.))
-                      {
-                        u[m1] = au[m2];
-                        m2++;
-                      }
-
-                    break;
-                  }
-                case RAMZAN_10:
-                  {
-                    break;
-                  }
-                case NASTYA_11:
-                  {
-                    break;
-                  }
-              }
-            m1++;
-            break;
-          }
-
-        case 4: // top boundary
-          {
-            // 1 non-trivial equation
-            // first equation
-            u[m1] = au[m2];
-            m1++;
-            m2++;
-            // second equation
-            u[m1] =  0.;
-            m1++;
-            // third equation
-            u[m1] =  0.;
-            m1++;
-            break;
-          }
-
-        case 5:
-          {
-            // 0 non-trivial equations
-            // first equation
-            u[m1] =  0.;
-            m1++;
-            // second equation
-            u[m1] =  0.;
-            m1++;
-            // third equation
-            u[m1] =  0.;
-            m1++;
-            break;
-          }
-
-        case 6:
-          {
-            // 0 non-trivial equations
-            // first equation
-            u[m1] =  0.;
-            m1++;
-            // second equation
-            u[m1] =  0.;
-            m1++;
-            // third equation
-            u[m1] =  0.;
-            m1++;
-            break;
-          }
-
-        case 7:
-          {
-            // 0 non-trivial equations
-            // first equation
-            u[m1] =  0.;
-            m1++;
-            // second equation
-            u[m1] =  0.;
-            m1++;
-            // third equation
-            u[m1] =  0.;
-            m1++;
-            break;
-          }
-
-        case 8:
-          {
-            // 0 non-trivial equations
-            // first equation
-            u[m1] =  0.;
-            m1++;
-            // second equation
-            u[m1] =  0.;
-            m1++;
-            // third equation
-            u[m1] =  0.;
-            m1++;
-            break;
-          }
-
-        default:
-          break;
         }
     }
 

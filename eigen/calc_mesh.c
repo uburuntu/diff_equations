@@ -567,7 +567,7 @@ void calc_mesh_params_nastya_11 (int *st, double *X, double *Y, int *M0L, int *M
         {
           st[j] = 0;
           M0L[j] = j - MC - 1;
-          M0R[j] = j + MC+ 1;
+          M0R[j] = j + MC + 1;
           X[j] = j1 * hx;
           Y[j] = j2 * hy;
           j++;
@@ -594,7 +594,7 @@ void calc_mesh_params_nastya_11 (int *st, double *X, double *Y, int *M0L, int *M
         {
           st[j] = 0;
           M0L[j] = j - MC - 1;
-          M0R[j] = j + MC+ 1;
+          M0R[j] = j + MC + 1;
           X[j] = C_LENGHT + j1 * hx;
           Y[j] = j2 * hy;
           j++;
@@ -608,8 +608,9 @@ void calc_mesh_params_nastya_11 (int *st, double *X, double *Y, int *M0L, int *M
       Y[j] = j2 * hy;
       j++;
     }
+
   assert (j == 2 * (MA + 1) * (MA - 1));
-// ----------------------- 2:10 -------------------------
+  // ----------------------- 2:10 -------------------------
   // last non-boundary layer of smaller rectangle x = 0
   st[j] = 1;
   M0L[j] = j - MC - 1;
@@ -715,7 +716,8 @@ void calc_mesh_params_nastya_11 (int *st, double *X, double *Y, int *M0L, int *M
   j++;
 
   assert (j == 2 * (MA + 1) * (MA) + (M1 + 1));
-// ----------------------- 2:30 -------------------------
+
+  // ----------------------- 2:30 -------------------------
   for (j2 = MA + 1; j2 < M2; j2++)
     {
       // (X, Y) = {X = {0} & Y = (a, b)}

@@ -12,11 +12,6 @@
 #include "func.h"
 #include "gnuplot.h"
 
-#define DEBUG_VARIANT_I   1
-#define DEBUG_VARIANT_II  0
-#define DEBUG_VARIANT_III 0
-#define EIG_USAGE_TIME    5
-
 int  Sxema (double *G, double *V1, double *V2,
             double *G_prev, double *V1_prev, double *V2_prev,
             const double *G_eigen, const double *V1_eigen, const double *V2_eigen,
@@ -25,7 +20,6 @@ int  Sxema (double *G, double *V1, double *V2,
             int *M0R, P_she *p_s, P_dif *p_d)
 {
   // Arguments
-  int k;
   int N, Dim;
   double norm;
   double hx, hy, tau, mu, p_ro;
@@ -98,46 +92,28 @@ int  Sxema (double *G, double *V1, double *V2,
       xx = X[m];
       yy = Y[m];
 
-      if (EIG_FUNC_INIT && G_stat)
+      if (EIG_FUNC_INIT && G_stat && G_eigen)
         {
-          tmp = G_stat[m];
+          tmp = G_stat[m] + G_eigen[m];
         }
       else
         {
           tmp = gg (tt, xx, yy);
         }
+
       V_SetCmp (&D, mm, tmp);
       G[m] = tmp;
 
-      if (EIG_FUNC_INIT && G_eigen)
-        {
-          if (DEBUG_VARIANT_III)
-            {
-              G[m] += 0;
-            }
-          else
-            {
-              if (DEBUG_VARIANT_I)
-                {
-                  G[m] += G_eigen[m];
-                }
-              else if (DEBUG_VARIANT_II)
-                {
-                  G[m] -= G_eigen[m];
-                }
-            }
-        }
-
-      if (STAT_SOL_SRCH && G_prev)
+      if ((STAT_SOL_SRCH || EIG_FUNC_INIT) && G_prev)
         {
           G_prev[m] = tmp;
         }
 
       mm++;
 
-      if (EIG_FUNC_INIT && V1_stat)
+      if (EIG_FUNC_INIT && V1_stat && V1_eigen)
         {
-          tmp = V1_stat[m];
+          tmp = V1_stat[m] + V1_eigen[m];
         }
       else
         {
@@ -147,35 +123,16 @@ int  Sxema (double *G, double *V1, double *V2,
       V_SetCmp (&D, mm, tmp);
       V1[m] = tmp;
 
-      if (EIG_FUNC_INIT && G_eigen)
-        {
-          if (DEBUG_VARIANT_III)
-            {
-              V1[m] += 0;
-            }
-          else
-            {
-              if (DEBUG_VARIANT_I)
-                {
-                  V1[m] += V1_eigen[m];
-                }
-              else if (DEBUG_VARIANT_II)
-                {
-                  V1[m] -= V1_eigen[m];
-                }
-            }
-        }
-
-      if (STAT_SOL_SRCH && V1_prev)
+      if ((STAT_SOL_SRCH || EIG_FUNC_INIT) && V1_prev)
         {
           V1_prev[m] = tmp;
         }
 
       mm++;
 
-      if (EIG_FUNC_INIT && V2_stat)
+      if (EIG_FUNC_INIT && V2_stat && V2_eigen)
         {
-          tmp = V2_stat[m];
+          tmp = V2_stat[m] + V2_eigen[m];
         }
       else
         {
@@ -185,26 +142,7 @@ int  Sxema (double *G, double *V1, double *V2,
       V_SetCmp (&D, mm, tmp);
       V2[m] = tmp;
 
-      if (EIG_FUNC_INIT && G_eigen)
-        {
-          if (DEBUG_VARIANT_III)
-            {
-              V2[m] += 0;
-            }
-          else
-            {
-              if (DEBUG_VARIANT_I)
-                {
-                  V2[m] += V2_eigen[m];
-                }
-              else if (DEBUG_VARIANT_II)
-                {
-                  V2[m] -= V2_eigen[m];
-                }
-            }
-        }
-
-      if (STAT_SOL_SRCH && V2_prev)
+      if ((STAT_SOL_SRCH || EIG_FUNC_INIT) && V2_prev)
         {
           V2_prev[m] = tmp;
         }
@@ -665,35 +603,30 @@ int  Sxema (double *G, double *V1, double *V2,
 
           G[m] = V_GetCmp (&D, mm);
           mm++;
-          //printf ("%lf ", fabs (G[m] - gg (tt, xx, yy)));
-
           V1[m] = V_GetCmp (&D, mm);
           mm++;
-          //printf ("%lf ", fabs (V1[m] - u1 (tt, xx, yy)));
-
           V2[m] = V_GetCmp (&D, mm);
           mm++;
-          //printf ("%lf, ", fabs (V2[m] - u2 (tt, xx, yy)));
-
-          //printf ("%lf %lf %lf \n", tt, xx, yy);
         }
 
 
       if (nn == nameiter || nn == N)
         {
           nameiter += N / DIVISOR;
-          //printf("%d, %d \n", nn, N);
           print_plot (plot_name (plotname, tau, hx, hy, nn), X, Y, G, V1, V2, Dim, tt);
           make_graph (tex_name (texname, tau, hx, hy, nn), plotname, hx, hy, tau, tt);
         }
 
-      if (STAT_SOL_SRCH && G_prev && V1_prev && V2_prev)
+      if ((STAT_SOL_SRCH || EIG_FUNC_INIT) && G_prev && V1_prev && V2_prev)
         {
           norm = calc_sol_residual_norm (Dim, G, V1, V2, G_prev, V1_prev, V2_prev);
 
           if (norm < STAT_SOL_EPS)
             {
-              printf ("Stationary solution has been found at T = %d. \n", nn);
+              if (STAT_SOL_SRCH)
+                printf ("Stationary solution has been found at T = %d. \n", nn);
+              else if (EIG_FUNC_INIT)
+                printf ("Solution has stabilized at T = %d. \n", nn);
               printf ("Accuracy = %e. \n", STAT_SOL_EPS);
               Q_Destr (&A);
               V_Destr (&D);
@@ -707,59 +640,18 @@ int  Sxema (double *G, double *V1, double *V2,
 
           init_prev_with_curr (Dim, G, V1, V2, G_prev, V1_prev, V2_prev);
         }
-
-      if (EIG_FUNC_INIT && G_stat && V1_stat && V2_stat)
-        {
-          norm = calc_sol_residual_norm (Dim, G, V1, V2, G_stat, V1_stat, V2_stat);
-
-          if (norm < STAT_SOL_EPS)
-            {
-              printf ("Stationary solution has been found at T = %d. \n", nn);
-              printf ("Accuracy = %e. \n", norm);
-              Q_Destr (&A);
-              V_Destr (&D);
-              V_Destr (&B);
-              return 2;
-            }
-          else if (nn == 1 || nn % 10 == 0)
-            {
-              printf ("t = %3.d, norm = %e \n", nn, norm);
-            }
-
-          if (nn == EIG_USAGE_TIME)
-            {
-              if (DEBUG_VARIANT_III)
-                {
-                  if (DEBUG_VARIANT_I)
-                    {
-                      for (k = 0; k < Dim; k++)
-                        {
-                          G[m]  += G_eigen[k];
-                          V1[m] += V1_eigen[k];
-                          V2[m] += V2_eigen[k];
-                        }
-                    }
-                  else if (DEBUG_VARIANT_I)
-                    {
-                      for (k = 0; k < Dim; k++)
-                        {
-                          G[m]  += G_eigen[k];
-                          V1[m] += V1_eigen[k];
-                          V2[m] += V2_eigen[k];
-                        }
-                    }
-                }
-            }
-        }
     }
 
   Q_Destr (&A);
   V_Destr (&D);
   V_Destr (&B);
 
-  if (STAT_SOL_SRCH && G_prev && V1_prev && V2_prev)
+  if ((STAT_SOL_SRCH || EIG_FUNC_INIT) && G_prev && V1_prev && V2_prev)
     {
-      printf ("Stationary solution has not been found at T = %d. \n", nn);
+      if (STAT_SOL_SRCH)
+        printf ("Sorry: stationary solution has been found at T = %d. \n", nn);
+      else if (EIG_FUNC_INIT)
+        printf ("Sorry: solution has not stabilized at T = %d. \n", nn);
       printf ("Accuracy = %e. \n", STAT_SOL_EPS);
       return -1;
     }

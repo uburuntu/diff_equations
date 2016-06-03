@@ -192,7 +192,7 @@ int main (void)
           V1 = (double *) malloc ((p_s.Dim) * sizeof (double)); // v1 array of nodes
           V2 = (double *) malloc ((p_s.Dim) * sizeof (double)); // v2 array of nodes
 
-          if (STAT_SOL_SRCH && it_t == 0 && it_sp == 0)
+          if ((STAT_SOL_SRCH || EIG_FUNC_INIT) && it_t == 0 && it_sp == 0)
             {
               G_prev  = (double *) malloc ((p_s.Dim) * sizeof (double)); // press array of nodes
               V1_prev = (double *) malloc ((p_s.Dim) * sizeof (double)); // v1 array of nodes

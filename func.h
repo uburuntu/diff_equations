@@ -24,12 +24,6 @@ typedef enum enum_grid_type_t
 // Change this
 static const grid_type_t grid_type = SQUARE;
 
-#define LIGHT_FUNCS   0
-#define LIGHT_G       0
-#define LIGHT_U1      0
-#define LIGHT_U2      0
-
-
 // Working area is a rectangle which is located in a first quadrant.
 // Its sides are parallel to axes OXY and one vertex is located in (0, 0).
 // Also it has a cut -- rectangle which sides are parallel to sides of the main one.

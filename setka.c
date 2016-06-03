@@ -339,201 +339,199 @@ void grid_9_volodya (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p
 
 void grid_10_ramzan (int *st, double *X, double *Y, int *M0L, int *M0R, P_she *p_s)
 {
-  int M1, M2, M1_0, M2_0;
-  int j, j1, j2;
+  int j = 0, j1, j2;
   double hx, hy;
 
-  M1 = p_s->M_x;
-  M2 = p_s->M_y;
-  M1_0 = M1 - p_s->M_x_0;
-  M2_0 = p_s->M_y_0;
+  int M_block = p_s->M_x_0; // equals to p_s->M_y_0
+  int M_block_wide = 2 * M_block;
+
+  int M_x = p_s->M_x;
+  int M_y = p_s->M_y;
+
   hx = p_s->h_x;
   hy = p_s->h_y;
 
-  // (x, y) = (c, 0)
+  // 1 step
   st[0] = 5;
   M0L[0] = -1;
-  M0R[0] = M1_0 + 1;
-  X[0] = C_LENGHT;
+  M0R[0] = j + M_block_wide + 1;
+  X[0] = A_LENGHT;
   Y[0] = 0.;
+  j++;
 
-  // (X, Y) = {X = (c, b) & Y = {0}}
-  for (j1 = 1; j1 < M1_0; j1++)
+  for (j1 = 1; j1 < M_block_wide; j1++)
     {
       st[j1] = 3;
       M0L[j1] = -1;
-      M0R[j1] = M1_0 + j1 + 1;
-      X[j1] = C_LENGHT + j1 * hx;
+      M0R[j1] = j + M_block_wide + 1;
+      X[j1] = A_LENGHT + j1 * hx;
       Y[j1] = 0.;
+      j++;
     }
 
-  // (x, y) = (b, 0)
-  st[M1_0] = 6;
-  M0L[M1_0] = -1;
-  M0R[M1_0] = 2 * M1_0 + 1;
-  X[M1_0] = C_LENGHT + M1_0 * hx;
-  Y[M1_0] = 0.;
-  j = M1_0 + 1;
+  st[M_block_wide] = 6;
+  M0L[M_block_wide] = -1;
+  M0R[M_block_wide] = j + M_block_wide + 1;
+  X[M_block_wide] = B_LENGHT;
+  Y[M_block_wide] = 0.;
+  j++;
 
-  for (j2 = 1; j2 < M2_0 - 1; j2++)
+  // 2 step
+  for (j2 = 1; j2 < M_block; j2++)
     {
-      // (X, Y) = {X = {c} & Y = (0, a - 1)}
       st[j] = 1;
-      M0L[j] = j - M1_0 - 1;
-      M0R[j] = j + M1_0 + 1;
-      X[j] = C_LENGHT;
+      M0L[j] = j - M_block_wide - 1;
+      M0R[j] = j + M_block_wide + 1;
+      X[j] = A_LENGHT;
       Y[j] = j2 * hy;
       j++;
 
-      // internal nodes
-      for (j1 = 1; j1 < M1_0; j1++)
+      for (j1 = 1; j1 < M_block_wide; j1++)
         {
           st[j] = 0;
-          M0L[j] = j - M1_0 - 1;
-          M0R[j] = j + M1_0 + 1;
-          X[j] = C_LENGHT + j1 * hx;
+          M0L[j] = j - M_block_wide - 1;
+          M0R[j] = j + M_block_wide + 1;
+          X[j] = A_LENGHT + j1 * hx;
           Y[j] = j2 * hy;
           j++;
         }
 
-      // (X, Y) = {X = {b} & Y = (0, a - 1)}
       st[j] = 2;
-      M0L[j] = j - M1_0 - 1;
-      M0R[j] = j + M1_0 + 1;
-      X[j] = C_LENGHT + M1_0 * hx;
+      M0L[j] = j - M_block_wide - 1;
+      M0R[j] = j + M_block_wide + 1;
+      X[j] = B_LENGHT;
       Y[j] = j2 * hy;
       j++;
     }
 
-  assert (j == (M1_0 + 1) * (M2_0 - 1));
+  assert (j == (M_block_wide + 1) * M_block);
 
-  // last non-boundary layer of smaller rectangle
-  st[j] = 1;
-  M0L[j] = j - M1_0 - 1;
-  M0R[j] = j + M1 + 1;
-  X[j] = C_LENGHT;
-  Y[j] = (M2_0 - 1) * hy;
-  j++;
+  // 3 step
 
-  // internal nodes of last non-boundary layer of smaller rectangle
-  for (j1 = 1; j1 < M1_0; j1++)
-    {
-      st[j] = 0;
-      M0L[j] = j - M1_0 - 1;
-      M0R[j] = j + M1 + 1;
-      X[j] = C_LENGHT + j1 * hx;
-      Y[j] = (M2_0 - 1) * hy;
-      j++;
-    }
-
-  st[j] = 2;
-  M0L[j] = j - M1_0 - 1;
-  M0R[j] = j + M1 + 1;
-  X[j] = C_LENGHT + M1_0 * hx;
-  Y[j] = (M2_0 - 1) * hy;
-  j++;
-
-  assert (j == (M1_0 + 1) * (M2_0));
-
-  // (x, y) = (0, a)
   st[j] = 5;
   M0L[j] = -1;
-  M0R[j] = j + M1 + 1;
+  M0R[j] = j + M_x + 1;
   X[j] = 0.;
   Y[j] = A_LENGHT;
   j++;
 
-  // (X, Y) = {X = (0, c) & Y = {a}}
-  for (j1 = 1; j1 < p_s->M_x_0; j1++)
+  for (j1 = 1; j1 < M_block; j1++)
     {
       st[j] = 3;
       M0L[j] = -1;
-      M0R[j] = j + M1 + 1;
+      M0R[j] = j + M_x + 1;
       X[j] = j1 * hx;
       Y[j] = A_LENGHT;
       j++;
     }
 
-  // (X, Y) = {X = [c, b) & Y = a}
-  for (j1 = 0; j1 < M1_0; j1++)
+  for (j1 = 0; j1 <= M_block; j1++)
     {
       st[j] = 0;
-      M0L[j] = j - M1 - 1;
-      M0R[j] = j + M1 + 1;
+      M0L[j] = j - M_x - 1;
+      M0R[j] = j + M_x + 1;
+      X[j] = A_LENGHT + j1 * hx;
+      Y[j] = A_LENGHT;
+      j++;
+    }
+
+  for (j1 = 1; j1 < M_block; j1++)
+    {
+      st[j] = 4;
+      M0L[j] = j - M_x - 1;
+      M0R[j] = -1;
       X[j] = C_LENGHT + j1 * hx;
       Y[j] = A_LENGHT;
       j++;
     }
 
-  // (x, y) = (b, a)
-  st[j] = 2;
-  M0L[j] = j - M1 - 1;
-  M0R[j] = j + M1 + 1;
+  st[j] = 8;
+  M0L[j] = j - M_x - 1;
+  M0R[j] = -1;
   X[j] = B_LENGHT;
   Y[j] = A_LENGHT;
   j++;
 
-  assert (j == (M1_0 + 1) * (M2_0) + (M1 + 1));
+  assert (j == ((M_block_wide + 1) * M_block + (M_x + 1)));
 
-  for (j2 = M2_0 + 1; j2 < M2; j2++)
+  // 4 step
+
+  st[j] = 1;
+  M0L[j] = j - M_x - 1;
+  M0R[j] = j + M_block_wide + 1;
+  X[j] = 0.;
+  Y[j] = (M_block + 1) * hy;
+  j++;
+
+  for (j1 = 1; j1 < M_block_wide; j1++)
     {
-      // (X, Y) = {X = {0} & Y = (a, b)}
+      st[j] = 0;
+      M0L[j] = j - M_x - 1;
+      M0R[j] = j + M_block_wide + 1;
+      X[j] = j1 * hx;
+      Y[j] = (M_block + 1) * hy;
+      j++;
+    }
+
+  st[j] = 2;
+  M0L[j] = j - M_x - 1;
+  M0R[j] = j + M_block_wide + 1;
+  X[j] = M_block_wide * hx;
+  Y[j] = (M_block + 1) * hy;
+  j++;
+
+  for (j2 = M_block + 2; j2 < M_y; j2++)
+    {
       st[j] = 1;
-      M0L[j] = j - M1 - 1;
-      M0R[j] = j + M1 + 1;
+      M0L[j] = j - M_block_wide - 1;
+      M0R[j] = j + M_block_wide + 1;
       X[j] = 0.;
       Y[j] = j2 * hy;
       j++;
 
-      // internal nodes
-      for (j1 = 1; j1 < M1; j1++)
+      for (j1 = 1; j1 < M_block_wide; j1++)
         {
           st[j] = 0;
-          M0L[j] = j - M1 - 1;
-          M0R[j] = j + M1 + 1;
+          M0L[j] = j - M_block_wide - 1;
+          M0R[j] = j + M_block_wide + 1;
           X[j] = j1 * hx;
           Y[j] = j2 * hy;
           j++;
         }
 
-      // (X, Y) = {X = {b} & Y = (0, a - 1)}
       st[j] = 2;
-      M0L[j] = j - M1 - 1;
-      M0R[j] = j + M1 + 1;
-      X[j] = M1 * hx;
+      M0L[j] = j - M_block_wide - 1;
+      M0R[j] = j + M_block_wide + 1;
+      X[j] = M_block_wide * hx;
       Y[j] = j2 * hy;
       j++;
     }
 
-  assert (j == (M1_0 + 1) * (M2_0) + (M1 + 1) * (M2 - M2_0));
-
-  // (x, y) = (0, b)
+  // 5 step
   st[j] = 7;
-  M0L[j] = j - M1 - 1;
+  M0L[j] = j - M_block_wide - 1;
   M0R[j] = -1;
   X[j] = 0.;
-  Y[j] = M2 * hy;
+  Y[j] = M_y * hy;
   j++;
 
-  for (j1 = 1; j1 < M1; j1++)
+  for (j1 = 1; j1 < M_block_wide; j1++)
     {
       st[j] = 4;
-      M0L[j] = j - M1 - 1;
+      M0L[j] = j - M_block_wide - 1;
       M0R[j] = -1;
       X[j] = j1 * hx;
-      Y[j] = M2 * hy;
+      Y[j] = M_y * hy;
       j++;
     }
 
-  // (x, y) = (b, b)
   st[j] = 8;
-  M0L[j] = j - M1 - 1;
+  M0L[j] = j - M_block_wide - 1;
   M0R[j] = -1;
-  X[j] = M1 * hx;
-  Y[j] = M2 * hy;
+  X[j] = M_block_wide * hx;
+  Y[j] = M_y * hy;
   j++;
 
-  assert (j == (M1_0 + 1) * (M2_0) + (M1 + 1) * (M2 + 1 - M2_0));
   assert (j == p_s->Dim);
 }
 

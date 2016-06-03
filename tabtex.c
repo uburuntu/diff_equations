@@ -7,7 +7,7 @@ void tabtex(const char *filename, const char *message, int it_t_max,int it_sp_ma
                  double p_ro, double mu, int standalone)
 {
   int it_t,it_sp,it;
-  FILE *fi1 = fopen(filename,"a");
+  FILE *fi1 = fopen(filename,"w");
   if(standalone)
     {
       fprintf(fi1,"\\documentclass[a4paper,12pt]{scrartcl}\n");

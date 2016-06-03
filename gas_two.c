@@ -75,7 +75,7 @@ int main (void)
 
   n_ver = (it_t_max + 1) * (it_sp_max + 1);
 
-  if (!NO_SMOOTH)
+  if (calc_type == SMOOTH)
     {
       nc_g = (double *) malloc ((n_ver) * sizeof (double));
       nc_v1 = (double *) malloc ((n_ver) * sizeof (double));
@@ -120,7 +120,7 @@ int main (void)
   eig_func_in  = NULL;
 
 
-  if (!NO_SMOOTH)
+  if (calc_type == SMOOTH)
     {
       fout = fopen (OUTTEX_SMOOTH, "w");
     }
@@ -330,7 +330,7 @@ int main (void)
           time[it] = (double) (EndClock - BegClock) / CLOCKS_PER_SEC;
           printf ("Elapsed time: %.2f sec.\n", time[it]);
 
-          if (!NO_SMOOTH)
+          if (calc_type == SMOOTH)
             {
               nc_g[it] = Norm_c (G, p_s.Dim, X, Y, p_d.Segm_T, gg);
               nl2_g[it] = Norm_l2 (G, p_s.Dim, X, Y, p_d.Segm_T, gg);
@@ -387,7 +387,7 @@ int main (void)
     }
 
   //-------------------------------------------------
-  if (!NO_SMOOTH)
+  if (calc_type == SMOOTH)
     {
       fout = fopen (OUTTEX_SMOOTH, "a+");
     }
@@ -409,7 +409,7 @@ int main (void)
   fclose (fout);
   //-------------------------------------------------
 
-  if (!NO_SMOOTH)
+  if (calc_type == SMOOTH)
     {
       tabtex ("gc.tex", "norm of the error in C for g",
                 it_t_max, it_sp_max, nc_g, tauit, p_d.p_ro, p_d.mu, 0);

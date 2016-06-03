@@ -9,13 +9,28 @@ int is_equal (double x1, double x2)
 
 void param_dif (P_dif *p_d)
 {
-#if STAT_SOL_SRCH || EIG_FUNC_INIT
-  p_d->Segm_T = 200;
-#elif NO_SMOOTH
-  p_d->Segm_T = 5;
-#else
-  p_d->Segm_T = 1;
-#endif
+  switch (calc_type)
+    {
+      case SMOOTH:
+        {
+          p_d->Segm_T = 1;
+          break;
+        }
+
+      case NO_SMOOTH:
+        {
+          p_d->Segm_T = 5;
+          break;
+        }
+
+      case EIG_FUNC_INIT:
+      case STAT_SOL_SRCH:
+        {
+          p_d->Segm_T = 200;
+          break;
+        }
+    }
+
   p_d->Segm_X = 3.;
   p_d->Segm_Y = 3.;
   p_d->Segm_X_0 = 2.;
@@ -29,19 +44,34 @@ void param_she_step (P_she *p_s, P_dif *p_d, int it_t, int it_sp)
   // main rectangle
   int i, k_sp, k_t;
 
+  switch (calc_type)
+    {
+      case SMOOTH:
+        {
+          p_s->N = 20;
+          break;
+        }
+
+      case NO_SMOOTH:
+        {
+          p_s->N = 100;
+          break;
+        }
+
+      case EIG_FUNC_INIT:
+      case STAT_SOL_SRCH:
+        {
+          p_s->N = 4000;
+          break;
+        }
+    }
+
   p_s->M_x = 60;
   p_s->M_y = 60;
-#if STAT_SOL_SRCH || EIG_FUNC_INIT
-  p_s->N   = 4000;
-#elif NO_SMOOTH
-  p_s->N   = 100;
-#else
-  p_s->N   = 20;
-#endif
 
   // cut rectangle
-  p_s->M_x_0 = 40;
-  p_s->M_y_0 = 20;
+  p_s->M_x_0 = 0;
+  p_s->M_y_0 = 0;
 
   k_sp = 1;
   k_t = 1;
@@ -84,6 +114,7 @@ void param_she_step (P_she *p_s, P_dif *p_d, int it_t, int it_sp)
           p_s->M_y_0 = 20;
           p_s->M_x_0 *= k_sp;
           p_s->M_y_0 *= k_sp;
+
           p_s->Dim = (p_s->M_x + 1) * (p_s->M_y + 1) - (p_s->M_x_0 + 0) * (p_s->M_y_0 + 0);
           break;
         }
@@ -94,56 +125,21 @@ void param_she_step (P_she *p_s, P_dif *p_d, int it_t, int it_sp)
           p_s->M_y_0 = 20;
           p_s->M_x_0 *= k_sp;
           p_s->M_y_0 *= k_sp;
+
           p_s->Dim = (p_s->M_x + 1) * (p_s->M_y + 1) - 3 * (p_s->M_x_0 + 0) * (p_s->M_y_0 + 0);
           break;
         }
 
-  case NASTYA_11:
-          {
-            // main rectangle
-            p_s->M_x = 60;
-            p_s->M_y = 60;
-          #if STAT_SOL_SRCH || EIG_FUNC_INIT
-            p_s->N   = 2000;
-          #elif NO_SMOOTH
-            p_s->N   = 100;
-          #else
-            p_s->N   = 20;
-          #endif
+      case NASTYA_11:
+        {
+          p_s->M_x_0 = 20;
+          p_s->M_y_0 = 20;
+          p_s->M_x_0 *= k_sp;
+          p_s->M_y_0 *= k_sp;
 
-            // cut rectangle
-            p_s->M_x_0 = 20;
-            p_s->M_y_0 = 20;
-
-            k_sp = 1;
-            k_t = 1;
-
-            if (it_sp > 0)
-              {
-                for (i = 1; i <= it_sp; i++)
-                  {
-                    k_sp *= 2;
-                  }
-              }
-
-            if (it_t > 0)
-              {
-                for (i = 1; i <= it_t; i++)
-                  {
-                    k_t *= 2;
-                  }
-              }
-
-            p_s->M_x *= k_sp;
-            p_s->M_y *= k_sp;
-            p_s->N   *= k_t;
-
-            p_s->M_x_0 *= k_sp;
-            p_s->M_y_0 *= k_sp;
-
-            p_s->Dim = (p_s->M_x + 1) * (p_s->M_y + 1) - 4 * (p_s->M_x_0 + 0) * (p_s->M_y_0 + 0);
-            break;
-          }
+          p_s->Dim = (p_s->M_x + 1) * (p_s->M_y + 1) - 4 * (p_s->M_x_0 + 0) * (p_s->M_y_0 + 0);
+          break;
+        }
     }
 
   p_s->h_x = p_d->Segm_X / p_s->M_x;
@@ -193,7 +189,7 @@ double Norm_l2 (double *a, int Dim, double *X, double *Y, double t,
 // Calculate physical properties at point (t, x, u)
 inline double ro (double t, double x, double y)
 {
-  if (NO_SMOOTH)
+  if (calc_type == NO_SMOOTH)
     {
       // Left boundary
       if (is_equal (x, 0.))
@@ -227,7 +223,7 @@ inline double p (double t, double x, double y, double p_ro)
 
 inline double u1 (double t, double x, double y)
 {
-  if (NO_SMOOTH)
+  if (calc_type == NO_SMOOTH)
     {
       // Left boundary
       if (is_equal (x, 0.))
@@ -251,7 +247,7 @@ inline double u1 (double t, double x, double y)
 
 inline double u2 (double t, double x, double y)
 {
-  if (NO_SMOOTH)
+  if (calc_type == NO_SMOOTH)
     {
       // Left boundary
       if (is_equal (x, 0.))
@@ -275,7 +271,7 @@ inline double u2 (double t, double x, double y)
 
 inline double Func_g (double t, double x, double y)
 {
-  if (NO_SMOOTH)
+  if (calc_type == NO_SMOOTH)
     {
       return 0.;
     }
@@ -291,7 +287,7 @@ inline double Func_g (double t, double x, double y)
 
 inline double Func_v1 (double t, double x, double y, double p_ro, double mu)
 {
-  if (NO_SMOOTH)
+  if (calc_type == NO_SMOOTH)
     {
       return 0.;
     }
@@ -310,7 +306,7 @@ inline double Func_v1 (double t, double x, double y, double p_ro, double mu)
 
 inline double Func_v2 (double t, double x, double y, double p_ro, double mu)
 {
-  if (NO_SMOOTH)
+  if (calc_type == NO_SMOOTH)
     {
       return 0.;
     }

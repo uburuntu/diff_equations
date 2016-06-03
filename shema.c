@@ -295,7 +295,7 @@ int  Sxema (double *G, double *V1, double *V2,
                 {
                   // On boundary where the velocity vector is directed inside
                   // the value of g is known according to your test conditions.
-                  g00 = (NO_SMOOTH && is_equal (xx, 0.0) ? RHO_G : G[m]);
+                  g00 = (calc_type == NO_SMOOTH && is_equal (xx, 0.0) ? RHO_G : G[m]);
                   mmv1R0 = mm + 4;
 
                   // g(mx,my)--------------------------------------------
@@ -328,7 +328,7 @@ int  Sxema (double *G, double *V1, double *V2,
                       case SQUARE:
                         {
                           g00 = G[m];
-                          v100 = (NO_SMOOTH ? V1[m - 1] : u1 (tt, xx, yy));
+                          v100 = (calc_type == NO_SMOOTH ? V1[m - 1] : u1 (tt, xx, yy));
                           v200 = u2 (tt, xx, yy);
                           break;
                         }
@@ -345,7 +345,7 @@ int  Sxema (double *G, double *V1, double *V2,
                       case NASTYA_11:
                         {
                           g00 = G[m];
-                          v100 = NO_SMOOTH && is_equal (xx, p_d->Segm_X) ? V1[m - 1] : u1 (tt, xx, yy);
+                          v100 = (calc_type == NO_SMOOTH && is_equal (xx, p_d->Segm_X) ? V1[m - 1] : u1 (tt, xx, yy));
                           v200 = u2 (tt, xx, yy);
                           break;
                         }
@@ -394,7 +394,7 @@ int  Sxema (double *G, double *V1, double *V2,
                         {
                           g00 = G[m];
                           v100 = u1 (tt, xx, yy);
-                          v200 = (NO_SMOOTH && is_equal (yy, 0.) ? V2[M0R[m]] : u2 (tt, xx, yy));
+                          v200 = (calc_type == NO_SMOOTH && is_equal (yy, 0.) ? V2[M0R[m]] : u2 (tt, xx, yy));
                           break;
                         }
                     }

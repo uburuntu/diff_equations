@@ -694,7 +694,7 @@ int  Sxema (double *G, double *V1, double *V2,
           if (norm < STAT_SOL_EPS)
             {
               printf ("Stationary solution has been found at T = %d. \n", nn);
-              printf ("Accuracy = %E. \n", norm);
+              printf ("Accuracy = %e. \n", STAT_SOL_EPS);
               Q_Destr (&A);
               V_Destr (&D);
               V_Destr (&B);
@@ -702,7 +702,7 @@ int  Sxema (double *G, double *V1, double *V2,
             }
           else if (nn == 1 || nn % 10 == 0)
             {
-              printf ("t = %3.d, norm = %E \n", nn, norm);
+              printf ("t = %3.d, norm = %e \n", nn, norm);
             }
 
           init_prev_with_curr (Dim, G, V1, V2, G_prev, V1_prev, V2_prev);
@@ -715,7 +715,7 @@ int  Sxema (double *G, double *V1, double *V2,
           if (norm < STAT_SOL_EPS)
             {
               printf ("Stationary solution has been found at T = %d. \n", nn);
-              printf ("Accuracy = %E. \n", norm);
+              printf ("Accuracy = %e. \n", norm);
               Q_Destr (&A);
               V_Destr (&D);
               V_Destr (&B);
@@ -723,7 +723,7 @@ int  Sxema (double *G, double *V1, double *V2,
             }
           else if (nn == 1 || nn % 10 == 0)
             {
-              printf ("t = %3.d, norm = %E \n", nn, norm);
+              printf ("t = %3.d, norm = %e \n", nn, norm);
             }
 
           if (nn == EIG_USAGE_TIME)
@@ -760,7 +760,7 @@ int  Sxema (double *G, double *V1, double *V2,
   if (STAT_SOL_SRCH && G_prev && V1_prev && V2_prev)
     {
       printf ("Stationary solution has not been found at T = %d. \n", nn);
-      printf ("Accuracy = %E. \n", STAT_SOL_EPS);
+      printf ("Accuracy = %e. \n", STAT_SOL_EPS);
       return -1;
     }
 

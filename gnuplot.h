@@ -11,11 +11,14 @@ char *plot_name (char *name, double tau, double h1, double h2, int j);
 
 char *tex_name (char *name, double tau, double h1, double h2,  int t);
 
-void print_plot (char *file_name, double *X, double *Y,
+void print_plot (const char *file_name, double *X, double *Y,
                  double *G, double *V1, double *V2,
                  int size, double tt);
 
-int make_graph (char *texname, char *plotname, double h1, double h2,
+void print_data (const char *file_name, double *G, double *V1, double *V2,
+                 int size);
+
+int make_graph (const char *texname, const char *plotname, double h1, double h2,
                 double tau, double t);
 
 void make_tabletex (void);

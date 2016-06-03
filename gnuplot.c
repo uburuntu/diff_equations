@@ -19,7 +19,7 @@ char *tex_name (char *name, double tau, double h1, double h2, int t)
   return name;
 }
 
-void print_plot (char *file_name, double *X, double *Y,
+void print_plot (const char *file_name, double *X, double *Y,
                  double *G, double *V1, double *V2,
                  int size, double tt)
 {
@@ -27,9 +27,7 @@ void print_plot (char *file_name, double *X, double *Y,
   int i;
 
   if (!file_name)
-    {
       printf ("Incorrect filename by time %lf\n", tt);
-    }
 
   if (! (fp = fopen (file_name, "w+")))
     {
@@ -43,26 +41,62 @@ void print_plot (char *file_name, double *X, double *Y,
       fprintf (fp, "%f %f %f %f %f\n", Y[i], X[i], V2[i], V1[i], exp (G[i]));
 
       if ( i < size - 1 && fabs (Y[i] - Y[i + 1]) > 1e-6)
-        {
           fprintf (fp, "\n");
-        }
-
     }
+
+  fclose (fp);
+}
+
+void print_data (const char *file_name, double *G, double *V1, double *V2, int size)
+{
+  FILE *fp;
+  int i;
+
+  if (!file_name)
+      printf ("Incorrect filename\n");
+
+  if (! (fp = fopen (file_name, "w")))
+    {
+      printf ("Cannot create file %s\n", file_name);
+      return;
+    }
+
+  fprintf (fp, "%d \n", size);
+
+  for (i = 0; i < size; i++)
+      fprintf (fp, "%lf ", G[i]);
+
+  fprintf (fp, "\n");
+
+  for (i = 0; i < size; i++)
+      fprintf (fp, "%lf ", V1[i]);
+
+  fprintf (fp, "\n");
+
+  for (i = 0; i < size; i++)
+      fprintf (fp, "%lf ", V2[i]);
+
+  fprintf (fp, "\n");
 
   fclose (fp);
 }
 
 
 
-int make_graph (char *texname, char *plotname, double h1, double h2, double tau, double t)
+
+int make_graph (const char *texname, const char *plotname, double h1, double h2, double tau, double t)
 {
   FILE *fout;
 
   if ((fout = fopen (texname, "w")))
     {
       fprintf (fout, "\\begin{minipage}{\\linewidth}\n"
-               "\\centering\n"
-               "$\\tau = %1.3f$, $h = \\left(%1.3f, %1.3f\\right)$, $t = %1.3f$\n\n\n"
+               "\\centering\n");
+      if(h1 > 0.)
+          fprintf (fout,
+                   "$\\tau = %1.3f$, $h = \\left(%1.3f, %1.3f\\right)$, $t = %1.3f$\n\n\n",
+                   tau, h1, h2, t);
+      fprintf (fout,
                "\\begin{minipage}{0.49 \\linewidth}\n"
                "\\begin{figure}[H]\n"
                "\\begin{gnuplot}\n"
@@ -102,7 +136,7 @@ int make_graph (char *texname, char *plotname, double h1, double h2, double tau,
                "\\end{figure}\n"
                "\\end{minipage}\n"
                "\\end{minipage}\n"
-               "\\vspace{1cm}\n", tau, h1, h2, t, plotname,
+               "\\vspace{1cm}\n", plotname,
                plotname);
     }
   else
@@ -114,18 +148,12 @@ int make_graph (char *texname, char *plotname, double h1, double h2, double tau,
   fclose (fout);
 
   if (!NO_SMOOTH)
-    {
       fout = fopen (OUTTEX_SMOOTH, "a+");
-    }
   else
-    {
       fout = fopen (OUTTEX_ABRUPT, "a+");
-    }
 
   if (fout != NULL)
-    {
       fprintf (fout, "\\input{%s} \n", texname);
-    }
   else
     {
       printf ("Can't open OUTTEX file\n");

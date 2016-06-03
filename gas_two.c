@@ -345,29 +345,17 @@ int main (void)
           if (STAT_SOL_SRCH && it_sp == it_t && it_sp == 0 &&
               ret == 1 /* stat_sol was found in SRCH mode*/)
             {
-              stat_sol_out = fopen ("./eigen/stat_sol.txt", "w");
-              fprintf (stat_sol_out, "%d \n", p_s.Dim);
+                /*
+                 * Technical printing in form:
+                 * dim
+                 * G[0]  G[1]  ... G[dim - 1]
+                 * V1[0] V1[1] ... V1[dim - 1]
+                 * V2[0] V2[1] ... V2[dim - 1]
+                 */
+                print_data("./eigen/stat_sol.txt", G, V1, V2, p_s.Dim);
 
-              for (i = 0; i < p_s.Dim; i++)
-                {
-                  fprintf (stat_sol_out, "%lf ", G[i]);
-                }
-
-              fprintf (stat_sol_out, "\n");
-
-              for (i = 0; i < p_s.Dim; i++)
-                {
-                  fprintf (stat_sol_out, "%lf ", V1[i]);
-                }
-
-              fprintf (stat_sol_out, "\n");
-
-              for (i = 0; i < p_s.Dim; i++)
-                {
-                  fprintf (stat_sol_out, "%lf ", V2[i]);
-                }
-
-              fprintf (stat_sol_out, "\n");
+                print_plot("stat_sol.log", X, Y, G, V1, V2, p_s.Dim, it_t);
+                make_graph("stat_sol.tex", "stat_sol.log", 0, 0., 0., 0.);
 
               FREE_ALL_ARRAYS;
               CLOSE_ALL_FILES;
@@ -422,13 +410,20 @@ int main (void)
 
   if (!NO_SMOOTH)
     {
-      tabtex_nc_g (it_t_max, it_sp_max, nc_g, tauit, p_d.p_ro, p_d.mu);
-      tabtex_nc_v1 (it_t_max, it_sp_max, nc_v1, tauit, p_d.p_ro, p_d.mu);
-      tabtex_nc_v2 (it_t_max, it_sp_max, nc_v2, tauit, p_d.p_ro, p_d.mu);
-      tabtex_nl2_g (it_t_max, it_sp_max, nl2_g, tauit, p_d.p_ro, p_d.mu);
-      tabtex_nl2_v1 (it_t_max, it_sp_max, nl2_v1, tauit, p_d.p_ro, p_d.mu);
-      tabtex_nl2_v2 (it_t_max, it_sp_max, nl2_v2, tauit, p_d.p_ro, p_d.mu);
-      tabtex_time (it_t_max, it_sp_max, time, tauit, p_d.p_ro, p_d.mu);
+      tabtex ("gc.tex", "norm of the error in C for g",
+                it_t_max, it_sp_max, nc_g, tauit, p_d.p_ro, p_d.mu, 0);
+      tabtex ("v1c.tex", "norm of the error in C for $v_1$",
+                it_t_max, it_sp_max, nc_v1, tauit, p_d.p_ro, p_d.mu, 0);
+      tabtex ("v2c.tex", "norm of the error in C for $v_2$",
+                it_t_max, it_sp_max, nc_v2, tauit, p_d.p_ro, p_d.mu, 0);
+      tabtex ("gl2.tex", "norm of the error in $L_2$ for g",
+                it_t_max, it_sp_max, nl2_g, tauit, p_d.p_ro, p_d.mu, 0);
+      tabtex ("v1l2.tex","norm of the error in $L_2$ for $v_1$",
+                it_t_max, it_sp_max, nl2_v1, tauit, p_d.p_ro, p_d.mu, 0);
+      tabtex ("v2l2.tex","norm of the error in $L_2$ for $v_2$",
+                it_t_max, it_sp_max, nl2_v2, tauit, p_d.p_ro, p_d.mu, 0);
+      tabtex ("time.tex","time, ",
+                it_t_max, it_sp_max, time, tauit, p_d.p_ro, p_d.mu, 0);
 
       make_tabletex();
     }

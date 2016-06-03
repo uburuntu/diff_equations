@@ -78,21 +78,9 @@ int L_op (double *Lu, const double *u, const user_data *ud,
   double p_ro = ud->p_ro;
   double p_2ro = ud->p_2ro;
 
-  // DON`T DELETE THIS PARAMETER
-  // IT MAY BE USED FOR ANOTHER NO-SQUARE MESH
-  // !!!!
-  FIX_UNUSED(X);
-
   double *J   = make_vector_double (N, __FILE__, __FUNCTION__);
   double *W1  = make_vector_double (N, __FILE__, __FUNCTION__);
   double *W2  = make_vector_double (N, __FILE__, __FUNCTION__);
-
-  for (m = 0; m < N; m++)
-    {
-      J[m]  = u[3 * m + 0];
-      W1[m] = u[3 * m + 1];
-      W2[m] = u[3 * m + 2];
-    }
 
   /*
    * TODO -- now this loop is for laplacian equation:
@@ -137,6 +125,19 @@ int L_op (double *Lu, const double *u, const user_data *ud,
   // Чтобы избежать багов заполняем здесь ВСЕ уравнения,
   // ненужные потом в конверте не копируем в укороченный вектор au.
   int mm = 0;
+
+
+  // DON`T DELETE THIS PARAMETER
+  // IT MAY BE USED FOR ANOTHER NO-SQUARE MESH
+  // !!!!
+  FIX_UNUSED(X);
+
+  for (m = 0; m < N; m++)
+    {
+      J[m]  = u[3 * m + 0];
+      W1[m] = u[3 * m + 1];
+      W2[m] = u[3 * m + 2];
+    }
 
   for (m = 0; m < N; m++)
     {

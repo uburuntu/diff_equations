@@ -40,11 +40,6 @@ int find_eigen_values (
   double sigma_real = 0, sigma_imag = 0;
   int n_found_eigen_values;
 
-  int iparam[11] = {}, ipntr[14] = {};
-  iparam[1 - 1] = 1; // ishfts
-  iparam[3 - 1] = max_iterations;
-  iparam[7 - 1] = 1; // mode
-
   /* Number of eigenvalues of OP to be computed. 0 < NEV < N-1. */
   int nev = n_eigen_values;
 
@@ -63,6 +58,11 @@ int find_eigen_values (
   double *w_imag = make_vector_double (n, __FUNCTION__, __FILE__);
 
   int *select = make_vector_int (ncv, __FUNCTION__, __FILE__);
+
+  int iparam[11], ipntr[14];
+  iparam[1 - 1] = 1; // ishfts
+  iparam[3 - 1] = max_iterations;
+  iparam[7 - 1] = 1; // mode
 
   /// Calculations run
 

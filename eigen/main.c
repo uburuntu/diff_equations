@@ -17,6 +17,7 @@ int main (void)
   user_data ud;
 
   int n_found_eigen_values;
+  int ret;
 
   double *eigen_values;
   double *eigen_functions_A_op;
@@ -34,25 +35,6 @@ int main (void)
   double *V1;
   double *V2;
 
-  init_user_data (&ud);
-
-  // aux vectors for all mesh elements
-  st  = make_vector_int (ud.N, __FILE__, __FUNCTION__);
-  M0L = make_vector_int (ud.N, __FILE__, __FUNCTION__);
-  M0R = make_vector_int (ud.N, __FILE__, __FUNCTION__);
-  X  = make_vector_double (ud.N, __FILE__, __FUNCTION__);
-  Y  = make_vector_double (ud.N, __FILE__, __FUNCTION__);
-  G  = make_vector_double (ud.N, __FILE__, __FUNCTION__);
-  V1 = make_vector_double (ud.N, __FILE__, __FUNCTION__);
-  V2 = make_vector_double (ud.N, __FILE__, __FUNCTION__);
-
-  int ret = read_stationary_solution (ST_SOL_FILE, ud.N, G, V1, V2);
-
-  if (ret < 0)
-    {
-      return 0;
-    }
-
   /* 'LM' -> eigenvalues of largest magnitude. */
   /* 'SM' -> eigenvalues of smallest magnitude.*/
   /* 'LR' -> eigenvalues of largest real part. */
@@ -67,6 +49,25 @@ int main (void)
   const int n_eigen_values = 6;
   const int max_iterations = 1000;
   const double tolerance = 1.e-12;
+
+  init_user_data (&ud);
+
+  // aux vectors for all mesh elements
+  st  = make_vector_int (ud.N, __FILE__, __FUNCTION__);
+  M0L = make_vector_int (ud.N, __FILE__, __FUNCTION__);
+  M0R = make_vector_int (ud.N, __FILE__, __FUNCTION__);
+  X  = make_vector_double (ud.N, __FILE__, __FUNCTION__);
+  Y  = make_vector_double (ud.N, __FILE__, __FUNCTION__);
+  G  = make_vector_double (ud.N, __FILE__, __FUNCTION__);
+  V1 = make_vector_double (ud.N, __FILE__, __FUNCTION__);
+  V2 = make_vector_double (ud.N, __FILE__, __FUNCTION__);
+
+  ret = read_stationary_solution (ST_SOL_FILE, ud.N, G, V1, V2);
+
+  if (ret < 0)
+    {
+      return 0;
+    }
 
   // eigen_values[2 * i + 0] = LAMBDA_I_REAL_PART
   // eigen_values[2 * i + 1] = LAMBDA_I_IMAG_PART
@@ -96,11 +97,11 @@ int main (void)
   for (int i = 0; i < n_found_eigen_values; i++)
     {
       char fn[1024];
-
+      FILE *out;
       int len = snprintf (fn, sizeof (fn) - 1, "./results/eigenfun_%02d.txt", i);
       fn[len] = 0;
 
-      FILE *out = fopen (fn, "w");
+      out = fopen (fn, "w");
 
       if (out == NULL)
         {

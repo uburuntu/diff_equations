@@ -50,12 +50,12 @@ void calc_mesh_params (int *st, double *X, double *Y, int *M0L,
 #if SQUARE
   int M1, M2;
   double hx, hy;
+  int j, j1, j2;
   // Minus 1 because it`s a number of line-segments
   M1 = ud->Nx - 1;
   M2 = ud->Ny - 1;
   hx = ud->Hx;
   hy = ud->Hy;
-  int j, j1, j2;
 
   st[0] = 5;
   M0L[0] = -1;

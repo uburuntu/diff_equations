@@ -93,7 +93,7 @@ int  Sxema (double *G, double *V1, double *V2,
       xx = X[m];
       yy = Y[m];
 
-      if (EIG_FUNC_INIT && G_stat && G_eigen)
+      if (calc_type == EIG_FUNC_INIT && G_stat && G_eigen)
         {
           tmp = G_stat[m] + G_eigen[m];
         }
@@ -105,14 +105,14 @@ int  Sxema (double *G, double *V1, double *V2,
       V_SetCmp (&D, mm, tmp);
       G[m] = tmp;
 
-      if ((STAT_SOL_SRCH || EIG_FUNC_INIT) && G_prev)
+      if ((calc_type == STAT_SOL_SRCH || calc_type == EIG_FUNC_INIT) && G_prev)
         {
           G_prev[m] = tmp;
         }
 
       mm++;
 
-      if (EIG_FUNC_INIT && V1_stat && V1_eigen)
+      if (calc_type == EIG_FUNC_INIT && V1_stat && V1_eigen)
         {
           tmp = V1_stat[m] + V1_eigen[m];
         }
@@ -124,14 +124,14 @@ int  Sxema (double *G, double *V1, double *V2,
       V_SetCmp (&D, mm, tmp);
       V1[m] = tmp;
 
-      if ((STAT_SOL_SRCH || EIG_FUNC_INIT) && V1_prev)
+      if ((calc_type == STAT_SOL_SRCH || calc_type == EIG_FUNC_INIT) && V1_prev)
         {
           V1_prev[m] = tmp;
         }
 
       mm++;
 
-      if (EIG_FUNC_INIT && V2_stat && V2_eigen)
+      if (calc_type == EIG_FUNC_INIT && V2_stat && V2_eigen)
         {
           tmp = V2_stat[m] + V2_eigen[m];
         }
@@ -143,7 +143,7 @@ int  Sxema (double *G, double *V1, double *V2,
       V_SetCmp (&D, mm, tmp);
       V2[m] = tmp;
 
-      if ((STAT_SOL_SRCH || EIG_FUNC_INIT) && V2_prev)
+      if ((calc_type == STAT_SOL_SRCH || calc_type == EIG_FUNC_INIT) && V2_prev)
         {
           V2_prev[m] = tmp;
         }
@@ -618,15 +618,15 @@ int  Sxema (double *G, double *V1, double *V2,
           make_graph (tex_name (texname, tau, hx, hy, nn), plotname, hx, hy, tau, tt);
         }
 
-      if ((STAT_SOL_SRCH || EIG_FUNC_INIT) && G_prev && V1_prev && V2_prev)
+      if ((calc_type == STAT_SOL_SRCH || calc_type == EIG_FUNC_INIT) && G_prev && V1_prev && V2_prev)
         {
           norm = calc_sol_residual_norm (Dim, G, V1, V2, G_prev, V1_prev, V2_prev);
 
           if (norm < STAT_SOL_EPS)
             {
-              if (STAT_SOL_SRCH)
+              if (calc_type == STAT_SOL_SRCH)
                 printf ("Stationary solution has been found at T = %d. \n", nn);
-              else if (EIG_FUNC_INIT)
+              else if (calc_type == EIG_FUNC_INIT)
                 printf ("Solution has stabilized at T = %d. \n", nn);
               printf ("Accuracy = %e. \n", STAT_SOL_EPS);
               Q_Destr (&A);
@@ -647,11 +647,11 @@ int  Sxema (double *G, double *V1, double *V2,
   V_Destr (&D);
   V_Destr (&B);
 
-  if ((STAT_SOL_SRCH || EIG_FUNC_INIT) && G_prev && V1_prev && V2_prev)
+  if ((calc_type == STAT_SOL_SRCH || calc_type == EIG_FUNC_INIT) && G_prev && V1_prev && V2_prev)
     {
-      if (STAT_SOL_SRCH)
+      if (calc_type == STAT_SOL_SRCH)
         printf ("Sorry: stationary solution has been found at T = %d. \n", nn);
-      else if (EIG_FUNC_INIT)
+      else if (calc_type == EIG_FUNC_INIT)
         printf ("Sorry: solution has not stabilized at T = %d. \n", nn);
       printf ("Accuracy = %e. \n", STAT_SOL_EPS);
       return -1;

@@ -58,16 +58,23 @@ int main (void)
 
   param_dif (&p_d);
 
+  switch (calc_type)
+    {
+      case SMOOTH:
+      case NO_SMOOTH:
+        {
+          it_t_max = 1;
+          it_sp_max = 1;
+          break;
+        }
 
-  if (STAT_SOL_SRCH || EIG_FUNC_INIT)
-    {
-      it_t_max = 0;
-      it_sp_max = 0;
-    }
-  else
-    {
-      it_t_max = 1;
-      it_sp_max = 1;
+      case EIG_FUNC_INIT:
+      case STAT_SOL_SRCH:
+        {
+          it_t_max = 0;
+          it_sp_max = 0;
+          break;
+        }
     }
 
   it_t = 0;
@@ -142,7 +149,7 @@ int main (void)
       return -1;
     }
 
-  if (EIG_FUNC_INIT)
+  if (calc_type == EIG_FUNC_INIT)
     {
       eig_func_in = fopen ("./eigen/results/eigenfun_00.txt", "r");
 
@@ -193,14 +200,14 @@ int main (void)
           V1 = (double *) malloc ((p_s.Dim) * sizeof (double)); // v1 array of nodes
           V2 = (double *) malloc ((p_s.Dim) * sizeof (double)); // v2 array of nodes
 
-          if ((STAT_SOL_SRCH || EIG_FUNC_INIT) && it_t == 0 && it_sp == 0)
+          if ((calc_type == STAT_SOL_SRCH || calc_type == EIG_FUNC_INIT) && it_t == 0 && it_sp == 0)
             {
               G_prev  = (double *) malloc ((p_s.Dim) * sizeof (double)); // press array of nodes
               V1_prev = (double *) malloc ((p_s.Dim) * sizeof (double)); // v1 array of nodes
               V2_prev = (double *) malloc ((p_s.Dim) * sizeof (double)); // v2 array of nodes
             }
 
-          if (EIG_FUNC_INIT && it_t == 0 && it_sp == 0)
+          if (calc_type == EIG_FUNC_INIT && it_t == 0 && it_sp == 0)
             {
               ret = 0;
               G_eigen  = (double *) malloc ((p_s.Dim) * sizeof (double)); // press array of nodes
@@ -343,7 +350,7 @@ int main (void)
               printf (" %lf %lf %lf \n", nl2_g[it], nl2_v1[it], nl2_v2[it]);
             }
 
-          if (STAT_SOL_SRCH && it_sp == it_t && it_sp == 0 &&
+          if (calc_type == STAT_SOL_SRCH && it_sp == it_t && it_sp == 0 &&
               ret == 1 /* stat_sol was found in SRCH mode*/)
             {
                 /*
@@ -363,7 +370,7 @@ int main (void)
               return 0;
             }
 
-          if (EIG_FUNC_INIT && it_sp == it_t && it_sp == 0 &&
+          if (calc_type == EIG_FUNC_INIT && it_sp == it_t && it_sp == 0 &&
               ret == 2 /* stat_sol was found in EIG mode*/)
             {
               FREE_ALL_ARRAYS;

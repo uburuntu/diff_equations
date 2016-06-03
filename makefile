@@ -9,12 +9,12 @@ OBJECTS=$(SOURCES:.c=.o)
 EXECUTABLE=a.out
 REPORT_FILENAME=theplot.pdf
 
-all: $(SOURCES) $(EXECUTABLE)
+all: $(SOURCES) $(EXECUTABLE) makefile config.h func.h
 
-$(EXECUTABLE): $(OBJECTS)
+$(EXECUTABLE): $(OBJECTS) makefile config.h func.h
 	$(CC) $(OBJECTS) ./laspack/liblaspack.a -o $@ $(LDFLAGS)
 
-.cpp.o:
+.cpp.o: makefile config.h func.h 
 	$(CC) $(CFLAGS) $<
 
 clean:
@@ -24,7 +24,7 @@ gnuplot.o: gnuplot.h
 
 tabtex.o: tabtex.h
 
-*.o: func.h
+*.o: func.h makefile config.h
 
 
 tex_smooth:

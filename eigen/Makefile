@@ -4,7 +4,7 @@ OPTIMIZE= -Ofast
 CFLAGS  = -c $(OPTIMIZE) -g -W -Wall -Wunused -Wcast-align -Werror -fstack-protector-all -Wfloat-equal -Wpointer-arith -Wwrite-strings -Wcast-align -Wno-long-long -Wmissing-declarations -std=gnu99
 LDFLAGS =    $(OPTIMIZE) -g -W -Wall -Wunused -Wcast-align -Werror -fstack-protector-all -Wfloat-equal -Wpointer-arith -Wwrite-strings -Wcast-align -Wno-long-long -Wmissing-declarations -std=gnu99
 
-HFILES	= f.h
+HFILES	= f.h ../config.h
 SOURCES = main.c numsds_spectral.c s.c calc_mesh.c funcs.c
 OBJECTS = $(addprefix $(OBJS_FOLDER),$(SOURCES:.c=.o))
 

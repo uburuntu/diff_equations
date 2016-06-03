@@ -38,7 +38,7 @@
 #define FIX_UNUSED(X) (void)(X)
 #define FREE_ARRAY(X) if ((X)) free ((X)); (X) = NULL
 
-#define MINIMAL_FOR_COMPARE   1.e-16
+#define MINIMAL_FOR_COMPARE 1.e-16
 
 #define SQUARE 1
 

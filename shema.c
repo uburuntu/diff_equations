@@ -12,9 +12,9 @@
 #include "func.h"
 #include "gnuplot.h"
 
-#define DEBUG_VARIANT_I   0
+#define DEBUG_VARIANT_I   1
 #define DEBUG_VARIANT_II  0
-#define DEBUG_VARIANT_III 1
+#define DEBUG_VARIANT_III 0
 #define EIG_USAGE_TIME    5
 
 int  Sxema (double *G, double *V1, double *V2,
@@ -98,7 +98,14 @@ int  Sxema (double *G, double *V1, double *V2,
       xx = X[m];
       yy = Y[m];
 
-      tmp = gg (tt, xx, yy);
+      if (EIG_FUNC_INIT && G_stat)
+        {
+          tmp = G_stat[m];
+        }
+      else
+        {
+          tmp = gg (tt, xx, yy);
+        }
       V_SetCmp (&D, mm, tmp);
       G[m] = tmp;
 
@@ -128,7 +135,15 @@ int  Sxema (double *G, double *V1, double *V2,
 
       mm++;
 
-      tmp = u1 (tt, xx, yy);
+      if (EIG_FUNC_INIT && V1_stat)
+        {
+          tmp = V1_stat[m];
+        }
+      else
+        {
+          tmp = u1 (tt, xx, yy);
+        }
+
       V_SetCmp (&D, mm, tmp);
       V1[m] = tmp;
 
@@ -158,7 +173,15 @@ int  Sxema (double *G, double *V1, double *V2,
 
       mm++;
 
-      tmp = u2 (tt, xx, yy);
+      if (EIG_FUNC_INIT && V2_stat)
+        {
+          tmp = V2_stat[m];
+        }
+      else
+        {
+          tmp = u2 (tt, xx, yy);
+        }
+
       V_SetCmp (&D, mm, tmp);
       V2[m] = tmp;
 

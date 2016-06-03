@@ -15,11 +15,26 @@ typedef enum enum_calc_type_t
   } calc_type_t;
 
 // Change this for different calculation type
-static const calc_type_t calc_type = NO_SMOOTH;
+static const calc_type_t calc_type = STAT_SOL_SRCH;
 
 
 
 /// Common config (for first program and eigen)
+
+#define A_LENGHT 1.
+#define C_LENGHT 2.
+#define B_LENGHT 3.
+
+typedef enum enum_grid_type_t
+  {
+    SQUARE,
+    VOLODYA_9,
+    RAMZAN_10,
+    NASTYA_11
+  } grid_type_t;
+
+// Change this for different grids
+static const grid_type_t grid_type = VOLODYA_9;
 
 /*
  *
@@ -59,18 +74,3 @@ static const calc_type_t calc_type = NO_SMOOTH;
  *  8 - x = b, y = b                           +
  *
  */
-
-#define A_LENGHT 1.
-#define C_LENGHT 2.
-#define B_LENGHT 3.
-
-typedef enum enum_grid_type_t
-  {
-    SQUARE,
-    VOLODYA_9,
-    RAMZAN_10,
-    NASTYA_11
-  } grid_type_t;
-
-// Change this for different grids
-static const grid_type_t grid_type = SQUARE;

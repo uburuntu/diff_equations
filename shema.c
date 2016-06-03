@@ -355,9 +355,34 @@ int  Sxema (double *G, double *V1, double *V2,
 
               case 2:
                 {
-                  g00 = G[m];
-                  v100 = (NO_SMOOTH && (grid_type == SQUARE) ? V1[m - 1] : u1 (tt, xx, yy));
-                  v200 = u2 (tt, xx, yy);
+                  switch (grid_type)
+                    {
+                      case SQUARE:
+                        {
+                          g00 = G[m];
+                          v100 = (NO_SMOOTH ? V1[m - 1] : u1 (tt, xx, yy));
+                          v200 = u2 (tt, xx, yy);
+                          break;
+                        }
+
+                      case VOLODYA_9:
+                        {
+                          g00 = G[m];
+                          v100 = u1 (tt, xx, yy);
+                          v200 = u2 (tt, xx, yy);
+                          break;
+                        }
+
+                      case RAMZAN_10:
+                      case NASTYA_11:
+                        {
+                          g00 = G[m];
+                          v100 = NO_SMOOTH && is_equal (xx, p_d->Segm_X) ? V1[m - 1] : u1 (tt, xx, yy);
+                          v200 = u2 (tt, xx, yy);
+                          break;
+                        }
+                    }
+
                   mmv1L0 = mm - 2;
 
                   // g(mx,my)--------------------------------------------
@@ -377,7 +402,7 @@ int  Sxema (double *G, double *V1, double *V2,
                   // v2(mx,my)------------------------------------------------------
                   Q_SetLen (&A, mm, 1);
                   Q_SetEntry (&A, mm, 0, mm, 1.);
-                  V_SetCmp (&B, mm, u2 (tt, xx, yy));
+                  V_SetCmp (&B, mm, v200);
                   mm++;
 
                   break;
@@ -385,9 +410,27 @@ int  Sxema (double *G, double *V1, double *V2,
 
               case 3:
                 {
-                  g00 = G[m];
-                  v100 = u1 (tt, xx, yy);
-                  v200 = (NO_SMOOTH && (grid_type != SQUARE) && is_equal (yy, 0.) ? V2[M0R[m]] : u2 (tt, xx, yy));
+                  switch (grid_type)
+                    {
+                      case SQUARE:
+                      case RAMZAN_10:
+                      case NASTYA_11:
+                        {
+                          g00 = G[m];
+                          v100 = u1 (tt, xx, yy);
+                          v200 = u2 (tt, xx, yy);
+                          break;
+                        }
+
+                      case VOLODYA_9:
+                        {
+                          g00 = G[m];
+                          v100 = u1 (tt, xx, yy);
+                          v200 = (NO_SMOOTH && is_equal (yy, 0.) ? V2[M0R[m]] : u2 (tt, xx, yy));
+                          break;
+                        }
+                    }
+
                   mmv20R = (3 * M0R[m] + 1) + 2;
 
                   // g(mx,my)--------------------------------------------

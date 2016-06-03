@@ -248,7 +248,7 @@ inline double u1 (double t, double x, double y)
           return 0.;
         }
 
-      return (double) (sin (M_PI * x) * sin (M_PI * y) * exp (t));
+      return 0.;
     }
   else
     {
@@ -285,7 +285,7 @@ inline double u2 (double t, double x, double y)
           return 0.;
         }
 
-      return (double) (sin (M_PI * x) * sin (M_PI * y) * exp (-t));
+      return 0.;
     }
   else
     {

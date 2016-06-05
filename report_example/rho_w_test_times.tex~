@@ -1,0 +1,8 @@
+
+ $ time $ \\ 
+\begin{tabular}{|p{0.6in}|p{1.2in}|p{1.2in}|p{1.2in}|} \hline
+$\rho_{\gamma}\setminus w$ & $0.001 $ & 0.05 & 0.01 \\ \hline
+$0.5$ & $18.78$ & $21.92$ & $21.17$  \\ \hline
+$1.5$ & $12.80$ & $13.15$ & $13.81$  \\ \hline
+$5.0$ & $12.02$ & $12.23$ & $12.22$  \\ \hline
+\end{tabular}\\[20pt]

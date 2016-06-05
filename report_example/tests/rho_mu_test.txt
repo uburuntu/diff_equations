@@ -1,0 +1,9 @@
+0.1   50   N =  80, M1 = 120, M2 = 120, Dim =  11441, Elapsed time: 28.43 sec.
+0.1   100  N =  80, M1 = 120, M2 = 120, Dim =  11441, Elapsed time: 44.75 sec.
+0.01  1    N =  80, M1 = 120, M2 = 120, Dim =  11441, Elapsed time: 4.75 sec.
+0.01  50   N =  80, M1 = 120, M2 = 120, Dim =  11441, Elapsed time: 22.24 sec.
+0.01  100  N =  80, M1 = 120, M2 = 120, Dim =  11441, Elapsed time: 28.60 sec.
+0.001 1    N =  80, M1 = 120, M2 = 120, Dim =  11441, Elapsed time: 3.72 sec.
+0.001 50   N =  80, M1 = 120, M2 = 120, Dim =  11441, Elapsed time: 21.06 sec.
+0.001 100  N =  80, M1 = 120, M2 = 120, Dim =  11441, Elapsed time: 26.40 sec.
+

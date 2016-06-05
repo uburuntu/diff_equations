@@ -1,0 +1,183 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage[left=1cm,right=1cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry} 
+\usepackage{textcomp,latexsym,pb-diagram,amsopn} 
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{pdfpages}
+\usepackage{cite,enumerate,float,indentfirst} 
+\usepackage{graphicx,xcolor} 
+\usepackage{float}
+\usepackage{gnuplottex}
+\usepackage{caption,setspace}
+\captionsetup{font={small}}
+
+\begin{document}
+\title{Численное моделирование нестационарного течения газа с 
+использованием разностной несимметричной схемы $Ln(p)$-СКОРОСТЬ}
+\author{Назаров Владимир \\ 410 группа }
+
+\maketitle
+
+\section{\LARGE Тесты}
+
+\subsection{ \Large Случай гладкого решения}
+Проверка работоспособности схемы производилась для следующего гладкого решения:
+
+\begin{figure}[h]
+\center{\includegraphics[width=0.5\linewidth]{./images/22.png}}
+\end{figure}
+
+
+\input{introduction.tex}
+
+\section{Результаты расчета для гладкого решения}
+
+Ниже представлена таблица точности расчетов для разных сеток. Из данных результатов следует, что точность вычислений 
+возрастает при размельчении сетки.
+
+\input{table_smooth.tex}
+
+\section{Результаты расчета задачи протекания}
+После отладки схемы на гладком решении были проведен расчет задачи протекания при различных значения параметров $\rho_{\gamma}$ и $w$. Ниже представлены результаты.
+
+\includepdf[pages={-}]{0_5-0_001.pdf}
+\includepdf[pages={-}]{0_5-0_05.pdf}
+\includepdf[pages={-}]{0_5-0_1.pdf}
+
+\includepdf[pages={-}]{1_5-0_001.pdf}
+\includepdf[pages={-}]{1_5-0_05.pdf}
+\includepdf[pages={-}]{1_5-0_1.pdf}
+
+\includepdf[pages={-}]{5-0_001.pdf}
+\includepdf[pages={-}]{5-0_05.pdf}
+\includepdf[pages={-}]{5-0_1.pdf}
+
+Из данных графиков видно, что при увеличении плотности втекаемого газа могут образовываться зафихрения или даже ударные волны. Также приведем таблицу с временем расчета в секундах:
+\input{rho_w_test_times.tex}
+
+\section{Спектр линеризованного разностного оператора}
+Стационарное решение было найдено следующим способом: на итерациях проверялась норма текущего решения по сравнению с предыдущим. Критерием выхода было выбрано значение $eps = 1.e-4$. Стационарное решение было найдено:
+\begin{eqnarray*}
+N = 4000, M1 = 120, M2 = 120, Dim =  11441. \\
+t =   1, norm = 4.914980E-02 \\
+t =  10, norm = 3.121221E-03 \\
+t =  20, norm = 2.668482E-03 \\
+t =  30, norm = 2.399994E-03 \\
+t =  40, norm = 2.211056E-03 \\
+t =  50, norm = 2.065087E-03 \\
+t =  60, norm = 1.945355E-03 \\
+t =  70, norm = 1.843295E-03 \\
+t =  80, norm = 1.752068E-03 \\
+t =  90, norm = 1.665327E-03 \\
+t = 100, norm = 1.584826E-03 \\
+t = 110, norm = 1.516600E-03 \\
+t = 120, norm = 1.447534E-03 \\
+t = 130, norm = 1.363081E-03 \\
+t = 140, norm = 1.271442E-03 \\
+t = 150, norm = 1.183662E-03 \\
+t = 160, norm = 1.101984E-03 \\
+t = 170, norm = 1.024197E-03 \\
+t = 180, norm = 9.498586E-04 \\
+t = 190, norm = 8.814205E-04 \\
+t = 200, norm = 8.210501E-04 \\
+\end{eqnarray*}
+
+\begin{eqnarray*}
+t = 210, norm = 7.684355E-04 \\
+t = 220, norm = 7.211744E-04 \\
+t = 230, norm = 6.759163E-04 \\
+t = 240, norm = 6.293814E-04 \\
+t = 250, norm = 5.798076E-04 \\
+t = 260, norm = 5.285017E-04 \\
+t = 270, norm = 4.797993E-04 \\
+t = 280, norm = 4.386722E-04 \\
+t = 290, norm = 4.078017E-04 \\
+t = 300, norm = 3.865920E-04 \\
+t = 310, norm = 3.724532E-04 \\
+t = 320, norm = 3.625953E-04 \\
+t = 330, norm = 3.549748E-04 \\
+t = 340, norm = 3.483496E-04 \\
+t = 350, norm = 3.419612E-04 \\
+t = 360, norm = 3.352034E-04 \\
+t = 370, norm = 3.274554E-04 \\
+t = 380, norm = 3.181442E-04 \\
+t = 390, norm = 3.069522E-04 \\
+t = 400, norm = 2.939709E-04 \\
+t = 410, norm = 2.796886E-04 \\
+t = 420, norm = 2.648061E-04 \\
+t = 430, norm = 2.500432E-04 \\
+t = 440, norm = 2.359807E-04 \\
+t = 450, norm = 2.229658E-04 \\
+t = 460, norm = 2.110892E-04 \\
+t = 470, norm = 2.002390E-04 \\
+\end{eqnarray*}
+
+\begin{eqnarray*}
+t = 480, norm = 1.902020E-04 \\
+t = 490, norm = 1.807758E-04 \\
+t = 500, norm = 1.718489E-04 \\
+t = 510, norm = 1.634285E-04 \\
+t = 520, norm = 1.556157E-04 \\
+t = 530, norm = 1.485445E-04 \\
+t = 540, norm = 1.423122E-04 \\
+t = 550, norm = 1.369324E-04 \\
+t = 560, norm = 1.323244E-04 \\
+t = 570, norm = 1.283372E-04 \\
+t = 580, norm = 1.247888E-04 \\
+t = 590, norm = 1.215004E-04 \\
+t = 600, norm = 1.183184E-04 \\
+t = 610, norm = 1.151239E-04 \\
+t = 620, norm = 1.118349E-04 \\
+t = 630, norm = 1.084066E-04 \\
+t = 640, norm = 1.048297E-04 \\
+t = 650, norm = 1.011276E-04 \\
+Stationary \: solution \: has \: been \: found \: at \: T = 653. \\
+Accuracy = 9.999906E-05. \\
+Elapsed \: time: \:34.42 \:sec. \\
+\end{eqnarray*}
+
+Рассмотрим линеризацию разностного оператора на стационарном решении:
+\begin{figure}[h!]
+\center{\includegraphics[width=0.8\linewidth]{./images/linear231.png}}
+\end{figure}
+\begin{figure}[h!]
+\center{\includegraphics[width=0.8\linewidth]{./images/linear232.png}}
+\end{figure}
+\begin{figure}[h!]
+\center{\includegraphics[width=0.8\linewidth]{./images/linear233.png}}
+\end{figure}
+\begin{figure}[h!]
+\center{\includegraphics[width=0.8\linewidth]{./images/linear234.png}}
+\end{figure}
+\newpage
+
+С помощью метода Арнольди было найдено 6 собственных значений с максимальным модулем действительной части:
+\begin{eqnarray*}
+	\lambda_1 = 7.02352e+01 + 0.00000e+00 * i, \: |\lambda_1| = 7.02352e+01 \\
+	\lambda_2 = 7.00329e+01 + 0.00000e+00 * i, \: |\lambda_2| = 7.00329e+01 \\ 
+	\lambda_3 = 6.96449e+01 + 0.00000e+00 * i, \: |\lambda_3| = 6.96449e+01 \\ 
+	\lambda_4 = 6.95422e+01 + 0.00000e+00 * i, \: |\lambda_4| = 6.95422e+01 \\ 
+	\lambda_5 = 6.91411e+01 + 0.00000e+00 * i, \: |\lambda_5| = 6.91411e+01 \\ 
+	\lambda_6 = 6.93514e+01 + 0.00000e+00 * i, \: |\lambda_6| = 6.93514e+01
+\end{eqnarray*}
+
+Далее собственная функция, соответствующая $\lambda_1$, была добавлена к стационарному решению исходной задачи протекания для проверки стабилизации.
+
+Было рассмотрена 2 способа учета собственной функции:
+\begin{itemize}
+\item добавление к начальному решению
+\item добавление к решению на некотором временном шаге T
+\end{itemize}
+
+Однако оба способа не дали никаких результатов улучшения скорости или точности сходимости.
+
+\end{document}
+
+

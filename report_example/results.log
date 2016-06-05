@@ -1,0 +1,1925 @@
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.10.2)  5 JUN 2016 23:31
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**results.tex
+(./results.tex
+LaTeX2e <2011/06/27>
+Babel <3.9h> and hyphenation patterns for 78 languages loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2008/03/30 v1.1d Input encoding file
+\inpenc@prehook=\toks14
+\inpenc@posthook=\toks15
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+Now handling font encoding OML ...
+... no UTF-8 mapping file for font encoding OML
+Now handling font encoding T1 ...
+... processing UTF-8 mapping file for font encoding T1
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.dfu
+File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
+   defining Unicode char U+00A1 (decimal 161)
+   defining Unicode char U+00A3 (decimal 163)
+   defining Unicode char U+00AB (decimal 171)
+   defining Unicode char U+00BB (decimal 187)
+   defining Unicode char U+00BF (decimal 191)
+   defining Unicode char U+00C0 (decimal 192)
+   defining Unicode char U+00C1 (decimal 193)
+   defining Unicode char U+00C2 (decimal 194)
+   defining Unicode char U+00C3 (decimal 195)
+   defining Unicode char U+00C4 (decimal 196)
+   defining Unicode char U+00C5 (decimal 197)
+   defining Unicode char U+00C6 (decimal 198)
+   defining Unicode char U+00C7 (decimal 199)
+   defining Unicode char U+00C8 (decimal 200)
+   defining Unicode char U+00C9 (decimal 201)
+   defining Unicode char U+00CA (decimal 202)
+   defining Unicode char U+00CB (decimal 203)
+   defining Unicode char U+00CC (decimal 204)
+   defining Unicode char U+00CD (decimal 205)
+   defining Unicode char U+00CE (decimal 206)
+   defining Unicode char U+00CF (decimal 207)
+   defining Unicode char U+00D0 (decimal 208)
+   defining Unicode char U+00D1 (decimal 209)
+   defining Unicode char U+00D2 (decimal 210)
+   defining Unicode char U+00D3 (decimal 211)
+   defining Unicode char U+00D4 (decimal 212)
+   defining Unicode char U+00D5 (decimal 213)
+   defining Unicode char U+00D6 (decimal 214)
+   defining Unicode char U+00D8 (decimal 216)
+   defining Unicode char U+00D9 (decimal 217)
+   defining Unicode char U+00DA (decimal 218)
+   defining Unicode char U+00DB (decimal 219)
+   defining Unicode char U+00DC (decimal 220)
+   defining Unicode char U+00DD (decimal 221)
+   defining Unicode char U+00DE (decimal 222)
+   defining Unicode char U+00DF (decimal 223)
+   defining Unicode char U+00E0 (decimal 224)
+   defining Unicode char U+00E1 (decimal 225)
+   defining Unicode char U+00E2 (decimal 226)
+   defining Unicode char U+00E3 (decimal 227)
+   defining Unicode char U+00E4 (decimal 228)
+   defining Unicode char U+00E5 (decimal 229)
+   defining Unicode char U+00E6 (decimal 230)
+   defining Unicode char U+00E7 (decimal 231)
+   defining Unicode char U+00E8 (decimal 232)
+   defining Unicode char U+00E9 (decimal 233)
+   defining Unicode char U+00EA (decimal 234)
+   defining Unicode char U+00EB (decimal 235)
+   defining Unicode char U+00EC (decimal 236)
+   defining Unicode char U+00ED (decimal 237)
+   defining Unicode char U+00EE (decimal 238)
+   defining Unicode char U+00EF (decimal 239)
+   defining Unicode char U+00F0 (decimal 240)
+   defining Unicode char U+00F1 (decimal 241)
+   defining Unicode char U+00F2 (decimal 242)
+   defining Unicode char U+00F3 (decimal 243)
+   defining Unicode char U+00F4 (decimal 244)
+   defining Unicode char U+00F5 (decimal 245)
+   defining Unicode char U+00F6 (decimal 246)
+   defining Unicode char U+00F8 (decimal 248)
+   defining Unicode char U+00F9 (decimal 249)
+   defining Unicode char U+00FA (decimal 250)
+   defining Unicode char U+00FB (decimal 251)
+   defining Unicode char U+00FC (decimal 252)
+   defining Unicode char U+00FD (decimal 253)
+   defining Unicode char U+00FE (decimal 254)
+   defining Unicode char U+00FF (decimal 255)
+   defining Unicode char U+0102 (decimal 258)
+   defining Unicode char U+0103 (decimal 259)
+   defining Unicode char U+0104 (decimal 260)
+   defining Unicode char U+0105 (decimal 261)
+   defining Unicode char U+0106 (decimal 262)
+   defining Unicode char U+0107 (decimal 263)
+   defining Unicode char U+010C (decimal 268)
+   defining Unicode char U+010D (decimal 269)
+   defining Unicode char U+010E (decimal 270)
+   defining Unicode char U+010F (decimal 271)
+   defining Unicode char U+0110 (decimal 272)
+   defining Unicode char U+0111 (decimal 273)
+   defining Unicode char U+0118 (decimal 280)
+   defining Unicode char U+0119 (decimal 281)
+   defining Unicode char U+011A (decimal 282)
+   defining Unicode char U+011B (decimal 283)
+   defining Unicode char U+011E (decimal 286)
+   defining Unicode char U+011F (decimal 287)
+   defining Unicode char U+0130 (decimal 304)
+   defining Unicode char U+0131 (decimal 305)
+   defining Unicode char U+0132 (decimal 306)
+   defining Unicode char U+0133 (decimal 307)
+   defining Unicode char U+0139 (decimal 313)
+   defining Unicode char U+013A (decimal 314)
+   defining Unicode char U+013D (decimal 317)
+   defining Unicode char U+013E (decimal 318)
+   defining Unicode char U+0141 (decimal 321)
+   defining Unicode char U+0142 (decimal 322)
+   defining Unicode char U+0143 (decimal 323)
+   defining Unicode char U+0144 (decimal 324)
+   defining Unicode char U+0147 (decimal 327)
+   defining Unicode char U+0148 (decimal 328)
+   defining Unicode char U+014A (decimal 330)
+   defining Unicode char U+014B (decimal 331)
+   defining Unicode char U+0150 (decimal 336)
+   defining Unicode char U+0151 (decimal 337)
+   defining Unicode char U+0152 (decimal 338)
+   defining Unicode char U+0153 (decimal 339)
+   defining Unicode char U+0154 (decimal 340)
+   defining Unicode char U+0155 (decimal 341)
+   defining Unicode char U+0158 (decimal 344)
+   defining Unicode char U+0159 (decimal 345)
+   defining Unicode char U+015A (decimal 346)
+   defining Unicode char U+015B (decimal 347)
+   defining Unicode char U+015E (decimal 350)
+   defining Unicode char U+015F (decimal 351)
+   defining Unicode char U+0160 (decimal 352)
+   defining Unicode char U+0161 (decimal 353)
+   defining Unicode char U+0162 (decimal 354)
+   defining Unicode char U+0163 (decimal 355)
+   defining Unicode char U+0164 (decimal 356)
+   defining Unicode char U+0165 (decimal 357)
+   defining Unicode char U+016E (decimal 366)
+   defining Unicode char U+016F (decimal 367)
+   defining Unicode char U+0170 (decimal 368)
+   defining Unicode char U+0171 (decimal 369)
+   defining Unicode char U+0178 (decimal 376)
+   defining Unicode char U+0179 (decimal 377)
+   defining Unicode char U+017A (decimal 378)
+   defining Unicode char U+017B (decimal 379)
+   defining Unicode char U+017C (decimal 380)
+   defining Unicode char U+017D (decimal 381)
+   defining Unicode char U+017E (decimal 382)
+   defining Unicode char U+200C (decimal 8204)
+   defining Unicode char U+2013 (decimal 8211)
+   defining Unicode char U+2014 (decimal 8212)
+   defining Unicode char U+2018 (decimal 8216)
+   defining Unicode char U+2019 (decimal 8217)
+   defining Unicode char U+201A (decimal 8218)
+   defining Unicode char U+201C (decimal 8220)
+   defining Unicode char U+201D (decimal 8221)
+   defining Unicode char U+201E (decimal 8222)
+   defining Unicode char U+2030 (decimal 8240)
+   defining Unicode char U+2031 (decimal 8241)
+   defining Unicode char U+2039 (decimal 8249)
+   defining Unicode char U+203A (decimal 8250)
+   defining Unicode char U+2423 (decimal 9251)
+)
+Now handling font encoding OT1 ...
+... processing UTF-8 mapping file for font encoding OT1
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ot1enc.dfu
+File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
+   defining Unicode char U+00A1 (decimal 161)
+   defining Unicode char U+00A3 (decimal 163)
+   defining Unicode char U+00B8 (decimal 184)
+   defining Unicode char U+00BF (decimal 191)
+   defining Unicode char U+00C5 (decimal 197)
+   defining Unicode char U+00C6 (decimal 198)
+   defining Unicode char U+00D8 (decimal 216)
+   defining Unicode char U+00DF (decimal 223)
+   defining Unicode char U+00E6 (decimal 230)
+   defining Unicode char U+00EC (decimal 236)
+   defining Unicode char U+00ED (decimal 237)
+   defining Unicode char U+00EE (decimal 238)
+   defining Unicode char U+00EF (decimal 239)
+   defining Unicode char U+00F8 (decimal 248)
+   defining Unicode char U+0131 (decimal 305)
+   defining Unicode char U+0141 (decimal 321)
+   defining Unicode char U+0142 (decimal 322)
+   defining Unicode char U+0152 (decimal 338)
+   defining Unicode char U+0153 (decimal 339)
+   defining Unicode char U+2013 (decimal 8211)
+   defining Unicode char U+2014 (decimal 8212)
+   defining Unicode char U+2018 (decimal 8216)
+   defining Unicode char U+2019 (decimal 8217)
+   defining Unicode char U+201C (decimal 8220)
+   defining Unicode char U+201D (decimal 8221)
+)
+Now handling font encoding OMS ...
+... processing UTF-8 mapping file for font encoding OMS
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/omsenc.dfu
+File: omsenc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
+   defining Unicode char U+00A7 (decimal 167)
+   defining Unicode char U+00B6 (decimal 182)
+   defining Unicode char U+00B7 (decimal 183)
+   defining Unicode char U+2020 (decimal 8224)
+   defining Unicode char U+2021 (decimal 8225)
+   defining Unicode char U+2022 (decimal 8226)
+)
+Now handling font encoding OMX ...
+... no UTF-8 mapping file for font encoding OMX
+Now handling font encoding U ...
+... no UTF-8 mapping file for font encoding U
+   defining Unicode char U+00A9 (decimal 169)
+   defining Unicode char U+00AA (decimal 170)
+   defining Unicode char U+00AE (decimal 174)
+   defining Unicode char U+00BA (decimal 186)
+   defining Unicode char U+02C6 (decimal 710)
+   defining Unicode char U+02DC (decimal 732)
+   defining Unicode char U+200C (decimal 8204)
+   defining Unicode char U+2026 (decimal 8230)
+   defining Unicode char U+2122 (decimal 8482)
+   defining Unicode char U+2423 (decimal 9251)
+))
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2013/12/03 3.9h The Babel package
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
+Language: english 2012/08/20 v3.3p English support from the babel system
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
+File: babel.def 2013/12/03 3.9h Babel common definitions
+\babel@savecnt=\count87
+\U@D=\dimen103
+)
+\l@canadian = a dialect from \language\l@american 
+\l@australian = a dialect from \language\l@british 
+\l@newzealand = a dialect from \language\l@british 
+)
+(/usr/share/texlive/texmf-dist/tex/generic/babel-russian/russianb.ldf
+Language: russian 2013/04/13 1.3a Russian support from the babel system
+
+
+Package babel Warning: No Cyrillic font encoding has been loaded so far.
+(babel)                A font encoding should be declared before babel.
+(babel)                Default `T2A' encoding will be loaded  on input line 111
+.
+
+(/usr/share/texlive/texmf-dist/tex/latex/cyrillic/t2aenc.def
+File: t2aenc.def 2005/09/27 v1.0i Cyrillic encoding definition file
+Now handling font encoding T2A ...
+... processing UTF-8 mapping file for font encoding T2A
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/t2aenc.dfu
+File: t2aenc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
+   defining Unicode char U+00A4 (decimal 164)
+   defining Unicode char U+00A7 (decimal 167)
+   defining Unicode char U+00AB (decimal 171)
+   defining Unicode char U+00BB (decimal 187)
+   defining Unicode char U+0131 (decimal 305)
+   defining Unicode char U+0400 (decimal 1024)
+   defining Unicode char U+0401 (decimal 1025)
+   defining Unicode char U+0402 (decimal 1026)
+   defining Unicode char U+0403 (decimal 1027)
+   defining Unicode char U+0404 (decimal 1028)
+   defining Unicode char U+0405 (decimal 1029)
+   defining Unicode char U+0406 (decimal 1030)
+   defining Unicode char U+0407 (decimal 1031)
+   defining Unicode char U+0408 (decimal 1032)
+   defining Unicode char U+0409 (decimal 1033)
+   defining Unicode char U+040A (decimal 1034)
+   defining Unicode char U+040B (decimal 1035)
+   defining Unicode char U+040C (decimal 1036)
+   defining Unicode char U+040D (decimal 1037)
+   defining Unicode char U+040E (decimal 1038)
+   defining Unicode char U+040F (decimal 1039)
+   defining Unicode char U+0410 (decimal 1040)
+   defining Unicode char U+0411 (decimal 1041)
+   defining Unicode char U+0412 (decimal 1042)
+   defining Unicode char U+0413 (decimal 1043)
+   defining Unicode char U+0414 (decimal 1044)
+   defining Unicode char U+0415 (decimal 1045)
+   defining Unicode char U+0416 (decimal 1046)
+   defining Unicode char U+0417 (decimal 1047)
+   defining Unicode char U+0418 (decimal 1048)
+   defining Unicode char U+0419 (decimal 1049)
+   defining Unicode char U+041A (decimal 1050)
+   defining Unicode char U+041B (decimal 1051)
+   defining Unicode char U+041C (decimal 1052)
+   defining Unicode char U+041D (decimal 1053)
+   defining Unicode char U+041E (decimal 1054)
+   defining Unicode char U+041F (decimal 1055)
+   defining Unicode char U+0420 (decimal 1056)
+   defining Unicode char U+0421 (decimal 1057)
+   defining Unicode char U+0422 (decimal 1058)
+   defining Unicode char U+0423 (decimal 1059)
+   defining Unicode char U+0424 (decimal 1060)
+   defining Unicode char U+0425 (decimal 1061)
+   defining Unicode char U+0426 (decimal 1062)
+   defining Unicode char U+0427 (decimal 1063)
+   defining Unicode char U+0428 (decimal 1064)
+   defining Unicode char U+0429 (decimal 1065)
+   defining Unicode char U+042A (decimal 1066)
+   defining Unicode char U+042B (decimal 1067)
+   defining Unicode char U+042C (decimal 1068)
+   defining Unicode char U+042D (decimal 1069)
+   defining Unicode char U+042E (decimal 1070)
+   defining Unicode char U+042F (decimal 1071)
+   defining Unicode char U+0430 (decimal 1072)
+   defining Unicode char U+0431 (decimal 1073)
+   defining Unicode char U+0432 (decimal 1074)
+   defining Unicode char U+0433 (decimal 1075)
+   defining Unicode char U+0434 (decimal 1076)
+   defining Unicode char U+0435 (decimal 1077)
+   defining Unicode char U+0436 (decimal 1078)
+   defining Unicode char U+0437 (decimal 1079)
+   defining Unicode char U+0438 (decimal 1080)
+   defining Unicode char U+0439 (decimal 1081)
+   defining Unicode char U+043A (decimal 1082)
+   defining Unicode char U+043B (decimal 1083)
+   defining Unicode char U+043C (decimal 1084)
+   defining Unicode char U+043D (decimal 1085)
+   defining Unicode char U+043E (decimal 1086)
+   defining Unicode char U+043F (decimal 1087)
+   defining Unicode char U+0440 (decimal 1088)
+   defining Unicode char U+0441 (decimal 1089)
+   defining Unicode char U+0442 (decimal 1090)
+   defining Unicode char U+0443 (decimal 1091)
+   defining Unicode char U+0444 (decimal 1092)
+   defining Unicode char U+0445 (decimal 1093)
+   defining Unicode char U+0446 (decimal 1094)
+   defining Unicode char U+0447 (decimal 1095)
+   defining Unicode char U+0448 (decimal 1096)
+   defining Unicode char U+0449 (decimal 1097)
+   defining Unicode char U+044A (decimal 1098)
+   defining Unicode char U+044B (decimal 1099)
+   defining Unicode char U+044C (decimal 1100)
+   defining Unicode char U+044D (decimal 1101)
+   defining Unicode char U+044E (decimal 1102)
+   defining Unicode char U+044F (decimal 1103)
+   defining Unicode char U+0450 (decimal 1104)
+   defining Unicode char U+0451 (decimal 1105)
+   defining Unicode char U+0452 (decimal 1106)
+   defining Unicode char U+0453 (decimal 1107)
+   defining Unicode char U+0454 (decimal 1108)
+   defining Unicode char U+0455 (decimal 1109)
+   defining Unicode char U+0456 (decimal 1110)
+   defining Unicode char U+0457 (decimal 1111)
+   defining Unicode char U+0458 (decimal 1112)
+   defining Unicode char U+0459 (decimal 1113)
+   defining Unicode char U+045A (decimal 1114)
+   defining Unicode char U+045B (decimal 1115)
+   defining Unicode char U+045C (decimal 1116)
+   defining Unicode char U+045D (decimal 1117)
+   defining Unicode char U+045E (decimal 1118)
+   defining Unicode char U+045F (decimal 1119)
+   defining Unicode char U+0490 (decimal 1168)
+   defining Unicode char U+0491 (decimal 1169)
+   defining Unicode char U+0492 (decimal 1170)
+   defining Unicode char U+0493 (decimal 1171)
+   defining Unicode char U+0496 (decimal 1174)
+   defining Unicode char U+0497 (decimal 1175)
+   defining Unicode char U+0498 (decimal 1176)
+   defining Unicode char U+0499 (decimal 1177)
+   defining Unicode char U+049A (decimal 1178)
+   defining Unicode char U+049B (decimal 1179)
+   defining Unicode char U+049C (decimal 1180)
+   defining Unicode char U+049D (decimal 1181)
+   defining Unicode char U+04A0 (decimal 1184)
+   defining Unicode char U+04A1 (decimal 1185)
+   defining Unicode char U+04A2 (decimal 1186)
+   defining Unicode char U+04A3 (decimal 1187)
+   defining Unicode char U+04A4 (decimal 1188)
+   defining Unicode char U+04A5 (decimal 1189)
+   defining Unicode char U+04AA (decimal 1194)
+   defining Unicode char U+04AB (decimal 1195)
+   defining Unicode char U+04AE (decimal 1198)
+   defining Unicode char U+04AF (decimal 1199)
+   defining Unicode char U+04B0 (decimal 1200)
+   defining Unicode char U+04B1 (decimal 1201)
+   defining Unicode char U+04B2 (decimal 1202)
+   defining Unicode char U+04B3 (decimal 1203)
+   defining Unicode char U+04B6 (decimal 1206)
+   defining Unicode char U+04B7 (decimal 1207)
+   defining Unicode char U+04B8 (decimal 1208)
+   defining Unicode char U+04B9 (decimal 1209)
+   defining Unicode char U+04BA (decimal 1210)
+   defining Unicode char U+04BB (decimal 1211)
+   defining Unicode char U+04C0 (decimal 1216)
+   defining Unicode char U+04C1 (decimal 1217)
+   defining Unicode char U+04C2 (decimal 1218)
+   defining Unicode char U+04D0 (decimal 1232)
+   defining Unicode char U+04D1 (decimal 1233)
+   defining Unicode char U+04D2 (decimal 1234)
+   defining Unicode char U+04D3 (decimal 1235)
+   defining Unicode char U+04D4 (decimal 1236)
+   defining Unicode char U+04D5 (decimal 1237)
+   defining Unicode char U+04D6 (decimal 1238)
+   defining Unicode char U+04D7 (decimal 1239)
+   defining Unicode char U+04D8 (decimal 1240)
+   defining Unicode char U+04D9 (decimal 1241)
+   defining Unicode char U+04DA (decimal 1242)
+   defining Unicode char U+04DB (decimal 1243)
+   defining Unicode char U+04DC (decimal 1244)
+   defining Unicode char U+04DD (decimal 1245)
+   defining Unicode char U+04DE (decimal 1246)
+   defining Unicode char U+04DF (decimal 1247)
+   defining Unicode char U+04E2 (decimal 1250)
+   defining Unicode char U+04E3 (decimal 1251)
+   defining Unicode char U+04E4 (decimal 1252)
+   defining Unicode char U+04E5 (decimal 1253)
+   defining Unicode char U+04E6 (decimal 1254)
+   defining Unicode char U+04E7 (decimal 1255)
+   defining Unicode char U+04E8 (decimal 1256)
+   defining Unicode char U+04E9 (decimal 1257)
+   defining Unicode char U+04EC (decimal 1260)
+   defining Unicode char U+04ED (decimal 1261)
+   defining Unicode char U+04EE (decimal 1262)
+   defining Unicode char U+04EF (decimal 1263)
+   defining Unicode char U+04F0 (decimal 1264)
+   defining Unicode char U+04F1 (decimal 1265)
+   defining Unicode char U+04F2 (decimal 1266)
+   defining Unicode char U+04F3 (decimal 1267)
+   defining Unicode char U+04F4 (decimal 1268)
+   defining Unicode char U+04F5 (decimal 1269)
+   defining Unicode char U+04F8 (decimal 1272)
+   defining Unicode char U+04F9 (decimal 1273)
+   defining Unicode char U+200C (decimal 8204)
+   defining Unicode char U+2013 (decimal 8211)
+   defining Unicode char U+2014 (decimal 8212)
+   defining Unicode char U+2018 (decimal 8216)
+   defining Unicode char U+2019 (decimal 8217)
+   defining Unicode char U+201C (decimal 8220)
+   defining Unicode char U+201D (decimal 8221)
+   defining Unicode char U+201E (decimal 8222)
+   defining Unicode char U+2030 (decimal 8240)
+   defining Unicode char U+2031 (decimal 8241)
+   defining Unicode char U+2116 (decimal 8470)
+   defining Unicode char U+2329 (decimal 9001)
+   defining Unicode char U+232A (decimal 9002)
+   defining Unicode char U+2423 (decimal 9251)
+))
+Package babel Info: Making " an active character on input line 147.
+))
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2010/09/12 v5.6 Page Geometry
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count88
+\Gm@cntv=\count89
+\c@Gm@tempcnt=\count90
+\Gm@bindingoffset=\dimen104
+\Gm@wd@mp=\dimen105
+\Gm@odd@mp=\dimen106
+\Gm@even@mp=\dimen107
+\Gm@layoutwidth=\dimen108
+\Gm@layoutheight=\dimen109
+\Gm@layouthoffset=\dimen110
+\Gm@layoutvoffset=\dimen111
+\Gm@dimlist=\toks17
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 71.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+Now handling font encoding TS1 ...
+... processing UTF-8 mapping file for font encoding TS1
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu
+File: ts1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
+   defining Unicode char U+00A2 (decimal 162)
+   defining Unicode char U+00A3 (decimal 163)
+   defining Unicode char U+00A4 (decimal 164)
+   defining Unicode char U+00A5 (decimal 165)
+   defining Unicode char U+00A6 (decimal 166)
+   defining Unicode char U+00A7 (decimal 167)
+   defining Unicode char U+00A8 (decimal 168)
+   defining Unicode char U+00A9 (decimal 169)
+   defining Unicode char U+00AA (decimal 170)
+   defining Unicode char U+00AC (decimal 172)
+   defining Unicode char U+00AE (decimal 174)
+   defining Unicode char U+00AF (decimal 175)
+   defining Unicode char U+00B0 (decimal 176)
+   defining Unicode char U+00B1 (decimal 177)
+   defining Unicode char U+00B2 (decimal 178)
+   defining Unicode char U+00B3 (decimal 179)
+   defining Unicode char U+00B4 (decimal 180)
+   defining Unicode char U+00B5 (decimal 181)
+   defining Unicode char U+00B6 (decimal 182)
+   defining Unicode char U+00B7 (decimal 183)
+   defining Unicode char U+00B9 (decimal 185)
+   defining Unicode char U+00BA (decimal 186)
+   defining Unicode char U+00BC (decimal 188)
+   defining Unicode char U+00BD (decimal 189)
+   defining Unicode char U+00BE (decimal 190)
+   defining Unicode char U+00D7 (decimal 215)
+   defining Unicode char U+00F7 (decimal 247)
+   defining Unicode char U+0192 (decimal 402)
+   defining Unicode char U+02C7 (decimal 711)
+   defining Unicode char U+02D8 (decimal 728)
+   defining Unicode char U+02DD (decimal 733)
+   defining Unicode char U+0E3F (decimal 3647)
+   defining Unicode char U+2016 (decimal 8214)
+   defining Unicode char U+2020 (decimal 8224)
+   defining Unicode char U+2021 (decimal 8225)
+   defining Unicode char U+2022 (decimal 8226)
+   defining Unicode char U+2030 (decimal 8240)
+   defining Unicode char U+2031 (decimal 8241)
+   defining Unicode char U+203B (decimal 8251)
+   defining Unicode char U+203D (decimal 8253)
+   defining Unicode char U+2044 (decimal 8260)
+   defining Unicode char U+204E (decimal 8270)
+   defining Unicode char U+2052 (decimal 8274)
+   defining Unicode char U+20A1 (decimal 8353)
+   defining Unicode char U+20A4 (decimal 8356)
+   defining Unicode char U+20A6 (decimal 8358)
+   defining Unicode char U+20A9 (decimal 8361)
+   defining Unicode char U+20AB (decimal 8363)
+   defining Unicode char U+20AC (decimal 8364)
+   defining Unicode char U+20B1 (decimal 8369)
+   defining Unicode char U+2103 (decimal 8451)
+   defining Unicode char U+2116 (decimal 8470)
+   defining Unicode char U+2117 (decimal 8471)
+   defining Unicode char U+211E (decimal 8478)
+   defining Unicode char U+2120 (decimal 8480)
+   defining Unicode char U+2122 (decimal 8482)
+   defining Unicode char U+2126 (decimal 8486)
+   defining Unicode char U+2127 (decimal 8487)
+   defining Unicode char U+212E (decimal 8494)
+   defining Unicode char U+2190 (decimal 8592)
+   defining Unicode char U+2191 (decimal 8593)
+   defining Unicode char U+2192 (decimal 8594)
+   defining Unicode char U+2193 (decimal 8595)
+   defining Unicode char U+2329 (decimal 9001)
+   defining Unicode char U+232A (decimal 9002)
+   defining Unicode char U+2422 (decimal 9250)
+   defining Unicode char U+25E6 (decimal 9702)
+   defining Unicode char U+25EF (decimal 9711)
+   defining Unicode char U+266A (decimal 9834)
+))
+LaTeX Info: Redefining \oldstylenums on input line 266.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 281.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 282.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 283.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 284.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 285.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 286.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 287.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 288.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 289.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 290.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 291.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 292.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 293.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 294.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 295.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 296.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 297.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 298.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 299.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 300.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 301.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 302.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 303.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 304.
+
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 305.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 306.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 307.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 308.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 309.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 310.
+Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input line 311.
+Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input line 312.
+Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input line 313.
+Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input line 314.
+Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input line 315.
+Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input line 316.
+Package textcomp Info: Setting qag sub-encoding to TS1/0 on input line 317.
+Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input line 318.
+Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input line 319.
+Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input line 320.
+Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input line 321.
+Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input line 322.
+Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input line 323.
+Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input line 324.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 325.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 326.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 327.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 328.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 329.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 330.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 331.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 332.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 333.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 334.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 335.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 336.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 337.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 338.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 339.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 340.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup4
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pb-diagram/pb-diagram.sty
+\dgARROWLENGTH=\skip43
+\dgTEXTARROWLENGTH=\skip44
+\dgHORIZPAD=\skip45
+\dgVERTPAD=\skip46
+\dgLABELOFFSET=\skip47
+\dgARROWPARTS=\count91
+\dgDOTSPACING=\skip48
+\dgDOTSIZE=\skip49
+\dgMAXSQUARE=\count92
+\dgMINDBLSQ=\count93
+\dgCOLUMNWIDTH=\skip50
+\dg@HORIZ=\count94
+\dg@VERT=\count95
+\dg@XLPAD=\count96
+\dg@YBPAD=\count97
+\dg@XRPAD=\count98
+\dg@YTPAD=\count99
+\dg@X=\count100
+\dg@Y=\count101
+\dg@XGRID=\count102
+\dg@YGRID=\count103
+\dg@SIZE=\count104
+\dg@USERSIZE=\count105
+\dg@DX=\count106
+\dg@DY=\count107
+\dg@XLBL=\count108
+\dg@YLBL=\count109
+\dg@XOFFSET=\count110
+\dg@YOFFSET=\count111
+\dg@LBLOFF=\count112
+\dg@XLBLOFF=\count113
+\dg@YLBLOFF=\count114
+\dg@LBLPOS=\count115
+\dg@XTEMP=\count116
+\dg@YTEMP=\count117
+\dg@ZTEMP=\count118
+\dg@XNODE=\count119
+\dg@YNODE=\count120
+\dg@XEND=\count121
+\dg@YEND=\count122
+\dg@WEND=\count123
+\dg@HEND=\count124
+\dg@COUNT=\count125
+\dg@NODEBOX=\box26
+\dg@LABONEBOX=\box27
+\dg@LABTWOBOX=\box28
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks18
+\ex@=\dimen112
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2013/01/14 v2.14 AMS math features
+\@mathmargin=\skip51
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen113
+)
+\inf@bad=\count126
+LaTeX Info: Redefining \frac on input line 210.
+\uproot@=\count127
+\leftroot@=\count128
+LaTeX Info: Redefining \overline on input line 306.
+\classnum@=\count129
+\DOTSCASE@=\count130
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
+\Mathstrutbox@=\box29
+\strutbox@=\box30
+\big@size=\dimen114
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+\macc@depth=\count131
+\c@MaxMatrixCols=\count132
+\dotsspace@=\muskip10
+\c@parentequation=\count133
+\dspbrk@lvl=\count134
+\tag@help=\toks19
+\row@=\count135
+\column@=\count136
+\maxfields@=\count137
+\andhelp@=\toks20
+\eqnshift@=\dimen115
+\alignsep@=\dimen116
+\tagshift@=\dimen117
+\tagwidth@=\dimen118
+\totwidth@=\dimen119
+\lineht@=\dimen120
+\@envbody=\toks21
+\multlinegap=\skip52
+\multlinetaggap=\skip53
+\mathdisplay@stack=\toks22
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup5
+\symAMSb=\mathgroup6
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/makeidx.sty
+Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pdfpages/pdfpages.sty
+Package: pdfpages 2013/08/25 v0.4v Insert pages of external PDF documents (AM)
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count138
+\calc@Bcount=\count139
+\calc@Adimen=\dimen121
+\calc@Bdimen=\dimen122
+\calc@Askip=\skip54
+\calc@Bskip=\skip55
+LaTeX Info: Redefining \setlength on input line 76.
+LaTeX Info: Redefining \addtolength on input line 77.
+\calc@Ccount=\count140
+\calc@Cskip=\skip56
+)
+(/usr/share/texlive/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+Package: eso-pic 2013/10/06 v2.0d eso-pic (RN)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/atbegshi.sty
+Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+))
+(/usr/share/texmf/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+\Gread@gobject=\count141
+)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+))
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+)
+\Gin@req@height=\dimen123
+\Gin@req@width=\dimen124
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pdfpages/pppdftex.def
+File: pppdftex.def 2013/08/25 v0.4v Pdfpages driver for pdfTeX (AM)
+)
+\AM@pagebox=\box31
+\AM@toc@title=\toks23
+\c@AM@survey=\count142
+\AM@templatesizebox=\box32
+)
+(/usr/share/texlive/texmf-dist/tex/latex/cite/cite.sty
+LaTeX Info: Redefining \cite on input line 302.
+LaTeX Info: Redefining \nocite on input line 373.
+Package: cite 2010/09/10  v 5.3
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/enumerate.sty
+Package: enumerate 1999/03/05 v3.00 enumerate extensions (DPC)
+\@enLab=\toks24
+)
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count143
+\float@exts=\toks25
+\float@box=\box33
+\@float@everytoks=\toks26
+\@floatcapt=\box34
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/indentfirst.sty
+Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/gnuplottex/gnuplottex.sty
+Package: gnuplottex 2013/11/24 v0.8 gnuplot graphs in LaTeX
+
+(/usr/share/texlive/texmf-dist/tex/latex/moreverb/moreverb.sty
+Package: moreverb 2008/06/03 v2.3a `more' verbatim facilities
+
+(/usr/share/texlive/texmf-dist/tex/latex/tools/verbatim.sty
+Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks27
+\verbatim@line=\toks28
+\verbatim@in@stream=\read1
+)
+\tab@position=\count144
+\tab@size=\count145
+\listing@line=\count146
+)
+\verbatim@out=\write3
+runsystem(touch w18-test-2016651411.tex)...disabled (restricted).
+
+runsystem(rm -f w18-test-2016651411.tex)...disabled (restricted).
+
+
+
+Package gnuplottex Warning: Shell escape not enabled.
+(gnuplottex)                You'll need to convert the graphs yourself..
+
+\c@fignum=\count147
+) (/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 57.
+\captionmargin=\dimen125
+\captionmargin@=\dimen126
+\captionwidth=\dimen127
+\caption@tempdima=\dimen128
+\caption@indent=\dimen129
+\caption@parindent=\dimen130
+\caption@hangindent=\dimen131
+)
+\c@ContinuedFloat=\count148
+Package caption Info: float package is loaded.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
+) (./results.aux
+LaTeX Font Info:    Try loading font information for T2A+cmr on input line 3.
+
+(/usr/share/texlive/texmf-dist/tex/latex/cyrillic/t2acmr.fd
+File: t2acmr.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
+))
+\openout1 = `results.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 21.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 21.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 21.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(28.45274pt, 540.60239pt, 28.45274pt)
+* v-part:(T,H,B)=(56.9055pt, 731.23584pt, 56.9055pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=540.60239pt
+* \textheight=731.23584pt
+* \oddsidemargin=-43.81725pt
+* \evensidemargin=-43.81725pt
+* \topmargin=-52.36449pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=35.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+\AtBeginShipoutBox=\box35
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count149
+\scratchdimen=\dimen132
+\scratchbox=\box36
+\nofMPsegments=\count150
+\nofMParguments=\count151
+\everyMPshowfont=\toks29
+\MPscratchCnt=\count152
+\MPscratchDim=\dimen133
+\MPnumerator=\count153
+\makeMPintoPDFobject=\count154
+\everyMPtoPDFconversion=\toks30
+) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 26.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 26.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 26.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+<./images/22.png, id=1, 803.0pt x 206.7725pt>
+File: ./images/22.png Graphic file (type png)
+ <use ./images/22.png>
+Package pdftex.def Info: ./images/22.png used on input line 34.
+(pdftex.def)             Requested size: 270.3012pt x 69.60443pt.
+
+(./introduction.tex <./images/1.png, id=2, 824.07875pt x 337.26pt>
+File: ./images/1.png Graphic file (type png)
+
+<use ./images/1.png>
+Package pdftex.def Info: ./images/1.png used on input line 8.
+(pdftex.def)             Requested size: 216.23764pt x 88.49347pt.
+ <./images/11.png, id=3, 487.8225pt x 87.32625pt>
+File: ./images/11.png Graphic file (type png)
+
+<use ./images/11.png>
+Package pdftex.def Info: ./images/11.png used on input line 12.
+(pdftex.def)             Requested size: 189.21413pt x 33.87187pt.
+ <./images/4.png, id=4, 1541.76pt x 491.8375pt>
+File: ./images/4.png Graphic file (type png)
+
+<use ./images/4.png>
+Package pdftex.def Info: ./images/4.png used on input line 17.
+(pdftex.def)             Requested size: 432.48355pt x 137.96121pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./images/22.png> <./images
+/1.png> <./images/11.png>] <./images/14.png, id=19, 353.32pt x 61.22874pt>
+File: ./images/14.png Graphic file (type png)
+
+<use ./images/14.png>
+Package pdftex.def Info: ./images/14.png used on input line 22.
+(pdftex.def)             Requested size: 145.96495pt x 25.29546pt.
+ <./images/15.png, id=20, 424.58624pt x 56.21pt>
+File: ./images/15.png Graphic file (type png)
+
+<use ./images/15.png>
+Package pdftex.def Info: ./images/15.png used on input line 27.
+(pdftex.def)             Requested size: 162.18236pt x 21.47066pt.
+ <./images/17.png, id=21, 1111.15125pt x 135.50626pt>
+File: ./images/17.png Graphic file (type png)
+
+<use ./images/17.png>
+Package pdftex.def Info: ./images/17.png used on input line 50.
+(pdftex.def)             Requested size: 324.36473pt x 39.55632pt.
+ <./images/18.png, id=22, 1308.89pt x 140.525pt>
+File: ./images/18.png Graphic file (type png)
+
+<use ./images/18.png>
+Package pdftex.def Info: ./images/18.png used on input line 51.
+(pdftex.def)             Requested size: 432.48355pt x 46.43127pt.
+ <./images/7.png, id=23, 1404.24625pt x 348.30125pt>
+File: ./images/7.png Graphic file (type png)
+
+<use ./images/7.png>
+Package pdftex.def Info: ./images/7.png used on input line 55.
+(pdftex.def)             Requested size: 324.36473pt x 80.45305pt.
+ <./images/8.png, id=24, 1458.44875pt x 256.96pt>
+File: ./images/8.png Graphic file (type png)
+
+<use ./images/8.png>
+Package pdftex.def Info: ./images/8.png used on input line 56.
+(pdftex.def)             Requested size: 486.53883pt x 85.71846pt.
+ <./images/9.png, id=25, 219.82124pt x 49.18375pt>
+File: ./images/9.png Graphic file (type png)
+
+<use ./images/9.png>
+Package pdftex.def Info: ./images/9.png used on input line 59.
+(pdftex.def)             Requested size: 86.49835pt x 19.35342pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 48--61
+
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[2 <./images/4.png> <./images/14.png> <./images/15.png>]
+<./images/2.png, id=33, 1121.18875pt x 386.44376pt>
+File: ./images/2.png Graphic file (type png)
+ <use ./images/2.png>
+Package pdftex.def Info: ./images/2.png used on input line 64.
+(pdftex.def)             Requested size: 405.45178pt x 139.75058pt.
+
+<./images/3.png, id=34, 1113.15875pt x 384.43625pt>
+File: ./images/3.png Graphic file (type png)
+ <use ./images/3.png>
+Package pdftex.def Info: ./images/3.png used on input line 67.
+(pdftex.def)             Requested size: 405.45178pt x 140.0277pt.
+
+<./images/19.png, id=35, 1482.53876pt x 753.81625pt>
+File: ./images/19.png Graphic file (type png)
+ <use ./images/19.png>
+Package pdftex.def Info: ./images/19.png used on input line 70.
+(pdftex.def)             Requested size: 513.5706pt x 261.1366pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[3 <./images/17.png> <./images/18.png> <./images/7.png> <./images/8.png> <./ima
+ges/9.png> <./images/2.png> <./images/3.png>]
+<./images/5.png, id=39, 1537.745pt x 775.89874pt>
+File: ./images/5.png Graphic file (type png)
+ <use ./images/5.png>
+Package pdftex.def Info: ./images/5.png used on input line 74.
+(pdftex.def)             Requested size: 513.5706pt x 259.13742pt.
+
+<./images/6.png, id=40, 1414.28375pt x 155.58125pt>
+File: ./images/6.png Graphic file (type png)
+ <use ./images/6.png>
+Package pdftex.def Info: ./images/6.png used on input line 80.
+(pdftex.def)             Requested size: 502.75626pt x 55.3065pt.
+
+<./images/20.png, id=41, 625.33624pt x 474.77374pt>
+File: ./images/20.png Graphic file (type png)
+ <use ./images/20.png>
+Package pdftex.def Info: ./images/20.png used on input line 84.
+(pdftex.def)             Requested size: 205.43153pt x 155.96585pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--99
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--99
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--99
+
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[4 <./images/19.png> <./images/5.png> <./images/6.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 103--117
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 103--117
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 103--117
+
+ []
+
+[5 <./images/20.png>]) (./table_smooth.tex (./gc.tex) (./gl2.tex
+Underfull \hbox (badness 10000) in paragraph at lines 2--1
+
+ []
+
+) (./v1c.tex
+Underfull \hbox (badness 10000) in paragraph at lines 2--1
+
+ []
+
+) (./v1l2.tex
+Underfull \hbox (badness 10000) in paragraph at lines 2--1
+
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 2--5
+
+ []
+
+[6] (./v2c.tex) (./v2l2.tex
+Underfull \hbox (badness 10000) in paragraph at lines 2--1
+
+ []
+
+) (./time.tex
+Underfull \hbox (badness 10000) in paragraph at lines 2--1
+
+ []
+
+))
+Underfull \hbox (badness 10000) in paragraph at lines 2--46
+
+ []
+
+<0_5-0_001.pdf, id=52, 597.50829pt x 845.0471pt>
+File: 0_5-0_001.pdf Graphic file (type pdf)
+ <use 0_5-0_001.pdf>
+Package pdftex.def Info: 0_5-0_001.pdf used on input line 50.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+File: 0_5-0_001.pdf Graphic file (type pdf)
+
+<use 0_5-0_001.pdf>
+Package pdftex.def Info: 0_5-0_001.pdf used on input line 50.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+ [7]
+<0_5-0_001.pdf, id=59, page=1, 597.50829pt x 845.0471pt>
+File: 0_5-0_001.pdf Graphic file (type pdf)
+
+<use 0_5-0_001.pdf, page 1>
+Package pdftex.def Info: 0_5-0_001.pdf, page1 used on input line 50.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+File: 0_5-0_001.pdf Graphic file (type pdf)
+ <use 0_5-0_001.pdf, page 1>
+Package pdftex.def Info: 0_5-0_001.pdf, page1 used on input line 50.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_001.pdf Graphic file (type pdf)
+
+<use 0_5-0_001.pdf, page 1>
+Package pdftex.def Info: 0_5-0_001.pdf, page1 used on input line 50.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_001.pdf Graphic file (type pdf)
+ <use 0_5-0_001.pdf, page 1>
+Package pdftex.def Info: 0_5-0_001.pdf, page1 used on input line 50.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_001.pdf Graphic file (type pdf)
+
+<use 0_5-0_001.pdf, page 1>
+Package pdftex.def Info: 0_5-0_001.pdf, page1 used on input line 50.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+ [8 <./0_5-0_001.pdf>]
+<0_5-0_001.pdf, id=101, page=2, 597.50829pt x 845.0471pt>
+File: 0_5-0_001.pdf Graphic file (type pdf)
+
+<use 0_5-0_001.pdf, page 2>
+Package pdftex.def Info: 0_5-0_001.pdf, page2 used on input line 50.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_001.pdf Graphic file (type pdf)
+ <use 0_5-0_001.pdf, page 2>
+Package pdftex.def Info: 0_5-0_001.pdf, page2 used on input line 50.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_001.pdf Graphic file (type pdf)
+
+<use 0_5-0_001.pdf, page 2>
+Package pdftex.def Info: 0_5-0_001.pdf, page2 used on input line 50.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+ [9 <./0_5-0_001.pdf>]
+<0_5-0_001.pdf, id=117, page=3, 597.50829pt x 845.0471pt>
+File: 0_5-0_001.pdf Graphic file (type pdf)
+
+<use 0_5-0_001.pdf, page 3>
+Package pdftex.def Info: 0_5-0_001.pdf, page3 used on input line 50.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_001.pdf Graphic file (type pdf)
+ <use 0_5-0_001.pdf, page 3>
+Package pdftex.def Info: 0_5-0_001.pdf, page3 used on input line 50.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_001.pdf Graphic file (type pdf)
+
+<use 0_5-0_001.pdf, page 3>
+Package pdftex.def Info: 0_5-0_001.pdf, page3 used on input line 50.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+ [10 <./0_5-0_001.pdf>]
+<0_5-0_05.pdf, id=133, 597.50829pt x 845.0471pt>
+File: 0_5-0_05.pdf Graphic file (type pdf)
+ <use 0_5-0_05.pdf>
+Package pdftex.def Info: 0_5-0_05.pdf used on input line 51.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+File: 0_5-0_05.pdf Graphic file (type pdf)
+
+<use 0_5-0_05.pdf>
+Package pdftex.def Info: 0_5-0_05.pdf used on input line 51.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+ <0_5-0_05.pdf, id=136, page=1, 597.50829pt x 845.0471pt>
+File: 0_5-0_05.pdf Graphic file (type pdf)
+
+<use 0_5-0_05.pdf, page 1>
+Package pdftex.def Info: 0_5-0_05.pdf, page1 used on input line 51.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+File: 0_5-0_05.pdf Graphic file (type pdf)
+ <use 0_5-0_05.pdf, page 1>
+Package pdftex.def Info: 0_5-0_05.pdf, page1 used on input line 51.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_05.pdf Graphic file (type pdf)
+
+<use 0_5-0_05.pdf, page 1>
+Package pdftex.def Info: 0_5-0_05.pdf, page1 used on input line 51.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_05.pdf Graphic file (type pdf)
+ <use 0_5-0_05.pdf, page 1>
+Package pdftex.def Info: 0_5-0_05.pdf, page1 used on input line 51.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_05.pdf Graphic file (type pdf)
+
+<use 0_5-0_05.pdf, page 1>
+Package pdftex.def Info: 0_5-0_05.pdf, page1 used on input line 51.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+ [11 <./0_5-0_05.pdf>]
+<0_5-0_05.pdf, id=168, page=2, 597.50829pt x 845.0471pt>
+File: 0_5-0_05.pdf Graphic file (type pdf)
+
+<use 0_5-0_05.pdf, page 2>
+Package pdftex.def Info: 0_5-0_05.pdf, page2 used on input line 51.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_05.pdf Graphic file (type pdf)
+ <use 0_5-0_05.pdf, page 2>
+Package pdftex.def Info: 0_5-0_05.pdf, page2 used on input line 51.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_05.pdf Graphic file (type pdf)
+
+<use 0_5-0_05.pdf, page 2>
+Package pdftex.def Info: 0_5-0_05.pdf, page2 used on input line 51.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+ [12 <./0_5-0_05.pdf>]
+<0_5-0_05.pdf, id=184, page=3, 597.50829pt x 845.0471pt>
+File: 0_5-0_05.pdf Graphic file (type pdf)
+
+<use 0_5-0_05.pdf, page 3>
+Package pdftex.def Info: 0_5-0_05.pdf, page3 used on input line 51.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_05.pdf Graphic file (type pdf)
+ <use 0_5-0_05.pdf, page 3>
+Package pdftex.def Info: 0_5-0_05.pdf, page3 used on input line 51.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_05.pdf Graphic file (type pdf)
+
+<use 0_5-0_05.pdf, page 3>
+Package pdftex.def Info: 0_5-0_05.pdf, page3 used on input line 51.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+ [13 <./0_5-0_05.pdf>]
+<0_5-0_1.pdf, id=202, 597.50829pt x 845.0471pt>
+File: 0_5-0_1.pdf Graphic file (type pdf)
+ <use 0_5-0_1.pdf>
+Package pdftex.def Info: 0_5-0_1.pdf used on input line 52.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+File: 0_5-0_1.pdf Graphic file (type pdf)
+
+<use 0_5-0_1.pdf>
+Package pdftex.def Info: 0_5-0_1.pdf used on input line 52.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+ <0_5-0_1.pdf, id=205, page=1, 597.50829pt x 845.0471pt>
+File: 0_5-0_1.pdf Graphic file (type pdf)
+
+<use 0_5-0_1.pdf, page 1>
+Package pdftex.def Info: 0_5-0_1.pdf, page1 used on input line 52.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+File: 0_5-0_1.pdf Graphic file (type pdf)
+ <use 0_5-0_1.pdf, page 1>
+Package pdftex.def Info: 0_5-0_1.pdf, page1 used on input line 52.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_1.pdf Graphic file (type pdf)
+ <use 0_5-0_1.pdf, page 1>
+Package pdftex.def Info: 0_5-0_1.pdf, page1 used on input line 52.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_1.pdf Graphic file (type pdf)
+
+<use 0_5-0_1.pdf, page 1>
+Package pdftex.def Info: 0_5-0_1.pdf, page1 used on input line 52.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_1.pdf Graphic file (type pdf)
+ <use 0_5-0_1.pdf, page 1>
+Package pdftex.def Info: 0_5-0_1.pdf, page1 used on input line 52.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+ [14 <./0_5-0_1.pdf>]
+<0_5-0_1.pdf, id=237, page=2, 597.50829pt x 845.0471pt>
+File: 0_5-0_1.pdf Graphic file (type pdf)
+
+<use 0_5-0_1.pdf, page 2>
+Package pdftex.def Info: 0_5-0_1.pdf, page2 used on input line 52.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_1.pdf Graphic file (type pdf)
+ <use 0_5-0_1.pdf, page 2>
+Package pdftex.def Info: 0_5-0_1.pdf, page2 used on input line 52.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_1.pdf Graphic file (type pdf)
+ <use 0_5-0_1.pdf, page 2>
+Package pdftex.def Info: 0_5-0_1.pdf, page2 used on input line 52.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+
+[15 <./0_5-0_1.pdf>] <0_5-0_1.pdf, id=253, page=3, 597.50829pt x 845.0471pt>
+File: 0_5-0_1.pdf Graphic file (type pdf)
+
+<use 0_5-0_1.pdf, page 3>
+Package pdftex.def Info: 0_5-0_1.pdf, page3 used on input line 52.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_1.pdf Graphic file (type pdf)
+ <use 0_5-0_1.pdf, page 3>
+Package pdftex.def Info: 0_5-0_1.pdf, page3 used on input line 52.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 0_5-0_1.pdf Graphic file (type pdf)
+ <use 0_5-0_1.pdf, page 3>
+Package pdftex.def Info: 0_5-0_1.pdf, page3 used on input line 52.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+
+[16 <./0_5-0_1.pdf>] <1_5-0_001.pdf, id=269, 597.50829pt x 845.0471pt>
+File: 1_5-0_001.pdf Graphic file (type pdf)
+
+<use 1_5-0_001.pdf>
+Package pdftex.def Info: 1_5-0_001.pdf used on input line 54.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+File: 1_5-0_001.pdf Graphic file (type pdf)
+ <use 1_5-0_001.pdf>
+Package pdftex.def Info: 1_5-0_001.pdf used on input line 54.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+
+<1_5-0_001.pdf, id=272, page=1, 597.50829pt x 845.0471pt>
+File: 1_5-0_001.pdf Graphic file (type pdf)
+
+<use 1_5-0_001.pdf, page 1>
+Package pdftex.def Info: 1_5-0_001.pdf, page1 used on input line 54.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+File: 1_5-0_001.pdf Graphic file (type pdf)
+ <use 1_5-0_001.pdf, page 1>
+Package pdftex.def Info: 1_5-0_001.pdf, page1 used on input line 54.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_001.pdf Graphic file (type pdf)
+
+<use 1_5-0_001.pdf, page 1>
+Package pdftex.def Info: 1_5-0_001.pdf, page1 used on input line 54.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_001.pdf Graphic file (type pdf)
+ <use 1_5-0_001.pdf, page 1>
+Package pdftex.def Info: 1_5-0_001.pdf, page1 used on input line 54.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_001.pdf Graphic file (type pdf)
+
+<use 1_5-0_001.pdf, page 1>
+Package pdftex.def Info: 1_5-0_001.pdf, page1 used on input line 54.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+ [17 <./1_5-0_001.pdf>]
+<1_5-0_001.pdf, id=304, page=2, 597.50829pt x 845.0471pt>
+File: 1_5-0_001.pdf Graphic file (type pdf)
+
+<use 1_5-0_001.pdf, page 2>
+Package pdftex.def Info: 1_5-0_001.pdf, page2 used on input line 54.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_001.pdf Graphic file (type pdf)
+ <use 1_5-0_001.pdf, page 2>
+Package pdftex.def Info: 1_5-0_001.pdf, page2 used on input line 54.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_001.pdf Graphic file (type pdf)
+
+<use 1_5-0_001.pdf, page 2>
+Package pdftex.def Info: 1_5-0_001.pdf, page2 used on input line 54.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+ [18 <./1_5-0_001.pdf>]
+<1_5-0_001.pdf, id=320, page=3, 597.50829pt x 845.0471pt>
+File: 1_5-0_001.pdf Graphic file (type pdf)
+
+<use 1_5-0_001.pdf, page 3>
+Package pdftex.def Info: 1_5-0_001.pdf, page3 used on input line 54.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_001.pdf Graphic file (type pdf)
+ <use 1_5-0_001.pdf, page 3>
+Package pdftex.def Info: 1_5-0_001.pdf, page3 used on input line 54.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_001.pdf Graphic file (type pdf)
+
+<use 1_5-0_001.pdf, page 3>
+Package pdftex.def Info: 1_5-0_001.pdf, page3 used on input line 54.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+ [19 <./1_5-0_001.pdf>]
+<1_5-0_05.pdf, id=337, 597.50829pt x 845.0471pt>
+File: 1_5-0_05.pdf Graphic file (type pdf)
+ <use 1_5-0_05.pdf>
+Package pdftex.def Info: 1_5-0_05.pdf used on input line 55.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+File: 1_5-0_05.pdf Graphic file (type pdf)
+
+<use 1_5-0_05.pdf>
+Package pdftex.def Info: 1_5-0_05.pdf used on input line 55.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+ <1_5-0_05.pdf, id=340, page=1, 597.50829pt x 845.0471pt>
+File: 1_5-0_05.pdf Graphic file (type pdf)
+
+<use 1_5-0_05.pdf, page 1>
+Package pdftex.def Info: 1_5-0_05.pdf, page1 used on input line 55.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+File: 1_5-0_05.pdf Graphic file (type pdf)
+ <use 1_5-0_05.pdf, page 1>
+Package pdftex.def Info: 1_5-0_05.pdf, page1 used on input line 55.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_05.pdf Graphic file (type pdf)
+
+<use 1_5-0_05.pdf, page 1>
+Package pdftex.def Info: 1_5-0_05.pdf, page1 used on input line 55.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_05.pdf Graphic file (type pdf)
+ <use 1_5-0_05.pdf, page 1>
+Package pdftex.def Info: 1_5-0_05.pdf, page1 used on input line 55.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_05.pdf Graphic file (type pdf)
+
+<use 1_5-0_05.pdf, page 1>
+Package pdftex.def Info: 1_5-0_05.pdf, page1 used on input line 55.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+ [20 <./1_5-0_05.pdf>]
+<1_5-0_05.pdf, id=373, page=2, 597.50829pt x 845.0471pt>
+File: 1_5-0_05.pdf Graphic file (type pdf)
+
+<use 1_5-0_05.pdf, page 2>
+Package pdftex.def Info: 1_5-0_05.pdf, page2 used on input line 55.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_05.pdf Graphic file (type pdf)
+ <use 1_5-0_05.pdf, page 2>
+Package pdftex.def Info: 1_5-0_05.pdf, page2 used on input line 55.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_05.pdf Graphic file (type pdf)
+
+<use 1_5-0_05.pdf, page 2>
+Package pdftex.def Info: 1_5-0_05.pdf, page2 used on input line 55.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+ [21 <./1_5-0_05.pdf>]
+<1_5-0_05.pdf, id=389, page=3, 597.50829pt x 845.0471pt>
+File: 1_5-0_05.pdf Graphic file (type pdf)
+
+<use 1_5-0_05.pdf, page 3>
+Package pdftex.def Info: 1_5-0_05.pdf, page3 used on input line 55.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_05.pdf Graphic file (type pdf)
+ <use 1_5-0_05.pdf, page 3>
+Package pdftex.def Info: 1_5-0_05.pdf, page3 used on input line 55.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_05.pdf Graphic file (type pdf)
+
+<use 1_5-0_05.pdf, page 3>
+Package pdftex.def Info: 1_5-0_05.pdf, page3 used on input line 55.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+ [22 <./1_5-0_05.pdf>]
+<1_5-0_1.pdf, id=405, 597.50829pt x 845.0471pt>
+File: 1_5-0_1.pdf Graphic file (type pdf)
+ <use 1_5-0_1.pdf>
+Package pdftex.def Info: 1_5-0_1.pdf used on input line 56.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+File: 1_5-0_1.pdf Graphic file (type pdf)
+
+<use 1_5-0_1.pdf>
+Package pdftex.def Info: 1_5-0_1.pdf used on input line 56.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+ <1_5-0_1.pdf, id=408, page=1, 597.50829pt x 845.0471pt>
+File: 1_5-0_1.pdf Graphic file (type pdf)
+
+<use 1_5-0_1.pdf, page 1>
+Package pdftex.def Info: 1_5-0_1.pdf, page1 used on input line 56.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+File: 1_5-0_1.pdf Graphic file (type pdf)
+ <use 1_5-0_1.pdf, page 1>
+Package pdftex.def Info: 1_5-0_1.pdf, page1 used on input line 56.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_1.pdf Graphic file (type pdf)
+ <use 1_5-0_1.pdf, page 1>
+Package pdftex.def Info: 1_5-0_1.pdf, page1 used on input line 56.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_1.pdf Graphic file (type pdf)
+
+<use 1_5-0_1.pdf, page 1>
+Package pdftex.def Info: 1_5-0_1.pdf, page1 used on input line 56.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_1.pdf Graphic file (type pdf)
+ <use 1_5-0_1.pdf, page 1>
+Package pdftex.def Info: 1_5-0_1.pdf, page1 used on input line 56.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+ [23 <./1_5-0_1.pdf>]
+<1_5-0_1.pdf, id=440, page=2, 597.50829pt x 845.0471pt>
+File: 1_5-0_1.pdf Graphic file (type pdf)
+
+<use 1_5-0_1.pdf, page 2>
+Package pdftex.def Info: 1_5-0_1.pdf, page2 used on input line 56.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_1.pdf Graphic file (type pdf)
+ <use 1_5-0_1.pdf, page 2>
+Package pdftex.def Info: 1_5-0_1.pdf, page2 used on input line 56.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_1.pdf Graphic file (type pdf)
+ <use 1_5-0_1.pdf, page 2>
+Package pdftex.def Info: 1_5-0_1.pdf, page2 used on input line 56.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+
+[24 <./1_5-0_1.pdf>] <1_5-0_1.pdf, id=456, page=3, 597.50829pt x 845.0471pt>
+File: 1_5-0_1.pdf Graphic file (type pdf)
+
+<use 1_5-0_1.pdf, page 3>
+Package pdftex.def Info: 1_5-0_1.pdf, page3 used on input line 56.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_1.pdf Graphic file (type pdf)
+ <use 1_5-0_1.pdf, page 3>
+Package pdftex.def Info: 1_5-0_1.pdf, page3 used on input line 56.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 1_5-0_1.pdf Graphic file (type pdf)
+ <use 1_5-0_1.pdf, page 3>
+Package pdftex.def Info: 1_5-0_1.pdf, page3 used on input line 56.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+
+[25 <./1_5-0_1.pdf>] <5-0_001.pdf, id=473, 597.50829pt x 845.0471pt>
+File: 5-0_001.pdf Graphic file (type pdf)
+
+<use 5-0_001.pdf>
+Package pdftex.def Info: 5-0_001.pdf used on input line 58.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+File: 5-0_001.pdf Graphic file (type pdf)
+ <use 5-0_001.pdf>
+Package pdftex.def Info: 5-0_001.pdf used on input line 58.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+
+<5-0_001.pdf, id=476, page=1, 597.50829pt x 845.0471pt>
+File: 5-0_001.pdf Graphic file (type pdf)
+
+<use 5-0_001.pdf, page 1>
+Package pdftex.def Info: 5-0_001.pdf, page1 used on input line 58.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+File: 5-0_001.pdf Graphic file (type pdf)
+ <use 5-0_001.pdf, page 1>
+Package pdftex.def Info: 5-0_001.pdf, page1 used on input line 58.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_001.pdf Graphic file (type pdf)
+ <use 5-0_001.pdf, page 1>
+Package pdftex.def Info: 5-0_001.pdf, page1 used on input line 58.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_001.pdf Graphic file (type pdf)
+
+<use 5-0_001.pdf, page 1>
+Package pdftex.def Info: 5-0_001.pdf, page1 used on input line 58.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_001.pdf Graphic file (type pdf)
+ <use 5-0_001.pdf, page 1>
+Package pdftex.def Info: 5-0_001.pdf, page1 used on input line 58.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+ [26 <./5-0_001.pdf>]
+<5-0_001.pdf, id=509, page=2, 597.50829pt x 845.0471pt>
+File: 5-0_001.pdf Graphic file (type pdf)
+
+<use 5-0_001.pdf, page 2>
+Package pdftex.def Info: 5-0_001.pdf, page2 used on input line 58.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_001.pdf Graphic file (type pdf)
+ <use 5-0_001.pdf, page 2>
+Package pdftex.def Info: 5-0_001.pdf, page2 used on input line 58.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_001.pdf Graphic file (type pdf)
+ <use 5-0_001.pdf, page 2>
+Package pdftex.def Info: 5-0_001.pdf, page2 used on input line 58.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+
+[27 <./5-0_001.pdf>] <5-0_001.pdf, id=525, page=3, 597.50829pt x 845.0471pt>
+File: 5-0_001.pdf Graphic file (type pdf)
+
+<use 5-0_001.pdf, page 3>
+Package pdftex.def Info: 5-0_001.pdf, page3 used on input line 58.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_001.pdf Graphic file (type pdf)
+ <use 5-0_001.pdf, page 3>
+Package pdftex.def Info: 5-0_001.pdf, page3 used on input line 58.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_001.pdf Graphic file (type pdf)
+ <use 5-0_001.pdf, page 3>
+Package pdftex.def Info: 5-0_001.pdf, page3 used on input line 58.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+
+[28 <./5-0_001.pdf>] <5-0_05.pdf, id=541, 597.50829pt x 845.0471pt>
+File: 5-0_05.pdf Graphic file (type pdf)
+
+<use 5-0_05.pdf>
+Package pdftex.def Info: 5-0_05.pdf used on input line 59.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+File: 5-0_05.pdf Graphic file (type pdf)
+ <use 5-0_05.pdf>
+Package pdftex.def Info: 5-0_05.pdf used on input line 59.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+
+<5-0_05.pdf, id=544, page=1, 597.50829pt x 845.0471pt>
+File: 5-0_05.pdf Graphic file (type pdf)
+
+<use 5-0_05.pdf, page 1>
+Package pdftex.def Info: 5-0_05.pdf, page1 used on input line 59.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+File: 5-0_05.pdf Graphic file (type pdf)
+ <use 5-0_05.pdf, page 1>
+Package pdftex.def Info: 5-0_05.pdf, page1 used on input line 59.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_05.pdf Graphic file (type pdf)
+ <use 5-0_05.pdf, page 1>
+Package pdftex.def Info: 5-0_05.pdf, page1 used on input line 59.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_05.pdf Graphic file (type pdf)
+
+<use 5-0_05.pdf, page 1>
+Package pdftex.def Info: 5-0_05.pdf, page1 used on input line 59.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_05.pdf Graphic file (type pdf)
+ <use 5-0_05.pdf, page 1>
+Package pdftex.def Info: 5-0_05.pdf, page1 used on input line 59.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+ [29 <./5-0_05.pdf>]
+<5-0_05.pdf, id=576, page=2, 597.50829pt x 845.0471pt>
+File: 5-0_05.pdf Graphic file (type pdf)
+
+<use 5-0_05.pdf, page 2>
+Package pdftex.def Info: 5-0_05.pdf, page2 used on input line 59.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_05.pdf Graphic file (type pdf)
+ <use 5-0_05.pdf, page 2>
+Package pdftex.def Info: 5-0_05.pdf, page2 used on input line 59.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_05.pdf Graphic file (type pdf)
+ <use 5-0_05.pdf, page 2>
+Package pdftex.def Info: 5-0_05.pdf, page2 used on input line 59.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+
+[30 <./5-0_05.pdf>] <5-0_05.pdf, id=592, page=3, 597.50829pt x 845.0471pt>
+File: 5-0_05.pdf Graphic file (type pdf)
+
+<use 5-0_05.pdf, page 3>
+Package pdftex.def Info: 5-0_05.pdf, page3 used on input line 59.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_05.pdf Graphic file (type pdf)
+ <use 5-0_05.pdf, page 3>
+Package pdftex.def Info: 5-0_05.pdf, page3 used on input line 59.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_05.pdf Graphic file (type pdf)
+ <use 5-0_05.pdf, page 3>
+Package pdftex.def Info: 5-0_05.pdf, page3 used on input line 59.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+
+[31 <./5-0_05.pdf>] <5-0_1.pdf, id=609, 597.50829pt x 845.0471pt>
+File: 5-0_1.pdf Graphic file (type pdf)
+
+<use 5-0_1.pdf>
+Package pdftex.def Info: 5-0_1.pdf used on input line 60.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+File: 5-0_1.pdf Graphic file (type pdf)
+ <use 5-0_1.pdf>
+Package pdftex.def Info: 5-0_1.pdf used on input line 60.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+
+<5-0_1.pdf, id=612, page=1, 597.50829pt x 845.0471pt>
+File: 5-0_1.pdf Graphic file (type pdf)
+ <use 5-0_1.pdf, page 1>
+Package pdftex.def Info: 5-0_1.pdf, page1 used on input line 60.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+File: 5-0_1.pdf Graphic file (type pdf)
+
+<use 5-0_1.pdf, page 1>
+Package pdftex.def Info: 5-0_1.pdf, page1 used on input line 60.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_1.pdf Graphic file (type pdf)
+ <use 5-0_1.pdf, page 1>
+Package pdftex.def Info: 5-0_1.pdf, page1 used on input line 60.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_1.pdf Graphic file (type pdf)
+ <use 5-0_1.pdf, page 1>
+Package pdftex.def Info: 5-0_1.pdf, page1 used on input line 60.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_1.pdf Graphic file (type pdf)
+
+<use 5-0_1.pdf, page 1>
+Package pdftex.def Info: 5-0_1.pdf, page1 used on input line 60.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+ [32 <./5-0_1.pdf>]
+<5-0_1.pdf, id=645, page=2, 597.50829pt x 845.0471pt>
+File: 5-0_1.pdf Graphic file (type pdf)
+ <use 5-0_1.pdf, page 2>
+Package pdftex.def Info: 5-0_1.pdf, page2 used on input line 60.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_1.pdf Graphic file (type pdf)
+
+<use 5-0_1.pdf, page 2>
+Package pdftex.def Info: 5-0_1.pdf, page2 used on input line 60.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_1.pdf Graphic file (type pdf)
+ <use 5-0_1.pdf, page 2>
+Package pdftex.def Info: 5-0_1.pdf, page2 used on input line 60.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+ [33 <./5-0_1.pdf>]
+<5-0_1.pdf, id=661, page=3, 597.50829pt x 845.0471pt>
+File: 5-0_1.pdf Graphic file (type pdf)
+ <use 5-0_1.pdf, page 3>
+Package pdftex.def Info: 5-0_1.pdf, page3 used on input line 60.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_1.pdf Graphic file (type pdf)
+
+<use 5-0_1.pdf, page 3>
+Package pdftex.def Info: 5-0_1.pdf, page3 used on input line 60.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+File: 5-0_1.pdf Graphic file (type pdf)
+ <use 5-0_1.pdf, page 3>
+Package pdftex.def Info: 5-0_1.pdf, page3 used on input line 60.
+(pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
+ [34 <./5-0_1.pdf>]
+(./rho_w_test_times.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 2--64
+
+ []
+
+[35] <./images/linear231.png, id=680, 1063.975pt x 265.99374pt>
+File: ./images/linear231.png Graphic file (type png)
+
+<use ./images/linear231.png>
+Package pdftex.def Info: ./images/linear231.png used on input line 153.
+(pdftex.def)             Requested size: 432.48355pt x 108.12056pt.
+
+<./images/linear232.png, id=681, 1051.93pt x 414.54875pt>
+File: ./images/linear232.png Graphic file (type png)
+
+<use ./images/linear232.png>
+Package pdftex.def Info: ./images/linear232.png used on input line 156.
+(pdftex.def)             Requested size: 432.48355pt x 170.43417pt.
+
+<./images/linear233.png, id=682, 908.39375pt x 182.6825pt>
+File: ./images/linear233.png Graphic file (type png)
+
+<use ./images/linear233.png>
+Package pdftex.def Info: ./images/linear233.png used on input line 159.
+(pdftex.def)             Requested size: 432.48355pt x 86.97577pt.
+
+<./images/linear234.png, id=683, 1031.855pt x 423.5825pt>
+File: ./images/linear234.png Graphic file (type png)
+
+<use ./images/linear234.png>
+Package pdftex.def Info: ./images/linear234.png used on input line 162.
+(pdftex.def)             Requested size: 432.48355pt x 177.53502pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[36]
+Overfull \vbox (2.82968pt too high) has occurred while \output is active []
+
+
+[37 <./images/linear231.png> <./images/linear232.png> <./images/linear233.png> 
+<./images/linear234.png>] [38] [39] [40] [41] [42] (./results.aux) ) 
+Here is how much of TeX's memory you used:
+ 7691 strings out of 493304
+ 107485 string characters out of 6139871
+ 188101 words of memory out of 5000000
+ 10909 multiletter control sequences out of 15000+600000
+ 20458 words of font info for 65 fonts, out of 8000000 for 9000
+ 957 hyphenation exceptions out of 8191
+ 40i,18n,46p,914b,436s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share
+/texmf/fonts/enc/dvips/cm-super/cm-super-t2a.enc}</usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
+8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/s
+hare/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/typ
+e1/public/cm-super/sfbx1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/s
+fbx2074.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/sh
+are/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type
+1/public/cm-super/sfrm2074.pfb>
+Output written on results.pdf (42 pages, 14482930 bytes).
+PDF statistics:
+ 750 PDF objects out of 1000 (max. 8388607)
+ 503 compressed objects within 6 object streams
+ 0 named destinations out of 1000 (max. 500000)
+ 376 words of extra memory for PDF output out of 10000 (max. 10000000)
+

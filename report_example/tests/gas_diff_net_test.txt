@@ -1,0 +1,14 @@
+N =  20, M1 =  60, M2 =  60, Dim =   2921, Elapsed time: 0.73 sec.
+N =  20, M1 = 120, M2 = 120, Dim =  11441, Elapsed time: 88.08 sec.
+N =  40, M1 =  60, M2 =  60, Dim =   2921, Elapsed time: 0.95 sec.
+N =  40, M1 = 120, M2 = 120, Dim =  11441, Elapsed time: 12.02 sec.
+
+результаты для второй сетки показывают, что схема не работает для tau > h
+можно взять в качестве примера
+
+N =  20, M1 =  60, M2 =  60, Dim =   2921, Elapsed time: 0.73 sec.
+N =  40, M1 =  60, M2 =  60, Dim =   2921, Elapsed time: 0.95 sec.
+N =  40, M1 = 120, M2 = 120, Dim =  11441, Elapsed time: 12.05 sec.
+N =  80, M1 =  60, M2 =  60, Dim =   2921, Elapsed time: 1.14 sec.
+N =  80, M1 = 120, M2 = 120, Dim =  11441, Elapsed time: 11.07 sec.
+N =  80, M1 = 240, M2 = 240, Dim =  45281, Elapsed time: 124.24 sec.

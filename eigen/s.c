@@ -85,16 +85,18 @@ void init_user_data (user_data *ud)
           ud->Nx_0 = 21;
           ud->Ny_0 = 21;
 
-          ud->N = ud->Nx * ud->Ny - (ud->Nx_0 - 1) * (ud->Ny_0 - 1);
+          ud->N = ud->Nx * ud->Ny - 4 * (ud->Nx_0 - 1) * (ud->Ny_0 - 1);
 
-          ud->NA = 3 * ((ud->Nx - 2) * (ud->Ny - 2) - (ud->Nx_0 - 1) * (ud->Ny_0 - 1) + 1) +
-                   2 * (ud->Nx - ud->Nx_0 - 1) +       // II-part of down boundary
-                   1 * (ud->Ny_0 - 2) +                // I-part of left boundary
-                   1 * (ud->Ny - 2) +                  // right boundary
-                   1 * (ud->Nx - 2) +                  // top boundary
+          ud->NA = 3 * ((ud->Nx - 2) * (ud->Ny - 2) - 4 * (ud->Nx_0 - 1) * (ud->Ny_0 - 1) + 1) +
+                   2 * (ud->Ny - ud->Ny_0 - 1) +       // right boundary
                    1 * (ud->Nx_0 - 2) +                // I-part of down boundary
+                   1 * (ud->Nx_0 - 2) +                // II-part of down boundary
+                   1 * (ud->Nx_0 - 2) +                // III-part of down boundary
+                   1 * (ud->Ny_0 - 2) +                // I-part of right boundary
+                   1 * (ud->Ny_0 - 2) +                // I-part of left boundary
+                   1 * (ud->Nx - 2) +                  // top boundary
                    0 * (ud->Ny - ud->Ny_0 - 1) +       // II-part of left boundary
-                   0 * 5;
+                   0 * 6;
           break;
         }
     }
@@ -1086,6 +1088,7 @@ int convert_u_to_au (double *au, const double  *u, const user_data *ud,
 
   // Check that we fill all elements correctly
   assert (m1 == 3 * N);
+  printf("%d %d", m2, NA);
   assert (m2 == NA);
   return 0;
 }
@@ -1328,6 +1331,7 @@ int convert_au_to_u (double *u, const double  *au, const user_data *ud,
 
   // Check that we fill all elements correctly
   assert (m1 == 3 * N);
+  printf("%d %d", m2, NA);
   assert (m2 == NA);
   return 0;
 }

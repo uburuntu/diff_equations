@@ -1,3 +1,11 @@
+/*
+ Copyright (c)  2016 Afanasieva A.
+                     Bekbulatov R.
+                     Nazarov V.
+                     Halikov P.
+ Last source on https://github.com/uburuntu/diff_equations
+*/
+
 /// First prog config
 
 #define RHO_0   0.5

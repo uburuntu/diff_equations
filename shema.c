@@ -633,13 +633,13 @@ int  Sxema (double *G, double *V1, double *V2,
                   printf ("Solution has stabilized at T = %d. \n", nn);
                 }
 
-              printf ("Accuracy = %e. \n", STAT_SOL_EPS);
+              printf ("Current norm = %e, criteria norm = %e. \n", norm, STAT_SOL_EPS);
               Q_Destr (&A);
               V_Destr (&D);
               V_Destr (&B);
               return 1;
             }
-          else if (nn == 1 || nn % 10 == 0)
+          else if (nn == 1 || nn % 20 == 0)
             {
               printf ("t = %3.d, norm = %e \n", nn, norm);
             }

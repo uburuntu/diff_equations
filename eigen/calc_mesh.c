@@ -326,7 +326,7 @@ void calc_mesh_params_ramzan_10 (int *st, double *X, double *Y, int *M0L, int *M
   j++;
 
   // 2 step
-  for (j2 = 1; j2 < M_block; j2++)
+  for (j2 = 1; j2 < M_block - 1; j2++)
     {
       st[j] = 1;
       M0L[j] = j - M_block_wide - 1;
@@ -352,6 +352,30 @@ void calc_mesh_params_ramzan_10 (int *st, double *X, double *Y, int *M0L, int *M
       Y[j] = j2 * hy;
       j++;
     }
+
+  st[j] = 1;
+  M0L[j] = j - M_block_wide - 1;
+  M0R[j] = j + M_x + 1;
+  X[j] = A_LENGHT;
+  Y[j] = (M_block - 1) * hy;
+  j++;
+
+  for (j1 = 1; j1 < M_block_wide; j1++)
+    {
+      st[j] = 0;
+      M0L[j] = j - M_block_wide - 1;
+      M0R[j] = j + M_x + 1;
+      X[j] = A_LENGHT + j1 * hx;
+      Y[j] = (M_block - 1) * hy;
+      j++;
+    }
+
+  st[j] = 2;
+  M0L[j] = j - M_block_wide - 1;
+  M0R[j] = j + M_x + 1;
+  X[j] = B_LENGHT;
+  Y[j] = (M_block - 1) * hy;
+  j++;
 
   assert (j == (M_block_wide + 1) * M_block);
 

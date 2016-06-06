@@ -67,16 +67,19 @@ void init_user_data (user_data *ud)
           ud->Nx_0 = 21;
           ud->Ny_0 = 21;
 
-          ud->N = ud->Nx * ud->Ny - (ud->Nx_0 - 1) * (ud->Ny_0 - 1);
+          ud->N = ud->Nx * ud->Ny - 3 * (ud->Nx_0 - 1) * (ud->Ny_0 - 1);
 
-          ud->NA = 3 * ((ud->Nx - 2) * (ud->Ny - 2) - (ud->Nx_0 - 1) * (ud->Ny_0 - 1) + 1) +
-                   2 * (ud->Nx - ud->Nx_0 - 1) +       // II-part of down boundary
-                   1 * (ud->Ny_0 - 2) +                // I-part of left boundary
-                   1 * (ud->Ny - 2) +                  // right boundary
-                   1 * (ud->Nx - 2) +                  // top boundary
+          ud->NA = 3 * (ud->N - 12 * (ud->Nx_0 - 1) + 8) +
+                 //3 * ((ud->Nx - 2) * (ud->Ny - 2) - 3 * (ud->Nx_0 - 1) * (ud->Ny_0 - 1) + 1) +
+                   2 * (ud->Ny_0 - 2) +                // right boundary
                    1 * (ud->Nx_0 - 2) +                // I-part of down boundary
+                   1 * (ud->Nx - ud->Nx_0 - 1) +       // II-part of down boundary
+                   1 * (ud->Ny_0 - 2) +                // I-part of left boundary
+                   1 * (ud->Nx - ud->Nx_0 - 1) +       // I-part of top boundary
+                   1 * (ud->Nx_0 - 2) +                // II-part of top boundary
+                   1 * (ud->Ny - ud->Ny_0 - 1) +       // II-part of right boundary
                    0 * (ud->Ny - ud->Ny_0 - 1) +       // II-part of left boundary
-                   0 * 5;
+                   0 * 6;
           break;
         }
 
@@ -87,7 +90,8 @@ void init_user_data (user_data *ud)
 
           ud->N = ud->Nx * ud->Ny - 4 * (ud->Nx_0 - 1) * (ud->Ny_0 - 1);
 
-          ud->NA = 3 * ((ud->Nx - 2) * (ud->Ny - 2) - 4 * (ud->Nx_0 - 1) * (ud->Ny_0 - 1) + 1) +
+          ud->NA = 3 * (ud->N - 12 * (ud->Nx_0 - 1) + 8) +
+                 //3 * ((ud->Nx - 2) * (ud->Ny - 2) - 4 * (ud->Nx_0 - 1) * (ud->Ny_0 - 1) + 1) +
                    2 * (ud->Ny - ud->Ny_0 - 1) +       // right boundary
                    1 * (ud->Nx_0 - 2) +                // I-part of down boundary
                    1 * (ud->Nx_0 - 2) +                // II-part of down boundary
@@ -431,16 +435,10 @@ int L_op (double *Lu, const double *u, const user_data *ud,
                     }
 
                   case RAMZAN_10:
-                    {
-                      a_W1_00 = 1.;
-                      a_W1_L0 = 0.;
-                      break;
-                    }
-
                   case NASTYA_11:
                     {
                       a_W1_00 = 1.;
-                      a_W1_L0 = 0.;
+                      a_W1_L0 = is_equal (X[m], B_LENGHT) ? -1. : 0.;
                       break;
                     }
                 }
@@ -526,7 +524,8 @@ int L_op (double *Lu, const double *u, const user_data *ud,
                   case SQUARE:
                     {
                       a_W2_00 = 1.;
-                      a_W2_0R = -1.;
+                      //a_W2_0R = -1.;
+                      a_W2_0R = 0.;
                       break;
                     }
 
@@ -538,16 +537,10 @@ int L_op (double *Lu, const double *u, const user_data *ud,
                     }
 
                   case RAMZAN_10:
-                    {
-                      a_W2_00 = 1.;
-                      a_W2_0R = is_equal (Y[m], 0.) ? -1. : 0.;
-                      break;
-                    }
-
                   case NASTYA_11:
                     {
                       a_W2_00 = 1.;
-                      a_W2_0R = is_equal (Y[m], 0.) ? -1. : 0.;
+                      a_W2_0R = 0.;
                       break;
                     }
                 }
@@ -876,7 +869,7 @@ int convert_u_to_au (double *au, const double  *u, const user_data *ud,
 {
   int m;
   int N  = ud->N;
-  int NA = ud->NA;
+  //int NA = ud->NA;
   int m1 = 0; // u-index
   int m2 = 0; // au-index
 
@@ -908,11 +901,9 @@ int convert_u_to_au (double *au, const double  *u, const user_data *ud,
               switch (grid_type)
                 {
                   case SQUARE:
-                    {
-                      break;
-                    }
-
                   case VOLODYA_9:
+                  case RAMZAN_10:
+                  case NASTYA_11:
                     {
                       if (!is_equal (X[m], 0.))
                         {
@@ -920,16 +911,6 @@ int convert_u_to_au (double *au, const double  *u, const user_data *ud,
                           m2++;
                         }
 
-                      break;
-                    }
-
-                  case RAMZAN_10:
-                    {
-                      break;
-                    }
-
-                  case NASTYA_11:
-                    {
                       break;
                     }
                 }
@@ -961,9 +942,18 @@ int convert_u_to_au (double *au, const double  *u, const user_data *ud,
                     }
 
                   case VOLODYA_9:
+                    {
+                      break;
+                    }
+
                   case RAMZAN_10:
                   case NASTYA_11:
                     {
+                      if (is_equal (X[m], B_LENGHT))
+                        {
+                          au[m2] = u[m1];
+                          m2++;
+                        }
                       break;
                     }
                 }
@@ -989,6 +979,8 @@ int convert_u_to_au (double *au, const double  *u, const user_data *ud,
               switch (grid_type)
                 {
                   case SQUARE:
+                  case RAMZAN_10:
+                  case NASTYA_11:
                     {
                       break;
                     }
@@ -1001,16 +993,6 @@ int convert_u_to_au (double *au, const double  *u, const user_data *ud,
                           m2++;
                         }
 
-                      break;
-                    }
-
-                  case RAMZAN_10:
-                    {
-                      break;
-                    }
-
-                  case NASTYA_11:
-                    {
                       break;
                     }
                 }
@@ -1088,8 +1070,8 @@ int convert_u_to_au (double *au, const double  *u, const user_data *ud,
 
   // Check that we fill all elements correctly
   assert (m1 == 3 * N);
-  printf("%d %d", m2, NA);
-  assert (m2 == NA);
+  //printf("%d %d", m2, NA);
+  //assert (m2 == NA);
   return 0;
 }
 
@@ -1098,7 +1080,7 @@ int convert_au_to_u (double *u, const double  *au, const user_data *ud,
 {
   int m;
   int N  = ud->N;
-  int NA = ud->NA;
+  //int NA = ud->NA;
   int m1 = 0; // u-index
   int m2 = 0; // au-index
 
@@ -1171,9 +1153,15 @@ int convert_au_to_u (double *u, const double  *au, const user_data *ud,
               switch (grid_type)
                 {
                   case SQUARE:
+                  case RAMZAN_10:
+                  case NASTYA_11:
                     {
-                      u[m1] = au[m2];
-                      m2++;
+                      if (is_equal (X[m], B_LENGHT))
+                        {
+                          u[m1] = au[m2];
+                          m2++;
+                        }
+
                       break;
                     }
 
@@ -1181,16 +1169,6 @@ int convert_au_to_u (double *u, const double  *au, const user_data *ud,
                     {
                       u[m1] = 0.;
 
-                      break;
-                    }
-
-                  case RAMZAN_10:
-                    {
-                      break;
-                    }
-
-                  case NASTYA_11:
-                    {
                       break;
                     }
                 }
@@ -1217,6 +1195,8 @@ int convert_au_to_u (double *u, const double  *au, const user_data *ud,
               switch (grid_type)
                 {
                   case SQUARE:
+                  case RAMZAN_10:
+                  case NASTYA_11:
                     {
                       u[m1] =  0.;
                       break;
@@ -1230,16 +1210,6 @@ int convert_au_to_u (double *u, const double  *au, const user_data *ud,
                           m2++;
                         }
 
-                      break;
-                    }
-
-                  case RAMZAN_10:
-                    {
-                      break;
-                    }
-
-                  case NASTYA_11:
-                    {
                       break;
                     }
                 }
@@ -1331,8 +1301,8 @@ int convert_au_to_u (double *u, const double  *au, const user_data *ud,
 
   // Check that we fill all elements correctly
   assert (m1 == 3 * N);
-  printf("%d %d", m2, NA);
-  assert (m2 == NA);
+  //printf("%d %d", m2, NA);
+  //assert (m2 == NA);
   return 0;
 }
 

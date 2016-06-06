@@ -639,7 +639,7 @@ int  Sxema (double *G, double *V1, double *V2,
               V_Destr (&B);
               return 1;
             }
-          else if (nn == 1 || nn % 20 == 0)
+          else if (nn == 1 || nn % 100 == 0)
             {
               printf ("t = %3.d, norm = %e \n", nn, norm);
             }

@@ -34,7 +34,7 @@ typedef enum enum_grid_type_t
 } grid_type_t;
 
 // Change this for different grids
-static const grid_type_t grid_type = RAMZAN_10;
+static const grid_type_t grid_type = VOLODYA_9;
 
 /*
  *
